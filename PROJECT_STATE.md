@@ -147,24 +147,25 @@ Represents a managed property in Jabodetabek:
 - [x] **Universal English Localization**:
   - 100% consistent editorial English across all pages: Home, Properties (`/villas`, `/villas/[slug]`), Area Landing Pages (`/locations/[area]`), Events (`/events`, `/events/[slug]`), Blog (`/blog`, `/blog/[slug]`), Owner Services (`/owner-services`), About, Contact, and CMS Dashboard (`/dashboard`, `/dashboard/properties`, `/dashboard/seo`).
 
-### Phase 1.7 — CMS Dashboard Suite, Layout Decoupling & Navigation Isolation (Completed)
-- [x] **Public & CMS Layout Decoupling (`components/layout/site-shell.tsx`)**:
-  - Encapsulates public `Header` and `Footer` in `SiteShell` client component in `app/layout.tsx`.
-  - Automatically isolates `/dashboard/*` and `/login` from public navigation headers/footers to eliminate layout collisions and overlapping navigation bars.
-  - Replaced public CMS header link with subtle admin portal footer access link.
-- [x] **Dashboard Top Navigation Header (`components/dashboard/dashboard-header.tsx`)**:
-  - Route breadcrumbs with real-time suite location indicator.
-  - Real-time OTA synchronization pulse indicator (`4 Properties Synced • Airbnb iCal Live`).
-  - Interactive System Alerts & Notifications dropdown drawer with timestamps and alert categories.
-  - Admin Profile dropdown with verified role badge, SSL encryption status, and modal launcher.
-  - Admin Profile & Security modal with session token details, cookie policy, and quick navigation.
-- [x] **Full CMS Dashboard Sub-Pages**:
-  - `/dashboard/blog`: Editorial Content Manager with publication status badges, organic read counters, and Google SEO content scores.
-  - `/dashboard/bookings`: Real-time OTA distribution calendar, Airbnb iCal sync status, and confirmed reservations ledger.
-  - `/dashboard/analytics`: Financial intelligence hub featuring ADR, RevPAR (+22.8%), Occupancy rates (81.4%), and sub-area yield breakdown.
-  - `/dashboard/settings`: Administrative profile configuration, HMAC-SHA256 session security inspect, and master iCal feed export copy helper.
-- [x] **Polished Collapsible Sidebar (`components/dashboard/sidebar.tsx`)**:
-  - Compact sidebar navigation with active indicator bar, tooltips when collapsed, public website link, and admin profile card.
+### Phase 1.8 — Sana Labs Summer-2026 Visual Overhaul & Official Contact Migration (Completed)
+- [x] **Official Contact Information Update**:
+  - Official WhatsApp: `082123933218` / `+62 821-2393-3218` (wa.me link: `https://wa.me/6282123933218`) configured across `SITE_CONFIG`, header, footer, booking sidebar, lead audit form, events, blog, and area landing pages.
+  - Official Email: `ptkreasiusmangosse@gmail.com` updated across `SITE_CONFIG`, default `ADMIN_CREDENTIALS`, contact pages, and footer.
+- [x] **Global CSS & Sana Labs Minimalist Design System** (`app/globals.css`):
+  - Added Sana design tokens (warm off-white canvas `#F8F7F4`, rich obsidian dark `#0A090D`, champagne gold `#C5A880`, plum/coral aura `#FF3B70`).
+  - Added glassmorphic utilities (`.sana-glass`, `.sana-glass-dark`, `.sana-badge`, `.sana-card-hover`).
+  - Added keyframe animations (`animate-sana-glow`, `animate-sana-float`, `animate-sana-fade-in`, `animate-sana-shimmer`).
+- [x] **Sana Labs-Inspired `/login` Portal (`app/login/page.tsx`)**:
+  - Dark obsidian canvas with animated multi-layered ambient light orbs (coral/plum & champagne glow).
+  - Frosted glassmorphism authentication card with hairline shimmer border and inner glow.
+  - `SUMMER 2026 PROTOCOL` live pulsing capsule badge.
+  - Minimalist floating form fields with micro-focus physics, 1-click evaluation auto-fill, and smooth error/success notifications.
+- [x] **Refined Luxury `/dashboard` Suite & Sub-Pages**:
+  - Warm minimalist canvas with subtle top ambient lighting.
+  - Sleek dark glass sidebar with glowing active capsules and verified Super Admin badge.
+  - Frosted glass header with live sync ping indicator and floating notifications drawer.
+  - Elevated Stat Cards (`components/dashboard/stat-card.tsx`) with hover physics and trend chips.
+  - Elevated sub-pages: `/dashboard`, `/dashboard/properties`, `/dashboard/seo`, `/dashboard/blog`, `/dashboard/bookings`, `/dashboard/analytics`, `/dashboard/settings`.
 
 ---
 
@@ -174,5 +175,6 @@ The following items are planned for Phase 2.0 when backend infrastructure is add
 1. **Multi-Tenant Database & Role-Based Auth**: Supabase / PostgreSQL with NextAuth for individual property owner portals with restricted multi-villa scoping.
 2. **Real Multi-Channel OTA Sync**: iCal two-way synchronization with Airbnb, Booking.com, and Agoda APIs.
 3. **Payment Gateway Integration**: Midtrans / Xendit integration for direct credit card, QRIS, and bank transfer deposits.
-4. **Automated WhatsApp Guest Concierge**: WhatsApp Business Cloud API integration for automated check-in guide dispatches.
+4. **Automated WhatsApp Guest Concierge**: WhatsApp Business Cloud API integration for automated check-in guide dispatches (Desk: `082123933218`).
+
 

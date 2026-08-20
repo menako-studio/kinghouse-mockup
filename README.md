@@ -56,6 +56,19 @@ An editorial-grade property management, SEO CMS, and dual-audience booking platf
 
 ---
 
+### 🎨 Sana Labs Summer-2026 Aesthetic Design System
+- **Ultra-Refined Minimalist Aesthetics**: Inspired by [Sana Labs Summer-2026](https://sanalabs.com/products/sana-learn/summer-2026), combining warm editorial beige (`#F8F7F4`), deep obsidian dark (`#0A090D`), radiant champagne gold (`#C5A880`), and glowing coral-plum ambient meshes (`#FF3B70` / `#2D0C1A`).
+- **Glassmorphism & Hairline Precision**: Frosted glass panels (`backdrop-blur-xl`), hairline border accents (`border-white/[0.08]` and `border-[#EBE8E2]`), and subtle inner shadow glow.
+- **Silky Micro-Interactions**: Ambient radial gradient pulses, smooth hover card elevation physics, and live indicator pings.
+- **Sana-Styled `/login` Portal**: Mesmerizing dark obsidian atmosphere with glowing ambient orbs, glass pill badge, and 1-click credential auto-fill.
+- **Sana-Styled `/dashboard` Suite**: Clean luxury workspace with glowing navigation capsules, live iCal sync badge, and editorial table layouts.
+
+### 📞 Official Corporate Contact
+- **WhatsApp Concierge & Desk**: `082123933218` / `+62 821-2393-3218` (`https://wa.me/6282123933218`)
+- **Corporate Email**: `ptkreasiusmangosse@gmail.com`
+
+---
+
 ## 🔐 Administrative Authentication & Credentials
 
 The CMS Dashboard is protected and only accessible with administrative credentials.
@@ -64,16 +77,17 @@ The CMS Dashboard is protected and only accessible with administrative credentia
 | Field | Default Value | Notes |
 | :--- | :--- | :--- |
 | **Login URL** | `/login` | Redirects to `/dashboard` upon successful authorization |
-| **Admin Email** | `admin@kinghouse.id` | Configurable via `ADMIN_EMAIL` |
+| **Admin Email** | `ptkreasiusmangosse@gmail.com` | Configurable via `ADMIN_EMAIL` |
 | **Admin Password** | `KingHouse2026!Admin` | Configurable via `ADMIN_PASSWORD` |
 
 ### Environment Variables:
 ```env
 # Optional overrides for production deployment
-ADMIN_EMAIL=admin@kinghouse.id
+ADMIN_EMAIL=ptkreasiusmangosse@gmail.com
 ADMIN_PASSWORD=KingHouse2026!Admin
 AUTH_SECRET=kinghouse-hospitality-production-secret-key-2026-secure-jwt-hmac-token
 ```
+
 
 ---
 
