@@ -1,223 +1,140 @@
-# KingHouse - Professional Villa Management Platform
+# KingHouse - Luxury Villa Hospitality & Management Platform
 
-A modern, full-featured villa management website built with Next.js 15, TypeScript, and Tailwind CSS for the Jabodetabek region.
+An editorial-grade, ultra-luxury villa management and dual-audience booking platform built with Next.js 16 (Turbopack, React 19), Tailwind CSS v4, TypeScript, and Framer Motion for Bali's premier destinations (Seminyak, Canggu, Uluwatu, Ubud, Sanur, Pererenan).
 
-## 🌟 Features
-
-### For Villa Owners
-- Comprehensive property management services showcase
-- Revenue optimization tools and analytics
-- Owner dashboard (coming soon)
-- Property listing management
-- Booking and reservation system
-
-### For Guests
-- Advanced villa search and filtering
-- High-quality property portfolios
-- Secure booking system
-- Guest reviews and ratings
-- Interactive property maps
-
-### General Features
-- Modern, responsive design
-- Bilingual support (Indonesian & English)
-- SEO optimized
-- Fast performance with Next.js 15
-- Accessible UI components
-- Professional animations
-
-## 🚀 Tech Stack
-
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **UI Components:** Custom components with class-variance-authority
-- **Icons:** Lucide React
-- **Animations:** Framer Motion
-- **Internationalization:** next-intl (ready)
-
-## 📦 Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd kinghouse-mockup
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Run the development server:
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🏗️ Project Structure
-
-```
-kinghouse-mockup/
-├── app/                      # Next.js app directory
-│   ├── about/               # About page
-│   ├── contact/             # Contact page
-│   ├── services/            # Services page
-│   ├── villas/              # Villas listing page
-│   ├── layout.tsx           # Root layout with header/footer
-│   ├── page.tsx             # Homepage
-│   └── globals.css          # Global styles
-├── components/
-│   ├── layout/              # Layout components
-│   │   ├── header.tsx       # Navigation header
-│   │   └── footer.tsx       # Site footer
-│   ├── ui/                  # Reusable UI components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── input.tsx
-│   │   └── badge.tsx
-│   └── villas/              # Villa-specific components
-│       ├── villa-card.tsx
-│       └── search-bar.tsx
-├── lib/
-│   ├── constants.ts         # Site configuration & constants
-│   ├── data.ts              # Mock data (villas)
-│   ├── types.ts             # TypeScript type definitions
-│   └── utils.ts             # Utility functions
-└── public/                  # Static assets
-
-```
-
-## 🎨 Color Theme
-
-The project uses an amber/gold color palette to convey luxury and trust:
-
-- **Primary:** `#d97706` (amber-600)
-- **Secondary:** `#f59e0b` (amber-500)
-- **Accent:** Various amber shades (50-900)
-
-## 📄 Available Pages
-
-- **/** - Homepage with hero, featured villas, services, testimonials
-- **/villas** - Villa listing with advanced filters
-- **/services** - Service packages and features
-- **/about** - Company information, mission, team
-- **/contact** - Contact form and information
-
-## 🛠️ Development
-
-### Scripts
-
-```bash
-# Development server
-npm run dev
-
-# Production build
-npm run build
-
-# Start production server
-npm start
-
-# Lint code
-npm run lint
-```
-
-### Adding New Components
-
-1. Create component in appropriate directory:
-   - UI components → `components/ui/`
-   - Layout components → `components/layout/`
-   - Feature components → `components/[feature]/`
-
-2. Follow naming convention: kebab-case for files, PascalCase for components
-
-3. Use TypeScript for type safety
-
-### Adding New Pages
-
-1. Create folder in `app/` directory
-2. Add `page.tsx` for the route
-3. Optional: Add `layout.tsx` for page-specific layout
-
-## 🔧 Configuration
-
-### Site Configuration
-
-Edit `lib/constants.ts` to update:
-- Site name and description
-- Contact information
-- Social media links
-- Service offerings
-- Locations and amenities
-
-### Mock Data
-
-Update `lib/data.ts` to modify:
-- Villa listings
-- Pricing
-- Images
-- Property details
-
-## 🌐 Deployment
-
-### Vercel (Recommended)
-
-```bash
-# Deploy to Vercel
-vercel
-
-# Or connect your GitHub repo to Vercel for automatic deployments
-```
-
-### Other Platforms
-
-Build the project:
-```bash
-npm run build
-```
-
-The output will be in the `.next` directory.
-
-## 🔜 Roadmap
-
-### Phase 1 (Current)
-- ✅ Homepage with hero and features
-- ✅ Villa listing with filters
-- ✅ Services page
-- ✅ About page
-- ✅ Contact page
-- ✅ Responsive design
-
-### Phase 2 (Next)
-- [ ] Owner dashboard
-- [ ] Guest dashboard
-- [ ] Booking system
-- [ ] Payment integration
-- [ ] Email notifications
-- [ ] Admin panel
-
-### Phase 3 (Future)
-- [ ] Backend API with Next.js API routes
-- [ ] Database integration (PostgreSQL/MongoDB)
-- [ ] Authentication (NextAuth.js)
-- [ ] Real-time booking availability
-- [ ] WhatsApp integration
-- [ ] Google Maps integration
-- [ ] Analytics dashboard
-
-## 🤝 Contributing
-
-This is a private project. For any questions or suggestions, please contact the development team.
-
-## 📝 License
-
-Proprietary - KingHouse © 2025
-
-## 📞 Support
-
-For support, email hello@kinghouse.id or contact through the website.
+[![Next.js 16](https://img.shields.io/badge/Next.js-16.0.7-black.svg)](https://nextjs.org/)
+[![React 19](https://img.shields.io/badge/React-19.2.0-blue.svg)](https://react.dev/)
+[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-v4-38B2AC.svg)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg)](https://www.typescriptlang.org/)
 
 ---
 
-Built with ❤️ by Menako Studio
+## 🌟 Key Platform Features
+
+### 🌴 For Discerning Guests
+- **Architectural Bento Gallery**: Dynamic, responsive 5-photo bento grid showcasing exterior, living, pool, and master suites with category-filtered fullscreen Lightbox modal.
+- **Dynamic Split Pricing**: Dual-currency real-time calculation (USD/IDR), cleaning fees, and service breakdown in sticky booking widget.
+- **Location Proximity Maps**: Instant distance & travel times to beaches, beach clubs, gourmet dining, and Ngurah Rai International Airport.
+- **Rich Amenity Categorization**: Comprehensive filters for Essentials, Luxury & Wellness, Outdoor Living, and Dedicated Staffing.
+- **JSON-LD Schema Markup**: Integrated VacationRental structured data for maximum search engine rich snippets.
+
+### 💼 For Villa Owners & Investors
+- **Dual Management Tiers**: Transparent comparison between **Essential (15%)** and **Complete Management (20%)** with interactive fee calculators.
+- **Audited Performance Metrics**: Real before/after case studies displaying occupancy rate lifts (+18-35%), EBITDA margins, and revenue growth.
+- **Property Audit Request Flow**: Interactive multi-step form with direct WhatsApp VIP dispatch for instant consultations.
+- **Onboarding Roadmap**: Structured 4-stage onboarding timeline from interior staging to global OTA distribution.
+
+---
+
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 16.0.7 (App Router with Turbopack)
+- **UI & Runtime:** React 19.2.0
+- **Language:** TypeScript 5 (Strict Mode)
+- **Styling:** Tailwind CSS v4 (`@tailwindcss/postcss`) with CSS variable tokens
+- **Component Primitives:** Radix UI (`@radix-ui/react-slot`), CVA (`class-variance-authority`), `clsx`, `tailwind-merge`
+- **Animations:** Framer Motion 12
+- **Icons:** Lucide React
+- **Typography:** Playfair Display (Serif Editorial) & Plus Jakarta Sans (Sans Body) via `next/font/google`
+- **Architecture Documentation:** [PROJECT_STATE.md](file:///PROJECT_STATE.md) (Single Source of Truth for AI Agents & Developers)
+
+---
+
+## 📦 Getting Started
+
+### 1. Prerequisites
+- Node.js 18.17+ or 20+
+- npm, yarn, or pnpm
+
+### 2. Installation
+```bash
+# Clone the repository
+git clone <repository-url>
+cd kinghouse-mockup
+
+# Install dependencies
+npm install
+```
+
+### 3. Running Locally
+```bash
+# Start Turbopack development server
+npm run dev
+
+# Open http://localhost:3000
+```
+
+### 4. Build & Production
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 🏗️ Project Architecture
+
+```
+kinghouse-mockup/
+├── app/                              # Next.js App Router
+│   ├── about/                        # Brand ethos, leadership & heritage
+│   ├── contact/                      # Multichannel contact & direct WhatsApp
+│   ├── locations/                    # Area landing pages
+│   ├── owner-services/               # Management tiers, ROI metrics & audit form
+│   ├── services/                     # In-villa chef, chauffeur, spa & yacht charter
+│   ├── villas/                       # Villa directory & dynamic [slug] detail pages
+│   ├── globals.css                   # Tailwind v4 theme, variables & scrollbars
+│   ├── layout.tsx                    # Root shell with Header, Footer, and Fonts
+│   └── page.tsx                      # Dual-path high-conversion homepage
+├── components/                       # Domain-driven components
+│   ├── bento/                        # Bento gallery & fullscreen lightbox modal
+│   ├── home/                         # Hero slider, dual pathway, trust proof
+│   ├── layout/                       # Header navigation & editorial footer
+│   ├── owner/                        # Tiered pricing, metrics & lead audit form
+│   ├── ui/                           # Button, Badge, Card, Input primitives
+│   └── villas/                       # Amenities, booking sidebar, map, villa cards
+├── lib/                              # Core logic & data models
+│   ├── constants.ts                  # Navigation, locations & metadata
+│   ├── data.ts                       # Rich mock datasets (Villas, Case Studies)
+│   ├── types.ts                      # Universal domain TypeScript definitions
+│   └── utils.ts                      # Currency formatters, date helpers, cn()
+└── PROJECT_STATE.md                  # Comprehensive AI Agent & Project state SSOT
+```
+
+---
+
+## 🎨 Editorial Design System
+
+- **Monochromatic & Earthy Palette:**
+  - Background: `#FFFFFF` (Main) / `#FAFAFA` (Secondary) / `#F4F3F0` (Tertiary)
+  - Typography: `#222222` (Primary) / `#717171` (Muted)
+  - Accent / Gold: `#A69C8E` (Warm Travertine) / `#EFECE6` (Soft Sand)
+- **Macro-Whitespace & Transitions:** Generous section spacing (`section-macro-spacing`) with smooth architectural zoom effects (`hover-editorial-zoom`).
+
+---
+
+## 📄 Available Routes
+
+- `/` — Homepage with Dual Pathway (Guest vs Owner)
+- `/villas` — Catalog with multi-attribute filtering (Bedrooms, Price, Area, Style)
+- `/villas/[slug]` — Dynamic Editorial Villa Page with Bento Lightbox & Sticky Booking
+- `/owner-services` — Villa Management Tiers, Audit Request Form & Case Studies
+- `/services` — Bespoke VIP Guest & Concierge Experiences
+- `/about` — Heritage, Operational Footprint & Leadership Team
+- `/contact` — Direct Inquiry, Office Map Coordinates & WhatsApp Gateway
+
+---
+
+## 🤝 Development & Guidelines
+
+Please refer to [`PROJECT_STATE.md`](file:///PROJECT_STATE.md) for detailed guidelines on:
+- Server vs Client Component boundaries
+- Step-by-step workflow for new features and API route handlers
+- Database persistence roadmap (Prisma + PostgreSQL / Supabase)
+
+---
+
+## 📝 License
+
+Proprietary — KingHouse Hospitality © 2026. All rights reserved.  
+Built by Menako Studio.
