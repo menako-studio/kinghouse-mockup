@@ -1,98 +1,148 @@
 import Link from "next/link"
-import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from "lucide-react"
-import { SITE_CONFIG } from "@/lib/constants"
+import { ArrowUpRight, ShieldCheck, Star } from "lucide-react"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-4">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-amber-700">
-                <span className="text-xl font-bold text-white">K</span>
+    <footer className="border-t border-[#EBEBEB] bg-[#181818] text-[#A0A0A0]">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-12 lg:py-24">
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          {/* Brand & Manifesto */}
+          <div className="lg:col-span-4 space-y-6">
+            <Link href="/" className="group flex items-center space-x-3">
+              <div className="flex h-9 w-9 items-center justify-center border border-white/20 bg-white text-[#181818]">
+                <span className="font-serif text-lg font-normal tracking-wider">K</span>
               </div>
-              <span className="text-xl font-bold text-white">KingHouse</span>
+              <div className="flex flex-col">
+                <span className="font-serif text-xl tracking-tight text-white">
+                  KingHouse
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.25em] text-[#888888] -mt-1 font-medium">
+                  Villa Management
+                </span>
+              </div>
             </Link>
-            <p className="text-sm mb-6">
-              Layanan manajemen villa profesional di Jabodetabek untuk mengoptimalkan pendapatan properti Anda.
+
+            <p className="text-sm leading-relaxed text-[#A0A0A0] max-w-sm">
+              Editorial hospitality fused with institutional asset management. Curating Southeast Asia&apos;s most distinctive architectural villas for high-intent travelers and demanding property owners.
             </p>
-            <div className="flex space-x-4">
-              <a href={SITE_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href={SITE_CONFIG.social.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
-                <Linkedin className="h-5 w-5" />
-              </a>
+
+            <div className="flex items-center space-x-4 pt-2">
+              <div className="flex items-center space-x-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-white">
+                <Star className="h-3.5 w-3.5 text-[#D4AF37] fill-[#D4AF37]" />
+                <span className="font-medium">Airbnb Superhost Portfolio</span>
+              </div>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Link Cepat</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/villas" className="hover:text-amber-500 transition-colors">Cari Villa</Link></li>
-              <li><Link href="/services" className="hover:text-amber-500 transition-colors">Layanan Kami</Link></li>
-              <li><Link href="/about" className="hover:text-amber-500 transition-colors">Tentang Kami</Link></li>
-              <li><Link href="/blog" className="hover:text-amber-500 transition-colors">Blog & Tips</Link></li>
-              <li><Link href="/faq" className="hover:text-amber-500 transition-colors">FAQ</Link></li>
+          {/* Nav Column 1: For Guests */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
+              Curated Escapes (B2C)
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link href="/villas" className="hover:text-white transition-colors">
+                  All Architectural Villas
+                </Link>
+              </li>
+              <li>
+                <Link href="/villas?area=canggu" className="hover:text-white transition-colors">
+                  Canggu Coastal Ridge
+                </Link>
+              </li>
+              <li>
+                <Link href="/villas?area=uluwatu" className="hover:text-white transition-colors">
+                  Uluwatu Cliffside
+                </Link>
+              </li>
+              <li>
+                <Link href="/villas?area=ubud" className="hover:text-white transition-colors">
+                  Ubud Forest Sanctuary
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="https://www.airbnb.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center hover:text-white transition-colors"
+                >
+                  Direct Airbnb Listings <ArrowUpRight className="ml-1 h-3 w-3 opacity-70" />
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* For Owners */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Untuk Pemilik</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/owner-login" className="hover:text-amber-500 transition-colors">Login Pemilik</Link></li>
-              <li><Link href="/list-property" className="hover:text-amber-500 transition-colors">Daftarkan Properti</Link></li>
-              <li><Link href="/owner-dashboard" className="hover:text-amber-500 transition-colors">Dashboard</Link></li>
-              <li><Link href="/pricing" className="hover:text-amber-500 transition-colors">Paket Layanan</Link></li>
-              <li><Link href="/success-stories" className="hover:text-amber-500 transition-colors">Kisah Sukses</Link></li>
+          {/* Nav Column 2: For Owners */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
+              Asset Management (B2B)
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link href="/owner-services" className="hover:text-white transition-colors">
+                  Overview & Value Proposition
+                </Link>
+              </li>
+              <li>
+                <Link href="/owner-services#pricing" className="hover:text-white transition-colors">
+                  Management Fee Models (15% vs 20%)
+                </Link>
+              </li>
+              <li>
+                <Link href="/owner-services#case-studies" className="hover:text-white transition-colors">
+                  Performance Proof & Case Studies
+                </Link>
+              </li>
+              <li>
+                <Link href="/owner-services#audit" className="hover:text-white transition-colors text-white font-medium">
+                  Request Free Property Audit &rarr;
+                </Link>
+              </li>
+              <li>
+                <Link href="/owner-services#onboarding" className="hover:text-white transition-colors">
+                  3-Step Onboarding Process
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Hubungi Kami</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <a href={`mailto:${SITE_CONFIG.contact.email}`} className="hover:text-amber-500 transition-colors">
-                  {SITE_CONFIG.contact.email}
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <Phone className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <a href={`tel:${SITE_CONFIG.contact.phone}`} className="hover:text-amber-500 transition-colors">
-                  {SITE_CONFIG.contact.phone}
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>{SITE_CONFIG.contact.address}</span>
-              </li>
-            </ul>
+          {/* Nav Column 3: Inquiries & Office */}
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
+              Direct Contact
+            </h4>
+            <div className="space-y-3 text-sm">
+              <p className="text-white font-medium">Concierge & Management Desk</p>
+              <p className="text-xs text-[#888888]">
+                Jl. Batu Bolong No. 88, Canggu, Bali 80361
+              </p>
+              <a
+                href="https://wa.me/6281234567890"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-xs text-[#A69C8E] hover:text-white transition-colors"
+              >
+                WhatsApp Desk <ArrowUpRight className="ml-1 h-3 w-3" />
+              </a>
+              <p className="text-xs text-[#888888]">
+                hello@kinghousevillas.com
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 border-t border-gray-800 pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 text-sm lg:flex-row">
-            <p>&copy; {currentYear} KingHouse. All rights reserved.</p>
-            <div className="flex gap-6">
-              <Link href="/privacy" className="hover:text-amber-500 transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-amber-500 transition-colors">Terms of Service</Link>
-              <Link href="/cookies" className="hover:text-amber-500 transition-colors">Cookie Policy</Link>
-            </div>
+        {/* Bottom Bar */}
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#717171]">
+          <p>&copy; {currentYear} KingHouse Hospitality Asset Management Ltd. All rights reserved.</p>
+          <div className="flex items-center space-x-6">
+            <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <span className="text-[#444444]">|</span>
+            <span className="text-[#888888]">Designed with Editorial Precision</span>
           </div>
         </div>
       </div>
