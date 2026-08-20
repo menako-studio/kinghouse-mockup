@@ -22,7 +22,13 @@ An editorial-grade property management, SEO CMS, and dual-audience booking platf
 - **Location Proximity Maps**: Distances and drive times to MRT stations, KRL, industrial estates, and airports.
 - **Events & Wedding Packages**: Dedicated garden wedding, corporate retreat, and party packages at the Jagakarsa private garden house.
 
-### 💼 For Property Owners & Pitching (CMS Dashboard)
+### 💼 For Property Owners & Pitching (CMS Dashboard & Admin Auth)
+- **Production-Grade CMS Authorization & Security (`/login`, `/dashboard`)**:
+  - Edge Runtime middleware route protection intercepts all `/dashboard/:path*` traffic.
+  - Web Crypto HMAC-SHA256 session token verification with zero external dependencies.
+  - HttpOnly, SameSite=Lax, Secure session cookie (`kinghouse_admin_session`, 7-day max-age).
+  - Editorial Dark Login Portal (`/login`) with demo autofill helper.
+  - Defense-in-depth Server Component session check in `app/dashboard/layout.tsx`.
 - **Interactive SEO CMS Dashboard (`/dashboard/seo`)**:
   - Per-property Meta Title & Description editor with real-time character count limits.
   - Live Google Desktop SERP Preview & OpenGraph card preview.
@@ -33,12 +39,36 @@ An editorial-grade property management, SEO CMS, and dual-audience booking platf
 - **Audited Performance Metrics**: Real before/after case studies displaying occupancy rate lifts (28% → 82%) and revenue growth.
 - **Property Audit Request Flow**: Interactive multi-step form with direct WhatsApp dispatch.
 
+### 🌐 Universal English Localization
+- Clean, high-end editorial English localization applied across all pages and CMS modules for consistent luxury hospitality presentation.
+
 ### 🚀 Search Engine Optimization (SEO) Maximization
 - **Organization & LocalBusiness Schema**: Injected sitewide with accurate geo-coordinates.
 - **VacationRental & FAQPage Schema**: Per-property rich snippets with real pricing, amenities, and FAQ.
 - **BreadcrumbList Schema**: Structured navigational hierarchy for search engines.
 - **Location Landing Pages (`/locations/[area]`)**: Dedicated local SEO pages for Jagakarsa, Tangerang, Palmerah, and Cikarang with TouristDestination schema.
-- **Editorial Blog System (`/blog`)**: 6 targeted SEO articles in Indonesian & English with BlogPosting schema.
+- **Editorial Blog System (`/blog`)**: 6 targeted SEO articles with BlogPosting schema.
+
+---
+
+## 🔐 Administrative Authentication & Credentials
+
+The CMS Dashboard is protected and only accessible with administrative credentials.
+
+### Default Admin Credentials:
+| Field | Default Value | Notes |
+| :--- | :--- | :--- |
+| **Login URL** | `/login` | Redirects to `/dashboard` upon successful authorization |
+| **Admin Email** | `admin@kinghouse.id` | Configurable via `ADMIN_EMAIL` |
+| **Admin Password** | `KingHouse2026!Admin` | Configurable via `ADMIN_PASSWORD` |
+
+### Environment Variables:
+```env
+# Optional overrides for production deployment
+ADMIN_EMAIL=admin@kinghouse.id
+ADMIN_PASSWORD=KingHouse2026!Admin
+AUTH_SECRET=kinghouse-hospitality-production-secret-key-2026-secure-jwt-hmac-token
+```
 
 ---
 
@@ -83,6 +113,7 @@ npm run dev
 ### 4. Build & Production Check
 ```bash
 npm run build
+npm run lint
 ```
 
 ---
@@ -92,13 +123,15 @@ npm run build
 ```
 kinghouse-mockup/
 ├── app/
+│   ├── api/auth/                     # Auth REST API handlers (login, logout, me)
 │   ├── blog/                         # Blog index & dynamic [slug] article pages
-│   ├── dashboard/                    # Multi-channel CMS & SEO pitch dashboard
+│   ├── dashboard/                    # Protected CMS & SEO pitch dashboard
 │   │   ├── properties/               # Property portfolio management view
 │   │   └── seo/                      # Interactive SEO editor & SERP preview
 │   ├── events/                       # Garden wedding & event package pages
 │   ├── locations/[area]/             # Local SEO landing pages (Jagakarsa, Cikarang, etc.)
 │   │   └── villas/[slug]/            # Villa detail page with Bento gallery & schema
+│   ├── login/                        # Editorial Admin Login Portal
 │   ├── owner-services/               # Management tiers, ROI metrics & audit form
 │   ├── villas/                       # Catalog directory with filterable areas
 │   ├── layout.tsx                    # Root shell with Header, Footer, and JSON-LD
@@ -110,12 +143,16 @@ kinghouse-mockup/
 │   ├── home/                         # Hero slider, search bar, trust proof
 │   ├── layout/                       # Header navigation & editorial footer
 │   ├── owner/                        # Tiered pricing, metrics & lead audit form
+│   ├── ui/                           # Radix/CVA UI primitives (button, badge, input)
 │   └── villas/                       # Amenities, booking sidebar, map, villa cards
-└── lib/
-    ├── constants.ts                  # SITE_CONFIG, MANAGED_AREAS, SEO categories
-    ├── data.ts                       # Real Airbnb properties, blog posts, events
-    ├── types.ts                      # Universal domain TypeScript definitions
-    └── utils.ts                      # VacationRental schema generator, currency formatters
+├── lib/
+│   ├── auth.ts                       # HMAC Web Crypto session signing & cookie helpers
+│   ├── auth-server.ts                # Server Component session retrieval helper
+│   ├── constants.ts                  # SITE_CONFIG, MANAGED_AREAS, SEO categories
+│   ├── data.ts                       # Real Airbnb properties, blog posts, events
+│   ├── types.ts                      # Universal domain TypeScript definitions
+│   └── utils.ts                      # VacationRental schema generator, currency formatters
+└── middleware.ts                     # Edge runtime route protection for /dashboard
 ```
 
 ---
@@ -123,6 +160,7 @@ kinghouse-mockup/
 ## 📄 Available Routes
 
 - `/` — Homepage with Dual Pathway (Guest vs Owner)
+- `/login` — Editorial Admin Login Portal
 - `/villas` — Catalog with area and capacity filtering
 - `/locations/[area]/villas/[slug]` — Dynamic Editorial Property Page with Bento Lightbox & Sticky Booking
 - `/locations/[area]` — Local Area SEO Landing Pages (Jagakarsa, Tangerang, Palmerah, Cikarang)
@@ -130,12 +168,15 @@ kinghouse-mockup/
 - `/blog/[slug]` — Individual Blog Article with BlogPosting JSON-LD and related posts
 - `/events` — Events & Garden Wedding Overview
 - `/events/[slug]` — Individual Event Package with package selection and WhatsApp ordering
-- `/dashboard` — Multi-Channel Overview KPI Dashboard
-- `/dashboard/seo` — Interactive SEO Manager & Live Google SERP Preview (Pitching Feature)
-- `/dashboard/properties` — Property Portfolio Management View
+- `/dashboard` — Multi-Channel Overview KPI Dashboard (Protected)
+- `/dashboard/seo` — Interactive SEO Manager & Live Google SERP Preview (Protected)
+- `/dashboard/properties` — Property Portfolio Management View (Protected)
 - `/owner-services` — Property Management Tiers (15% vs 20%), Audit Request Form & Case Studies
 - `/about` — Heritage, Operational Footprint & Leadership Team
 - `/contact` — Direct Inquiry & WhatsApp Concierge Desk
+- `/api/auth/login` — POST admin login handler
+- `/api/auth/logout` — POST admin session clearance handler
+- `/api/auth/me` — GET active authenticated admin session
 
 ---
 

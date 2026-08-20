@@ -126,12 +126,34 @@ Represents a managed property in Jabodetabek:
 - [x] **Location Landing Pages**: Built `/locations/[area]` for local SEO across 4 areas with TouristDestination schema (Commit `adf7397`).
 - [x] **Navigation & Route Polish**: Updated header, footer, hero slider, search bar, catalog, and contact details with real Jabodetabek routes (Commit `8b8f5e4`).
 
+### Phase 1.6 — Production CMS Authorization & English Localization (Completed)
+- [x] **CMS Admin Authentication Engine** (`lib/auth.ts` & `lib/auth-server.ts`):
+  - Zero-dependency Web Crypto HMAC-SHA256 session token generation and verification.
+  - HttpOnly, SameSite=Lax, Secure cookie management (`kinghouse_admin_session`, 7-day max-age).
+  - Environment variable overrides: `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `AUTH_SECRET`.
+  - Default Admin Credentials: `admin@kinghouse.id` / `KingHouse2026!Admin`.
+- [x] **Edge Route Protection Middleware** (`middleware.ts`):
+  - Intercepts `/dashboard/:path*` -> Redirects unauthenticated visitors to `/login?callbackUrl=/dashboard`.
+  - Intercepts `/login` -> Redirects authenticated sessions directly to `/dashboard`.
+- [x] **Editorial Admin Login Portal** (`app/login/page.tsx`):
+  - Playfair & Plus Jakarta Sans typography, password visibility toggle, animated loading spinner.
+  - One-click "Fill Demo Admin Credentials" helper for testing and demonstration.
+- [x] **Defense-in-Depth CMS Layout & API Routes**:
+  - `app/dashboard/layout.tsx`: Server Component session verification (`getAdminSession()`) & authenticated admin status pill.
+  - `components/dashboard/sidebar.tsx`: Working async logout button with session invalidation.
+  - `app/api/auth/login`: POST handler setting HttpOnly cookie on credential match.
+  - `app/api/auth/logout`: POST handler clearing session cookie.
+  - `app/api/auth/me`: GET handler returning authenticated admin profile or 401.
+- [x] **Universal English Localization**:
+  - 100% consistent editorial English across all pages: Home, Properties (`/villas`, `/villas/[slug]`), Area Landing Pages (`/locations/[area]`), Events (`/events`, `/events/[slug]`), Blog (`/blog`, `/blog/[slug]`), Owner Services (`/owner-services`), About, Contact, and CMS Dashboard (`/dashboard`, `/dashboard/properties`, `/dashboard/seo`).
+
 ---
 
 ## 5. PHASE 2.0 ROADMAP (Future Scope)
 
 The following items are planned for Phase 2.0 when backend infrastructure is added:
-1. **Database & Auth Integration**: Supabase / PostgreSQL with NextAuth for property owner portal logins.
+1. **Multi-Tenant Database & Role-Based Auth**: Supabase / PostgreSQL with NextAuth for individual property owner portals with restricted multi-villa scoping.
 2. **Real Multi-Channel OTA Sync**: iCal two-way synchronization with Airbnb, Booking.com, and Agoda APIs.
 3. **Payment Gateway Integration**: Midtrans / Xendit integration for direct credit card, QRIS, and bank transfer deposits.
 4. **Automated WhatsApp Guest Concierge**: WhatsApp Business Cloud API integration for automated check-in guide dispatches.
+
