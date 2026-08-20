@@ -1,117 +1,150 @@
+// KingHouse — Core Site Configuration & Metadata
+// Covers: Jabodetabek region (Jakarta, Tangerang, Bekasi, Cikarang)
+
 export const SITE_CONFIG = {
   name: "KingHouse",
   domain: "kinghouse.id",
+  tagline: "Professional Short-Stay Property Management in Greater Jakarta",
   description: {
-    en: "Professional villa management services in Jabodetabek. Optimize your property revenue with our comprehensive management solutions.",
-    id: "Layanan manajemen villa profesional di Jabodetabek. Optimalkan pendapatan properti Anda dengan solusi manajemen komprehensif kami."
+    en: "KingHouse manages premium short-stay properties across Jabodetabek — Jakarta Selatan, Tangerang, Jakarta Barat, and Cikarang — on Airbnb. We maximize your occupancy rate and revenue through editorial listings, dynamic pricing, and end-to-end guest management.",
+    id: "KingHouse mengelola properti sewa jangka pendek premium di seluruh Jabodetabek — Jakarta Selatan, Tangerang, Jakarta Barat, dan Cikarang — melalui Airbnb. Kami memaksimalkan tingkat hunian dan pendapatan Anda.",
   },
   contact: {
     email: "hello@kinghouse.id",
-    phone: "+62 21 xxxx xxxx",
+    phone: "+62 812 xxxx xxxx",
     whatsapp: "+62 812 xxxx xxxx",
-    address: "Jakarta, Indonesia"
+    whatsappMessage: "Hello KingHouse, I am interested in your property management services.",
+    address: "Jakarta, Indonesia",
   },
   social: {
-    facebook: "https://facebook.com/kinghouse.id",
     instagram: "https://instagram.com/kinghouse.id",
+    facebook: "https://facebook.com/kinghouse.id",
     twitter: "https://twitter.com/kinghouse_id",
-    linkedin: "https://linkedin.com/company/kinghouse"
-  }
-}
+    linkedin: "https://linkedin.com/company/kinghouse",
+  },
+  airbnbHostProfile:
+    "https://www.airbnb.com/users/profile/1470743715397835749?previous_page_name=PdpHomeMarketplace",
+} as const
 
-export const LOCATIONS = [
-  "Jakarta Selatan",
-  "Jakarta Barat",
-  "Tangerang",
-  "Bogor",
-  "Depok",
-  "Bekasi",
-  "BSD City",
-  "Serpong"
+// Managed areas in Jabodetabek
+export const MANAGED_AREAS = [
+  {
+    name: "Jagakarsa",
+    slug: "jagakarsa",
+    region: "Jakarta Selatan",
+    description:
+      "Quiet, tree-lined enclave in South Jakarta. Ideal for families and longer stays with easy Toll access.",
+    highlight: "Large family homes with private gardens",
+  },
+  {
+    name: "Tangerang",
+    slug: "tangerang",
+    region: "Banten",
+    description:
+      "Rapidly growing satellite city with strong demand from business travelers and IKEA/Alam Sutera expats.",
+    highlight: "Hotel-style comfort near business hubs",
+  },
+  {
+    name: "Palmerah",
+    slug: "palmerah",
+    region: "Jakarta Barat",
+    description:
+      "Central Jakarta Barat with excellent connectivity — minutes from Palmerah Station and Sudirman.",
+    highlight: "Urban convenience in Central Jakarta",
+  },
+  {
+    name: "Cikarang",
+    slug: "cikarang",
+    region: "Bekasi",
+    description:
+      "Indonesia's premier industrial zone. High demand from expat professionals and business travelers at Orange County.",
+    highlight: "Premium apartments for expat executives",
+  },
 ] as const
 
-export const AMENITIES = [
-  "Private Pool",
-  "Garden",
-  "BBQ Area",
-  "Parking",
-  "WiFi",
+export type AreaSlug = (typeof MANAGED_AREAS)[number]["slug"]
+
+// Canonical list of all managed property types
+export const PROPERTY_TYPES = [
+  "Entire Home",
+  "Private Room",
+  "Entire Apartment",
+  "Villa",
+] as const
+
+// Standard amenities offered across managed properties
+export const STANDARD_AMENITIES = [
+  "High-Speed WiFi",
   "Air Conditioning",
-  "Kitchen",
+  "Hot Water",
+  "Smart TV / Netflix",
+  "Fully Equipped Kitchen",
   "Washing Machine",
-  "Security 24/7",
-  "Smart TV",
-  "Home Theater",
-  "Gym"
+  "24/7 Guest Support",
+  "Self Check-in",
 ] as const
 
-export const SERVICES = {
+// Management service tiers for owner-facing pages
+export const MANAGEMENT_SERVICES = {
   owners: [
     {
-      title: { en: "Property Marketing", id: "Pemasaran Properti" },
-      description: { 
-        en: "Multi-channel marketing strategy to maximize your property visibility and bookings",
-        id: "Strategi pemasaran multi-channel untuk memaksimalkan visibilitas dan pemesanan properti Anda"
-      },
-      icon: "megaphone"
+      title: "Listing Optimization & SEO",
+      description:
+        "Editorial-grade photography, keyword-optimized Airbnb titles & descriptions, and structured data markup to rank higher in search.",
+      icon: "Search",
     },
     {
-      title: { en: "Revenue Management", id: "Manajemen Pendapatan" },
-      description: { 
-        en: "Dynamic pricing and yield management to optimize your rental income",
-        id: "Penetapan harga dinamis dan manajemen hasil untuk mengoptimalkan pendapatan sewa Anda"
-      },
-      icon: "trending-up"
+      title: "Dynamic Revenue Management",
+      description:
+        "AI-powered nightly pricing calibrated against Jabodetabek market demand, competitor rates, and seasonal calendars.",
+      icon: "TrendingUp",
     },
     {
-      title: { en: "Daily Operations", id: "Operasional Harian" },
-      description: { 
-        en: "Complete property maintenance and operational management services",
-        id: "Layanan pemeliharaan properti dan manajemen operasional lengkap"
-      },
-      icon: "settings"
+      title: "End-to-End Operations",
+      description:
+        "Housekeeping coordination, linen management, maintenance requests, and restocking — handled without bothering you.",
+      icon: "Settings",
     },
     {
-      title: { en: "Guest Services", id: "Layanan Tamu" },
-      description: { 
-        en: "24/7 guest support and concierge services for exceptional stays",
-        id: "Dukungan tamu 24/7 dan layanan concierge untuk pengalaman menginap yang luar biasa"
-      },
-      icon: "users"
-    }
+      title: "24/7 Guest Communication",
+      description:
+        "Instant multilingual response to all guest inquiries, check-in coordination, and in-stay support on your behalf.",
+      icon: "MessageSquare",
+    },
   ],
   guests: [
     {
-      title: { en: "Verified Properties", id: "Properti Terverifikasi" },
-      description: { 
-        en: "All properties are personally inspected and verified for quality",
-        id: "Semua properti telah diinspeksi dan diverifikasi secara personal untuk kualitas terjamin"
-      },
-      icon: "shield-check"
+      title: "Verified Properties",
+      description:
+        "Every listing is personally inspected, photographed, and approved by the KingHouse team before going live.",
+      icon: "ShieldCheck",
     },
     {
-      title: { en: "Easy Booking", id: "Pemesanan Mudah" },
-      description: { 
-        en: "Simple and secure booking process with instant confirmation",
-        id: "Proses pemesanan yang mudah dan aman dengan konfirmasi instan"
-      },
-      icon: "calendar-check"
+      title: "Seamless Airbnb Booking",
+      description:
+        "Book securely through Airbnb with instant confirmation, transparent pricing, and buyer protection.",
+      icon: "CalendarCheck",
     },
     {
-      title: { en: "Best Price Guarantee", id: "Jaminan Harga Terbaik" },
-      description: { 
-        en: "Competitive pricing with no hidden fees",
-        id: "Harga kompetitif tanpa biaya tersembunyi"
-      },
-      icon: "badge-dollar-sign"
+      title: "Hotel-Grade Cleanliness",
+      description:
+        "Professional turnover cleaning with fresh hotel-grade linens and toiletries before every check-in.",
+      icon: "Sparkles",
     },
     {
-      title: { en: "24/7 Support", id: "Dukungan 24/7" },
-      description: { 
-        en: "Round-the-clock customer support for your convenience",
-        id: "Dukungan pelanggan sepanjang waktu untuk kenyamanan Anda"
-      },
-      icon: "headphones"
-    }
-  ]
-}
+      title: "24/7 Concierge Support",
+      description:
+        "Reach our team anytime via WhatsApp for local recommendations, transport, or any in-stay requests.",
+      icon: "Headphones",
+    },
+  ],
+} as const
+
+// Blog categories for SEO content strategy
+export const BLOG_CATEGORIES = [
+  { slug: "owner-tips", label: "Owner Tips" },
+  { slug: "airbnb-seo", label: "Airbnb SEO" },
+  { slug: "jabodetabek-guide", label: "Jabodetabek Guide" },
+  { slug: "revenue-management", label: "Revenue Management" },
+  { slug: "guest-experience", label: "Guest Experience" },
+] as const
