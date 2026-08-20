@@ -1,140 +1,463 @@
-import { Villa } from './types'
+import { Villa, Testimonial, ManagementTier, CaseStudy } from "./types"
 
-export const MOCK_VILLAS: Villa[] = [
+export const CURATED_VILLAS: Villa[] = [
   {
-    id: "1",
-    name: "Villa Emerald",
-    slug: "villa-emerald-bsd",
-    description: {
-      en: "Luxurious modern villa with private pool in the heart of BSD City. Perfect for family gatherings and special occasions.",
-      id: "Villa modern mewah dengan kolam renang pribadi di jantung BSD City. Sempurna untuk acara keluarga dan acara spesial."
-    },
-    location: "BSD City",
+    id: "villa-1",
+    name: "The Monolith Villa",
+    tagline: "Brutalist minimalism framed by tropical palm canopies",
+    slug: "the-monolith-villa",
+    area: "Canggu",
+    areaSlug: "canggu",
+    location: "Canggu Coastal Ridge, Bali",
+    airbnbUrl: "https://www.airbnb.com/rooms/11492040",
+    superhost: true,
+    guestFavorite: true,
+    rating: 4.98,
+    reviewsCount: 142,
     price: {
-      daily: 3500000,
-      weekly: 21000000,
-      monthly: 75000000
+      usd: 680,
+      idr: 10800000,
+      cleaningFeeUsd: 85,
+      serviceFeePercent: 12,
     },
     capacity: {
-      bedrooms: 5,
+      guests: 8,
+      bedrooms: 4,
+      beds: 5,
       bathrooms: 4,
-      guests: 12
     },
-    amenities: ["Private Pool", "Garden", "BBQ Area", "Parking", "WiFi", "Air Conditioning", "Kitchen", "Security 24/7", "Smart TV"],
-    images: [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6"
+    heroImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85",
+    gallery: [
+      {
+        url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85",
+        caption: "Architectural raw concrete facade reflected in the infinity lap pool at dusk",
+        category: "exterior",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85",
+        caption: "Double-height living pavilion with floor-to-ceiling pivoting glass doors",
+        category: "living",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85",
+        caption: "Master sanctuary featuring custom teak joinery and sunken limestone tub",
+        category: "bedroom",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85",
+        caption: "Outdoor dining loggia overlooking lush native landscaped terraces",
+        category: "dining",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1400&q=85",
+        caption: "Monolithic volcanic stone bathroom with open rain atrium",
+        category: "bathroom",
+      },
+    ],
+    editorialDescription: {
+      lead: "Conceived as an ode to modern tropical brutalism, The Monolith Villa pairs board-formed concrete with warm reclaimed ironwood, creating a secluded architectural sanctuary just minutes from Canggu's pristine coastline.",
+      architecturalHighlights: "Designed by award-winning studio Atelier Kura, the residence is organized around a monolithic 22-meter black slate infinity pool. Passive cross-ventilation, sunken courtyards, and cantilevered roof planes blur the boundary between indoor living and the tropical landscape.",
+      theSpace: "Each of the four en-suite pavilions offers complete acoustic privacy, bespoke micro-cement finishes, and organic linen bedding. The chef's kitchen boasts Miele appliances and a dedicated preparation pantry for private dining events.",
+    },
+    amenities: [
+      { name: "22m Slate Infinity Lap Pool", category: "outdoor", icon: "Waves" },
+      { name: "Dedicated In-House Chef & Butler", category: "services", icon: "UtensilsCrossed" },
+      { name: "High-Speed Starlink WiFi (350 Mbps)", category: "essentials", icon: "Wifi" },
+      { name: "Daily Housekeeping & Turndown", category: "services", icon: "Sparkles" },
+      { name: "Sonos Architectural Sound System", category: "luxury", icon: "Speaker" },
+      { name: "Sunken Concrete Firepit Lounge", category: "outdoor", icon: "Flame" },
+      { name: "Filtered Drinking Water System", category: "essentials", icon: "Droplets" },
+      { name: "Private Gated Parking (2 Cars + Bikes)", category: "essentials", icon: "Car" },
+      { name: "Central Climate Control & Smart AC", category: "essentials", icon: "Wind" },
+      { name: "24/7 Security & Video Intercom", category: "services", icon: "ShieldCheck" },
+    ],
+    nearbySpots: [
+      { name: "Pererenan Surf Beach", category: "beach", distance: "800 m", travelTime: "3 min ride" },
+      { name: "Komorebi Specialty Coffee", category: "cafe", distance: "450 m", travelTime: "5 min walk" },
+      { name: "Mason Restaurant & Wine Bar", category: "dining", distance: "1.2 km", travelTime: "5 min drive" },
+      { name: "Ngurah Rai International Airport", category: "airport", distance: "21 km", travelTime: "45 min drive" },
     ],
     featured: true,
-    available: true,
-    rating: 4.8,
-    reviews: 24,
-    coordinates: {
-      lat: -6.3019,
-      lng: 106.6510
-    }
+    architecturalStyle: "Tropical Brutalism",
   },
   {
-    id: "2",
-    name: "Villa Sapphire",
-    slug: "villa-sapphire-bogor",
-    description: {
-      en: "Serene hillside villa with stunning mountain views in Puncak, Bogor. Escape the city and reconnect with nature.",
-      id: "Villa di bukit yang tenang dengan pemandangan gunung menakjubkan di Puncak, Bogor. Lepas dari kota dan terhubung kembali dengan alam."
-    },
-    location: "Bogor",
+    id: "villa-2",
+    name: "Villa Solarium",
+    tagline: "Sun-drenched Mediterranean curves nestled in lush cliffside foliage",
+    slug: "villa-solarium",
+    area: "Uluwatu",
+    areaSlug: "uluwatu",
+    location: "Bingin Cliffside, Uluwatu",
+    airbnbUrl: "https://www.airbnb.com/rooms/18920110",
+    superhost: true,
+    guestFavorite: true,
+    rating: 4.96,
+    reviewsCount: 98,
     price: {
-      daily: 2800000,
-      weekly: 16000000,
-      monthly: 60000000
+      usd: 540,
+      idr: 8600000,
+      cleaningFeeUsd: 70,
+      serviceFeePercent: 12,
     },
     capacity: {
-      bedrooms: 4,
+      guests: 6,
+      bedrooms: 3,
+      beds: 3,
+      bathrooms: 3.5,
+    },
+    heroImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=85",
+    gallery: [
+      {
+        url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=85",
+        caption: "Sculpted lime-wash arches frame panoramic Indian Ocean sunset vistas",
+        category: "exterior",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1400&q=85",
+        caption: "Minimalist open-concept salon bathed in ambient afternoon light",
+        category: "living",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=85",
+        caption: "Primary suite with curved plaster walls and private sea-facing balcony",
+        category: "bedroom",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1400&q=85",
+        caption: "Curved travertine plunge pool surrounded by fragrant frangipani trees",
+        category: "pool",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85",
+        caption: "Spa bathroom crafted from micro-topping plaster and aged bronze fixtures",
+        category: "bathroom",
+      },
+    ],
+    editorialDescription: {
+      lead: "Villa Solarium reinterprets Cycladic minimalism through an equatorial lens. Sculptural arches, chalk-white plaster, and earthy travertine establish an atmosphere of timeless, understated luxury above Bingin Beach.",
+      architecturalHighlights: "The geometry uses fluid curvilinear forms designed to maximize ambient natural illumination while shielding living areas from harsh midday solar heat. Curved walls guide ocean breezes through every room.",
+      theSpace: "Featuring three master suites with organic King Koil mattresses, bespoke linen upholstery by local weavers, and a secluded cliffside yoga pavilion with uninterrupted views over world-class surf breaks.",
+    },
+    amenities: [
+      { name: "Ocean-View Plunge Pool", category: "outdoor", icon: "Waves" },
+      { name: "Private Cliffside Sunset Deck", category: "outdoor", icon: "Sun" },
+      { name: "Fiber Optic WiFi (200 Mbps)", category: "essentials", icon: "Wifi" },
+      { name: "Daily Artisan Breakfast Included", category: "services", icon: "Coffee" },
+      { name: "Marshall Multi-Room Audio", category: "luxury", icon: "Speaker" },
+      { name: "Open-Air Yoga Shala", category: "luxury", icon: "HeartPulse" },
+      { name: "Organic Botanical Toiletries", category: "essentials", icon: "Sparkles" },
+      { name: "KingHouse On-Demand Concierge", category: "services", icon: "Compass" },
+    ],
+    nearbySpots: [
+      { name: "Bingin Beach & Surf Break", category: "beach", distance: "400 m", travelTime: "4 min walk" },
+      { name: "The Cashew Tree Organic Cafe", category: "cafe", distance: "700 m", travelTime: "8 min walk" },
+      { name: "Savaya Cliff Club", category: "landmark", distance: "5.5 km", travelTime: "12 min drive" },
+      { name: "Ngurah Rai Airport", category: "airport", distance: "19 km", travelTime: "40 min drive" },
+    ],
+    featured: true,
+    architecturalStyle: "Cycladic Minimalist",
+  },
+  {
+    id: "villa-3",
+    name: "The Glass Pavilion",
+    tagline: "Forest-immersed transparency elevated above emerald river ravines",
+    slug: "the-glass-pavilion",
+    area: "Ubud",
+    areaSlug: "ubud",
+    location: "Sayan River Valley, Ubud",
+    airbnbUrl: "https://www.airbnb.com/rooms/24581900",
+    superhost: true,
+    guestFavorite: false,
+    rating: 4.95,
+    reviewsCount: 76,
+    price: {
+      usd: 720,
+      idr: 11500000,
+      cleaningFeeUsd: 90,
+      serviceFeePercent: 12,
+    },
+    capacity: {
+      guests: 6,
+      bedrooms: 3,
+      beds: 4,
+      bathrooms: 3.5,
+    },
+    heroImage: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=2000&q=85",
+    gallery: [
+      {
+        url: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=2000&q=85",
+        caption: "Cantilevered glass volume floating above the misty jungle tree canopy",
+        category: "exterior",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600047509358-9dc75507daeb?auto=format&fit=crop&w=1400&q=85",
+        caption: "Light-filled lounge featuring Mies van der Rohe and Pierre Jeanneret furniture",
+        category: "living",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=85",
+        caption: "Minimalist master suite with 270-degree jungle views through acoustic glass",
+        category: "bedroom",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=85",
+        caption: "Natural volcanic spring water pool extending toward the river valley",
+        category: "pool",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=85",
+        caption: "Freestanding stone bathtub with forest canopy perspective",
+        category: "bathroom",
+      },
+    ],
+    editorialDescription: {
+      lead: "Suspended weightlessly above the sacred Ayung River valley, The Glass Pavilion represents an architectural masterclass in transparency, structural steel precision, and jungle integration.",
+      architecturalHighlights: "Engineered with ultra-clear low-iron double-glazed acoustic panels, the home completely dissolves boundaries between modern interior refinement and the surrounding primeval rainforest.",
+      theSpace: "Comprises three modular suites, an open-concept kitchen equipped with Gaggenau appliances, a climate-controlled private wine cellar, and an infinity pool fed by natural mountain spring aquifers.",
+    },
+    amenities: [
+      { name: "Spring-Fed Infinity Pool", category: "outdoor", icon: "Waves" },
+      { name: "Full Estate Staff & Private Butler", category: "services", icon: "Sparkles" },
+      { name: "Private Wine Cellar & Tasting Bar", category: "luxury", icon: "Wine" },
+      { name: "High-Speed Starlink (300 Mbps)", category: "essentials", icon: "Wifi" },
+      { name: "Thermal Cedarwood Finnish Sauna", category: "luxury", icon: "Flame" },
+      { name: "Acoustic Glazing & Climate Control", category: "essentials", icon: "ShieldCheck" },
+      { name: "EV Fast Charger (Type 2)", category: "essentials", icon: "Zap" },
+      { name: "Private Helipad Access on Request", category: "luxury", icon: "Plane" },
+    ],
+    nearbySpots: [
+      { name: "Four Seasons Sayan Grounds", category: "landmark", distance: "1.1 km", travelTime: "4 min drive" },
+      { name: "Locavore NXT Culinary Lab", category: "dining", distance: "3.2 km", travelTime: "10 min drive" },
+      { name: "Ubud Royal Palace & Center", category: "landmark", distance: "4.5 km", travelTime: "12 min drive" },
+      { name: "Ngurah Rai Airport", category: "airport", distance: "36 km", travelTime: "75 min drive" },
+    ],
+    featured: true,
+    architecturalStyle: "Mid-Century Modernist",
+  },
+  {
+    id: "villa-4",
+    name: "Sanctuary No. 7",
+    tagline: "Earthy rammed earth walls, internal courtyards, and zen wabi-sabi simplicity",
+    slug: "sanctuary-no-7",
+    area: "Pererenan",
+    areaSlug: "pererenan",
+    location: "Pererenan Greenbelt, Bali",
+    airbnbUrl: "https://www.airbnb.com/rooms/31049281",
+    superhost: true,
+    guestFavorite: true,
+    rating: 4.99,
+    reviewsCount: 84,
+    price: {
+      usd: 620,
+      idr: 9900000,
+      cleaningFeeUsd: 75,
+      serviceFeePercent: 12,
+    },
+    capacity: {
+      guests: 6,
+      bedrooms: 3,
+      beds: 3,
       bathrooms: 3,
-      guests: 10
     },
-    amenities: ["Private Pool", "Garden", "BBQ Area", "Parking", "WiFi", "Air Conditioning", "Kitchen", "Home Theater"],
-    images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498f"
+    heroImage: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=85",
+    gallery: [
+      {
+        url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=85",
+        caption: "Layered rammed-earth structure harmonizing with the surrounding rice paddy terraces",
+        category: "exterior",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1400&q=85",
+        caption: "Zen atrium courtyard with a 60-year-old bonsai olive tree and tranquil water garden",
+        category: "living",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=85",
+        caption: "Minimalist Japanese-inspired sleeping quarters with low-profile oak tatami platform",
+        category: "bedroom",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1400&q=85",
+        caption: "Deep soak volcanic stone tub open to a private pebble garden",
+        category: "bathroom",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&w=1400&q=85",
+        caption: "Black pebble infinity pool reflecting the open Bali sky",
+        category: "pool",
+      },
     ],
-    featured: true,
-    available: true,
-    rating: 4.9,
-    reviews: 31,
-    coordinates: {
-      lat: -6.7024,
-      lng: 106.9447
-    }
-  },
-  {
-    id: "3",
-    name: "Villa Ruby",
-    slug: "villa-ruby-tangsel",
-    description: {
-      en: "Contemporary villa with elegant design in South Tangerang. Ideal for business retreats and family staycations.",
-      id: "Villa kontemporer dengan desain elegan di Tangerang Selatan. Ideal untuk retreat bisnis dan staycation keluarga."
+    editorialDescription: {
+      lead: "Sanctuary No. 7 explores wabi-sabi principles through stabilized rammed earth, charred yakisugi timber, and internal reflection gardens. A peaceful retreat engineered for deep restorative living.",
+      architecturalHighlights: "Earth quarried directly from the island is packed into thick structural walls, providing exceptional natural thermal mass that maintains a cool interior climate without continuous air conditioning.",
+      theSpace: "Three serene bedroom suites with custom brass fixtures, an open culinary kitchen, an acoustic tea room, and a 16-meter swimming pool flanked by hand-chiselled river stones.",
     },
-    location: "Tangerang",
-    price: {
-      daily: 3000000,
-      weekly: 18000000,
-      monthly: 65000000
-    },
-    capacity: {
-      bedrooms: 4,
-      bathrooms: 4,
-      guests: 10
-    },
-    amenities: ["Private Pool", "Garden", "Parking", "WiFi", "Air Conditioning", "Kitchen", "Washing Machine", "Security 24/7", "Gym"],
-    images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
-      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea"
+    amenities: [
+      { name: "16m Natural River Stone Pool", category: "outdoor", icon: "Waves" },
+      { name: "Japanese Tatami Tea Pavilion", category: "luxury", icon: "Coffee" },
+      { name: "Full-Time Butler & Concierge", category: "services", icon: "Sparkles" },
+      { name: "Starlink Ultra-Fast WiFi", category: "essentials", icon: "Wifi" },
+      { name: "Organic Kitchen Garden Access", category: "outdoor", icon: "Leaf" },
+      { name: "Custom Bang & Olufsen Sound", category: "luxury", icon: "Speaker" },
+      { name: "Private Security & Smart Entry", category: "services", icon: "ShieldCheck" },
+    ],
+    nearbySpots: [
+      { name: "Pererenan Beachfront", category: "beach", distance: "600 m", travelTime: "2 min ride" },
+      { name: "Shelter Bali Restaurant", category: "dining", distance: "900 m", travelTime: "3 min drive" },
+      { name: "Canggu Echo Beach", category: "beach", distance: "1.8 km", travelTime: "6 min ride" },
+      { name: "International Airport", category: "airport", distance: "22 km", travelTime: "45 min drive" },
     ],
     featured: false,
-    available: true,
-    rating: 4.7,
-    reviews: 18,
-    coordinates: {
-      lat: -6.2884,
-      lng: 106.7185
-    }
+    architecturalStyle: "Wabi-Sabi Rammed Earth",
+  },
+]
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    id: "test-1",
+    type: "owner",
+    author: "Maximilian Richter",
+    roleOrLocation: "Owner, The Monolith Villa",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+    rating: 5,
+    quote: "KingHouse transformed our villa from an underperforming asset into Bali's premier design destination. Within 90 days, our net EBITDA surged by 48% with zero management headaches on our side.",
+    propertyName: "The Monolith Villa",
+    metricLift: "+48% Net EBITDA Lift",
   },
   {
-    id: "4",
-    name: "Villa Diamond",
-    slug: "villa-diamond-jaksel",
-    description: {
-      en: "Premium villa in prestigious Jakarta Selatan neighborhood. Modern amenities with traditional Indonesian charm.",
-      id: "Villa premium di lingkungan bergengsi Jakarta Selatan. Fasilitas modern dengan pesona tradisional Indonesia."
-    },
-    location: "Jakarta Selatan",
-    price: {
-      daily: 4500000,
-      weekly: 27000000,
-      monthly: 95000000
-    },
-    capacity: {
-      bedrooms: 6,
-      bathrooms: 5,
-      guests: 15
-    },
-    amenities: ["Private Pool", "Garden", "BBQ Area", "Parking", "WiFi", "Air Conditioning", "Kitchen", "Washing Machine", "Security 24/7", "Smart TV", "Home Theater", "Gym"],
-    images: [
-      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde",
-      "https://images.unsplash.com/photo-1600047509358-9dc75507daeb",
-      "https://images.unsplash.com/photo-1600210492493-0946911123ea"
+    id: "test-2",
+    type: "guest",
+    author: "Elena Rostova",
+    roleOrLocation: "Architect & Travel Writer, London",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+    rating: 5,
+    quote: "The curation is flawless. The photography on the site matched reality 100%. The private chef and frictionless Airbnb booking process made this the smoothest luxury stay of my life.",
+    propertyName: "The Glass Pavilion",
+  },
+  {
+    id: "test-3",
+    type: "owner",
+    author: "Dharmawan & Stephanie Kusuma",
+    roleOrLocation: "Owners, Villa Solarium",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+    rating: 5,
+    quote: "Their dynamic pricing algorithm and multi-channel SEO visibility keep our occupancy at an average of 92% throughout both peak and off-peak seasons. The real-time owner portal is unmatched.",
+    propertyName: "Villa Solarium",
+    metricLift: "92% Avg Annual Occupancy",
+  },
+  {
+    id: "test-4",
+    type: "guest",
+    author: "Alexander Chen",
+    roleOrLocation: "Tech Founder, Singapore",
+    avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=300&q=80",
+    rating: 5,
+    quote: "Never Too Small aesthetics in real life. High-speed Starlink allowed me to run team meetings, while the private lap pool and on-demand concierge provided pure zen. We've already re-booked for next winter.",
+    propertyName: "The Monolith Villa",
+  },
+]
+
+export const MANAGEMENT_TIERS: ManagementTier[] = [
+  {
+    id: "exclusive-marketing",
+    name: "Exclusive Marketing",
+    subtitle: "High-yield distribution & revenue maximization for owners with existing on-site staff",
+    feePercentage: 15,
+    feeNote: "of gross rental revenue (Performance-based)",
+    description: "Designed for villa owners with an established on-site cleaning and butler team who need KingHouse's proprietary pricing algorithms, global OTA syndication, and Superhost booking funnel.",
+    idealFor: "Established villas with trusted existing on-site staff seeking maximum booking yield.",
+    popular: false,
+    features: [
+      { title: "Multi-channel distribution (Airbnb Superhost, VRBO, Booking.com, Direct)", included: true },
+      { title: "Architectural photography, video reel production & 3D virtual tour", included: true, highlight: true },
+      { title: "Real-time dynamic pricing algorithm & competitor yield management", included: true },
+      { title: "24/7 multilingual guest communication & inquiry vetting", included: true },
+      { title: "Automated payment processing, deposits & damage insurance cover", included: true },
+      { title: "Live owner dashboard with real-time calendar & financial reporting", included: true },
+      { title: "Turnkey on-site housekeeping & linen laundry operations", included: false },
+      { title: "Preventive maintenance, pool servicing & daily estate repairs", included: false },
+      { title: "Dedicated on-site villa manager & guest check-in host", included: false },
+      { title: "Bespoke guest concierge (private chefs, drivers, wellness)", included: false },
     ],
-    featured: true,
-    available: true,
-    rating: 4.9,
-    reviews: 42,
-    coordinates: {
-      lat: -6.2615,
-      lng: 106.8106
-    }
-  }
+  },
+  {
+    id: "full-management",
+    name: "Full Asset Management",
+    subtitle: "Completely hands-off, 360° turnkey operations with institutional-grade reporting",
+    feePercentage: 20,
+    feeNote: "of gross rental revenue (Turnkey zero-effort)",
+    badge: "Most Selected by Investors",
+    description: "Our signature all-inclusive model. We manage every touchpoint from linen changes to complex HVAC preventative servicing, luxury concierge, tax reporting, and high-converting marketing.",
+    idealFor: "High-net-worth investors and overseas owners desiring complete peace of mind and maximum ROI.",
+    popular: true,
+    features: [
+      { title: "Multi-channel distribution (Airbnb Superhost, VRBO, Booking.com, Direct)", included: true },
+      { title: "Architectural photography, video reel production & 3D virtual tour", included: true, highlight: true },
+      { title: "Real-time dynamic pricing algorithm & competitor yield management", included: true },
+      { title: "24/7 multilingual guest communication & inquiry vetting", included: true },
+      { title: "Automated payment processing, deposits & damage insurance cover", included: true },
+      { title: "Live owner dashboard with real-time calendar & financial reporting", included: true },
+      { title: "Turnkey on-site housekeeping & linen laundry operations (5-star hotel standard)", included: true, highlight: true },
+      { title: "Preventive maintenance, pool servicing & daily estate repairs", included: true, highlight: true },
+      { title: "Dedicated on-site villa manager & guest check-in host", included: true, highlight: true },
+      { title: "Bespoke guest concierge (private chefs, drivers, wellness)", included: true, highlight: true },
+    ],
+  },
+]
+
+export const CASE_STUDIES: CaseStudy[] = [
+  {
+    id: "cs-1",
+    villaName: "The Monolith Villa",
+    location: "Canggu, Bali",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+    period: "12-Month Performance Review",
+    beforeMetrics: {
+      occupancyRate: 52,
+      monthlyRevenueUsd: 9800,
+      guestRating: 4.62,
+    },
+    afterMetrics: {
+      occupancyRate: 91,
+      monthlyRevenueUsd: 19400,
+      guestRating: 4.98,
+      ebitdaMargin: 48,
+    },
+    summary: "Re-engineered positioning from a generic rental to a design-forward brutalist masterpiece with dynamic daily pricing and Airbnb Superhost status, nearly doubling monthly net revenue.",
+    quote: {
+      text: "The financial transformation was immediate. Occupancy rose from 52% to over 90% without discounting rates.",
+      author: "Maximilian Richter (Owner)",
+    },
+  },
+  {
+    id: "cs-2",
+    villaName: "Villa Solarium",
+    location: "Bingin, Uluwatu",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+    period: "6-Month Onboarding Lift",
+    beforeMetrics: {
+      occupancyRate: 58,
+      monthlyRevenueUsd: 7400,
+      guestRating: 4.71,
+    },
+    afterMetrics: {
+      occupancyRate: 89,
+      monthlyRevenueUsd: 14800,
+      guestRating: 4.96,
+      ebitdaMargin: 45,
+    },
+    summary: "Full media overhaul, high-intent SEO funnel, and 24/7 instant guest booking response time created a surge in high-yielding direct and Superhost bookings.",
+    quote: {
+      text: "We went from wondering why our calendar had huge gaps to being fully booked 3 months in advance.",
+      author: "Stephanie Kusuma (Owner)",
+    },
+  },
+]
+
+export const TRUST_PARTNERS = [
+  { name: "Airbnb Superhost", badge: "Superhost 2026", logoText: "Airbnb Superhost" },
+  { name: "Booking.com", badge: "Traveller Review Award 9.8", logoText: "Booking.com" },
+  { name: "TripAdvisor", badge: "Travelers' Choice Best of the Best", logoText: "TripAdvisor" },
+  { name: "VRBO", badge: "Premier Host", logoText: "VRBO Premier" },
+  { name: "Condé Nast Traveler", badge: "Curated Feature", logoText: "CN Traveler" },
 ]

@@ -1,58 +1,110 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Global Color Palette (Monochromatic & Earthy) */
+  --bg-main: #FFFFFF;
+  --bg-secondary: #FAFAFA;
+  --bg-tertiary: #F4F3F0;
+  --text-primary: #222222;
+  --text-muted: #717171;
+  --accent-color: #A69C8E;
+  --accent-light: #EFECE6;
+  --cta-primary: #222222;
+  --cta-hover: #000000;
+  
+  /* Borders & Shadows */
+  --border-subtle: #EBEBEB;
+  --border-medium: #DDDDDD;
+  --shadow-subtle: 0 10px 40px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.08);
+
+  /* Fonts */
+  --font-serif-family: var(--font-serif), "Playfair Display", "Lora", Georgia, serif;
+  --font-sans-family: var(--font-sans), "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  
-  /* Primary - Amber/Gold theme for luxury villa brand */
-  --color-primary: #d97706;
-  --color-primary-dark: #b45309;
-  --color-secondary: #f59e0b;
-  
-  /* Amber scale */
-  --color-amber-50: #fffbeb;
-  --color-amber-100: #fef3c7;
-  --color-amber-200: #fde68a;
-  --color-amber-300: #fcd34d;
-  --color-amber-400: #fbbf24;
-  --color-amber-500: #f59e0b;
-  --color-amber-600: #d97706;
-  --color-amber-700: #b45309;
-  --color-amber-800: #92400e;
-  --color-amber-900: #78350f;
+  --color-bg-main: var(--bg-main);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent-color);
+  --color-accent-light: var(--accent-light);
+  --color-cta: var(--cta-primary);
+  --color-border-subtle: var(--border-subtle);
+
+  --font-serif: var(--font-serif-family);
+  --font-sans: var(--font-sans-family);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans-family);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
+/* Editorial Typography */
+h1, h2, .font-editorial {
+  font-family: var(--font-serif-family);
+  letter-spacing: -0.015em;
+  font-weight: 400;
 }
 
-/* Custom scrollbar */
+h3, h4, h5, h6 {
+  font-family: var(--font-sans-family);
+  letter-spacing: -0.01em;
+}
+
+/* Macro-whitespace section spacing helper */
+.section-macro-spacing {
+  padding-top: clamp(5rem, 8vw, 8.5rem);
+  padding-bottom: clamp(5rem, 8vw, 8.5rem);
+}
+
+/* Subtle architectural hover zoom */
+.hover-editorial-zoom {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .hover-editorial-zoom {
+  transform: scale(1.03);
+}
+
+/* Ultra-subtle border utility */
+.border-subtle {
+  border: 1px solid var(--border-subtle);
+}
+
+.border-subtle-t {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.border-subtle-b {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Custom Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-amber-600);
-  border-radius: 5px;
+  background: #D1CDCA;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-amber-700);
+  background: #A69C8E;
 }
-
