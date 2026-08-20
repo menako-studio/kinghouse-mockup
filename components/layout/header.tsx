@@ -34,7 +34,6 @@ export function Header() {
     { label: "Owner Services", href: "/owner-services" },
     { label: "Blog", href: "/blog" },
     { label: "Events", href: "/events" },
-    { label: "CMS", href: "/dashboard" },
   ]
 
   return (

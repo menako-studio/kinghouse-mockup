@@ -2,8 +2,7 @@ import type { Metadata } from "next"
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
+import { SiteShell } from "@/components/layout/site-shell"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -155,10 +154,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
-        <Header />
-        {children}
-        <Footer />
+        <SiteShell>
+          {children}
+        </SiteShell>
       </body>
     </html>
   )
 }
+

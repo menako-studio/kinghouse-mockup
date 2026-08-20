@@ -84,8 +84,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/seo" className="hover:text-white transition-colors text-[#D4AF37]">
-                  SEO CMS Dashboard (Demo Pitch)
+                <Link href="/owner-services" className="hover:text-white transition-colors text-[#D4AF37]">
+                  Dynamic Yield & Revenue Algorithm
                 </Link>
               </li>
               <li>
@@ -140,7 +140,7 @@ export function Footer() {
           <div className="flex items-center space-x-6">
             <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/dashboard" className="hover:text-white transition-colors">CMS Dashboard</Link>
+            <Link href="/login" className="hover:text-[#A69C8E] transition-colors text-[#555555]">Admin Portal</Link>
             <span className="text-[#444444]">|</span>
             <span className="text-[#888888]">Jabodetabek Property Management</span>
           </div>
