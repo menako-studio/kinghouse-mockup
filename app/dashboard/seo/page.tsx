@@ -4,6 +4,7 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
+  Search,
 } from "lucide-react"
 import { SeoEditor } from "@/components/dashboard/seo-editor"
 import { BLOG_POSTS } from "@/lib/data"
@@ -15,61 +16,62 @@ export const metadata: Metadata = {
 
 export default function SeoManagerPage() {
   return (
-    <div className="space-y-12">
-      {/* Pitch Header */}
-      <div className="rounded-3xl bg-[#111111] text-white p-8 sm:p-12 relative overflow-hidden">
-        <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3.5 py-1 text-xs font-semibold text-[#D4B896]">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Key Owner Pitching Feature</span>
+    <div className="space-y-12 animate-sana-fade-in">
+      {/* Pitch Header with Sana Dark Luxury Theme */}
+      <div className="rounded-3xl bg-[#0B0A0E] text-white p-8 sm:p-12 relative overflow-hidden border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+        {/* Ambient Glow Spots */}
+        <div className="absolute top-[-20%] right-[-10%] w-96 h-96 bg-gradient-to-br from-[#FF3B70]/20 via-[#381023]/30 to-transparent rounded-full blur-[100px] pointer-events-none animate-sana-glow" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-96 h-96 bg-gradient-to-tr from-[#C5A880]/15 via-[#2D1B0F]/25 to-transparent rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-3xl space-y-5">
+          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3.5 py-1 text-[10px] font-semibold tracking-wider text-[#C5A880]">
+            <Sparkles className="h-3.5 w-3.5 text-[#C5A880]" />
+            <span className="uppercase">KEY OWNER PITCHING ASSET</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight">
-            SEO & Content Management Suite
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight tracking-tight text-white">
+            SEO & Listing Algorithm Suite
           </h1>
 
           <p className="text-white/70 text-sm sm:text-base leading-relaxed font-light">
-            Why do KingHouse properties sustain high occupancy rates? Every property is architected with
-            advanced SEO that converts Google searches and Airbnb Superhost algorithms into high-intent,
+            Why do KingHouse properties consistently outperform market occupancy? Every property is architected with
+            dynamic metadata that converts Google local searches and Airbnb Superhost algorithms into high-intent,
             longer-stay bookings.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-white/10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-5 border-t border-white/10">
             <div>
-              <p className="font-serif text-2xl text-[#D4B896]">+280%</p>
-              <p className="text-[11px] text-white/60 uppercase tracking-wider">
+              <p className="font-serif text-3xl text-[#C5A880] font-normal">+280%</p>
+              <p className="text-[10px] text-white/50 uppercase tracking-wider font-medium mt-1">
                 Airbnb Search Impressions
               </p>
             </div>
             <div>
-              <p className="font-serif text-2xl text-[#D4B896]">Top 3</p>
-              <p className="text-[11px] text-white/60 uppercase tracking-wider">
+              <p className="font-serif text-3xl text-[#C5A880] font-normal">Top 3</p>
+              <p className="text-[10px] text-white/50 uppercase tracking-wider font-medium mt-1">
                 Google Organic Area Rank
               </p>
             </div>
             <div>
-              <p className="font-serif text-2xl text-[#D4B896]">81.4%</p>
-              <p className="text-[11px] text-white/60 uppercase tracking-wider">
+              <p className="font-serif text-3xl text-[#C5A880] font-normal">81.4%</p>
+              <p className="text-[10px] text-white/50 uppercase tracking-wider font-medium mt-1">
                 Average Occupancy Rate
               </p>
             </div>
           </div>
         </div>
-
-        {/* Decorative ambient gradient */}
-        <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-[#D4B896]/10 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* Core Interactive SEO Editor */}
       <section className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#EBEBEB] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#EBE8E2] pb-4">
           <div>
-            <h2 className="font-serif text-2xl text-[#222222]">Property SEO Editor</h2>
-            <p className="text-xs text-[#717171]">
+            <h2 className="font-serif text-2xl text-[#18181A] font-normal">Property SEO Editor</h2>
+            <p className="text-xs text-[#717171] font-light">
               Select any of the 4 managed properties to inspect and modify real-time SEO metadata
             </p>
           </div>
-          <span className="text-[11px] text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full font-semibold border border-emerald-200 self-start sm:self-auto">
+          <span className="text-[10px] text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full font-semibold border border-emerald-200 self-start sm:self-auto uppercase tracking-wider">
             Live Google SERP Preview Active
           </span>
         </div>
@@ -79,44 +81,44 @@ export default function SeoManagerPage() {
 
       {/* Blog & Local SEO Content Pipeline */}
       <section className="space-y-6 pt-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBEBEB] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBE8E2] pb-4">
           <div>
-            <h2 className="font-serif text-2xl text-[#222222]">
+            <h2 className="font-serif text-2xl text-[#18181A] font-normal">
               Editorial Content & Targeted Keywords
             </h2>
-            <p className="text-xs text-[#717171]">
+            <p className="text-xs text-[#717171] font-light">
               Published high-converting articles generating organic short-stay and expat search traffic across Jabodetabek
             </p>
           </div>
           <Link
             href="/blog"
             target="_blank"
-            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#222222] hover:underline"
+            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#18181A] hover:text-[#C5A880] transition-colors"
           >
             <span>Open Public Blog</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
-        <div className="rounded-2xl border border-[#EBEBEB] bg-white overflow-hidden shadow-sm">
+        <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[#EBEBEB] bg-[#FAFAFA] text-[11px] font-bold uppercase tracking-wider text-[#717171]">
+              <tr className="border-b border-[#EBE8E2] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
                 <th className="py-4 px-6">Article Title & Target Area</th>
                 <th className="py-4 px-6">Category</th>
                 <th className="py-4 px-6">Target Keywords</th>
                 <th className="py-4 px-6">Index Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EBEBEB] text-xs">
+            <tbody className="divide-y divide-[#F4F3EE] text-xs">
               {BLOG_POSTS.map((post) => (
-                <tr key={post.id} className="hover:bg-[#FAFAFA]/70 transition-colors">
+                <tr key={post.id} className="hover:bg-[#FAFAF8]/90 transition-colors">
                   <td className="py-4 px-6">
-                    <p className="font-semibold text-[#222222] line-clamp-1">{post.title}</p>
-                    <p className="text-[11px] text-[#A69C8E] mt-0.5">/blog/{post.slug}</p>
+                    <p className="font-semibold text-[#18181A] line-clamp-1">{post.title}</p>
+                    <p className="text-[11px] text-[#C5A880] mt-0.5 font-mono">/blog/{post.slug}</p>
                   </td>
                   <td className="py-4 px-6">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-medium bg-[#F5F4F0] text-[#222222]">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-semibold bg-[#F4F3EE] text-[#18181A] border border-[#EBE8E2]">
                       {post.category}
                     </span>
                   </td>
@@ -125,7 +127,7 @@ export default function SeoManagerPage() {
                       {post.seoKeywords.slice(0, 2).map((kw) => (
                         <span
                           key={kw}
-                          className="px-2 py-0.5 rounded text-[10px] bg-blue-50 text-blue-700 font-mono"
+                          className="px-2 py-0.5 rounded-md text-[10px] bg-blue-50 text-blue-800 font-mono border border-blue-200/60"
                         >
                           {kw}
                         </span>
@@ -133,8 +135,8 @@ export default function SeoManagerPage() {
                     </div>
                   </td>
                   <td className="py-4 px-6">
-                    <span className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 font-medium">
-                      <CheckCircle2 className="h-3 w-3" />
+                    <span className="inline-flex items-center space-x-1 text-[11px] text-emerald-800 font-medium bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                       <span>Google Indexed</span>
                     </span>
                   </td>
@@ -146,47 +148,47 @@ export default function SeoManagerPage() {
       </section>
 
       {/* Pitching Guide Explainer for Clients */}
-      <section className="rounded-3xl border border-[#EBEBEB] bg-[#FAFAFA] p-8 sm:p-12 space-y-6">
+      <section className="rounded-3xl border border-[#EBE8E2] bg-[#FAFAF8] p-8 sm:p-12 space-y-6">
         <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#A69C8E]">
-            Client Pitching Framework
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C5A880]">
+            CLIENT PITCHING FRAMEWORK
           </span>
-          <h3 className="font-serif text-2xl sm:text-3xl text-[#222222] mt-2 mb-3">
+          <h3 className="font-serif text-2xl sm:text-3xl text-[#18181A] font-normal mt-2 mb-3">
             The KingHouse Formula: Transforming Properties into Guest Magnets
           </h3>
-          <p className="text-xs sm:text-sm text-[#717171] leading-relaxed">
-            Most property owners rely solely on default Airbnb traffic without optimization.
+          <p className="text-xs sm:text-sm text-[#717171] leading-relaxed font-light">
+            Most property owners rely solely on default Airbnb traffic without algorithmic optimization.
             KingHouse deploys a comprehensive 3-tier distribution strategy:
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-[#EBEBEB] space-y-2.5">
-            <div className="h-8 w-8 rounded-xl bg-[#222222] text-white flex items-center justify-center font-bold text-xs">
+          <div className="p-6 rounded-2xl bg-white border border-[#EBE8E2] space-y-2.5 shadow-xs">
+            <div className="h-8 w-8 rounded-xl bg-[#18181A] text-[#C5A880] flex items-center justify-center font-bold text-xs">
               1
             </div>
-            <h4 className="font-semibold text-sm text-[#222222]">Superhost Algorithm Engine</h4>
-            <p className="text-xs text-[#717171] leading-relaxed">
+            <h4 className="font-semibold text-sm text-[#18181A]">Superhost Algorithm Engine</h4>
+            <p className="text-xs text-[#717171] leading-relaxed font-light">
               Optimized response times under 15 minutes, editorial high-resolution photography, and 100% amenity completeness elevate listings to the top 10 search results.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-[#EBEBEB] space-y-2.5">
-            <div className="h-8 w-8 rounded-xl bg-[#222222] text-white flex items-center justify-center font-bold text-xs">
+          <div className="p-6 rounded-2xl bg-white border border-[#EBE8E2] space-y-2.5 shadow-xs">
+            <div className="h-8 w-8 rounded-xl bg-[#18181A] text-[#C5A880] flex items-center justify-center font-bold text-xs">
               2
             </div>
-            <h4 className="font-semibold text-sm text-[#222222]">Organic Google Ingestion</h4>
-            <p className="text-xs text-[#717171] leading-relaxed">
+            <h4 className="font-semibold text-sm text-[#18181A]">Organic Google Ingestion</h4>
+            <p className="text-xs text-[#717171] leading-relaxed font-light">
               Each property features ultra-fast landing pages with Schema.org JSON-LD structured data (VacationRental & FAQPage), indexed directly in local search results.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-[#EBEBEB] space-y-2.5">
-            <div className="h-8 w-8 rounded-xl bg-[#222222] text-white flex items-center justify-center font-bold text-xs">
+          <div className="p-6 rounded-2xl bg-white border border-[#EBE8E2] space-y-2.5 shadow-xs">
+            <div className="h-8 w-8 rounded-xl bg-[#18181A] text-[#C5A880] flex items-center justify-center font-bold text-xs">
               3
             </div>
-            <h4 className="font-semibold text-sm text-[#222222]">High-Yield Guest Targeting</h4>
-            <p className="text-xs text-[#717171] leading-relaxed">
+            <h4 className="font-semibold text-sm text-[#18181A]">High-Yield Guest Targeting</h4>
+            <p className="text-xs text-[#717171] leading-relaxed font-light">
               Editorial SEO targets corporate long-stays, expats, and family retreat keywords, resulting in higher revenue yields and respectful guests.
             </p>
           </div>
@@ -195,4 +197,5 @@ export default function SeoManagerPage() {
     </div>
   )
 }
+
 

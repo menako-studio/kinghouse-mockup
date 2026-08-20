@@ -14,6 +14,7 @@ import {
   Copy,
   Check,
   Layers,
+  Sparkles,
   Radio,
 } from "lucide-react"
 import { ADMIN_CREDENTIALS } from "@/lib/auth"
@@ -50,18 +51,18 @@ export default function DashboardSettingsPage() {
   }
 
   return (
-    <div className="space-y-8 max-w-5xl">
+    <div className="space-y-8 max-w-5xl animate-sana-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBEBEB] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBE8E2] pb-6">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#A69C8E] mb-2">
-            <Settings className="h-3.5 w-3.5" />
-            <span>Configuration & Security</span>
+          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#18181A] bg-[#F4F3EE] px-3 py-1 rounded-full border border-[#EBE8E2] mb-3">
+            <Settings className="h-3.5 w-3.5 text-[#C5A880]" />
+            <span>CONFIGURATION & INFRASTRUCTURE</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#222222]">
+          <h1 className="font-serif text-3xl sm:text-4xl text-[#18181A] font-normal tracking-tight">
             Admin Profile & System Settings
           </h1>
-          <p className="text-sm text-[#717171] mt-1">
+          <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
             Manage your administrative credentials, multi-channel distribution API keys, and notification channels.
           </p>
         </div>
@@ -70,7 +71,7 @@ export default function DashboardSettingsPage() {
           type="button"
           onClick={handleLogout}
           disabled={isLoggingOut}
-          className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 text-xs font-semibold transition-colors disabled:opacity-50 self-start sm:self-auto cursor-pointer"
+          className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-2xl border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-semibold transition-all disabled:opacity-50 self-start sm:self-auto cursor-pointer shadow-xs"
         >
           <LogOut className="h-4 w-4" />
           <span>{isLoggingOut ? "Signing Out..." : "Sign Out of CMS"}</span>
@@ -78,27 +79,27 @@ export default function DashboardSettingsPage() {
       </div>
 
       {saveSuccess && (
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2 animate-in fade-in">
+        <div className="p-4 rounded-3xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2 animate-sana-fade-in shadow-xs">
           <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0" />
           <span>Settings successfully saved and synced across CMS infrastructure.</span>
         </div>
       )}
 
       {/* Admin Profile Details */}
-      <div className="rounded-3xl border border-[#EBEBEB] bg-white p-6 sm:p-8 shadow-sm space-y-6">
-        <div className="flex items-center space-x-3 pb-4 border-b border-[#EBEBEB]">
-          <div className="h-12 w-12 rounded-2xl bg-[#111111] text-[#A69C8E] flex items-center justify-center font-bold text-sm">
+      <div className="rounded-3xl border border-[#EBE8E2] bg-white p-6 sm:p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-6">
+        <div className="flex items-center space-x-3.5 pb-4 border-b border-[#F4F3EE]">
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-[#0B0A0E] to-[#25222D] text-[#C5A880] flex items-center justify-center font-bold text-sm shadow-sm ring-2 ring-[#C5A880]/20">
             KH
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h3 className="font-serif text-xl text-[#222222]">{ADMIN_CREDENTIALS.name}</h3>
-              <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+              <h3 className="font-serif text-xl text-[#18181A] font-normal">{ADMIN_CREDENTIALS.name}</h3>
+              <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                 <ShieldCheck className="h-3 w-3 text-emerald-600" />
                 <span>Super Admin</span>
               </span>
             </div>
-            <p className="text-xs text-[#717171] font-mono">{ADMIN_CREDENTIALS.email}</p>
+            <p className="text-xs text-[#717171] font-mono mt-0.5">{ADMIN_CREDENTIALS.email}</p>
           </div>
         </div>
 
@@ -111,7 +112,7 @@ export default function DashboardSettingsPage() {
               <input
                 type="text"
                 defaultValue={ADMIN_CREDENTIALS.name}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#EBEBEB] text-xs font-medium text-[#222222] focus:outline-none focus:border-[#222222]"
+                className="w-full px-4 py-2.5 rounded-2xl border border-[#EBE8E2] text-xs font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/15 bg-[#F8F7F4]/50 transition-all"
               />
             </div>
 
@@ -122,7 +123,7 @@ export default function DashboardSettingsPage() {
               <input
                 type="email"
                 defaultValue={ADMIN_CREDENTIALS.email}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#EBEBEB] text-xs font-mono text-[#222222] focus:outline-none focus:border-[#222222]"
+                className="w-full px-4 py-2.5 rounded-2xl border border-[#EBE8E2] text-xs font-mono text-[#18181A] focus:outline-none focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/15 bg-[#F8F7F4]/50 transition-all"
               />
             </div>
           </div>
@@ -130,7 +131,7 @@ export default function DashboardSettingsPage() {
           <div className="pt-2 flex justify-end">
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl bg-[#222222] text-white text-xs font-semibold hover:bg-[#333333] transition-colors cursor-pointer"
+              className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
             >
               Save Profile Changes
             </button>
@@ -139,38 +140,42 @@ export default function DashboardSettingsPage() {
       </div>
 
       {/* Security & Authentication Protocol */}
-      <div className="rounded-3xl border border-[#EBEBEB] bg-white p-6 sm:p-8 shadow-sm space-y-6">
-        <div className="flex items-center space-x-2">
-          <Lock className="h-4 w-4 text-[#A69C8E]" />
-          <h3 className="font-serif text-xl text-[#222222]">Security & Authentication</h3>
+      <div className="rounded-3xl border border-[#EBE8E2] bg-white p-6 sm:p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-6">
+        <div className="flex items-center space-x-2.5">
+          <div className="h-7 w-7 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A] border border-[#EBE8E2]">
+            <Lock className="h-3.5 w-3.5 text-[#C5A880]" />
+          </div>
+          <h3 className="font-serif text-xl text-[#18181A] font-normal">Security & Authentication</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div className="p-4 rounded-2xl bg-[#FAFAFA] border border-[#EBEBEB] space-y-1">
+          <div className="p-5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] space-y-1.5">
             <span className="text-[10px] uppercase font-bold text-[#717171]">Session Architecture</span>
-            <p className="font-semibold text-[#222222]">HMAC-SHA256 Signed JWT</p>
-            <p className="text-[11px] text-[#717171]">HttpOnly, SameSite Strict, 7-Day Expiry</p>
+            <p className="font-semibold text-[#18181A]">HMAC-SHA256 Signed JWT</p>
+            <p className="text-[11px] text-[#717171]">HttpOnly, SameSite Lax, 7-Day Expiry</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#FAFAFA] border border-[#EBEBEB] space-y-1">
+          <div className="p-5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] space-y-1.5">
             <span className="text-[10px] uppercase font-bold text-[#717171]">Two-Factor Authorization</span>
             <p className="font-semibold text-emerald-700">Enforced by Role Token</p>
             <p className="text-[11px] text-[#717171]">Required for price adjustments & OTA sync</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#FAFAFA] border border-[#EBEBEB] space-y-1">
+          <div className="p-5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] space-y-1.5">
             <span className="text-[10px] uppercase font-bold text-[#717171]">Edge Protection</span>
-            <p className="font-semibold text-[#222222]">Next.js Edge Proxy Verified</p>
+            <p className="font-semibold text-[#18181A]">Next.js Edge Proxy Verified</p>
             <p className="text-[11px] text-[#717171]">Auto-redirect unauthorized visitors</p>
           </div>
         </div>
       </div>
 
       {/* Multi-Channel Distribution API & iCal */}
-      <div className="rounded-3xl border border-[#EBEBEB] bg-white p-6 sm:p-8 shadow-sm space-y-6">
-        <div className="flex items-center space-x-2">
-          <Layers className="h-4 w-4 text-[#A69C8E]" />
-          <h3 className="font-serif text-xl text-[#222222]">OTA Multi-Channel Integration</h3>
+      <div className="rounded-3xl border border-[#EBE8E2] bg-white p-6 sm:p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-6">
+        <div className="flex items-center space-x-2.5">
+          <div className="h-7 w-7 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A] border border-[#EBE8E2]">
+            <Layers className="h-3.5 w-3.5 text-[#C5A880]" />
+          </div>
+          <h3 className="font-serif text-xl text-[#18181A] font-normal">OTA Multi-Channel Integration</h3>
         </div>
 
         <div className="space-y-4">
@@ -183,12 +188,12 @@ export default function DashboardSettingsPage() {
                 type="text"
                 readOnly
                 value="https://kinghouse.id/api/ical/sync/jabodetabek-master.ics"
-                className="flex-1 px-4 py-2.5 rounded-xl bg-[#FAFAFA] border border-[#EBEBEB] text-xs font-mono text-[#555555] focus:outline-none"
+                className="flex-1 px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] text-xs font-mono text-[#555555] focus:outline-none"
               />
               <button
                 type="button"
                 onClick={handleCopyIcal}
-                className="px-4 py-2.5 rounded-xl border border-[#EBEBEB] hover:border-[#222222] text-xs font-semibold text-[#222222] transition-colors flex items-center space-x-1.5 cursor-pointer"
+                className="px-4 py-2.5 rounded-2xl border border-[#EBE8E2] hover:border-[#18181A] bg-white hover:bg-[#F8F7F4] text-xs font-semibold text-[#18181A] transition-all flex items-center space-x-1.5 cursor-pointer shadow-xs"
               >
                 {copied ? (
                   <>
@@ -203,7 +208,7 @@ export default function DashboardSettingsPage() {
                 )}
               </button>
             </div>
-            <p className="text-[11px] text-[#717171] mt-1.5">
+            <p className="text-[11px] text-[#717171] mt-1.5 font-light">
               Import this URL into Airbnb, Booking.com, and Agoda to synchronize availability in real-time.
             </p>
           </div>
@@ -212,3 +217,4 @@ export default function DashboardSettingsPage() {
     </div>
   )
 }
+
