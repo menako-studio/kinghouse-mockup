@@ -29,16 +29,35 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const villa = CURATED_VILLAS.find((v) => v.slug === resolvedParams.slug)
 
   if (!villa) {
-    return { title: "Villa Not Found | KingHouse" }
+    return { title: "Properti Tidak Ditemukan | KingHouse" }
   }
 
+  const title = villa.seoMeta?.metaTitle ?? `${villa.name} — ${villa.area} | KingHouse`
+  const description =
+    villa.seoMeta?.metaDescription ??
+    `${villa.editorialDescription.lead} Dikelola oleh KingHouse di Airbnb.`
+  const image = villa.seoMeta?.ogImage ?? villa.heroImage
+  const canonicalUrl = `/locations/${villa.areaSlug}/villas/${villa.slug}`
+
   return {
-    title: `${villa.name} — Luxury Villa in ${villa.area} | KingHouse`,
-    description: `${villa.editorialDescription.lead} Book on Airbnb with KingHouse Superhost management.`,
+    title,
+    description,
+    keywords: villa.seoMeta
+      ? [villa.seoMeta.focusKeyword, villa.area, "airbnb", "KingHouse", "sewa properti"]
+      : undefined,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${villa.name} — ${villa.tagline}`,
-      description: villa.editorialDescription.lead,
-      images: [{ url: villa.heroImage, width: 1200, height: 800, alt: villa.name }],
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      images: [{ url: image, width: 1200, height: 800, alt: villa.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
     },
   }
 }
@@ -51,10 +70,71 @@ export default async function VillaDetailPage({ params }: PageProps) {
     notFound()
   }
 
+  // BreadcrumbList JSON-LD
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://kinghouse.id" },
+      { "@type": "ListItem", position: 2, name: "Properti", item: "https://kinghouse.id/villas" },
+      { "@type": "ListItem", position: 3, name: villa.area, item: `https://kinghouse.id/locations/${villa.areaSlug}` },
+      { "@type": "ListItem", position: 4, name: villa.name, item: `https://kinghouse.id/locations/${villa.areaSlug}/villas/${villa.slug}` },
+    ],
+  }
+
+  // FAQ JSON-LD
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `Berapa kapasitas maksimal tamu di ${villa.name}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Properti ini menampung maksimal ${villa.capacity.guests} tamu dengan ${villa.capacity.bedrooms} kamar tidur, ${villa.capacity.beds} tempat tidur, dan ${villa.capacity.bathrooms} kamar mandi.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Bagaimana cara memesan properti ini?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Properti ini tersedia untuk dipesan melalui Airbnb di ${villa.airbnbUrl}. Anda juga dapat menghubungi KingHouse langsung melalui WhatsApp untuk informasi lebih lanjut.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `Di mana lokasi ${villa.name}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Properti berlokasi di ${villa.location}. ${villa.nearbySpots[0] ? `Jarak ke ${villa.nearbySpots[0].name} sekitar ${villa.nearbySpots[0].distance} (${villa.nearbySpots[0].travelTime}).` : ""}`,
+        },
+      },
+    ],
+  }
+
+  const PROPERTY_TYPE_LABELS: Record<string, string> = {
+    "entire-home": "Seluruh Rumah",
+    "private-room": "Kamar Privat",
+    "entire-apartment": "Seluruh Apartemen",
+    "villa": "Villa Privat",
+  }
+
   return (
     <main className="min-h-screen bg-white pb-24">
-      {/* SEO VacationRental JSON-LD Schema */}
+      {/* SEO Schemas */}
       <SchemaMarkup villa={villa} />
+      <script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-12 pt-6">
         {/* Breadcrumb Navigation */}
@@ -79,11 +159,19 @@ export default async function VillaDetailPage({ params }: PageProps) {
 
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-[#222222]">
             {/* Rating & Reviews */}
-            <div className="flex items-center space-x-1 font-semibold">
-              <Star className="h-4 w-4 fill-[#222222] text-[#222222]" />
-              <span>{villa.rating.toFixed(2)}</span>
-              <span className="text-[#717171] font-normal">({villa.reviewsCount} reviews)</span>
-            </div>
+            {villa.rating > 0 && (
+              <div className="flex items-center space-x-1 font-semibold">
+                <Star className="h-4 w-4 fill-[#222222] text-[#222222]" />
+                <span>{villa.rating.toFixed(2)}</span>
+                <span className="text-[#717171] font-normal">({villa.reviewsCount} ulasan)</span>
+              </div>
+            )}
+            {villa.rating === 0 && (
+              <div className="flex items-center space-x-1 text-[#A69C8E]">
+                <Sparkles className="h-3.5 w-3.5" />
+                <span className="text-xs">Listing Baru</span>
+              </div>
+            )}
 
             <span>&bull;</span>
 
@@ -118,7 +206,7 @@ export default async function VillaDetailPage({ params }: PageProps) {
             <div className="flex items-center justify-between pb-8 border-b border-[#EBEBEB]">
               <div className="space-y-1">
                 <h2 className="font-serif text-2xl text-[#222222]">
-                  Entire Architectural Villa Managed by KingHouse
+                  {PROPERTY_TYPE_LABELS[villa.propertyType] ?? "Properti"} — Dikelola oleh KingHouse
                 </h2>
                 <div className="flex items-center space-x-4 text-xs sm:text-sm text-[#717171]">
                   <span>{villa.capacity.guests} Guests</span>
