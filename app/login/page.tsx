@@ -3,7 +3,20 @@
 import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { Lock, Mail, Eye, EyeOff, ShieldCheck, ArrowRight, Loader2, KeyRound, CheckCircle2, AlertCircle } from "lucide-react"
+import {
+  Lock,
+  Mail,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  ArrowRight,
+  Loader2,
+  Sparkles,
+  KeyRound,
+  CheckCircle2,
+  AlertCircle,
+  Fingerprint,
+} from "lucide-react"
 import { ADMIN_CREDENTIALS } from "@/lib/auth"
 
 function LoginForm() {
@@ -47,104 +60,113 @@ function LoginForm() {
       const data = await res.json()
 
       if (!res.ok) {
-        setErrorMessage(data.error || "Authentication failed. Invalid credentials.")
+        setErrorMessage(data.error || "Authentication failed. Invalid administrative credentials.")
         setIsLoading(false)
         return
       }
 
-      setSuccessMessage("Authentication verified. Redirecting to CMS Dashboard...")
-      
-      // Short delay for fluid UI feedback before redirecting
+      setSuccessMessage("Identity verified. Initializing KingHouse CMS Suite...")
+
       setTimeout(() => {
         router.push(callbackUrl)
         router.refresh()
-      }, 500)
+      }, 600)
     } catch {
-      setErrorMessage("Network error occurred during sign-in. Please try again.")
+      setErrorMessage("Network error during authorization. Please verify connection and retry.")
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-[#0E0E0E] text-white flex flex-col justify-between selection:bg-[#A69C8E] selection:text-[#111111]">
+    <div className="relative min-h-screen bg-[#0A090D] text-white flex flex-col justify-between overflow-hidden selection:bg-[#C5A880] selection:text-[#0A090D]">
+      {/* Sana-style Multi-Layered Ambient Light Orbs */}
+      <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#FF3B70]/15 via-[#381023]/25 to-transparent blur-[120px] pointer-events-none animate-sana-glow" />
+      <div className="absolute bottom-[-15%] right-[15%] w-[600px] h-[600px] rounded-full bg-gradient-to-tl from-[#C5A880]/15 via-[#2D1B0F]/20 to-transparent blur-[140px] pointer-events-none animate-sana-float" />
+      <div className="absolute top-[40%] right-[-5%] w-[350px] h-[350px] rounded-full bg-purple-900/10 blur-[100px] pointer-events-none" />
+
+      {/* Subtle Grid / Grain Overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
+
       {/* Top Bar Navigation */}
-      <header className="px-6 py-6 lg:px-12 flex items-center justify-between border-b border-white/5">
-        <Link href="/" className="group flex items-center space-x-3">
-          <div className="flex h-9 w-9 items-center justify-center border border-white/20 bg-[#1A1A1A] text-[#A69C8E] transition-all duration-300 group-hover:border-[#A69C8E] group-hover:bg-[#A69C8E] group-hover:text-[#111111]">
-            <span className="font-serif text-lg font-normal tracking-wider">K</span>
+      <header className="relative z-10 px-6 py-6 sm:px-12 flex items-center justify-between border-b border-white/[0.06] backdrop-blur-md">
+        <Link href="/" className="group flex items-center space-x-3.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-gradient-to-br from-white/10 to-white/[0.02] text-[#C5A880] transition-all duration-300 group-hover:scale-105 group-hover:border-[#C5A880]/60 shadow-[0_0_20px_rgba(197,168,128,0.15)]">
+            <span className="font-serif text-lg font-normal">K</span>
           </div>
           <div className="flex flex-col">
-            <span className="font-serif text-lg tracking-tight text-white">
+            <span className="font-serif text-lg tracking-tight text-white group-hover:text-[#C5A880] transition-colors">
               KingHouse
             </span>
-            <span className="text-[8px] uppercase tracking-[0.25em] text-[#888888] -mt-1 font-medium">
-              Hospitality Suite
+            <span className="text-[8px] uppercase tracking-[0.25em] text-white/50 -mt-1 font-medium">
+              Hospitality Portal
             </span>
           </div>
         </Link>
 
         <Link
           href="/"
-          className="text-xs uppercase tracking-widest text-[#888888] hover:text-[#A69C8E] transition-colors flex items-center space-x-1.5"
+          className="text-xs uppercase tracking-widest text-white/60 hover:text-white transition-all flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-white/10 hover:border-white/25 bg-white/[0.02] hover:bg-white/[0.06]"
         >
-          <span>Back to Public Website</span>
-          <ArrowRight className="h-3 w-3" />
+          <span>Exit to Public Site</span>
+          <ArrowRight className="h-3 w-3 text-[#C5A880]" />
         </Link>
       </header>
 
-      {/* Main Authentication Card */}
-      <main className="flex-1 flex items-center justify-center p-6 sm:p-8">
-        <div className="w-full max-w-md">
-          {/* Card Frame */}
-          <div className="bg-[#141414] border border-white/10 rounded-2xl p-8 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-            {/* Subtle Gradient Glow Accent */}
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#A69C8E]/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#A69C8E]/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Main Authentication Section */}
+      <main className="relative z-10 flex-1 flex items-center justify-center p-6 sm:p-10 my-4">
+        <div className="w-full max-w-md animate-sana-fade-in">
+          {/* Card Container */}
+          <div className="sana-glass-dark rounded-3xl p-8 sm:p-10 relative overflow-hidden border border-white/[0.12] shadow-[0_30px_90px_rgba(0,0,0,0.7)]">
+            {/* Top Shimmer Border Highlight */}
+            <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/50 to-transparent" />
 
-            {/* Header Badge */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#1F1F1F] border border-white/10 text-[11px] font-medium tracking-wide text-[#A69C8E]">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#A69C8E]" />
-                <span>Admin Security Protocol</span>
+            {/* Sana Summer-2026 Header Capsule */}
+            <div className="flex items-center justify-between mb-7">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#FF3B70]/15 to-[#C5A880]/15 border border-white/10 text-[10px] font-semibold tracking-wider text-white/90">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF3B70] animate-ping" />
+                <span className="bg-gradient-to-r from-white via-white to-[#C5A880] bg-clip-text text-transparent">
+                  SUMMER 2026 PROTOCOL
+                </span>
               </div>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-[#555555]">
-                256-Bit SSL
-              </span>
+              <div className="flex items-center space-x-1.5 text-[10px] uppercase font-mono tracking-widest text-white/40">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                <span>256-Bit SSL</span>
+              </div>
             </div>
 
-            {/* Title & Description */}
-            <div className="mb-8">
-              <h1 className="font-serif text-2xl sm:text-3xl text-white font-normal tracking-tight">
+            {/* Title & Editorial Description */}
+            <div className="mb-8 space-y-2">
+              <h1 className="font-serif text-3xl sm:text-4xl text-white font-normal tracking-tight">
                 CMS Portal Access
               </h1>
-              <p className="text-xs text-[#888888] mt-2 leading-relaxed font-sans">
-                Enter your administrative credentials to manage KingHouse properties, SEO algorithms, and multi-channel booking distribution.
+              <p className="text-xs text-white/60 leading-relaxed font-sans font-light">
+                Secure administrative console for Jabodetabek property distribution, dynamic revenue calibration, and SEO algorithms.
               </p>
             </div>
 
-            {/* Feedback Alerts */}
+            {/* Alert Notifications */}
             {errorMessage && (
-              <div className="mb-6 p-3.5 rounded-xl bg-red-950/40 border border-red-500/30 flex items-start space-x-3 text-red-300 text-xs animate-in fade-in duration-200">
+              <div className="mb-6 p-4 rounded-2xl bg-red-950/40 border border-red-500/30 flex items-start space-x-3 text-red-200 text-xs backdrop-blur-md animate-sana-fade-in">
                 <AlertCircle className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{errorMessage}</span>
               </div>
             )}
 
             {successMessage && (
-              <div className="mb-6 p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-start space-x-3 text-emerald-300 text-xs animate-in fade-in duration-200">
+              <div className="mb-6 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 flex items-start space-x-3 text-emerald-200 text-xs backdrop-blur-md animate-sana-fade-in">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{successMessage}</span>
               </div>
             )}
 
-            {/* Login Form */}
+            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#AAAAAA] mb-2">
-                  Admin Email
+                <label className="block text-[11px] uppercase tracking-wider font-semibold text-white/70 mb-2">
+                  Administrative Email
                 </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#666666]">
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#C5A880] transition-colors">
                     <Mail className="h-4 w-4" />
                   </div>
                   <input
@@ -152,21 +174,21 @@ function LoginForm() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@kinghouse.id"
-                    className="w-full pl-10 pr-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-xl text-sm text-white placeholder-[#555555] focus:outline-none focus:border-[#A69C8E] focus:ring-1 focus:ring-[#A69C8E] transition-all"
+                    placeholder="ptkreasiusmangosse@gmail.com"
+                    className="w-full pl-10 pr-4 py-3 bg-white/[0.04] border border-white/10 rounded-2xl text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 transition-all font-sans"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#AAAAAA]">
-                    Password
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-white/70">
+                    Master Password
                   </label>
-                  <span className="text-[10px] text-[#777777]">Protected Credentials</span>
+                  <span className="text-[10px] text-white/40">Encrypted Token</span>
                 </div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#666666]">
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#C5A880] transition-colors">
                     <Lock className="h-4 w-4" />
                   </div>
                   <input
@@ -175,12 +197,12 @@ function LoginForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••••••"
-                    className="w-full pl-10 pr-11 py-3 bg-[#1A1A1A] border border-white/10 rounded-xl text-sm text-white placeholder-[#555555] focus:outline-none focus:border-[#A69C8E] focus:ring-1 focus:ring-[#A69C8E] transition-all"
+                    className="w-full pl-10 pr-11 py-3 bg-white/[0.04] border border-white/10 rounded-2xl text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#C5A880] focus:ring-2 focus:ring-[#C5A880]/20 transition-all font-sans"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#666666] hover:text-white transition-colors"
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-white/40 hover:text-white transition-colors cursor-pointer"
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -193,75 +215,79 @@ function LoginForm() {
 
               {/* Remember Me */}
               <div className="flex items-center justify-between pt-1">
-                <label className="flex items-center space-x-2.5 cursor-pointer text-xs text-[#888888] hover:text-white transition-colors">
+                <label className="flex items-center space-x-2.5 cursor-pointer text-xs text-white/60 hover:text-white transition-colors select-none">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 rounded border-white/20 bg-[#1A1A1A] text-[#A69C8E] focus:ring-0 focus:ring-offset-0 accent-[#A69C8E]"
+                    className="h-4 w-4 rounded-md border-white/20 bg-white/5 text-[#C5A880] focus:ring-0 focus:ring-offset-0 accent-[#C5A880]"
                   />
-                  <span>Remember administrative session</span>
+                  <span>Persist session for 7 days</span>
                 </label>
               </div>
 
-              {/* Submit Button */}
+              {/* Submit CTA Button */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 px-6 rounded-xl bg-[#A69C8E] text-[#111111] font-semibold text-sm hover:bg-[#BDB3A6] transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-[#A69C8E]/10 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="relative group w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#C5A880] to-[#DFDAD2] text-[#0A090D] font-semibold text-sm hover:brightness-110 active:scale-[0.99] transition-all duration-200 flex items-center justify-center space-x-2 shadow-[0_10px_30px_rgba(197,168,128,0.25)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
               >
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                 {isLoading ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>Verifying Credentials...</span>
+                    <Loader2 className="h-4 w-4 animate-spin text-[#0A090D]" />
+                    <span>Verifying Session...</span>
                   </>
                 ) : (
                   <>
-                    <span>Sign In to CMS</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <span>Authenticate to Dashboard</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                   </>
                 )}
               </button>
             </form>
 
             {/* Quick Demo Helper Section */}
-            <div className="mt-8 pt-6 border-t border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] uppercase tracking-wider text-[#777777] font-semibold flex items-center space-x-1.5">
-                  <KeyRound className="h-3 w-3 text-[#A69C8E]" />
-                  <span>Demo Evaluation Access</span>
+            <div className="mt-8 pt-6 border-t border-white/[0.08]">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] uppercase tracking-wider text-white/50 font-semibold flex items-center space-x-1.5">
+                  <KeyRound className="h-3 w-3 text-[#C5A880]" />
+                  <span>Evaluation Credentials</span>
                 </span>
                 <button
                   type="button"
                   onClick={handleFillDemo}
-                  className="text-[11px] font-semibold text-[#A69C8E] hover:underline cursor-pointer"
+                  className="inline-flex items-center space-x-1 text-[11px] font-semibold text-[#C5A880] hover:text-white transition-colors bg-[#C5A880]/10 hover:bg-[#C5A880]/20 px-2.5 py-1 rounded-full cursor-pointer border border-[#C5A880]/30"
                 >
-                  Auto-Fill Credentials
+                  <Sparkles className="h-3 w-3" />
+                  <span>Auto-Fill</span>
                 </button>
               </div>
-              <div className="p-3 bg-[#1A1A1A] rounded-xl border border-white/5 text-[11px] font-mono text-[#888888] space-y-1">
-                <div className="flex justify-between">
-                  <span className="text-[#555555]">Email:</span>
-                  <span className="text-white/90">admin@kinghouse.id</span>
+
+              <div className="p-3.5 bg-white/[0.03] rounded-2xl border border-white/[0.06] text-[11px] font-mono text-white/70 space-y-1.5 backdrop-blur-sm">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/40">Email:</span>
+                  <span className="text-white/90">{ADMIN_CREDENTIALS.email}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[#555555]">Password:</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/40">Password:</span>
                   <span className="text-white/90">KingHouse2026!Admin</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Footer Security Note */}
-          <div className="mt-6 text-center text-[11px] text-[#555555]">
-            <span>Unauthorized access attempts are monitored and logged. &copy; 2026 KingHouse Hospitality.</span>
+          {/* Footer Security Badge */}
+          <div className="mt-6 flex items-center justify-center space-x-2 text-[11px] text-white/40 text-center">
+            <Fingerprint className="h-3.5 w-3.5 text-[#C5A880]/80" />
+            <span>KingHouse Hospitality Group &bull; Secure HMAC-SHA256 Token Auth</span>
           </div>
         </div>
       </main>
 
       {/* Page Footer */}
-      <footer className="px-6 py-4 text-center text-xs text-[#444444] border-t border-white/5">
-        <span>KingHouse Property Management &bull; Jabodetabek Portfolio CMS</span>
+      <footer className="relative z-10 px-6 py-4 text-center text-xs text-white/40 border-t border-white/[0.06] backdrop-blur-md">
+        <span>KingHouse Asset Management Suite &bull; Greater Jakarta Region (Jabodetabek)</span>
       </footer>
     </div>
   )
@@ -269,15 +295,18 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#0E0E0E] flex items-center justify-center text-white">
-        <div className="flex items-center space-x-3 text-[#A69C8E]">
-          <Loader2 className="h-6 w-6 animate-spin" />
-          <span className="text-sm font-medium">Loading KingHouse Security Portal...</span>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#0A090D] flex items-center justify-center text-white">
+          <div className="flex items-center space-x-3 text-[#C5A880]">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span className="text-sm font-medium">Loading KingHouse Portal...</span>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <LoginForm />
     </Suspense>
   )
 }
+
