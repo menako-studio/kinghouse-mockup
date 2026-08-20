@@ -29,12 +29,17 @@ An editorial-grade property management, SEO CMS, and dual-audience booking platf
   - HttpOnly, SameSite=Lax, Secure session cookie (`kinghouse_admin_session`, 7-day max-age).
   - Editorial Dark Login Portal (`/login`) with demo autofill helper.
   - Defense-in-depth Server Component session check in `app/dashboard/layout.tsx`.
-- **Interactive SEO CMS Dashboard (`/dashboard/seo`)**:
-  - Per-property Meta Title & Description editor with real-time character count limits.
-  - Live Google Desktop SERP Preview & OpenGraph card preview.
-  - Live SEO Health Score checklist.
-  - Explainer framework for pitching prospective property owners on how KingHouse drives +280% Airbnb search impressions.
-- **Multi-Channel OTA Sync Prototype**: Real-time connection indicators for Airbnb, Booking.com, Agoda, and Direct WhatsApp booking.
+- **Decoupled Layout & Independent Navigation (`SiteShell` & `DashboardHeader`)**:
+  - `SiteShell` ensures public Header and Footer do not overlap or collide with administrative CMS routes.
+  - `DashboardHeader` features dynamic breadcrumbs, live Airbnb iCal sync status, interactive System Alerts drawer, and Admin Profile Modal.
+- **Complete CMS Management Suite**:
+  - **Overview (`/dashboard`)**: Multi-channel OTA status, occupancy KPIs, and quick shortcuts.
+  - **Properties (`/dashboard/properties`)**: Portfolio inventory and unit controls.
+  - **SEO Manager (`/dashboard/seo`)**: Interactive per-property Meta Title & Description editor, real-time SERP preview, and SEO health checklist.
+  - **Blog Manager (`/dashboard/blog`)**: Editorial CMS article repository with Google SEO quality score audit and publication controls.
+  - **Bookings Hub (`/dashboard/bookings`)**: Multi-channel reservation table and active iCal calendar sync indicators.
+  - **Revenue Analytics (`/dashboard/analytics`)**: Financial yield intelligence (ADR, RevPAR, Occupancy rate) and sub-area performance breakdown.
+  - **Settings & Profile (`/dashboard/settings`)**: Admin profile credentials, session security inspect, and master iCal calendar feed exporter.
 - **Dual Management Tiers**: Transparent comparison between **Exclusive Marketing (15%)** and **Full Asset Management (20%)**.
 - **Audited Performance Metrics**: Real before/after case studies displaying occupancy rate lifts (28% → 82%) and revenue growth.
 - **Property Audit Request Flow**: Interactive multi-step form with direct WhatsApp dispatch.
@@ -126,22 +131,27 @@ kinghouse-mockup/
 │   ├── api/auth/                     # Auth REST API handlers (login, logout, me)
 │   ├── blog/                         # Blog index & dynamic [slug] article pages
 │   ├── dashboard/                    # Protected CMS & SEO pitch dashboard
+│   │   ├── analytics/                # Financial intelligence (ADR, RevPAR, Occupancy)
+│   │   ├── blog/                     # CMS blog post editor & SEO content scores
+│   │   ├── bookings/                 # iCal synchronization hub & reservation ledger
 │   │   ├── properties/               # Property portfolio management view
-│   │   └── seo/                      # Interactive SEO editor & SERP preview
+│   │   ├── seo/                      # Interactive SEO editor & SERP preview
+│   │   ├── settings/                 # Admin profile, session security & iCal export
+│   │   └── layout.tsx                # Dashboard layout with top bar & dark sidebar
 │   ├── events/                       # Garden wedding & event package pages
 │   ├── locations/[area]/             # Local SEO landing pages (Jagakarsa, Cikarang, etc.)
 │   │   └── villas/[slug]/            # Villa detail page with Bento gallery & schema
 │   ├── login/                        # Editorial Admin Login Portal
 │   ├── owner-services/               # Management tiers, ROI metrics & audit form
 │   ├── villas/                       # Catalog directory with filterable areas
-│   ├── layout.tsx                    # Root shell with Header, Footer, and JSON-LD
+│   ├── layout.tsx                    # Root shell with SiteShell & Organization JSON-LD
 │   └── page.tsx                      # Dual-path high-conversion homepage
 ├── components/
 │   ├── bento/                        # Bento gallery & fullscreen lightbox modal
 │   ├── blog/                         # Editorial blog card & layout components
-│   ├── dashboard/                    # Sidebar, stat cards, channel badges, SEO editor
+│   ├── dashboard/                    # Sidebar, dashboard-header, stat cards, SEO editor
 │   ├── home/                         # Hero slider, search bar, trust proof
-│   ├── layout/                       # Header navigation & editorial footer
+│   ├── layout/                       # Header navigation, footer & SiteShell layout isolation
 │   ├── owner/                        # Tiered pricing, metrics & lead audit form
 │   ├── ui/                           # Radix/CVA UI primitives (button, badge, input)
 │   └── villas/                       # Amenities, booking sidebar, map, villa cards
@@ -169,8 +179,12 @@ kinghouse-mockup/
 - `/events` — Events & Garden Wedding Overview
 - `/events/[slug]` — Individual Event Package with package selection and WhatsApp ordering
 - `/dashboard` — Multi-Channel Overview KPI Dashboard (Protected)
-- `/dashboard/seo` — Interactive SEO Manager & Live Google SERP Preview (Protected)
 - `/dashboard/properties` — Property Portfolio Management View (Protected)
+- `/dashboard/seo` — Interactive SEO Manager & Live Google SERP Preview (Protected)
+- `/dashboard/blog` — Editorial Content Manager & SEO Quality Score (Protected)
+- `/dashboard/bookings` — Distribution Calendar & Airbnb iCal Sync (Protected)
+- `/dashboard/analytics` — Revenue, RevPAR & Occupancy Intelligence (Protected)
+- `/dashboard/settings` — Admin Profile, Session Security & API Config (Protected)
 - `/owner-services` — Property Management Tiers (15% vs 20%), Audit Request Form & Case Studies
 - `/about` — Heritage, Operational Footprint & Leadership Team
 - `/contact` — Direct Inquiry & WhatsApp Concierge Desk

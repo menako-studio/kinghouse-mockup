@@ -147,6 +147,25 @@ Represents a managed property in Jabodetabek:
 - [x] **Universal English Localization**:
   - 100% consistent editorial English across all pages: Home, Properties (`/villas`, `/villas/[slug]`), Area Landing Pages (`/locations/[area]`), Events (`/events`, `/events/[slug]`), Blog (`/blog`, `/blog/[slug]`), Owner Services (`/owner-services`), About, Contact, and CMS Dashboard (`/dashboard`, `/dashboard/properties`, `/dashboard/seo`).
 
+### Phase 1.7 — CMS Dashboard Suite, Layout Decoupling & Navigation Isolation (Completed)
+- [x] **Public & CMS Layout Decoupling (`components/layout/site-shell.tsx`)**:
+  - Encapsulates public `Header` and `Footer` in `SiteShell` client component in `app/layout.tsx`.
+  - Automatically isolates `/dashboard/*` and `/login` from public navigation headers/footers to eliminate layout collisions and overlapping navigation bars.
+  - Replaced public CMS header link with subtle admin portal footer access link.
+- [x] **Dashboard Top Navigation Header (`components/dashboard/dashboard-header.tsx`)**:
+  - Route breadcrumbs with real-time suite location indicator.
+  - Real-time OTA synchronization pulse indicator (`4 Properties Synced • Airbnb iCal Live`).
+  - Interactive System Alerts & Notifications dropdown drawer with timestamps and alert categories.
+  - Admin Profile dropdown with verified role badge, SSL encryption status, and modal launcher.
+  - Admin Profile & Security modal with session token details, cookie policy, and quick navigation.
+- [x] **Full CMS Dashboard Sub-Pages**:
+  - `/dashboard/blog`: Editorial Content Manager with publication status badges, organic read counters, and Google SEO content scores.
+  - `/dashboard/bookings`: Real-time OTA distribution calendar, Airbnb iCal sync status, and confirmed reservations ledger.
+  - `/dashboard/analytics`: Financial intelligence hub featuring ADR, RevPAR (+22.8%), Occupancy rates (81.4%), and sub-area yield breakdown.
+  - `/dashboard/settings`: Administrative profile configuration, HMAC-SHA256 session security inspect, and master iCal feed export copy helper.
+- [x] **Polished Collapsible Sidebar (`components/dashboard/sidebar.tsx`)**:
+  - Compact sidebar navigation with active indicator bar, tooltips when collapsed, public website link, and admin profile card.
+
 ---
 
 ## 5. PHASE 2.0 ROADMAP (Future Scope)
