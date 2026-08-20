@@ -1,6 +1,6 @@
-# KingHouse - Luxury Villa Hospitality & Management Platform
+# KingHouse - Short-Stay Property Management & Hospitality Platform
 
-An editorial-grade, ultra-luxury villa management and dual-audience booking platform built with Next.js 16 (Turbopack, React 19), Tailwind CSS v4, TypeScript, and Framer Motion for Bali's premier destinations (Seminyak, Canggu, Uluwatu, Ubud, Sanur, Pererenan).
+An editorial-grade property management, SEO CMS, and dual-audience booking platform built with Next.js 16 (Turbopack, React 19), Tailwind CSS v4, TypeScript, and Framer Motion for Greater Jakarta & Jabodetabek (Jagakarsa, Tangerang, Palmerah, Cikarang Selatan).
 
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.0.7-black.svg)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.2.0-blue.svg)](https://react.dev/)
@@ -11,18 +11,34 @@ An editorial-grade, ultra-luxury villa management and dual-audience booking plat
 
 ## 🌟 Key Platform Features
 
-### 🌴 For Discerning Guests
-- **Architectural Bento Gallery**: Dynamic, responsive 5-photo bento grid showcasing exterior, living, pool, and master suites with category-filtered fullscreen Lightbox modal.
-- **Dynamic Split Pricing**: Dual-currency real-time calculation (USD/IDR), cleaning fees, and service breakdown in sticky booking widget.
-- **Location Proximity Maps**: Instant distance & travel times to beaches, beach clubs, gourmet dining, and Ngurah Rai International Airport.
-- **Rich Amenity Categorization**: Comprehensive filters for Essentials, Luxury & Wellness, Outdoor Living, and Dedicated Staffing.
-- **JSON-LD Schema Markup**: Integrated VacationRental structured data for maximum search engine rich snippets.
+### 🌴 For Discerning Guests & Travelers
+- **4 Real Curated Properties**: 
+  - *Versatile House With Beautiful Garden Beyond* (Jagakarsa, Jakarta Selatan — 12 guests, 5BR)
+  - *Sky House • Hotel-Style Bed + IKEA 5min* (Pinang, Tangerang — 2 guests, 1BR)
+  - *Bright & Airy Apartment* (Palmerah, Jakarta Barat — 2 guests, 1BR)
+  - *Skyline Luxury at Orange County* (Cikarang Selatan, Bekasi — 2 guests, 1BR)
+- **Architectural Bento Gallery**: Dynamic 5-photo bento grid with fullscreen lightbox modal.
+- **Dynamic IDR/USD Pricing**: Real-time rate calculation, cleaning fees, and service breakdown.
+- **Location Proximity Maps**: Distances and drive times to MRT stations, KRL, industrial estates, and airports.
+- **Events & Wedding Packages**: Dedicated garden wedding, corporate retreat, and party packages at the Jagakarsa private garden house.
 
-### 💼 For Villa Owners & Investors
-- **Dual Management Tiers**: Transparent comparison between **Essential (15%)** and **Complete Management (20%)** with interactive fee calculators.
-- **Audited Performance Metrics**: Real before/after case studies displaying occupancy rate lifts (+18-35%), EBITDA margins, and revenue growth.
-- **Property Audit Request Flow**: Interactive multi-step form with direct WhatsApp VIP dispatch for instant consultations.
-- **Onboarding Roadmap**: Structured 4-stage onboarding timeline from interior staging to global OTA distribution.
+### 💼 For Property Owners & Pitching (CMS Dashboard)
+- **Interactive SEO CMS Dashboard (`/dashboard/seo`)**:
+  - Per-property Meta Title & Description editor with real-time character count limits.
+  - Live Google Desktop SERP Preview & OpenGraph card preview.
+  - Live SEO Health Score checklist.
+  - Explainer framework for pitching prospective property owners on how KingHouse drives +280% Airbnb search impressions.
+- **Multi-Channel OTA Sync Prototype**: Real-time connection indicators for Airbnb, Booking.com, Agoda, and Direct WhatsApp booking.
+- **Dual Management Tiers**: Transparent comparison between **Exclusive Marketing (15%)** and **Full Asset Management (20%)**.
+- **Audited Performance Metrics**: Real before/after case studies displaying occupancy rate lifts (28% → 82%) and revenue growth.
+- **Property Audit Request Flow**: Interactive multi-step form with direct WhatsApp dispatch.
+
+### 🚀 Search Engine Optimization (SEO) Maximization
+- **Organization & LocalBusiness Schema**: Injected sitewide with accurate geo-coordinates.
+- **VacationRental & FAQPage Schema**: Per-property rich snippets with real pricing, amenities, and FAQ.
+- **BreadcrumbList Schema**: Structured navigational hierarchy for search engines.
+- **Location Landing Pages (`/locations/[area]`)**: Dedicated local SEO pages for Jagakarsa, Tangerang, Palmerah, and Cikarang with TouristDestination schema.
+- **Editorial Blog System (`/blog`)**: 6 targeted SEO articles in Indonesian & English with BlogPosting schema.
 
 ---
 
@@ -36,7 +52,7 @@ An editorial-grade, ultra-luxury villa management and dual-audience booking plat
 - **Animations:** Framer Motion 12
 - **Icons:** Lucide React
 - **Typography:** Playfair Display (Serif Editorial) & Plus Jakarta Sans (Sans Body) via `next/font/google`
-- **Architecture Documentation:** [PROJECT_STATE.md](file:///PROJECT_STATE.md) (Single Source of Truth for AI Agents & Developers)
+- **Hosting / Deploy:** 100% Free-Tier Vercel Hobby compatible
 
 ---
 
@@ -64,73 +80,62 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-### 4. Build & Production
+### 4. Build & Production Check
 ```bash
 npm run build
-npm run start
 ```
 
 ---
 
-## 🏗️ Project Architecture
+## 🏗️ Project Architecture & Available Routes
 
 ```
 kinghouse-mockup/
-├── app/                              # Next.js App Router
-│   ├── about/                        # Brand ethos, leadership & heritage
-│   ├── contact/                      # Multichannel contact & direct WhatsApp
-│   ├── locations/                    # Area landing pages
+├── app/
+│   ├── blog/                         # Blog index & dynamic [slug] article pages
+│   ├── dashboard/                    # Multi-channel CMS & SEO pitch dashboard
+│   │   ├── properties/               # Property portfolio management view
+│   │   └── seo/                      # Interactive SEO editor & SERP preview
+│   ├── events/                       # Garden wedding & event package pages
+│   ├── locations/[area]/             # Local SEO landing pages (Jagakarsa, Cikarang, etc.)
+│   │   └── villas/[slug]/            # Villa detail page with Bento gallery & schema
 │   ├── owner-services/               # Management tiers, ROI metrics & audit form
-│   ├── services/                     # In-villa chef, chauffeur, spa & yacht charter
-│   ├── villas/                       # Villa directory & dynamic [slug] detail pages
-│   ├── globals.css                   # Tailwind v4 theme, variables & scrollbars
-│   ├── layout.tsx                    # Root shell with Header, Footer, and Fonts
+│   ├── villas/                       # Catalog directory with filterable areas
+│   ├── layout.tsx                    # Root shell with Header, Footer, and JSON-LD
 │   └── page.tsx                      # Dual-path high-conversion homepage
-├── components/                       # Domain-driven components
+├── components/
 │   ├── bento/                        # Bento gallery & fullscreen lightbox modal
-│   ├── home/                         # Hero slider, dual pathway, trust proof
+│   ├── blog/                         # Editorial blog card & layout components
+│   ├── dashboard/                    # Sidebar, stat cards, channel badges, SEO editor
+│   ├── home/                         # Hero slider, search bar, trust proof
 │   ├── layout/                       # Header navigation & editorial footer
 │   ├── owner/                        # Tiered pricing, metrics & lead audit form
-│   ├── ui/                           # Button, Badge, Card, Input primitives
 │   └── villas/                       # Amenities, booking sidebar, map, villa cards
-├── lib/                              # Core logic & data models
-│   ├── constants.ts                  # Navigation, locations & metadata
-│   ├── data.ts                       # Rich mock datasets (Villas, Case Studies)
-│   ├── types.ts                      # Universal domain TypeScript definitions
-│   └── utils.ts                      # Currency formatters, date helpers, cn()
-└── PROJECT_STATE.md                  # Comprehensive AI Agent & Project state SSOT
+└── lib/
+    ├── constants.ts                  # SITE_CONFIG, MANAGED_AREAS, SEO categories
+    ├── data.ts                       # Real Airbnb properties, blog posts, events
+    ├── types.ts                      # Universal domain TypeScript definitions
+    └── utils.ts                      # VacationRental schema generator, currency formatters
 ```
-
----
-
-## 🎨 Editorial Design System
-
-- **Monochromatic & Earthy Palette:**
-  - Background: `#FFFFFF` (Main) / `#FAFAFA` (Secondary) / `#F4F3F0` (Tertiary)
-  - Typography: `#222222` (Primary) / `#717171` (Muted)
-  - Accent / Gold: `#A69C8E` (Warm Travertine) / `#EFECE6` (Soft Sand)
-- **Macro-Whitespace & Transitions:** Generous section spacing (`section-macro-spacing`) with smooth architectural zoom effects (`hover-editorial-zoom`).
 
 ---
 
 ## 📄 Available Routes
 
 - `/` — Homepage with Dual Pathway (Guest vs Owner)
-- `/villas` — Catalog with multi-attribute filtering (Bedrooms, Price, Area, Style)
-- `/villas/[slug]` — Dynamic Editorial Villa Page with Bento Lightbox & Sticky Booking
-- `/owner-services` — Villa Management Tiers, Audit Request Form & Case Studies
-- `/services` — Bespoke VIP Guest & Concierge Experiences
+- `/villas` — Catalog with area and capacity filtering
+- `/locations/[area]/villas/[slug]` — Dynamic Editorial Property Page with Bento Lightbox & Sticky Booking
+- `/locations/[area]` — Local Area SEO Landing Pages (Jagakarsa, Tangerang, Palmerah, Cikarang)
+- `/blog` — Blog Index with category filters and featured post hero
+- `/blog/[slug]` — Individual Blog Article with BlogPosting JSON-LD and related posts
+- `/events` — Events & Garden Wedding Overview
+- `/events/[slug]` — Individual Event Package with package selection and WhatsApp ordering
+- `/dashboard` — Multi-Channel Overview KPI Dashboard
+- `/dashboard/seo` — Interactive SEO Manager & Live Google SERP Preview (Pitching Feature)
+- `/dashboard/properties` — Property Portfolio Management View
+- `/owner-services` — Property Management Tiers (15% vs 20%), Audit Request Form & Case Studies
 - `/about` — Heritage, Operational Footprint & Leadership Team
-- `/contact` — Direct Inquiry, Office Map Coordinates & WhatsApp Gateway
-
----
-
-## 🤝 Development & Guidelines
-
-Please refer to [`PROJECT_STATE.md`](file:///PROJECT_STATE.md) for detailed guidelines on:
-- Server vs Client Component boundaries
-- Step-by-step workflow for new features and API route handlers
-- Database persistence roadmap (Prisma + PostgreSQL / Supabase)
+- `/contact` — Direct Inquiry & WhatsApp Concierge Desk
 
 ---
 
