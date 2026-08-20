@@ -1,216 +1,192 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, Suspense } from "react"
+import { useSearchParams } from "next/navigation"
+import { Filter, SlidersHorizontal, MapPin, Sparkles, RefreshCw } from "lucide-react"
+import { CURATED_VILLAS } from "@/lib/data"
 import { VillaCard } from "@/components/villas/villa-card"
-import { SearchBar } from "@/components/villas/search-bar"
-import { MOCK_VILLAS } from "@/lib/data"
-import { LOCATIONS, AMENITIES } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { SlidersHorizontal, X } from "lucide-react"
 
-export default function VillasPage() {
-  const [showFilters, setShowFilters] = useState(false)
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([])
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 10000000 })
+function VillasCatalogContent() {
+  const searchParams = useSearchParams()
+  const initialArea = searchParams.get("area") || "all"
+  const initialGuests = searchParams.get("guests") || "all"
 
-  const filteredVillas = MOCK_VILLAS.filter((villa) => {
-    if (selectedLocation && villa.location !== selectedLocation) return false
-    if (villa.price.daily < priceRange.min || villa.price.daily > priceRange.max) return false
-    if (selectedAmenities.length > 0) {
-      const hasAllAmenities = selectedAmenities.every((amenity) =>
-        villa.amenities.includes(amenity)
-      )
-      if (!hasAllAmenities) return false
-    }
-    return true
-  })
+  const [selectedArea, setSelectedArea] = useState(initialArea)
+  const [selectedGuests, setSelectedGuests] = useState(initialGuests)
+  const [sortBy, setSortBy] = useState<"recommended" | "price-asc" | "price-desc" | "rating">("recommended")
 
-  const toggleAmenity = (amenity: string) => {
-    setSelectedAmenities((prev) =>
-      prev.includes(amenity)
-        ? prev.filter((a) => a !== amenity)
-        : [...prev, amenity]
-    )
-  }
+  const filteredVillas = useMemo(() => {
+    return CURATED_VILLAS.filter((villa) => {
+      if (selectedArea !== "all" && villa.areaSlug !== selectedArea) return false
+      if (selectedGuests !== "all") {
+        const requiredGuests = parseInt(selectedGuests, 10)
+        if (villa.capacity.guests < requiredGuests) return false
+      }
+      return true
+    }).sort((a, b) => {
+      if (sortBy === "price-asc") return a.price.usd - b.price.usd
+      if (sortBy === "price-desc") return b.price.usd - a.price.usd
+      if (sortBy === "rating") return b.rating - a.rating
+      return 0 // default recommended
+    })
+  }, [selectedArea, selectedGuests, sortBy])
 
-  const clearFilters = () => {
-    setSelectedLocation(null)
-    setSelectedAmenities([])
-    setPriceRange({ min: 0, max: 10000000 })
+  const resetFilters = () => {
+    setSelectedArea("all")
+    setSelectedGuests("all")
+    setSortBy("recommended")
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-amber-500 to-amber-600 py-16 text-white">
-        <div className="mx-auto max-w-7xl px-4">
-          <h1 className="mb-4 text-4xl font-bold md:text-5xl">
-            Temukan Villa Impian Anda
+    <main className="min-h-screen bg-white pb-24">
+      {/* Editorial Catalog Header */}
+      <section className="border-b border-[#EBEBEB] bg-[#FAFAFA] py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 space-y-4">
+          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#A69C8E]">
+            Curated Portfolio &bull; 2026 Season
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#222222] font-normal">
+            Architectural Sanctuaries
           </h1>
-          <p className="mb-8 text-lg text-amber-50">
-            {filteredVillas.length} villa tersedia di Jabodetabek
+          <p className="text-sm sm:text-base text-[#717171] max-w-2xl leading-relaxed">
+            Every residence is managed to Airbnb Superhost standards, featuring private swimming pools, architectural bespoke interiors, and dedicated in-house hospitality teams.
           </p>
-          <SearchBar />
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filters Sidebar */}
-          <aside
-            className={`lg:w-80 ${
-              showFilters ? "block" : "hidden lg:block"
-            }`}
-          >
-            <div className="sticky top-24 rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Filter</h2>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={clearFilters}
-                  className="text-amber-600 hover:text-amber-700"
-                >
-                  Reset
-                </Button>
-              </div>
+      {/* Filter Controls Bar */}
+      <section className="sticky top-20 z-30 border-b border-[#EBEBEB] bg-white/95 backdrop-blur-md py-4">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          {/* Destination Pills */}
+          <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+            <button
+              onClick={() => setSelectedArea("all")}
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+                selectedArea === "all"
+                  ? "bg-[#222222] text-white shadow-xs"
+                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+              }`}
+            >
+              All Destinations
+            </button>
+            <button
+              onClick={() => setSelectedArea("canggu")}
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+                selectedArea === "canggu"
+                  ? "bg-[#222222] text-white shadow-xs"
+                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+              }`}
+            >
+              Canggu
+            </button>
+            <button
+              onClick={() => setSelectedArea("uluwatu")}
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+                selectedArea === "uluwatu"
+                  ? "bg-[#222222] text-white shadow-xs"
+                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+              }`}
+            >
+              Uluwatu
+            </button>
+            <button
+              onClick={() => setSelectedArea("ubud")}
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+                selectedArea === "ubud"
+                  ? "bg-[#222222] text-white shadow-xs"
+                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+              }`}
+            >
+              Ubud
+            </button>
+            <button
+              onClick={() => setSelectedArea("pererenan")}
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+                selectedArea === "pererenan"
+                  ? "bg-[#222222] text-white shadow-xs"
+                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+              }`}
+            >
+              Pererenan
+            </button>
+          </div>
 
-              {/* Location Filter */}
-              <div className="mb-6">
-                <h3 className="mb-3 font-medium text-gray-900">Lokasi</h3>
-                <div className="space-y-2">
-                  {LOCATIONS.map((location) => (
-                    <button
-                      key={location}
-                      onClick={() =>
-                        setSelectedLocation(
-                          selectedLocation === location ? null : location
-                        )
-                      }
-                      className={`w-full rounded-lg border px-4 py-2 text-left text-sm transition-colors ${
-                        selectedLocation === location
-                          ? "border-amber-600 bg-amber-50 text-amber-700"
-                          : "border-gray-200 hover:border-amber-300"
-                      }`}
-                    >
-                      {location}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Price Range */}
-              <div className="mb-6">
-                <h3 className="mb-3 font-medium text-gray-900">Harga per Malam</h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-sm text-gray-600">Min</label>
-                    <input
-                      type="number"
-                      value={priceRange.min}
-                      onChange={(e) =>
-                        setPriceRange({ ...priceRange, min: Number(e.target.value) })
-                      }
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-600">Max</label>
-                    <input
-                      type="number"
-                      value={priceRange.max}
-                      onChange={(e) =>
-                        setPriceRange({ ...priceRange, max: Number(e.target.value) })
-                      }
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Amenities Filter */}
-              <div>
-                <h3 className="mb-3 font-medium text-gray-900">Fasilitas</h3>
-                <div className="space-y-2">
-                  {AMENITIES.map((amenity) => (
-                    <label
-                      key={amenity}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedAmenities.includes(amenity)}
-                        onChange={() => toggleAmenity(amenity)}
-                        className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
-                      />
-                      <span className="text-sm text-gray-700">{amenity}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </aside>
-
-          {/* Villas Grid */}
-          <div className="flex-1">
-            {/* Mobile Filter Button */}
-            <div className="mb-6 flex items-center justify-between lg:hidden">
-              <p className="text-sm text-gray-600">
-                {filteredVillas.length} villa ditemukan
-              </p>
-              <Button
-                onClick={() => setShowFilters(!showFilters)}
-                variant="outline"
+          {/* Guest Count & Sort Dropdowns */}
+          <div className="flex items-center space-x-3 text-xs">
+            <div className="flex items-center space-x-1.5 bg-[#FAFAFA] border border-[#EBEBEB] rounded-lg px-3 py-1.5">
+              <span className="text-[#717171] font-medium">Guests:</span>
+              <select
+                value={selectedGuests}
+                onChange={(e) => setSelectedGuests(e.target.value)}
+                className="bg-transparent font-semibold text-[#222222] focus:outline-none cursor-pointer"
               >
-                <SlidersHorizontal className="mr-2 h-4 w-4" />
-                Filter
-              </Button>
+                <option value="all">Any Capacity</option>
+                <option value="4">4+ Guests</option>
+                <option value="6">6+ Guests</option>
+                <option value="8">8+ Guests</option>
+              </select>
             </div>
 
-            {/* Active Filters */}
-            {(selectedLocation || selectedAmenities.length > 0) && (
-              <div className="mb-6 flex flex-wrap gap-2">
-                {selectedLocation && (
-                  <Badge className="flex items-center gap-1">
-                    {selectedLocation}
-                    <button onClick={() => setSelectedLocation(null)}>
-                      <X className="h-3 w-3" />
-                    </button>
-                  </Badge>
-                )}
-                {selectedAmenities.map((amenity) => (
-                  <Badge key={amenity} className="flex items-center gap-1">
-                    {amenity}
-                    <button onClick={() => toggleAmenity(amenity)}>
-                      <X className="h-3 w-3" />
-                    </button>
-                  </Badge>
-                ))}
-              </div>
-            )}
-
-            {/* Villas Grid */}
-            {filteredVillas.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {filteredVillas.map((villa) => (
-                  <VillaCard key={villa.id} villa={villa} />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-xl bg-white p-12 text-center shadow-sm">
-                <p className="text-lg text-gray-600">
-                  Tidak ada villa yang sesuai dengan filter Anda
-                </p>
-                <Button onClick={clearFilters} className="mt-4">
-                  Reset Filter
-                </Button>
-              </div>
-            )}
+            <div className="flex items-center space-x-1.5 bg-[#FAFAFA] border border-[#EBEBEB] rounded-lg px-3 py-1.5">
+              <span className="text-[#717171] font-medium">Sort:</span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-transparent font-semibold text-[#222222] focus:outline-none cursor-pointer"
+              >
+                <option value="recommended">Curated Top</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Villas Grid Showcase */}
+      <section className="mx-auto max-w-7xl px-6 lg:px-12 pt-12">
+        <div className="flex items-center justify-between mb-8 text-xs text-[#717171]">
+          <span>
+            Showing <strong className="text-[#222222]">{filteredVillas.length}</strong> architectural retreats
+          </span>
+          {(selectedArea !== "all" || selectedGuests !== "all") && (
+            <button
+              onClick={resetFilters}
+              className="inline-flex items-center text-[#222222] hover:text-[#A69C8E] font-medium"
+            >
+              <RefreshCw className="mr-1 h-3 w-3" /> Reset Filters
+            </button>
+          )}
+        </div>
+
+        {filteredVillas.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            {filteredVillas.map((villa) => (
+              <VillaCard key={villa.id} villa={villa} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-[#EBEBEB] bg-[#FAFAFA] py-16 text-center space-y-4">
+            <h3 className="font-serif text-2xl text-[#222222]">No Villas Match Your Criteria</h3>
+            <p className="text-xs text-[#717171] max-w-md mx-auto">
+              Try resetting your destination or guest filters to discover available sanctuaries in other coastal or forest enclaves.
+            </p>
+            <Button onClick={resetFilters} variant="outline" size="sm">
+              Reset All Filters
+            </Button>
+          </div>
+        )}
+      </section>
     </main>
+  )
+}
+
+export default function VillasCatalogPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center font-serif">Loading Portfolio...</div>}>
+      <VillasCatalogContent />
+    </Suspense>
   )
 }
