@@ -40,8 +40,14 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
           )}
 
           <div className="flex items-center space-x-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-[#222222] shadow-xs backdrop-blur-xs">
-            <Star className="h-3 w-3 fill-[#222222] text-[#222222]" />
-            <span>{villa.rating.toFixed(2)}</span>
+            {villa.rating > 0 ? (
+              <>
+                <Star className="h-3 w-3 fill-[#222222] text-[#222222]" />
+                <span>{villa.rating.toFixed(2)}</span>
+              </>
+            ) : (
+              <span className="text-[10px] text-[#A69C8E]">Baru</span>
+            )}
           </div>
         </div>
 
@@ -49,7 +55,7 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
         <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-lg bg-black/40 p-2.5 backdrop-blur-sm text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="font-light truncate">{villa.location}</span>
           <span className="shrink-0 flex items-center text-[10px] font-medium uppercase tracking-wider">
-            View Details <ArrowUpRight className="ml-0.5 h-3 w-3" />
+            Detail <ArrowUpRight className="ml-0.5 h-3 w-3" />
           </span>
         </div>
       </Link>
@@ -60,7 +66,7 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
           <div>
             <Link
               href={`/locations/${villa.areaSlug}/villas/${villa.slug}`}
-              className="text-base font-semibold tracking-tight text-[#222222] hover:underline"
+              className="text-base font-semibold tracking-tight text-[#222222] hover:underline line-clamp-1"
             >
               {villa.name}
             </Link>
@@ -72,17 +78,17 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
         <div className="flex items-center space-x-4 text-xs text-[#717171] pt-0.5">
           <span className="flex items-center space-x-1">
             <Users className="h-3.5 w-3.5 text-[#A69C8E]" />
-            <span>{villa.capacity.guests} Guests</span>
+            <span>{villa.capacity.guests} Tamu</span>
           </span>
           <span>&bull;</span>
           <span className="flex items-center space-x-1">
             <Bed className="h-3.5 w-3.5 text-[#A69C8E]" />
-            <span>{villa.capacity.bedrooms} Beds</span>
+            <span>{villa.capacity.bedrooms} Kamar</span>
           </span>
           <span>&bull;</span>
           <span className="flex items-center space-x-1">
             <Bath className="h-3.5 w-3.5 text-[#A69C8E]" />
-            <span>{villa.capacity.bathrooms} Baths</span>
+            <span>{villa.capacity.bathrooms} KM</span>
           </span>
         </div>
 
@@ -90,11 +96,11 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
         <div className="flex items-baseline justify-between pt-1 border-t border-[#F0F0F0]">
           <div>
             <span className="font-semibold text-sm text-[#222222]">
-              {formatCurrency(villa.price.usd, "USD")}
+              {formatCurrency(villa.price.idr, "IDR")}
             </span>
-            <span className="text-xs text-[#717171]"> / night</span>
+            <span className="text-xs text-[#717171]"> / malam</span>
             <span className="block text-[10px] text-[#A69C8E]">
-              ≈ {formatCurrency(villa.price.idr, "IDR")}
+              ≈ {formatCurrency(villa.price.usd, "USD")}/night
             </span>
           </div>
 
