@@ -155,7 +155,7 @@ export function LeadAuditForm() {
                   <Input
                     type="text"
                     required
-                    placeholder="e.g. airbnb.com/rooms/12345 or 4BR Villa in Canggu, Bali"
+                    placeholder="e.g. airbnb.com/rooms/45834267 atau Rumah 5BR di Jagakarsa, Jakarta Selatan"
                     value={formData.villaLinkOrLocation}
                     onChange={(e) => setFormData({ ...formData, villaLinkOrLocation: e.target.value })}
                     className="bg-white"

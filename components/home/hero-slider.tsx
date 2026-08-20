@@ -8,22 +8,22 @@ import { ArrowRight, ChevronRight, Sparkles } from "lucide-react"
 
 const HERO_SLIDES = [
   {
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85",
-    title: "The Monolith Villa",
-    location: "Canggu Coastal Ridge",
-    style: "Tropical Brutalism",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2200&q=85",
+    title: "Versatile House With Garden",
+    location: "Jagakarsa, Jakarta Selatan",
+    style: "Modern Tropical",
   },
   {
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2200&q=85",
-    title: "Villa Solarium",
-    location: "Bingin Cliffside, Uluwatu",
-    style: "Cycladic Minimalist",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2200&q=85",
+    title: "Skyline Luxury Orange County",
+    location: "Cikarang Selatan, Bekasi",
+    style: "Contemporary Executive",
   },
   {
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=2200&q=85",
-    title: "The Glass Pavilion",
-    location: "Sayan River Valley, Ubud",
-    style: "Mid-Century Modernist",
+    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=2200&q=85",
+    title: "Sky House Hotel-Style Bed",
+    location: "Pinang, Tangerang",
+    style: "Scandinavian Minimalist",
   },
 ]
 

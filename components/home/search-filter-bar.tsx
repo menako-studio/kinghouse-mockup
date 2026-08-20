@@ -42,11 +42,11 @@ export function SearchFilterBar() {
               onChange={(e) => setDestination(e.target.value)}
               className="w-full bg-transparent text-xs sm:text-sm font-normal text-[#717171] focus:outline-none focus:text-[#222222] cursor-pointer"
             >
-              <option value="">All Architectural Havens</option>
-              <option value="canggu">Canggu Coastal Ridge</option>
-              <option value="uluwatu">Uluwatu Cliffside</option>
-              <option value="ubud">Ubud River Valley</option>
-              <option value="pererenan">Pererenan Greenbelt</option>
+              <option value="">Semua Area Jabodetabek</option>
+              <option value="jagakarsa">Jagakarsa (Jakarta Selatan)</option>
+              <option value="tangerang">Tangerang (Banten)</option>
+              <option value="palmerah">Palmerah (Jakarta Barat)</option>
+              <option value="cikarang">Cikarang (Bekasi)</option>
             </select>
           </div>
         </div>

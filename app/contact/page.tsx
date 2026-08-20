@@ -91,9 +91,9 @@ export default function ContactPage() {
                 <div className="flex items-start space-x-3">
                   <Phone className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-xs text-[#717171] block">Telephone Desk</span>
-                    <a href="tel:+6281234567890" className="font-medium hover:underline">
-                      +62 812-3456-7890
+                    <span className="text-xs text-[#717171] block">WhatsApp Desk</span>
+                    <a href="https://wa.me/628129252090" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">
+                      +62 812-9252-090
                     </a>
                   </div>
                 </div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                   <div>
                     <span className="text-xs text-[#717171] block">Principal Studio</span>
                     <span className="text-xs text-[#717171] leading-relaxed block">
-                      Jl. Batu Bolong No. 88, Canggu, Bali 80361, Indonesia
+                      Jakarta Selatan, Jabodetabek, Indonesia
                     </span>
                   </div>
                 </div>

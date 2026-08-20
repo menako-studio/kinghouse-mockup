@@ -3,6 +3,7 @@
 import { useState, useMemo, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Filter, SlidersHorizontal, MapPin, Sparkles, RefreshCw } from "lucide-react"
+import { MANAGED_AREAS } from "@/lib/constants"
 import { CURATED_VILLAS } from "@/lib/data"
 import { VillaCard } from "@/components/villas/villa-card"
 import { Button } from "@/components/ui/button"
@@ -25,8 +26,8 @@ function VillasCatalogContent() {
       }
       return true
     }).sort((a, b) => {
-      if (sortBy === "price-asc") return a.price.usd - b.price.usd
-      if (sortBy === "price-desc") return b.price.usd - a.price.usd
+      if (sortBy === "price-asc") return a.price.idr - b.price.idr
+      if (sortBy === "price-desc") return b.price.idr - a.price.idr
       if (sortBy === "rating") return b.rating - a.rating
       return 0 // default recommended
     })
@@ -44,13 +45,13 @@ function VillasCatalogContent() {
       <section className="border-b border-[#EBEBEB] bg-[#FAFAFA] py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-12 space-y-4">
           <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#A69C8E]">
-            Curated Portfolio &bull; 2026 Season
+            Portofolio Terkurasi &bull; Jabodetabek 2026
           </span>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#222222] font-normal">
-            Architectural Sanctuaries
+            Koleksi Properti KingHouse
           </h1>
           <p className="text-sm sm:text-base text-[#717171] max-w-2xl leading-relaxed">
-            Every residence is managed to Airbnb Superhost standards, featuring private swimming pools, architectural bespoke interiors, and dedicated in-house hospitality teams.
+            Setiap properti dikelola dengan standar Superhost Airbnb: kebersihan hotel bintang lima, foto editorial, perlengkapan lengkap, dan layanan concierge 24/7.
           </p>
         </div>
       </section>
@@ -68,48 +69,21 @@ function VillasCatalogContent() {
                   : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
               }`}
             >
-              All Destinations
+              Semua Area
             </button>
-            <button
-              onClick={() => setSelectedArea("canggu")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
-                selectedArea === "canggu"
-                  ? "bg-[#222222] text-white shadow-xs"
-                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
-              }`}
-            >
-              Canggu
-            </button>
-            <button
-              onClick={() => setSelectedArea("uluwatu")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
-                selectedArea === "uluwatu"
-                  ? "bg-[#222222] text-white shadow-xs"
-                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
-              }`}
-            >
-              Uluwatu
-            </button>
-            <button
-              onClick={() => setSelectedArea("ubud")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
-                selectedArea === "ubud"
-                  ? "bg-[#222222] text-white shadow-xs"
-                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
-              }`}
-            >
-              Ubud
-            </button>
-            <button
-              onClick={() => setSelectedArea("pererenan")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
-                selectedArea === "pererenan"
-                  ? "bg-[#222222] text-white shadow-xs"
-                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
-              }`}
-            >
-              Pererenan
-            </button>
+            {MANAGED_AREAS.map((area) => (
+              <button
+                key={area.slug}
+                onClick={() => setSelectedArea(area.slug)}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+                  selectedArea === area.slug
+                    ? "bg-[#222222] text-white shadow-xs"
+                    : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+                }`}
+              >
+                {area.name}
+              </button>
+            ))}
           </div>
 
           {/* Guest Count & Sort Dropdowns */}

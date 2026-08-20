@@ -29,10 +29,11 @@ export function Header() {
   }, [pathname])
 
   const navLinks = [
-    { label: "Villas", href: "/villas" },
+    { label: "Properti", href: "/villas" },
     { label: "Owner Services", href: "/owner-services" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Blog", href: "/blog" },
+    { label: "Events", href: "/events" },
+    { label: "CMS", href: "/dashboard" },
   ]
 
   return (
@@ -142,14 +143,14 @@ export function Header() {
           </div>
 
           <div className="pt-6 border-t border-[#EBEBEB] text-xs text-[#717171] space-y-2">
-            <p>Direct Inquiries & WhatsApp Concierge:</p>
+            <p>Konsultasi Langsung & WhatsApp Concierge:</p>
             <a
-              href="https://wa.me/6281234567890?text=Hello%20KingHouse%2C%20I%20am%20interested%20in%20your%20services."
+              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20tertarik%20dengan%20layanan%20manajemen%20properti%20Anda."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center text-[#222222] font-medium"
             >
-              +62 812-3456-7890 <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
+              +62 812-9252-090 <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
             </a>
           </div>
         </div>
