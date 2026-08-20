@@ -225,7 +225,7 @@ export default async function EventDetailPage({ params }: PageProps) {
                     ))}
                   </div>
                   <a
-                    href={`https://wa.me/628129252090?text=${whatsappText}`}
+                    href={`https://wa.me/6282123933218?text=${whatsappText}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`flex items-center justify-center space-x-2 w-full py-3 rounded-xl text-sm font-semibold transition-colors ${

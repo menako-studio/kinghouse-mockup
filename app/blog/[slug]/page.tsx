@@ -274,7 +274,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               Complimentary asset audit for villas and apartments across Greater Jakarta.
             </p>
             <a
-              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20read%20your%20journal%20article%20and%20would%20like%20a%20consultation%20for%20my%20property."
+              href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20read%20your%20journal%20article%20and%20would%20like%20a%20consultation%20for%20my%20property."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 bg-white text-[#222222] px-8 py-3 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"

@@ -5,7 +5,7 @@ export const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7 days in seconds
 
 // Production-ready Admin credentials with environment variable support
 export const ADMIN_CREDENTIALS = {
-  email: process.env.ADMIN_EMAIL || "admin@kinghouse.id",
+  email: process.env.ADMIN_EMAIL || "ptkreasiusmangosse@gmail.com",
   password: process.env.ADMIN_PASSWORD || "KingHouse2026!Admin",
   name: "KingHouse Principal Admin",
   role: "admin" as const,

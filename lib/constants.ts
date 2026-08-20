@@ -10,9 +10,9 @@ export const SITE_CONFIG = {
     id: "KingHouse mengelola properti sewa jangka pendek premium di seluruh Jabodetabek — Jakarta Selatan, Tangerang, Jakarta Barat, dan Cikarang — melalui Airbnb. Kami memaksimalkan tingkat hunian dan pendapatan Anda.",
   },
   contact: {
-    email: "hello@kinghouse.id",
-    phone: "+62 812 xxxx xxxx",
-    whatsapp: "+62 812 xxxx xxxx",
+    email: "ptkreasiusmangosse@gmail.com",
+    phone: "+62 821-2393-3218",
+    whatsapp: "+62 821-2393-3218",
     whatsappMessage: "Hello KingHouse, I am interested in your property management services.",
     address: "Jakarta, Indonesia",
   },

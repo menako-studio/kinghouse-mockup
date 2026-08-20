@@ -25,7 +25,7 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
   const whatsappMessage = encodeURIComponent(
     `Hello KingHouse! I am interested in booking ${villa.name} in ${villa.area} for ${nights} nights (${checkIn} to ${checkOut}) for ${guestCount} guests. Please share availability and details.`
   )
-  const whatsappUrl = `https://wa.me/628129252090?text=${whatsappMessage}`
+  const whatsappUrl = `https://wa.me/6282123933218?text=${whatsappMessage}`
 
   return (
     <div className="sticky top-28 rounded-2xl border border-[#EBEBEB] bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">

@@ -67,7 +67,7 @@ export default function ContactPage() {
                 </div>
                 <Button asChild className="w-full text-xs uppercase tracking-wider font-semibold">
                   <a
-                    href="https://wa.me/6281234567890?text=Hello%20KingHouse%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
+                    href="https://wa.me/6282123933218?text=Hello%20KingHouse%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -82,8 +82,8 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs text-[#717171] block">Direct Inquiries</span>
-                    <a href="mailto:hello@kinghousevillas.com" className="font-medium hover:underline">
-                      hello@kinghousevillas.com
+                    <a href="mailto:ptkreasiusmangosse@gmail.com" className="font-medium hover:underline">
+                      ptkreasiusmangosse@gmail.com
                     </a>
                   </div>
                 </div>
@@ -92,8 +92,8 @@ export default function ContactPage() {
                   <Phone className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs text-[#717171] block">WhatsApp Desk</span>
-                    <a href="https://wa.me/628129252090" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">
-                      +62 812-9252-090
+                    <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">
+                      +62 821-2393-3218
                     </a>
                   </div>
                 </div>

@@ -145,12 +145,12 @@ export function Header() {
           <div className="pt-6 border-t border-[#EBEBEB] text-xs text-[#717171] space-y-2">
             <p>Direct Concierge & WhatsApp Desk:</p>
             <a
-              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
+              href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center text-[#222222] font-medium"
             >
-              +62 812-9252-090 <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
+              +62 821-2393-3218 <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
             </a>
           </div>
         </div>

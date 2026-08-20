@@ -120,7 +120,7 @@ export default function EventsPage() {
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             <a
-              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20am%20interested%20in%20hosting%20an%20event%20at%20your%20Jagakarsa%20property.%20Could%20you%20please%20share%20availability%20and%20packages?"
+              href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20am%20interested%20in%20hosting%20an%20event%20at%20your%20Jagakarsa%20property.%20Could%20you%20please%20share%20availability%20and%20packages?"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 bg-white text-[#222222] px-7 py-3 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"
@@ -281,7 +281,7 @@ export default function EventsPage() {
             The KingHouse concierge team is on standby to assist with on-site visits and custom coordination.
           </p>
           <a
-            href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20would%20like%20to%20discuss%20planning%20an%20event%20at%20your%20Jagakarsa%20property."
+            href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20would%20like%20to%20discuss%20planning%20an%20event%20at%20your%20Jagakarsa%20property."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 bg-white text-[#222222] px-10 py-4 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"

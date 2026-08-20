@@ -178,7 +178,7 @@ export default function BlogPage() {
             Consult with KingHouse asset managers regarding your Airbnb listing. Zero commitment, complimentary audit.
           </p>
           <a
-            href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20would%20like%20a%20consultation%20regarding%20my%20Airbnb%20property%20management."
+            href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20would%20like%20a%20consultation%20regarding%20my%20Airbnb%20property%20management."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 bg-white text-[#222222] px-8 py-3 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"

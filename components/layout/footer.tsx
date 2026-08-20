@@ -120,7 +120,7 @@ export function Footer() {
                 South Jakarta, Greater Jakarta, Indonesia
               </p>
               <a
-                href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
+                href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-xs text-[#D4AF37] hover:text-white transition-colors"
