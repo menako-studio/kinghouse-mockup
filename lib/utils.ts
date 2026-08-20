@@ -2,6 +2,14 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { Villa } from "./types"
 
+// Geo coordinates for managed Jabodetabek areas
+const AREA_GEO: Record<string, { lat: number; lng: number; region: string }> = {
+  jagakarsa: { lat: -6.3494, lng: 106.8431, region: "Jakarta Selatan" },
+  tangerang: { lat: -6.1783, lng: 106.6319, region: "Tangerang, Banten" },
+  palmerah: { lat: -6.2002, lng: 106.7977, region: "Jakarta Barat" },
+  cikarang: { lat: -6.3577, lng: 107.1483, region: "Bekasi, Jawa Barat" },
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -21,24 +29,27 @@ export function formatCurrency(amount: number, currency: "USD" | "IDR" = "USD"):
   }).format(amount)
 }
 
-export function generateVacationRentalSchema(villa: Villa, baseUrl = "https://kinghousevillas.com") {
-  return {
+export function generateVacationRentalSchema(villa: Villa, baseUrl = "https://kinghouse.id") {
+  const geo = AREA_GEO[villa.areaSlug] ?? { lat: -6.2088, lng: 106.8456, region: "DKI Jakarta" }
+
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "VacationRental",
-    "name": villa.name,
+    "name": villa.seoMeta?.metaTitle ?? `${villa.name} | KingHouse`,
     "description": villa.editorialDescription.lead,
     "image": villa.gallery.map((g) => g.url),
     "url": `${baseUrl}/locations/${villa.areaSlug}/villas/${villa.slug}`,
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": villa.location,
       "addressLocality": villa.area,
-      "addressRegion": "Bali",
+      "addressRegion": geo.region,
       "addressCountry": "ID",
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": -8.65,
-      "longitude": 115.13,
+      "latitude": geo.lat,
+      "longitude": geo.lng,
     },
     "numberOfRooms": villa.capacity.bedrooms,
     "occupancy": {
@@ -53,18 +64,23 @@ export function generateVacationRentalSchema(villa: Villa, baseUrl = "https://ki
     })),
     "offers": {
       "@type": "Offer",
-      "price": villa.price.usd,
-      "priceCurrency": "USD",
+      "price": villa.price.idr,
+      "priceCurrency": "IDR",
       "availability": "https://schema.org/InStock",
       "url": villa.airbnbUrl,
       "validFrom": "2026-01-01",
     },
-    "aggregateRating": {
+  }
+
+  if (villa.rating > 0) {
+    schema["aggregateRating"] = {
       "@type": "AggregateRating",
       "ratingValue": villa.rating,
       "reviewCount": villa.reviewsCount,
       "bestRating": "5.0",
       "worstRating": "1.0",
-    },
+    }
   }
+
+  return schema
 }

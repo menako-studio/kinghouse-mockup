@@ -15,17 +15,17 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
   const [checkOut, setCheckOut] = useState("2026-09-15")
   const [guestCount, setGuestCount] = useState("2")
 
-  // Calculate nights
+  // Calculate nights & fees (IDR primary)
   const nights = 5
-  const baseTotal = villa.price.usd * nights
-  const cleaningFee = villa.price.cleaningFeeUsd
+  const baseTotal = villa.price.idr * nights
+  const cleaningFee = villa.price.cleaningFeeIdr
   const serviceFee = Math.round(baseTotal * (villa.price.serviceFeePercent / 100))
   const estimatedTotal = baseTotal + cleaningFee + serviceFee
 
   const whatsappMessage = encodeURIComponent(
-    `Hello KingHouse Concierge! I am interested in reserving ${villa.name} in ${villa.area} for ${nights} nights (${checkIn} to ${checkOut}) for ${guestCount} guests.`
+    `Hello KingHouse! Saya tertarik untuk menyewa ${villa.name} di ${villa.area} selama ${nights} malam (${checkIn} s/d ${checkOut}) untuk ${guestCount} tamu. Mohon info ketersediaan dan harganya.`
   )
-  const whatsappUrl = `https://wa.me/6281234567890?text=${whatsappMessage}`
+  const whatsappUrl = `https://wa.me/628129252090?text=${whatsappMessage}`
 
   return (
     <div className="sticky top-28 rounded-2xl border border-[#EBEBEB] bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
@@ -34,12 +34,12 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
         <div>
           <div className="flex items-baseline space-x-1">
             <span className="font-serif text-3xl font-normal text-[#222222]">
-              {formatCurrency(villa.price.usd, "USD")}
+              {formatCurrency(villa.price.idr, "IDR")}
             </span>
-            <span className="text-sm text-[#717171]"> / night</span>
+            <span className="text-sm text-[#717171]"> / malam</span>
           </div>
           <span className="text-xs text-[#A69C8E] block">
-            ≈ {formatCurrency(villa.price.idr, "IDR")} IDR
+            ≈ {formatCurrency(villa.price.usd, "USD")}/night
           </span>
         </div>
 

@@ -24,8 +24,8 @@ export function PerformanceMetrics() {
         <div className="space-y-12">
           {CASE_STUDIES.map((cs) => {
             const revLift = Math.round(
-              ((cs.afterMetrics.monthlyRevenueUsd - cs.beforeMetrics.monthlyRevenueUsd) /
-                cs.beforeMetrics.monthlyRevenueUsd) *
+              ((cs.afterMetrics.monthlyRevenueIdr - cs.beforeMetrics.monthlyRevenueIdr) /
+                cs.beforeMetrics.monthlyRevenueIdr) *
                 100
             )
             const occLift = cs.afterMetrics.occupancyRate - cs.beforeMetrics.occupancyRate
@@ -39,7 +39,7 @@ export function PerformanceMetrics() {
                 <div className="lg:col-span-5 relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs border border-[#EBEBEB]">
                   <Image
                     src={cs.image}
-                    alt={cs.villaName}
+                    alt={cs.propertyName}
                     fill
                     className="object-cover"
                   />
@@ -55,7 +55,7 @@ export function PerformanceMetrics() {
                 <div className="lg:col-span-7 space-y-8">
                   <div className="space-y-2">
                     <h3 className="font-serif text-2xl sm:text-3xl text-[#222222]">
-                      {cs.villaName}
+                      {cs.propertyName}
                     </h3>
                     <p className="text-xs text-[#717171] leading-relaxed">
                       {cs.summary}
@@ -89,10 +89,10 @@ export function PerformanceMetrics() {
                       </span>
                       <div className="flex items-baseline space-x-1.5">
                         <span className="text-xs text-[#999999] line-through">
-                          ${(cs.beforeMetrics.monthlyRevenueUsd / 1000).toFixed(1)}k
+                          Rp {(cs.beforeMetrics.monthlyRevenueIdr / 1000000).toFixed(0)}jt
                         </span>
                         <span className="text-lg font-bold text-[#222222]">
-                          ${(cs.afterMetrics.monthlyRevenueUsd / 1000).toFixed(1)}k
+                          Rp {(cs.afterMetrics.monthlyRevenueIdr / 1000000).toFixed(0)}jt
                         </span>
                       </div>
                       <span className="text-[10px] font-semibold text-[#25D366] block">

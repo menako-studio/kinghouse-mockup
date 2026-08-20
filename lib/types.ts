@@ -6,9 +6,17 @@ export interface VillaAmenity {
 
 export interface NearbySpot {
   name: string
-  category: "beach" | "cafe" | "airport" | "landmark" | "dining"
+  category: "mall" | "transport" | "dining" | "landmark" | "airport" | "beach" | "cafe"
   distance: string
   travelTime: string
+}
+
+export interface SeoMeta {
+  metaTitle: string
+  metaDescription: string
+  focusKeyword: string
+  ogImage?: string
+  canonicalUrl?: string
 }
 
 export interface Villa {
@@ -19,7 +27,10 @@ export interface Villa {
   area: string
   areaSlug: string
   location: string
+  propertyType: "entire-home" | "private-room" | "entire-apartment" | "villa"
   airbnbUrl: string
+  bookingComUrl?: string
+  agodaUrl?: string
   superhost: boolean
   guestFavorite: boolean
   rating: number
@@ -27,7 +38,7 @@ export interface Villa {
   price: {
     usd: number
     idr: number
-    cleaningFeeUsd: number
+    cleaningFeeIdr: number
     serviceFeePercent: number
   }
   capacity: {
@@ -40,7 +51,7 @@ export interface Villa {
   gallery: {
     url: string
     caption: string
-    category: "exterior" | "living" | "bedroom" | "pool" | "bathroom" | "dining"
+    category: "exterior" | "living" | "bedroom" | "pool" | "bathroom" | "dining" | "garden" | "kitchen"
   }[]
   editorialDescription: {
     lead: string
@@ -51,6 +62,7 @@ export interface Villa {
   nearbySpots: NearbySpot[]
   featured: boolean
   architecturalStyle: string
+  seoMeta?: SeoMeta
 }
 
 export interface PartnerLogo {
@@ -90,18 +102,18 @@ export interface ManagementTier {
 
 export interface CaseStudy {
   id: string
-  villaName: string
+  propertyName: string
   location: string
   image: string
   period: string
   beforeMetrics: {
     occupancyRate: number
-    monthlyRevenueUsd: number
+    monthlyRevenueIdr: number
     guestRating: number
   }
   afterMetrics: {
     occupancyRate: number
-    monthlyRevenueUsd: number
+    monthlyRevenueIdr: number
     guestRating: number
     ebitdaMargin: number
   }
@@ -110,4 +122,49 @@ export interface CaseStudy {
     text: string
     author: string
   }
+}
+
+export interface BlogPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  category: string
+  publishedAt: string
+  author: {
+    name: string
+    role: string
+    avatar: string
+  }
+  heroImage: string
+  tags: string[]
+  seoKeywords: string[]
+  readTime: number
+  featured: boolean
+}
+
+export interface EventPackage {
+  name: string
+  description: string
+  priceIdr: number
+  priceNote: string
+  includes: string[]
+}
+
+export interface VillaEvent {
+  id: string
+  propertyId: string
+  propertySlug: string
+  propertyName: string
+  title: string
+  slug: string
+  category: "wedding" | "corporate" | "birthday" | "intimate-gathering" | "wellness"
+  tagline: string
+  description: string
+  maxCapacity: number
+  heroImage: string
+  gallery: string[]
+  packages: EventPackage[]
+  highlights: string[]
 }

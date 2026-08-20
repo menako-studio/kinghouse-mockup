@@ -9,7 +9,7 @@ interface BentoGalleryProps {
   images: {
     url: string
     caption: string
-    category: "exterior" | "living" | "bedroom" | "pool" | "bathroom" | "dining"
+    category: "exterior" | "living" | "bedroom" | "pool" | "bathroom" | "dining" | "garden" | "kitchen"
   }[]
   propertyName: string
 }
