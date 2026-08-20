@@ -1,222 +1,203 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
+import { Mail, Phone, MapPin, MessageSquare, ArrowUpRight, CheckCircle2, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import { SITE_CONFIG } from "@/lib/constants"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
 
 export default function ContactPage() {
+  const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    propertyType: "owner",
-    message: ""
+    subject: "Owner Inquiries",
+    message: "",
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log(formData)
-    alert("Terima kasih! Kami akan menghubungi Anda segera.")
+    setSubmitted(true)
   }
 
   return (
-    <main>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-amber-500 to-amber-600 py-20 text-white">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <h1 className="mb-6 text-4xl font-bold md:text-5xl">
-            Hubungi Kami
-          </h1>
-          <p className="text-xl text-amber-50">
-            Tim kami siap membantu Anda. Jangan ragu untuk menghubungi kami!
-          </p>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Contact Form */}
-            <div>
-              <h2 className="mb-6 text-3xl font-bold text-gray-900">
-                Kirim Pesan
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700">
-                    Nama Lengkap
-                  </label>
-                  <Input
-                    id="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Masukkan nama lengkap Anda"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="nama@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="mb-2 block text-sm font-medium text-gray-700">
-                    Nomor Telepon
-                  </label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+62 812 xxxx xxxx"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="propertyType" className="mb-2 block text-sm font-medium text-gray-700">
-                    Saya adalah
-                  </label>
-                  <select
-                    id="propertyType"
-                    value={formData.propertyType}
-                    onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                  >
-                    <option value="owner">Pemilik Villa</option>
-                    <option value="guest">Calon Tamu</option>
-                    <option value="partner">Calon Partner</option>
-                    <option value="other">Lainnya</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-700">
-                    Pesan
-                  </label>
-                  <textarea
-                    id="message"
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={5}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm transition-colors placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                    placeholder="Ceritakan kepada kami tentang properti Anda atau pertanyaan Anda..."
-                  />
-                </div>
-
-                <Button type="submit" size="lg" className="w-full">
-                  <Send className="mr-2 h-5 w-5" />
-                  Kirim Pesan
-                </Button>
-              </form>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h2 className="mb-6 text-3xl font-bold text-gray-900">
-                Informasi Kontak
-              </h2>
-
-              <div className="space-y-6 mb-8">
-                <Card className="border-none shadow-lg">
-                  <CardContent className="flex items-start gap-4 p-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
-                      <Mail className="h-6 w-6 text-amber-600" />
-                    </div>
-                    <div>
-                      <h3 className="mb-1 font-semibold text-gray-900">Email</h3>
-                      <a
-                        href={`mailto:${SITE_CONFIG.contact.email}`}
-                        className="text-gray-600 hover:text-amber-600 transition-colors"
-                      >
-                        {SITE_CONFIG.contact.email}
-                      </a>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-lg">
-                  <CardContent className="flex items-start gap-4 p-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
-                      <Phone className="h-6 w-6 text-amber-600" />
-                    </div>
-                    <div>
-                      <h3 className="mb-1 font-semibold text-gray-900">Telepon</h3>
-                      <a
-                        href={`tel:${SITE_CONFIG.contact.phone}`}
-                        className="text-gray-600 hover:text-amber-600 transition-colors"
-                      >
-                        {SITE_CONFIG.contact.phone}
-                      </a>
-                      <p className="text-sm text-gray-500 mt-1">Senin - Jumat, 09:00 - 18:00</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-lg">
-                  <CardContent className="flex items-start gap-4 p-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100">
-                      <MapPin className="h-6 w-6 text-amber-600" />
-                    </div>
-                    <div>
-                      <h3 className="mb-1 font-semibold text-gray-900">Alamat</h3>
-                      <p className="text-gray-600">
-                        {SITE_CONFIG.contact.address}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="rounded-xl bg-amber-50 p-6">
-                <h3 className="mb-3 font-semibold text-gray-900">Jam Operasional</h3>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex justify-between">
-                    <span>Senin - Jumat</span>
-                    <span className="font-medium">09:00 - 18:00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sabtu</span>
-                    <span className="font-medium">10:00 - 16:00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Minggu</span>
-                    <span className="font-medium">Tutup</span>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-amber-200">
-                    <p className="font-medium text-amber-700">
-                      Emergency Support: 24/7
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <main className="min-h-screen bg-white pb-24">
+      {/* Editorial Header */}
+      <section className="section-macro-spacing bg-[#FAFAFA] border-b border-[#EBEBEB]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#A69C8E]">
+              Direct Communication Desk
+            </span>
+            <h1 className="font-serif text-4xl sm:text-6xl text-[#222222] font-normal leading-[1.1]">
+              Get in Touch with KingHouse
+            </h1>
+            <p className="text-base sm:text-lg text-[#717171] font-light leading-relaxed">
+              Whether you are planning an architectural escape or seeking high-yield management for your luxury villa asset, our team is at your disposal.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="bg-gray-100 py-12">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="rounded-xl overflow-hidden shadow-lg">
-            <div className="aspect-video bg-gray-300 flex items-center justify-center">
-              <p className="text-gray-600">Google Maps Integration</p>
+      {/* Main Grid */}
+      <section className="section-macro-spacing bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            {/* Direct Contact Channels Column */}
+            <div className="lg:col-span-5 space-y-8">
+              <div className="space-y-3">
+                <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#A69C8E]">
+                  Direct Channels
+                </span>
+                <h2 className="font-serif text-3xl text-[#222222]">
+                  Concierge & Asset Management Desk
+                </h2>
+              </div>
+
+              {/* Fast WhatsApp Channel */}
+              <div className="rounded-2xl border border-[#EBEBEB] bg-[#FAFAFA] p-6 space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#222222] text-white">
+                    <MessageSquare className="h-5 w-5 text-[#25D366]" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#222222]">Instant WhatsApp Concierge</h3>
+                    <p className="text-xs text-[#717171]">Average reply time: under 15 minutes</p>
+                  </div>
+                </div>
+                <Button asChild className="w-full text-xs uppercase tracking-wider font-semibold">
+                  <a
+                    href="https://wa.me/6281234567890?text=Hello%20KingHouse%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open WhatsApp Chat <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              </div>
+
+              {/* Contact Details List */}
+              <div className="space-y-4 pt-2 text-sm text-[#222222]">
+                <div className="flex items-start space-x-3">
+                  <Mail className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-[#717171] block">Direct Inquiries</span>
+                    <a href="mailto:hello@kinghousevillas.com" className="font-medium hover:underline">
+                      hello@kinghousevillas.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <Phone className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-[#717171] block">Telephone Desk</span>
+                    <a href="tel:+6281234567890" className="font-medium hover:underline">
+                      +62 812-3456-7890
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <MapPin className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-[#717171] block">Principal Studio</span>
+                    <span className="text-xs text-[#717171] leading-relaxed block">
+                      Jl. Batu Bolong No. 88, Canggu, Bali 80361, Indonesia
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Inquiries Form Column */}
+            <div className="lg:col-span-7">
+              <div className="rounded-3xl border border-[#EBEBEB] bg-[#FAFAFA] p-8 sm:p-12 shadow-xs">
+                {submitted ? (
+                  <div className="text-center py-12 space-y-4 animate-in fade-in duration-300">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#222222] text-white">
+                      <CheckCircle2 className="h-7 w-7 text-[#A69C8E]" />
+                    </div>
+                    <h3 className="font-serif text-2xl text-[#222222]">Message Dispatched</h3>
+                    <p className="text-xs text-[#717171] max-w-sm mx-auto">
+                      Thank you for contacting KingHouse. Our hospitality concierge or senior asset manager will follow up shortly.
+                    </p>
+                    <Button variant="outline" size="sm" onClick={() => setSubmitted(false)}>
+                      Send Another Message
+                    </Button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="space-y-1">
+                      <h3 className="font-serif text-2xl text-[#222222]">Send a Direct Inquiry</h3>
+                      <p className="text-xs text-[#717171]">We respond to all requests within 24 hours.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-[#222222]">
+                          Full Name *
+                        </label>
+                        <Input
+                          required
+                          placeholder="Marcus Aurelius"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="bg-white"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-[#222222]">
+                          Email Address *
+                        </label>
+                        <Input
+                          type="email"
+                          required
+                          placeholder="marcus@example.com"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="bg-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-bold uppercase tracking-wider text-[#222222]">
+                        Inquiry Nature
+                      </label>
+                      <select
+                        value={formData.subject}
+                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                        className="flex h-11 w-full rounded-lg border border-[#EBEBEB] bg-white px-3.5 py-2 text-xs sm:text-sm text-[#222222] focus:border-[#222222] focus:outline-none cursor-pointer"
+                      >
+                        <option value="Owner Asset Management">Owner Asset Management (15% vs 20% Models)</option>
+                        <option value="Guest Reservation Inquiry">Guest Reservation / Airbnb Inquiry</option>
+                        <option value="Architectural Partnership">Architectural & Media Partnership</option>
+                        <option value="General Question">General Question</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-bold uppercase tracking-wider text-[#222222]">
+                        Message Details *
+                      </label>
+                      <textarea
+                        required
+                        rows={4}
+                        placeholder="Tell us about your property, dates, or specific requirements..."
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full rounded-lg border border-[#EBEBEB] bg-white p-3.5 text-xs sm:text-sm text-[#222222] focus:border-[#222222] focus:outline-none"
+                      />
+                    </div>
+
+                    <Button type="submit" size="lg" className="w-full text-xs uppercase tracking-widest font-semibold h-12">
+                      Submit Inquiry
+                    </Button>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>

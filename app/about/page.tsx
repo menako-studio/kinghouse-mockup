@@ -1,78 +1,96 @@
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowRight, Compass, ShieldCheck, Sparkles, Building2, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Target, Eye, Award, Users, ArrowRight } from "lucide-react"
+
+export const metadata = {
+  title: "About KingHouse | Editorial Hospitality & Asset Management",
+  description: "Learn about the KingHouse philosophy: fusing architectural minimalism with institutional villa asset management.",
+}
 
 export default function AboutPage() {
-  const values = [
+  const leadership = [
     {
-      icon: Target,
-      title: "Excellence",
-      description: "Kami berkomitmen memberikan layanan terbaik untuk setiap properti yang kami kelola"
+      name: "Marcus Aurelius Tan",
+      role: "Managing Director & Principal Architect",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+      bio: "Former partner at leading architectural studios across Tokyo and Singapore with 15+ years in high-end tropical residential design.",
     },
     {
-      icon: Users,
-      title: "Partnership",
-      description: "Kami percaya pada hubungan jangka panjang yang saling menguntungkan"
+      name: "Sabrina Alistair",
+      role: "Head of Revenue Engineering & OTAs",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+      bio: "Ex-OTA yield manager with expertise in algorithmic dynamic pricing and global vacation rental syndication.",
     },
     {
-      icon: Award,
-      title: "Trust",
-      description: "Transparansi dan integritas adalah fondasi bisnis kami"
-    }
-  ]
-
-  const team = [
-    {
-      name: "Budi Hartono",
-      role: "CEO & Founder",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+      name: "Julian Danuatmadja",
+      role: "Director of Hospitality Operations",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
+      bio: "Over two decades directing 5-star ultra-luxury boutique resort operations, preventative engineering, and private butler academies.",
     },
-    {
-      name: "Sarah Putri",
-      role: "Head of Operations",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
-    },
-    {
-      name: "Ahmad Rizki",
-      role: "Revenue Manager",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
-    },
-    {
-      name: "Diana Sari",
-      role: "Guest Relations Manager",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-    }
   ]
 
   return (
-    <main>
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-12 lg:grid-cols-2 items-center">
-            <div>
-              <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
-                Tentang KingHouse
-              </h1>
-              <p className="mb-6 text-lg text-gray-600 leading-relaxed">
-                KingHouse adalah perusahaan manajemen villa terkemuka di Jabodetabek yang berdedikasi untuk memaksimalkan pendapatan properti Anda sambil memberikan pengalaman menginap yang luar biasa bagi tamu.
-              </p>
-              <p className="mb-8 text-lg text-gray-600 leading-relaxed">
-                Didirikan pada tahun 2020, kami telah membantu ratusan pemilik properti mengoptimalkan villa mereka dengan layanan manajemen profesional dan teknologi terkini.
-              </p>
-              <Button size="lg" asChild>
-                <Link href="/contact">
-                  Bergabung dengan Kami
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+    <main className="min-h-screen bg-white pb-24">
+      {/* Editorial Hero */}
+      <section className="section-macro-spacing bg-[#FAFAFA] border-b border-[#EBEBEB]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="max-w-3xl space-y-6">
+            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#A69C8E]">
+              Our Manifesto &bull; Founded 2021
+            </span>
+            <h1 className="font-serif text-4xl sm:text-6xl text-[#222222] font-normal leading-[1.1]">
+              Architectural Reverence. <br />
+              <span className="italic text-[#717171]">Frictionless Hospitality.</span>
+            </h1>
+            <p className="text-base sm:text-lg text-[#555555] font-light leading-relaxed">
+              KingHouse was created to bridge the divide between world-class architectural residential design and professional, institutional asset management. We believe every villa has a soul, and that exceptional spaces deserve meticulous, data-driven stewardship.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Story & Philosophy */}
+      <section className="section-macro-spacing bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#A69C8E]">
+                The Dual Philosophy
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl text-[#222222]">
+                Where Never Too Small Meets Airbnb Superhost
+              </h2>
+              <div className="space-y-4 text-sm text-[#717171] leading-relaxed">
+                <p>
+                  We are inspired by the purity of micro-architectural documentaries and the seamless UX of the world&apos;s leading hospitality platforms. Our properties are not generic hotel rooms—they are bespoke spaces with distinct spatial stories.
+                </p>
+                <p>
+                  For guests, we remove friction by integrating directly with Airbnb&apos;s trusted ecosystem, offering instant booking peace of mind, backed by on-site KingHouse butlers and concierge staff.
+                </p>
+                <p>
+                  For owners, we deliver institutional transparency: live accounting, dynamic RevPAR algorithms, and preventative estate maintenance that preserves long-term asset value.
+                </p>
+              </div>
+
+              <div className="pt-4 flex items-center space-x-4">
+                <Button size="lg" asChild>
+                  <Link href="/owner-services">
+                    Partner With Us <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/villas">
+                    Explore Collection
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
+
+            <div className="lg:col-span-6 relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#EBEBEB] shadow-xs">
               <Image
-                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-                alt="KingHouse Office"
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
+                alt="Architectural villa reflection pool"
                 fill
                 className="object-cover"
               />
@@ -81,108 +99,25 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-8 md:grid-cols-2">
-            <Card className="border-none shadow-lg bg-amber-50">
-              <CardContent className="p-8">
-                <Eye className="h-12 w-12 text-amber-600 mb-4" />
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">Visi Kami</h2>
-                <p className="text-gray-700 leading-relaxed">
-                  Menjadi platform manajemen villa terdepan di Indonesia yang mengubah cara pemilik properti mengelola dan mengoptimalkan aset mereka, sambil memberikan pengalaman menginap terbaik bagi tamu.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-lg bg-blue-50">
-              <CardContent className="p-8">
-                <Target className="h-12 w-12 text-blue-600 mb-4" />
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">Misi Kami</h2>
-                <p className="text-gray-700 leading-relaxed">
-                  Memberdayakan pemilik villa dengan teknologi dan keahlian untuk memaksimalkan pendapatan properti mereka, sambil memastikan standar layanan tertinggi untuk tamu melalui operasional profesional dan inovatif.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900">
-              Nilai-Nilai Kami
+      {/* Leadership Team */}
+      <section className="section-macro-spacing bg-[#FAFAFA] border-y border-[#EBEBEB]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 space-y-16">
+          <div className="max-w-2xl space-y-4">
+            <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#A69C8E]">
+              Leadership Team
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#222222]">
+              Architects, Revenue Engineers & Concierge Directors
             </h2>
-            <p className="text-lg text-gray-600">
-              Prinsip yang memandu setiap keputusan dan tindakan kami
-            </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {values.map((value, index) => {
-              const Icon = value.icon
-              return (
-                <Card key={index} className="border-none shadow-lg text-center">
-                  <CardContent className="pt-8 pb-6">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
-                      <Icon className="h-8 w-8 text-amber-600" />
-                    </div>
-                    <h3 className="mb-3 text-xl font-semibold text-gray-900">
-                      {value.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {value.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-8 md:grid-cols-4">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-amber-600 mb-2">100+</div>
-              <div className="text-lg text-gray-600">Villa Dikelola</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-amber-600 mb-2">5000+</div>
-              <div className="text-lg text-gray-600">Tamu Puas</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-amber-600 mb-2">85%</div>
-              <div className="text-lg text-gray-600">Avg. Occupancy</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-amber-600 mb-2">4.9/5</div>
-              <div className="text-lg text-gray-600">Rating</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900">
-              Tim Kami
-            </h2>
-            <p className="text-lg text-gray-600">
-              Profesional berpengalaman yang siap membantu kesuksesan properti Anda
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {team.map((member, index) => (
-              <Card key={index} className="border-none shadow-lg overflow-hidden">
-                <div className="relative aspect-square">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {leadership.map((member, index) => (
+              <div
+                key={index}
+                className="rounded-2xl border border-[#EBEBEB] bg-white p-6 shadow-xs space-y-4"
+              >
+                <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-[#EBEBEB]">
                   <Image
                     src={member.image}
                     alt={member.name}
@@ -190,38 +125,13 @@ export default function AboutPage() {
                     className="object-cover"
                   />
                 </div>
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-600">{member.role}</p>
-                </CardContent>
-              </Card>
+                <div className="space-y-1">
+                  <h3 className="font-serif text-xl text-[#222222]">{member.name}</h3>
+                  <p className="text-xs text-[#A69C8E] font-medium">{member.role}</p>
+                </div>
+                <p className="text-xs text-[#717171] leading-relaxed">{member.bio}</p>
+              </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-gradient-to-br from-amber-500 to-amber-700 py-20 text-white">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="mb-6 text-3xl font-bold md:text-4xl">
-            Mari Bekerja Sama
-          </h2>
-          <p className="mb-8 text-lg text-amber-50">
-            Percayakan properti Anda kepada tim profesional yang peduli dengan kesuksesan Anda
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="outline" className="bg-white text-amber-700 hover:bg-amber-50" asChild>
-              <Link href="/list-property">
-                Daftarkan Properti
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-              <Link href="/contact">
-                Hubungi Kami
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
