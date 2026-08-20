@@ -19,24 +19,24 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "KingHouse | Manajemen Properti Sewa Profesional Jabodetabek",
+    default: "KingHouse | Premium Short-Stay Property Management Jabodetabek",
     template: "%s | KingHouse",
   },
   description:
-    "KingHouse mengelola properti Airbnb premium di Jagakarsa, Tangerang, Palmerah, dan Cikarang. Tingkatkan occupancy rate & pendapatan properti Anda dengan manajemen profesional — foto editorial, SEO listing, harga dinamis, & layanan tamu 24/7.",
+    "KingHouse manages premium short-stay properties across Greater Jakarta (Jagakarsa, Tangerang, Palmerah, and Cikarang) on Airbnb. Maximize occupancy rates and revenue through editorial listings, dynamic pricing, and 24/7 guest concierge.",
   keywords: [
     "KingHouse",
-    "manajemen properti airbnb",
-    "property management jabodetabek",
-    "sewa properti jakarta",
+    "property management jakarta",
+    "airbnb property management jabodetabek",
+    "short stay villa jakarta selatan",
     "airbnb management indonesia",
-    "villa management jakarta selatan",
+    "villa management south jakarta",
     "airbnb jagakarsa",
     "airbnb cikarang",
     "airbnb tangerang",
     "airbnb palmerah",
-    "short term rental management",
-    "meningkatkan occupancy airbnb",
+    "short term rental asset management",
+    "maximize airbnb occupancy",
   ],
   authors: [{ name: "KingHouse" }],
   creator: "KingHouse",
@@ -56,11 +56,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "KingHouse — Manajemen Properti Airbnb Terpercaya di Jabodetabek",
+    title: "KingHouse — Editorial Short-Stay Property Management in Jabodetabek",
     description:
-      "Tingkatkan occupancy & pendapatan properti Anda di Airbnb dengan KingHouse. Foto profesional, SEO listing, dynamic pricing, & tamu care 24/7.",
+      "Maximize property occupancy and revenue on Airbnb with KingHouse. Editorial photography, keyword-optimized SEO, dynamic pricing, and 24/7 guest care.",
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
     siteName: "KingHouse",
     url: "https://kinghouse.id",
     images: [
@@ -74,8 +74,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "KingHouse — Manajemen Properti Airbnb Jabodetabek",
-    description: "Tingkatkan occupancy & pendapatan properti Anda bersama KingHouse.",
+    title: "KingHouse — Editorial Short-Stay Property Management",
+    description:
+      "Maximize property occupancy and revenue on Airbnb with KingHouse. Editorial photography, keyword-optimized SEO, dynamic pricing, and 24/7 guest care.",
     images: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85",
     ],

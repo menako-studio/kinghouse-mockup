@@ -8,16 +8,14 @@ import {
   Users,
   Bed,
   MapPin,
-  CheckCircle2,
-  Sparkles,
 } from "lucide-react"
 import { CURATED_VILLAS } from "@/lib/data"
 import { ChannelBadge } from "@/components/dashboard/channel-badge"
 import { formatCurrency } from "@/lib/utils"
 
 export const metadata: Metadata = {
-  title: "Manajemen Properti — KingHouse CMS",
-  description: "Daftar unit properti Jabodetabek yang dikelola KingHouse.",
+  title: "Property Management — KingHouse CMS",
+  description: "Managed Jabodetabek villa and apartment portfolio portfolio under KingHouse Hospitality.",
 }
 
 export default function DashboardPropertiesPage() {
@@ -26,13 +24,13 @@ export default function DashboardPropertiesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBEBEB] pb-6">
         <div>
-          <h1 className="font-serif text-3xl text-[#222222]">Portofolio Properti</h1>
+          <h1 className="font-serif text-3xl text-[#222222]">Property Portfolio</h1>
           <p className="text-sm text-[#717171] mt-1">
-            Semua unit Airbnb aktif yang dikelola oleh KingHouse Hospitality Group di Jabodetabek
+            All active Airbnb listings managed by KingHouse Hospitality Group across Jabodetabek
           </p>
         </div>
         <div className="text-xs text-[#717171] bg-white border border-[#EBEBEB] px-4 py-2 rounded-xl">
-          <strong className="text-[#222222]">4 Unit</strong> Terhubung ke Airbnb
+          <strong className="text-[#222222]">4 Units</strong> Connected to Airbnb
         </div>
       </div>
 
@@ -58,7 +56,7 @@ export default function DashboardPropertiesPage() {
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
                   <div>
-                    <p className="text-[11px] text-white/80 uppercase tracking-wider">Tarif Malam</p>
+                    <p className="text-[11px] text-white/80 uppercase tracking-wider">Nightly Rate</p>
                     <p className="font-serif text-2xl font-semibold">
                       {formatCurrency(villa.price.idr, "IDR")}
                     </p>
@@ -71,7 +69,7 @@ export default function DashboardPropertiesPage() {
                     </div>
                   ) : (
                     <span className="text-xs bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-lg font-medium">
-                      Listing Baru
+                      New Listing
                     </span>
                   )}
                 </div>
@@ -97,21 +95,21 @@ export default function DashboardPropertiesPage() {
                 <div className="flex items-center space-x-4 text-xs text-[#717171] pt-3 border-t border-[#F5F4F0]">
                   <span className="flex items-center space-x-1">
                     <Users className="h-3.5 w-3.5 text-[#A69C8E]" />
-                    <span>{villa.capacity.guests} Tamu</span>
+                    <span>{villa.capacity.guests} Guests</span>
                   </span>
                   <span>&bull;</span>
                   <span className="flex items-center space-x-1">
                     <Bed className="h-3.5 w-3.5 text-[#A69C8E]" />
-                    <span>{villa.capacity.bedrooms} Kamar</span>
+                    <span>{villa.capacity.bedrooms} Bedrooms</span>
                   </span>
                   <span>&bull;</span>
-                  <span>{villa.capacity.beds} Bed</span>
+                  <span>{villa.capacity.beds} Beds</span>
                 </div>
 
                 {/* Channel Status */}
                 <div className="pt-2">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#A69C8E] mb-2">
-                    Koneksi Channel OTA
+                    OTA Channel Connectivity
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <ChannelBadge channel="airbnb" status="connected" />
@@ -129,7 +127,7 @@ export default function DashboardPropertiesPage() {
                 className="flex-1 inline-flex items-center justify-center space-x-2 bg-[#222222] text-white py-2.5 rounded-xl text-xs font-semibold hover:bg-[#333333] transition-colors"
               >
                 <Search className="h-3.5 w-3.5 text-[#A69C8E]" />
-                <span>Kelola SEO</span>
+                <span>Manage SEO</span>
               </Link>
               <a
                 href={villa.airbnbUrl}
@@ -147,3 +145,4 @@ export default function DashboardPropertiesPage() {
     </div>
   )
 }
+

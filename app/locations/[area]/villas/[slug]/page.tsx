@@ -29,13 +29,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const villa = CURATED_VILLAS.find((v) => v.slug === resolvedParams.slug)
 
   if (!villa) {
-    return { title: "Properti Tidak Ditemukan | KingHouse" }
+    return { title: "Property Not Found | KingHouse" }
   }
 
   const title = villa.seoMeta?.metaTitle ?? `${villa.name} — ${villa.area} | KingHouse`
   const description =
     villa.seoMeta?.metaDescription ??
-    `${villa.editorialDescription.lead} Dikelola oleh KingHouse di Airbnb.`
+    `${villa.editorialDescription.lead} Professionally managed by KingHouse on Airbnb.`
   const image = villa.seoMeta?.ogImage ?? villa.heroImage
   const canonicalUrl = `/locations/${villa.areaSlug}/villas/${villa.slug}`
 
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     keywords: villa.seoMeta
-      ? [villa.seoMeta.focusKeyword, villa.area, "airbnb", "KingHouse", "sewa properti"]
+      ? [villa.seoMeta.focusKeyword, villa.area, "airbnb", "KingHouse", "short stay villa"]
       : undefined,
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -76,7 +76,7 @@ export default async function VillaDetailPage({ params }: PageProps) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://kinghouse.id" },
-      { "@type": "ListItem", position: 2, name: "Properti", item: "https://kinghouse.id/villas" },
+      { "@type": "ListItem", position: 2, name: "Properties", item: "https://kinghouse.id/villas" },
       { "@type": "ListItem", position: 3, name: villa.area, item: `https://kinghouse.id/locations/${villa.areaSlug}` },
       { "@type": "ListItem", position: 4, name: villa.name, item: `https://kinghouse.id/locations/${villa.areaSlug}/villas/${villa.slug}` },
     ],
@@ -89,36 +89,36 @@ export default async function VillaDetailPage({ params }: PageProps) {
     mainEntity: [
       {
         "@type": "Question",
-        name: `Berapa kapasitas maksimal tamu di ${villa.name}?`,
+        name: `What is the maximum guest capacity at ${villa.name}?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Properti ini menampung maksimal ${villa.capacity.guests} tamu dengan ${villa.capacity.bedrooms} kamar tidur, ${villa.capacity.beds} tempat tidur, dan ${villa.capacity.bathrooms} kamar mandi.`,
+          text: `This property comfortably accommodates up to ${villa.capacity.guests} guests with ${villa.capacity.bedrooms} bedrooms, ${villa.capacity.beds} beds, and ${villa.capacity.bathrooms} bathrooms.`,
         },
       },
       {
         "@type": "Question",
-        name: "Bagaimana cara memesan properti ini?",
+        name: "How do I reserve this property?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Properti ini tersedia untuk dipesan melalui Airbnb di ${villa.airbnbUrl}. Anda juga dapat menghubungi KingHouse langsung melalui WhatsApp untuk informasi lebih lanjut.`,
+          text: `This property is available for instant booking via Airbnb at ${villa.airbnbUrl}. You can also connect with the KingHouse WhatsApp concierge for direct assistance.`,
         },
       },
       {
         "@type": "Question",
-        name: `Di mana lokasi ${villa.name}?`,
+        name: `Where is ${villa.name} located?`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Properti berlokasi di ${villa.location}. ${villa.nearbySpots[0] ? `Jarak ke ${villa.nearbySpots[0].name} sekitar ${villa.nearbySpots[0].distance} (${villa.nearbySpots[0].travelTime}).` : ""}`,
+          text: `The property is situated in ${villa.location}. ${villa.nearbySpots[0] ? `Distance to ${villa.nearbySpots[0].name} is approximately ${villa.nearbySpots[0].distance} (${villa.nearbySpots[0].travelTime}).` : ""}`,
         },
       },
     ],
   }
 
   const PROPERTY_TYPE_LABELS: Record<string, string> = {
-    "entire-home": "Seluruh Rumah",
-    "private-room": "Kamar Privat",
-    "entire-apartment": "Seluruh Apartemen",
-    "villa": "Villa Privat",
+    "entire-home": "Entire Villa",
+    "private-room": "Private Suite",
+    "entire-apartment": "Entire Apartment",
+    "villa": "Private Villa",
   }
 
   return (
@@ -141,7 +141,7 @@ export default async function VillaDetailPage({ params }: PageProps) {
         <nav className="flex items-center space-x-2 text-xs text-[#717171] mb-6">
           <Link href="/" className="hover:text-[#222222] transition-colors">Home</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link href="/villas" className="hover:text-[#222222] transition-colors">Villas</Link>
+          <Link href="/villas" className="hover:text-[#222222] transition-colors">Properties</Link>
           <ChevronRight className="h-3 w-3" />
           <span className="text-[#222222] font-medium">{villa.name}</span>
         </nav>
@@ -163,13 +163,13 @@ export default async function VillaDetailPage({ params }: PageProps) {
               <div className="flex items-center space-x-1 font-semibold">
                 <Star className="h-4 w-4 fill-[#222222] text-[#222222]" />
                 <span>{villa.rating.toFixed(2)}</span>
-                <span className="text-[#717171] font-normal">({villa.reviewsCount} ulasan)</span>
+                <span className="text-[#717171] font-normal">({villa.reviewsCount} reviews)</span>
               </div>
             )}
             {villa.rating === 0 && (
               <div className="flex items-center space-x-1 text-[#A69C8E]">
                 <Sparkles className="h-3.5 w-3.5" />
-                <span className="text-xs">Listing Baru</span>
+                <span className="text-xs">New Listing</span>
               </div>
             )}
 
@@ -206,7 +206,7 @@ export default async function VillaDetailPage({ params }: PageProps) {
             <div className="flex items-center justify-between pb-8 border-b border-[#EBEBEB]">
               <div className="space-y-1">
                 <h2 className="font-serif text-2xl text-[#222222]">
-                  {PROPERTY_TYPE_LABELS[villa.propertyType] ?? "Properti"} — Dikelola oleh KingHouse
+                  {PROPERTY_TYPE_LABELS[villa.propertyType] ?? "Property"} — Managed by KingHouse
                 </h2>
                 <div className="flex items-center space-x-4 text-xs sm:text-sm text-[#717171]">
                   <span>{villa.capacity.guests} Guests</span>

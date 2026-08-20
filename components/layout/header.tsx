@@ -4,12 +4,18 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
-import { Menu, X, ArrowUpRight, MessageSquareQuote } from "lucide-react"
+import { Menu, X, ArrowUpRight } from "lucide-react"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
+  const [prevPathname, setPrevPathname] = useState(pathname)
+
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname)
+    setIsMenuOpen(false)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,13 +29,8 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMenuOpen(false)
-  }, [pathname])
-
   const navLinks = [
-    { label: "Properti", href: "/villas" },
+    { label: "Properties", href: "/villas" },
     { label: "Owner Services", href: "/owner-services" },
     { label: "Blog", href: "/blog" },
     { label: "Events", href: "/events" },
@@ -134,7 +135,7 @@ export function Header() {
 
             <div className="pt-6 border-t border-[#EBEBEB] space-y-3">
               <Button asChild className="w-full justify-center" size="lg">
-                <Link href="/villas">Explore Villas</Link>
+                <Link href="/villas">Explore Properties</Link>
               </Button>
               <Button asChild variant="outline" className="w-full justify-center" size="lg">
                 <Link href="/owner-services">Partner with Us (Owner Services)</Link>
@@ -143,9 +144,9 @@ export function Header() {
           </div>
 
           <div className="pt-6 border-t border-[#EBEBEB] text-xs text-[#717171] space-y-2">
-            <p>Konsultasi Langsung & WhatsApp Concierge:</p>
+            <p>Direct Concierge & WhatsApp Desk:</p>
             <a
-              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20tertarik%20dengan%20layanan%20manajemen%20properti%20Anda."
+              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center text-[#222222] font-medium"

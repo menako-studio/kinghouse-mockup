@@ -4,21 +4,21 @@ import { BLOG_POSTS } from "@/lib/data"
 import { BlogCard } from "@/components/blog/blog-card"
 
 export const metadata: Metadata = {
-  title: "Blog — Tips Airbnb & Panduan Properti Jabodetabek | KingHouse",
+  title: "Blog — Airbnb SEO & Property Management Insights | KingHouse",
   description:
-    "Artikel, strategi, dan panduan dari para ahli manajemen properti KingHouse. Pelajari cara meningkatkan occupancy Airbnb, optimasi SEO listing, dan memaksimalkan pendapatan properti Anda di Jabodetabek.",
+    "Articles, strategies, and editorial guides from KingHouse hospitality experts. Learn how to maximize Airbnb occupancy, optimize listing SEO, and grow short-stay revenue across Jabodetabek.",
   keywords: [
-    "blog airbnb indonesia",
-    "tips host airbnb",
-    "optimasi listing airbnb",
-    "manajemen properti jabodetabek",
-    "panduan sewa properti jakarta",
+    "airbnb property management blog",
+    "superhost tips jabodetabek",
+    "airbnb seo optimization",
+    "short stay asset management",
+    "jakarta property rental insights",
   ],
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "KingHouse Blog — Tips Airbnb & Panduan Properti Jabodetabek",
+    title: "KingHouse Blog — Airbnb SEO & Property Management Insights",
     description:
-      "Strategi dan insight dari tim KingHouse untuk memaksimalkan pendapatan properti Anda di Airbnb.",
+      "Actionable strategies and market insights from the KingHouse team to maximize your Airbnb rental yield.",
     url: "/blog",
     type: "website",
   },
@@ -30,7 +30,7 @@ const blogIndexSchema = {
   "@type": "Blog",
   name: "KingHouse Blog",
   description:
-    "Tips, strategi, dan panduan manajemen properti Airbnb di Jabodetabek dari tim KingHouse.",
+    "Tips, strategies, and property management guides for Airbnb hosts across Greater Jakarta from the KingHouse team.",
   url: "https://kinghouse.id/blog",
   author: {
     "@type": "Organization",
@@ -53,11 +53,11 @@ const blogIndexSchema = {
 }
 
 const CATEGORY_FILTERS = [
-  { slug: "all", label: "Semua Artikel" },
-  { slug: "owner-tips", label: "Tips Owner" },
+  { slug: "all", label: "All Articles" },
+  { slug: "owner-tips", label: "Owner Insights" },
   { slug: "airbnb-seo", label: "Airbnb SEO" },
-  { slug: "revenue-management", label: "Revenue" },
-  { slug: "jabodetabek-guide", label: "Panduan Lokal" },
+  { slug: "revenue-management", label: "Yield & Revenue" },
+  { slug: "jabodetabek-guide", label: "Area Guides" },
 ]
 
 export default function BlogPage() {
@@ -80,18 +80,17 @@ export default function BlogPage() {
               <BookOpen className="h-4 w-4 text-[#A69C8E]" />
             </div>
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#A69C8E]">
-              KingHouse Blog
+              KingHouse Journal
             </span>
           </div>
           <div className="max-w-3xl">
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#222222] font-normal leading-tight mb-4">
-              Insight & Panduan
+              Insights & Strategic Guides
               <br />
-              <span className="text-[#A69C8E]">Properti Jabodetabek</span>
+              <span className="text-[#A69C8E]">for Jabodetabek Properties</span>
             </h1>
             <p className="text-base sm:text-lg text-[#717171] font-light leading-relaxed max-w-xl">
-              Strategi Airbnb, analisis pasar, dan panduan praktis dari tim KingHouse untuk
-              memaksimalkan pendapatan properti Anda.
+              Airbnb algorithms, regional market analyses, and operational guides from the KingHouse team to maximize your property yields.
             </p>
           </div>
 
@@ -99,19 +98,19 @@ export default function BlogPage() {
           <div className="flex flex-wrap items-center gap-8 mt-10 pt-10 border-t border-[#EBEBEB]">
             <div className="space-y-0.5">
               <p className="font-serif text-2xl text-[#222222]">{BLOG_POSTS.length}</p>
-              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Artikel</p>
+              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Articles</p>
             </div>
             <div className="space-y-0.5">
               <p className="font-serif text-2xl text-[#222222]">4</p>
-              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Area Jabodetabek</p>
+              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Managed Areas</p>
             </div>
             <div className="space-y-0.5">
-              <p className="font-serif text-2xl text-[#222222]">Gratis</p>
-              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Tanpa Berlangganan</p>
+              <p className="font-serif text-2xl text-[#222222]">Free</p>
+              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Open Access</p>
             </div>
             <div className="flex items-center space-x-2 ml-auto">
               <Rss className="h-4 w-4 text-[#A69C8E]" />
-              <span className="text-xs text-[#717171]">Update Mingguan</span>
+              <span className="text-xs text-[#717171]">Weekly Editorial Updates</span>
             </div>
           </div>
         </div>
@@ -124,7 +123,7 @@ export default function BlogPage() {
             {CATEGORY_FILTERS.map((cat) => (
               <button
                 key={cat.slug}
-                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                   cat.slug === "all"
                     ? "bg-[#222222] text-white"
                     : "text-[#717171] hover:text-[#222222] hover:bg-[#F5F4F0]"
@@ -142,8 +141,8 @@ export default function BlogPage() {
         <section className="py-16">
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="font-serif text-2xl text-[#222222]">Artikel Pilihan</h2>
-              <span className="text-xs text-[#A69C8E] uppercase tracking-wider font-medium">Featured</span>
+              <h2 className="font-serif text-2xl text-[#222222]">Featured Article</h2>
+              <span className="text-xs text-[#A69C8E] uppercase tracking-wider font-medium">Editor&apos;s Pick</span>
             </div>
             <div className="space-y-6">
               {featuredPosts.map((post) => (
@@ -158,8 +157,8 @@ export default function BlogPage() {
       <section className="pb-24 bg-[#FAFAFA]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12 pt-16">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-2xl text-[#222222]">Semua Artikel</h2>
-            <span className="text-xs text-[#A69C8E]">{BLOG_POSTS.length} artikel</span>
+            <h2 className="font-serif text-2xl text-[#222222]">All Articles</h2>
+            <span className="text-xs text-[#A69C8E]">{BLOG_POSTS.length} posts</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {regularPosts.map((post) => (
@@ -173,21 +172,22 @@ export default function BlogPage() {
       <section className="bg-[#222222] py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-12 text-center">
           <h2 className="font-serif text-3xl sm:text-4xl text-white mb-4">
-            Siap Memaksimalkan Properti Anda?
+            Ready to Maximize Your Property Yields?
           </h2>
           <p className="text-[#A69C8E] text-sm mb-8 max-w-md mx-auto">
-            Konsultasikan properti Anda dengan tim KingHouse. Gratis, tanpa komitmen.
+            Consult with KingHouse asset managers regarding your Airbnb listing. Zero commitment, complimentary audit.
           </p>
           <a
-            href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20ingin%20konsultasi%20manajemen%20properti%20Airbnb%20saya."
+            href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20would%20like%20a%20consultation%20regarding%20my%20Airbnb%20property%20management."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 bg-white text-[#222222] px-8 py-3 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"
           >
-            <span>Konsultasi Gratis via WhatsApp</span>
+            <span>Free WhatsApp Consultation</span>
           </a>
         </div>
       </section>
     </main>
   )
 }
+

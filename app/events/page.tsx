@@ -7,20 +7,20 @@ import { VILLA_EVENTS } from "@/lib/data"
 export const metadata: Metadata = {
   title: "Events & Wedding Venue — Jagakarsa Garden House | KingHouse",
   description:
-    "Selenggarakan pernikahan, corporate retreat, atau pesta ulang tahun di rumah taman privat Jagakarsa. Kapasitas hingga 50 tamu, kebun tropis 500m², dan dukungan penuh dari tim KingHouse.",
+    "Host bespoke weddings, corporate retreats, and intimate celebrations in a private tropical garden villa in Jagakarsa, South Jakarta. Up to 50 guests, 500m² lush garden, and dedicated concierge support.",
   keywords: [
-    "venue pernikahan jagakarsa",
-    "wedding venue jakarta selatan",
+    "wedding venue jagakarsa",
+    "garden wedding venue south jakarta",
     "corporate retreat jakarta",
-    "venue garden party jakarta",
-    "sewa tempat pesta ulang tahun jakarta",
-    "venue akad nikah garden jakarta",
+    "garden party venue jakarta",
+    "private birthday venue jakarta",
+    "intimate wedding garden jakarta",
   ],
   alternates: { canonical: "/events" },
   openGraph: {
     title: "Garden Wedding & Events — Jagakarsa Private House | KingHouse",
     description:
-      "Venue privat di taman tropis Jagakarsa, Jakarta Selatan. Ideal untuk pernikahan intimate, corporate retreat, dan perayaan. Tanpa markup venue.",
+      "Private venue set within a 500m² tropical garden in Jagakarsa, South Jakarta. Perfect for intimate weddings, corporate retreats, and celebrations with zero vendor markups.",
     url: "/events",
     type: "website",
     images: [
@@ -40,22 +40,22 @@ const CATEGORY_CONFIG: Record<
 > = {
   wedding: {
     icon: Heart,
-    label: "Pernikahan",
+    label: "Weddings",
     color: "bg-rose-50 text-rose-700 border-rose-200",
   },
   corporate: {
     icon: Briefcase,
-    label: "Corporate Retreat",
+    label: "Corporate Retreats",
     color: "bg-blue-50 text-blue-700 border-blue-200",
   },
   birthday: {
     icon: Cake,
-    label: "Ulang Tahun",
+    label: "Birthdays",
     color: "bg-amber-50 text-amber-700 border-amber-200",
   },
   "intimate-gathering": {
     icon: Users,
-    label: "Gathering",
+    label: "Gatherings",
     color: "bg-purple-50 text-purple-700 border-purple-200",
   },
   wellness: {
@@ -107,32 +107,32 @@ export default function EventsPage() {
         <div className="relative z-10 px-6 lg:px-12 pb-16 max-w-7xl mx-auto w-full">
           <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-6">
             <Heart className="h-3.5 w-3.5 text-rose-300" />
-            <span className="text-xs text-white font-medium">Venue Privat &bull; Tanpa Markup</span>
+            <span className="text-xs text-white font-medium">Private Sanctuary &bull; Zero Vendor Markup</span>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-normal leading-tight mb-4 max-w-3xl">
-            Events & Pernikahan
+            Weddings & Bespoke Events
             <br />
-            <span className="text-[#D4B896]">di Taman Privat Jagakarsa</span>
+            <span className="text-[#D4B896]">in a Private Jagakarsa Garden</span>
           </h1>
           <p className="text-white/80 text-base sm:text-lg font-light max-w-xl">
-            Rayakan momen terpenting Anda di rumah taman tropis seluas 500m² di Jakarta Selatan.
-            Privat, bebas markup, dan penuh kenangan.
+            Celebrate life&apos;s most meaningful milestones in an expansive 500m² private garden oasis in South Jakarta.
+            Completely private, vendor-friendly, and unforgettable.
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             <a
-              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20tertarik%20untuk%20menyelenggarakan%20event%20di%20properti%20Jagakarsa.%20Boleh%20info%20ketersediaan%20dan%20paket%20yang%20tersedia?"
+              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20am%20interested%20in%20hosting%20an%20event%20at%20your%20Jagakarsa%20property.%20Could%20you%20please%20share%20availability%20and%20packages?"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 bg-white text-[#222222] px-7 py-3 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"
             >
-              <span>Tanyakan Ketersediaan</span>
+              <span>Inquire for Dates</span>
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
               href="#packages"
               className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-7 py-3 rounded-full text-sm font-medium hover:bg-white/20 transition-colors"
             >
-              <span>Lihat Paket</span>
+              <span>View Packages</span>
             </a>
           </div>
         </div>
@@ -143,10 +143,10 @@ export default function EventsPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-12 py-10">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
             {[
-              { value: "500m²", label: "Luas Taman Privat" },
-              { value: "50 pax", label: "Kapasitas Tamu" },
-              { value: "12 pax", label: "Akomodasi Menginap" },
-              { value: "0%", label: "Markup Vendor" },
+              { value: "500m²", label: "Private Garden Area" },
+              { value: "50 pax", label: "Event Capacity" },
+              { value: "12 pax", label: "Overnight Accommodation" },
+              { value: "0%", label: "Vendor Corkage Fee" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="font-serif text-3xl text-[#222222]">{stat.value}</p>
@@ -162,45 +162,43 @@ export default function EventsPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="max-w-2xl mb-12">
             <h2 className="font-serif text-3xl sm:text-4xl text-[#222222] mb-4">
-              Mengapa Memilih Venue Rumah Privat?
+              Why Choose a Private Residential Venue?
             </h2>
             <p className="text-[#717171] text-sm leading-relaxed">
-              Berbeda dari gedung pernikahan komersial, venue rumah privat memberikan fleksibilitas
-              penuh — vendor bebas, tidak ada noise dari event lain, dan kenyamanan menginap bagi
-              keluarga inti.
+              Unlike commercial ballroom venues, our private residential retreat offers complete freedom — bring your preferred caterers and decorators with zero corkage fees, exclusive full-property access, and overnight lodging for your inner circle.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: "🌿",
-                title: "Taman Tropis Privat",
-                desc: "Kebun hijau 500m² yang ditata alami — tidak ditemukan di gedung wedding komersial.",
+                title: "500m² Tropical Garden",
+                desc: "Lush botanical lawn professionally landscaped for intimate ceremonies and dining setups.",
               },
               {
                 icon: "🎉",
-                title: "Tanpa Corkage & Markup",
-                desc: "Bawa caterer dan dekorator sendiri. Tidak ada biaya corkage atau potongan vendor.",
+                title: "Zero Vendor Corkage",
+                desc: "Bring your favorite caterers, baristas, and stylists without penalty fees or venue markups.",
               },
               {
                 icon: "🏠",
-                title: "Menginap untuk Keluarga Inti",
-                desc: "5 kamar tidur untuk 12 tamu menginap — keluarga dekat tidak perlu ke hotel.",
+                title: "5-Bedroom Villa Lodging",
+                desc: "Sleep up to 12 family members on-site — eliminating hotel transit stress on the event day.",
               },
               {
                 icon: "📋",
-                title: "Invoice Korporat",
-                desc: "Untuk corporate event, tersedia invoice dan kuitansi resmi untuk reimbursement.",
+                title: "Corporate Invoicing",
+                desc: "Official commercial invoices and receipts provided for corporate team retreats and tax compliance.",
               },
               {
                 icon: "🛡️",
-                title: "Privat & Eksklusif",
-                desc: "Tidak ada tamu lain. Seluruh properti dan taman adalah milik Anda selama durasi event.",
+                title: "Exclusive Privacy",
+                desc: "No shared spaces or overlapping events. The entire property is exclusively yours.",
               },
               {
                 icon: "📍",
-                title: "Mudah Dijangkau",
-                desc: "30 menit dari CBD Jakarta via tol. Dekat Fatmawati MRT untuk tamu tanpa kendaraan.",
+                title: "Accessible Location",
+                desc: "30 minutes from Jakarta CBD via expressway, and convenient access to the Fatmawati MRT station.",
               },
             ].map((item) => (
               <div
@@ -220,9 +218,9 @@ export default function EventsPage() {
       <section id="packages" className="py-20 bg-[#FAFAFA]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="text-center mb-14">
-            <h2 className="font-serif text-3xl sm:text-4xl text-[#222222] mb-4">Paket Event Tersedia</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#222222] mb-4">Curated Event Packages</h2>
             <p className="text-[#717171] text-sm max-w-lg mx-auto">
-              Setiap paket dapat dikustomisasi sesuai kebutuhan. Hubungi kami untuk proposal harga spesifik.
+              Every package can be tailored to your requirements. Inquire for custom proposals and date reservations.
             </p>
           </div>
 
@@ -231,7 +229,7 @@ export default function EventsPage() {
             <div className="mb-16">
               <div className="flex items-center space-x-2 mb-6">
                 <Heart className="h-5 w-5 text-rose-500" />
-                <h3 className="font-serif text-2xl text-[#222222]">Pernikahan & Akad Nikah</h3>
+                <h3 className="font-serif text-2xl text-[#222222]">Weddings & Ceremonies</h3>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {weddingEvents.map((event) => (
@@ -246,7 +244,7 @@ export default function EventsPage() {
             <div className="mb-16">
               <div className="flex items-center space-x-2 mb-6">
                 <Briefcase className="h-5 w-5 text-blue-500" />
-                <h3 className="font-serif text-2xl text-[#222222]">Corporate Retreat & Offsite</h3>
+                <h3 className="font-serif text-2xl text-[#222222]">Corporate Retreats & Offsites</h3>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {corporateEvents.map((event) => (
@@ -261,7 +259,7 @@ export default function EventsPage() {
             <div className="mb-16">
               <div className="flex items-center space-x-2 mb-6">
                 <Cake className="h-5 w-5 text-amber-500" />
-                <h3 className="font-serif text-2xl text-[#222222]">Pesta & Perayaan</h3>
+                <h3 className="font-serif text-2xl text-[#222222]">Parties & Private Celebrations</h3>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {otherEvents.map((event) => (
@@ -277,19 +275,18 @@ export default function EventsPage() {
       <section className="bg-[#222222] py-20">
         <div className="mx-auto max-w-4xl px-6 lg:px-12 text-center">
           <h2 className="font-serif text-3xl sm:text-4xl text-white mb-4">
-            Ceritakan Event Impian Anda
+            Plan Your Unforgettable Event
           </h2>
           <p className="text-[#A69C8E] text-sm mb-8 max-w-md mx-auto">
-            Tim KingHouse siap membantu merencanakan event Anda dari awal hingga hari-H. Konsultasi
-            pertama gratis, tanpa komitmen.
+            The KingHouse concierge team is on standby to assist with on-site visits and custom coordination.
           </p>
           <a
-            href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20ingin%20diskusikan%20rencana%20event%20di%20properti%20Jagakarsa%20Anda."
+            href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20would%20like%20to%20discuss%20planning%20an%20event%20at%20your%20Jagakarsa%20property."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 bg-white text-[#222222] px-10 py-4 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"
           >
-            <span>Chat WhatsApp Sekarang</span>
+            <span>Chat on WhatsApp</span>
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>
@@ -326,7 +323,7 @@ function EventCard({ event }: { event: (typeof VILLA_EVENTS)[number] }) {
               <span>{config?.label ?? event.category}</span>
             </span>
             <span className="text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">
-              Maks. {event.maxCapacity} tamu
+              Max. {event.maxCapacity} guests
             </span>
           </div>
         </div>
@@ -350,13 +347,13 @@ function EventCard({ event }: { event: (typeof VILLA_EVENTS)[number] }) {
           {/* Footer */}
           <div className="flex items-center justify-between pt-4 border-t border-[#EBEBEB]">
             <div>
-              <p className="text-[10px] text-[#A69C8E] uppercase tracking-wider">Mulai dari</p>
+              <p className="text-[10px] text-[#A69C8E] uppercase tracking-wider">Starting From</p>
               <p className="text-base font-semibold text-[#222222]">
-                Rp {(lowestPackage.priceIdr / 1000000).toFixed(1)} jt
+                Rp {(lowestPackage.priceIdr / 1000000).toFixed(1)} M
               </p>
             </div>
             <span className="flex items-center space-x-1 text-xs font-semibold text-[#222222] group-hover:gap-2 transition-all">
-              <span>Detail Paket</span>
+              <span>View Package Details</span>
               <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
@@ -365,3 +362,4 @@ function EventCard({ event }: { event: (typeof VILLA_EVENTS)[number] }) {
     </Link>
   )
 }
+

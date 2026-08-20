@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   LayoutDashboard,
   Home,
@@ -15,21 +15,40 @@ import {
   ChevronRight,
   LogOut,
   Bell,
+  ShieldCheck,
 } from "lucide-react"
+import { AdminUser } from "@/lib/auth"
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/properties", label: "Properti", icon: Home },
+  { href: "/dashboard/properties", label: "Properties", icon: Home },
   { href: "/dashboard/seo", label: "SEO Manager", icon: Search, badge: "Pitch" },
   { href: "/dashboard/blog", label: "Blog Posts", icon: BookOpen },
-  { href: "/dashboard/bookings", label: "Kalender", icon: CalendarDays },
+  { href: "/dashboard/bookings", label: "Calendar", icon: CalendarDays },
   { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp },
-  { href: "/dashboard/settings", label: "Pengaturan", icon: Settings },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ]
 
-export function DashboardSidebar() {
+export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }) {
   const [collapsed, setCollapsed] = useState(false)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return
+    setIsLoggingOut(true)
+
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+      })
+      router.push("/login")
+      router.refresh()
+    } catch {
+      router.push("/login")
+    }
+  }
 
   return (
     <aside
@@ -40,7 +59,7 @@ export function DashboardSidebar() {
       {/* Logo */}
       <div className="flex items-center justify-between p-4 border-b border-white/10 h-16">
         {!collapsed && (
-          <div className="flex items-center space-x-2">
+          <Link href="/dashboard" className="flex items-center space-x-2">
             <div className="h-7 w-7 rounded-lg bg-[#A69C8E] flex items-center justify-center">
               <span className="text-xs font-bold text-[#111111]">K</span>
             </div>
@@ -48,12 +67,12 @@ export function DashboardSidebar() {
             <span className="text-[9px] font-semibold bg-[#A69C8E]/20 text-[#A69C8E] px-1.5 py-0.5 rounded-full uppercase tracking-wider">
               CMS
             </span>
-          </div>
+          </Link>
         )}
         {collapsed && (
-          <div className="h-7 w-7 rounded-lg bg-[#A69C8E] flex items-center justify-center mx-auto">
+          <Link href="/dashboard" className="h-7 w-7 rounded-lg bg-[#A69C8E] flex items-center justify-center mx-auto">
             <span className="text-xs font-bold text-[#111111]">K</span>
-          </div>
+          </Link>
         )}
       </div>
 
@@ -88,15 +107,42 @@ export function DashboardSidebar() {
         })}
       </nav>
 
-      {/* Notification Bell & User Footer */}
-      <div className="p-2 border-t border-white/10 space-y-0.5">
-        <button className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm text-white/50 hover:text-white hover:bg-white/5 transition-all group">
+      {/* User Info & Footer Actions */}
+      <div className="p-2 border-t border-white/10 space-y-1">
+        {adminUser && !collapsed && (
+          <div className="px-3 py-2 rounded-xl bg-white/5 border border-white/5 mb-1">
+            <div className="flex items-center space-x-2">
+              <div className="h-6 w-6 rounded-full bg-[#A69C8E] text-[#111111] flex items-center justify-center text-[10px] font-bold">
+                KH
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-semibold text-white truncate flex items-center space-x-1">
+                  <span>{adminUser.name}</span>
+                  <ShieldCheck className="h-3 w-3 text-emerald-400 flex-shrink-0" />
+                </div>
+                <div className="text-[10px] text-white/50 font-mono truncate">
+                  Admin Verified
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-sm text-white/50 hover:text-white hover:bg-white/5 transition-all group"
+        >
           <Bell className="h-4 w-4 flex-shrink-0" />
-          {!collapsed && <span>Notifikasi</span>}
+          {!collapsed && <span>Notifications</span>}
         </button>
-        <button className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm text-white/50 hover:text-white hover:bg-white/5 transition-all group">
+        <button
+          type="button"
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          className="w-full flex items-center space-x-3 px-3 py-2 rounded-xl text-sm text-red-400/80 hover:text-red-300 hover:bg-red-500/10 transition-all group cursor-pointer disabled:opacity-50"
+        >
           <LogOut className="h-4 w-4 flex-shrink-0" />
-          {!collapsed && <span>Keluar</span>}
+          {!collapsed && <span>{isLoggingOut ? "Signing Out..." : "Sign Out"}</span>}
         </button>
       </div>
 
@@ -104,9 +150,11 @@ export function DashboardSidebar() {
       <button
         onClick={() => setCollapsed(!collapsed)}
         className="absolute -right-3 top-16 h-6 w-6 rounded-full bg-[#333333] border border-white/20 flex items-center justify-center text-white/70 hover:text-white transition-colors z-10"
+        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {collapsed ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
       </button>
     </aside>
   )
 }
+

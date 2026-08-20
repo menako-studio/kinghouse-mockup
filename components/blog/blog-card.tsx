@@ -11,10 +11,10 @@ interface BlogCardProps {
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  "owner-tips": "Tips Owner",
+  "owner-tips": "Owner Insights",
   "airbnb-seo": "Airbnb SEO",
-  "jabodetabek-guide": "Panduan Jabodetabek",
-  "revenue-management": "Revenue Management",
+  "jabodetabek-guide": "Area Guide",
+  "revenue-management": "Revenue Strategy",
   "guest-experience": "Guest Experience",
 }
 
@@ -30,7 +30,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
   const categoryLabel = CATEGORY_LABELS[post.category] ?? post.category
   const categoryColor = CATEGORY_COLORS[post.category] ?? "bg-gray-50 text-gray-700 border-gray-200"
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("id-ID", {
+  const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -65,7 +65,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
                 </span>
                 <span className="flex items-center space-x-1">
                   <Clock className="h-3 w-3" />
-                  <span>{post.readTime} menit baca</span>
+                  <span>{post.readTime} min read</span>
                 </span>
               </div>
               <h2 className="font-serif text-2xl lg:text-3xl text-[#222222] leading-snug group-hover:text-[#A69C8E] transition-colors">
@@ -84,7 +84,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
                 </div>
               </div>
               <span className="flex items-center space-x-1 text-xs font-semibold text-[#222222] group-hover:gap-2 transition-all">
-                <span>Baca</span>
+                <span>Read</span>
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
               </span>
             </div>

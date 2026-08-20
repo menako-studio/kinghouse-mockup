@@ -1,21 +1,16 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import {
-  Search,
   Sparkles,
-  TrendingUp,
-  Award,
-  Layers,
   ArrowRight,
   CheckCircle2,
-  FileText,
 } from "lucide-react"
 import { SeoEditor } from "@/components/dashboard/seo-editor"
-import { BLOG_POSTS, CURATED_VILLAS } from "@/lib/data"
+import { BLOG_POSTS } from "@/lib/data"
 
 export const metadata: Metadata = {
   title: "SEO Manager & Listing Optimizer — KingHouse CMS",
-  description: "Optimasi SEO properti dan strategi ranking pencarian Airbnb & Google untuk meningkatkan occupancy rate.",
+  description: "Property SEO optimization and ranking strategies on Airbnb & Google to maximize occupancy rates.",
 }
 
 export default function SeoManagerPage() {
@@ -26,36 +21,36 @@ export default function SeoManagerPage() {
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3.5 py-1 text-xs font-semibold text-[#D4B896]">
             <Sparkles className="h-3.5 w-3.5" />
-            <span>Fitur Unggulan Pitching Klien</span>
+            <span>Key Owner Pitching Feature</span>
           </div>
 
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight">
-            SEO & Content Management System
+            SEO & Content Management Suite
           </h1>
 
           <p className="text-white/70 text-sm sm:text-base leading-relaxed font-light">
-            Mengapa properti KingHouse selalu berokupansi tinggi? Karena setiap unit dirancang dengan
-            arsitektur SEO yang mengonversi pencarian Google dan algoritma Superhost Airbnb menjadi
-            aliran tamu berkualitas dan long-stay.
+            Why do KingHouse properties sustain high occupancy rates? Every property is architected with
+            advanced SEO that converts Google searches and Airbnb Superhost algorithms into high-intent,
+            longer-stay bookings.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-white/10">
             <div>
               <p className="font-serif text-2xl text-[#D4B896]">+280%</p>
               <p className="text-[11px] text-white/60 uppercase tracking-wider">
-                Impresi Pencarian Airbnb
+                Airbnb Search Impressions
               </p>
             </div>
             <div>
               <p className="font-serif text-2xl text-[#D4B896]">Top 3</p>
               <p className="text-[11px] text-white/60 uppercase tracking-wider">
-                Ranking Google Organik Area
+                Google Organic Area Rank
               </p>
             </div>
             <div>
               <p className="font-serif text-2xl text-[#D4B896]">81.4%</p>
               <p className="text-[11px] text-white/60 uppercase tracking-wider">
-                Rata-rata Tingkat Hunian
+                Average Occupancy Rate
               </p>
             </div>
           </div>
@@ -69,13 +64,13 @@ export default function SeoManagerPage() {
       <section className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#EBEBEB] pb-4">
           <div>
-            <h2 className="font-serif text-2xl text-[#222222]">Editor SEO Properti</h2>
+            <h2 className="font-serif text-2xl text-[#222222]">Property SEO Editor</h2>
             <p className="text-xs text-[#717171]">
-              Pilih salah satu dari 4 properti untuk melihat dan mengedit metadata SEO real-time
+              Select any of the 4 managed properties to inspect and modify real-time SEO metadata
             </p>
           </div>
           <span className="text-[11px] text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full font-semibold border border-emerald-200 self-start sm:self-auto">
-            Live Preview Google SERP Aktif
+            Live Google SERP Preview Active
           </span>
         </div>
 
@@ -87,10 +82,10 @@ export default function SeoManagerPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBEBEB] pb-4">
           <div>
             <h2 className="font-serif text-2xl text-[#222222]">
-              Strategi Artikel Blog & Targeted Keywords
+              Editorial Content & Targeted Keywords
             </h2>
             <p className="text-xs text-[#717171]">
-              Artikel yang dipublikasikan untuk mendatangkan traffic organik pencarian dari Jabodetabek
+              Published high-converting articles generating organic short-stay and expat search traffic across Jabodetabek
             </p>
           </div>
           <Link
@@ -98,7 +93,7 @@ export default function SeoManagerPage() {
             target="_blank"
             className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#222222] hover:underline"
           >
-            <span>Buka Halaman Blog Publik</span>
+            <span>Open Public Blog</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -107,10 +102,10 @@ export default function SeoManagerPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-[#EBEBEB] bg-[#FAFAFA] text-[11px] font-bold uppercase tracking-wider text-[#717171]">
-                <th className="py-4 px-6">Judul Artikel & Target Area</th>
-                <th className="py-4 px-6">Kategori</th>
+                <th className="py-4 px-6">Article Title & Target Area</th>
+                <th className="py-4 px-6">Category</th>
                 <th className="py-4 px-6">Target Keywords</th>
-                <th className="py-4 px-6">Status Index</th>
+                <th className="py-4 px-6">Index Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#EBEBEB] text-xs">
@@ -140,7 +135,7 @@ export default function SeoManagerPage() {
                   <td className="py-4 px-6">
                     <span className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 font-medium">
                       <CheckCircle2 className="h-3 w-3" />
-                      <span>Terindex Google</span>
+                      <span>Google Indexed</span>
                     </span>
                   </td>
                 </tr>
@@ -154,14 +149,14 @@ export default function SeoManagerPage() {
       <section className="rounded-3xl border border-[#EBEBEB] bg-[#FAFAFA] p-8 sm:p-12 space-y-6">
         <div className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#A69C8E]">
-            Kenapa Ini Menjual Saat Pitching ke Owner?
+            Client Pitching Framework
           </span>
           <h3 className="font-serif text-2xl sm:text-3xl text-[#222222] mt-2 mb-3">
-            Formula SEO KingHouse: Mengubah Properti Biasa Jadi Magnet Tamu
+            The KingHouse Formula: Transforming Properties into Guest Magnets
           </h3>
           <p className="text-xs sm:text-sm text-[#717171] leading-relaxed">
-            Kebanyakan pemilik properti hanya mengandalkan traffic bawaan Airbnb tanpa optimasi.
-            KingHouse membangun ekosistem SEO 3 arah:
+            Most property owners rely solely on default Airbnb traffic without optimization.
+            KingHouse deploys a comprehensive 3-tier distribution strategy:
           </p>
         </div>
 
@@ -170,10 +165,9 @@ export default function SeoManagerPage() {
             <div className="h-8 w-8 rounded-xl bg-[#222222] text-white flex items-center justify-center font-bold text-xs">
               1
             </div>
-            <h4 className="font-semibold text-sm text-[#222222]">Algoritma Superhost</h4>
+            <h4 className="font-semibold text-sm text-[#222222]">Superhost Algorithm Engine</h4>
             <p className="text-xs text-[#717171] leading-relaxed">
-              Optimasi response time &lt;15 menit, foto beresolusi tinggi, dan kelengkapan fasilitas
-              menaikkan posisi listing ke 10 besar halaman pencarian Airbnb.
+              Optimized response times under 15 minutes, editorial high-resolution photography, and 100% amenity completeness elevate listings to the top 10 search results.
             </p>
           </div>
 
@@ -181,10 +175,9 @@ export default function SeoManagerPage() {
             <div className="h-8 w-8 rounded-xl bg-[#222222] text-white flex items-center justify-center font-bold text-xs">
               2
             </div>
-            <h4 className="font-semibold text-sm text-[#222222]">Google Organic Traffic</h4>
+            <h4 className="font-semibold text-sm text-[#222222]">Organic Google Ingestion</h4>
             <p className="text-xs text-[#717171] leading-relaxed">
-              Setiap properti memiliki landing page cepat dengan Structured Data JSON-LD
-              (VacationRental & FAQ), langsung terindeks di pencarian lokal Google.
+              Each property features ultra-fast landing pages with Schema.org JSON-LD structured data (VacationRental & FAQPage), indexed directly in local search results.
             </p>
           </div>
 
@@ -192,10 +185,9 @@ export default function SeoManagerPage() {
             <div className="h-8 w-8 rounded-xl bg-[#222222] text-white flex items-center justify-center font-bold text-xs">
               3
             </div>
-            <h4 className="font-semibold text-sm text-[#222222]">Target Tamu Berkualitas</h4>
+            <h4 className="font-semibold text-sm text-[#222222]">High-Yield Guest Targeting</h4>
             <p className="text-xs text-[#717171] leading-relaxed">
-              SEO editorial menyasar kata kunci long-stay ekspat dan keluarga besar, menghasilkan tamu
-              yang lebih bermanner dan durasi sewa lebih panjang.
+              Editorial SEO targets corporate long-stays, expats, and family retreat keywords, resulting in higher revenue yields and respectful guests.
             </p>
           </div>
         </div>
@@ -203,3 +195,4 @@ export default function SeoManagerPage() {
     </div>
   )
 }
+

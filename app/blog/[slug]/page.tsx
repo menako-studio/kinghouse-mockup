@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = BLOG_POSTS.find((p) => p.slug === slug)
 
   if (!post) {
-    return { title: "Artikel Tidak Ditemukan | KingHouse" }
+    return { title: "Article Not Found | KingHouse" }
   }
 
   return {
@@ -46,10 +46,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  "owner-tips": "Tips Owner",
+  "owner-tips": "Owner Insights",
   "airbnb-seo": "Airbnb SEO",
-  "jabodetabek-guide": "Panduan Jabodetabek",
-  "revenue-management": "Revenue Management",
+  "jabodetabek-guide": "Area Guide",
+  "revenue-management": "Revenue Strategy",
   "guest-experience": "Guest Experience",
 }
 
@@ -159,14 +159,14 @@ export default async function BlogPostPage({ params }: PageProps) {
     keywords: post.seoKeywords.join(", "),
     wordCount: post.content.split(" ").length,
     timeRequired: `PT${post.readTime}M`,
-    inLanguage: "id",
+    inLanguage: "en",
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://kinghouse.id/blog/${post.slug}`,
     },
   }
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString("id-ID", {
+  const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -221,7 +221,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </span>
             <span className="flex items-center space-x-1">
               <Clock className="h-3 w-3" />
-              <span>{post.readTime} menit baca</span>
+              <span>{post.readTime} min read</span>
             </span>
           </div>
         </div>
@@ -258,7 +258,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             className="inline-flex items-center space-x-2 text-sm text-[#717171] hover:text-[#222222] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Kembali ke Blog</span>
+            <span>Back to Blog</span>
           </Link>
         </div>
       </div>
@@ -268,18 +268,18 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="mx-auto max-w-4xl px-6 lg:px-12">
           <div className="rounded-3xl bg-[#222222] p-10 sm:p-14 text-center">
             <h2 className="font-serif text-3xl sm:text-4xl text-white mb-3">
-              Optimalkan Properti Anda Bersama KingHouse
+              Optimize Your Property with KingHouse
             </h2>
             <p className="text-[#A69C8E] text-sm mb-8 max-w-sm mx-auto">
-              Konsultasi gratis untuk properti di Jagakarsa, Tangerang, Palmerah, atau Cikarang.
+              Complimentary asset audit for villas and apartments across Greater Jakarta.
             </p>
             <a
-              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20baru%20baca%20artikel%20blog%20dan%20ingin%20konsultasi%20properti%20saya."
+              href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20read%20your%20journal%20article%20and%20would%20like%20a%20consultation%20for%20my%20property."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 bg-white text-[#222222] px-8 py-3 rounded-full text-sm font-semibold hover:bg-[#F5F4F0] transition-colors"
             >
-              <span>Hubungi via WhatsApp</span>
+              <span>Connect on WhatsApp</span>
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
@@ -290,7 +290,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       {relatedPosts.length > 0 && (
         <section className="py-16 bg-[#FAFAFA]">
           <div className="mx-auto max-w-7xl px-6 lg:px-12">
-            <h2 className="font-serif text-2xl text-[#222222] mb-8">Artikel Terkait</h2>
+            <h2 className="font-serif text-2xl text-[#222222] mb-8">Related Articles</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedPosts.map((related) => {
                 const relCategoryLabel = CATEGORY_LABELS[related.category] ?? related.category
@@ -329,3 +329,4 @@ export default async function BlogPostPage({ params }: PageProps) {
     </main>
   )
 }
+

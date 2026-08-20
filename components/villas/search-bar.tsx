@@ -17,7 +17,7 @@ interface SearchBarProps {
   locale?: "en" | "id";
 }
 
-export function SearchBar({ onSearch, locale = "id" }: SearchBarProps) {
+export function SearchBar({ onSearch, locale = "en" }: SearchBarProps) {
   const [filters, setFilters] = useState({
     location: "",
     checkIn: "",

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const event = VILLA_EVENTS.find((e) => e.slug === slug)
 
   if (!event) {
-    return { title: "Event Tidak Ditemukan | KingHouse" }
+    return { title: "Event Not Found | KingHouse" }
   }
 
   return {
@@ -37,10 +37,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  wedding: "Pernikahan",
+  wedding: "Weddings",
   corporate: "Corporate Retreat",
-  birthday: "Ulang Tahun",
-  "intimate-gathering": "Gathering",
+  birthday: "Birthdays",
+  "intimate-gathering": "Gatherings",
   wellness: "Wellness",
 }
 
@@ -89,7 +89,7 @@ export default async function EventDetailPage({ params }: PageProps) {
   }
 
   const whatsappText = encodeURIComponent(
-    `Hello KingHouse! Saya tertarik dengan paket "${event.title}" di ${event.propertyName}. Boleh info ketersediaan tanggal dan detail paket?`
+    `Hello KingHouse! I am interested in the "${event.title}" package at ${event.propertyName}. Could you please provide date availability and package details?`
   )
 
   return (
@@ -135,13 +135,13 @@ export default async function EventDetailPage({ params }: PageProps) {
           <div className="lg:col-span-7 space-y-10">
             {/* Description */}
             <div>
-              <h2 className="font-serif text-2xl text-[#222222] mb-4">Tentang Event Ini</h2>
+              <h2 className="font-serif text-2xl text-[#222222] mb-4">About This Event</h2>
               <p className="text-[#717171] text-sm leading-relaxed">{event.description}</p>
             </div>
 
             {/* Highlights */}
             <div>
-              <h2 className="font-serif text-2xl text-[#222222] mb-4">Keunggulan Venue</h2>
+              <h2 className="font-serif text-2xl text-[#222222] mb-4">Venue Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {event.highlights.map((h) => (
                   <div key={h} className="flex items-start space-x-2.5 p-3 rounded-xl bg-[#FAFAFA] border border-[#EBEBEB]">
@@ -155,7 +155,7 @@ export default async function EventDetailPage({ params }: PageProps) {
             {/* Gallery */}
             {event.gallery.length > 1 && (
               <div>
-                <h2 className="font-serif text-2xl text-[#222222] mb-4">Galeri</h2>
+                <h2 className="font-serif text-2xl text-[#222222] mb-4">Gallery</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {event.gallery.map((img, i) => (
                     <div key={i} className="relative aspect-[4/3] rounded-2xl overflow-hidden">
@@ -169,7 +169,7 @@ export default async function EventDetailPage({ params }: PageProps) {
             {/* Property Link */}
             {property && (
               <div className="rounded-2xl border border-[#EBEBEB] bg-[#FAFAFA] p-6">
-                <h3 className="font-serif text-lg text-[#222222] mb-2">Tentang Venue</h3>
+                <h3 className="font-serif text-lg text-[#222222] mb-2">Venue Property</h3>
                 <div className="flex items-center space-x-4">
                   <div className="relative h-16 w-16 rounded-xl overflow-hidden flex-shrink-0">
                     <Image src={property.heroImage} alt={property.name} fill className="object-cover" />
@@ -178,14 +178,14 @@ export default async function EventDetailPage({ params }: PageProps) {
                     <p className="text-sm font-semibold text-[#222222]">{property.name}</p>
                     <p className="text-xs text-[#717171]">{property.location}</p>
                     <p className="text-xs text-[#A69C8E] mt-1">
-                      {property.capacity.guests} tamu &bull; {property.capacity.bedrooms} kamar &bull; {property.capacity.bathrooms} KM
+                      {property.capacity.guests} guests &bull; {property.capacity.bedrooms} bedrooms &bull; {property.capacity.bathrooms} baths
                     </p>
                   </div>
                   <Link
                     href={`/locations/${property.areaSlug}/villas/${property.slug}`}
                     className="text-xs font-medium text-[#222222] hover:underline flex-shrink-0"
                   >
-                    Detail →
+                    View Villa →
                   </Link>
                 </div>
               </div>
@@ -197,9 +197,9 @@ export default async function EventDetailPage({ params }: PageProps) {
             <div className="sticky top-28 space-y-4">
               <div className="flex items-center space-x-2 mb-2">
                 <Users className="h-4 w-4 text-[#A69C8E]" />
-                <span className="text-xs text-[#717171]">Maks. {event.maxCapacity} tamu</span>
+                <span className="text-xs text-[#717171]">Max. {event.maxCapacity} guests</span>
               </div>
-              <h3 className="font-serif text-xl text-[#222222]">Pilih Paket</h3>
+              <h3 className="font-serif text-xl text-[#222222]">Select Package</h3>
               {event.packages.map((pkg, i) => (
                 <div
                   key={i}
@@ -235,12 +235,12 @@ export default async function EventDetailPage({ params }: PageProps) {
                     }`}
                   >
                     <MessageSquare className="h-4 w-4" />
-                    <span>Pesan via WhatsApp</span>
+                    <span>Inquire via WhatsApp</span>
                   </a>
                 </div>
               ))}
               <p className="text-[10px] text-[#A69C8E] text-center">
-                * Harga belum termasuk dekorasi, katering, dan fotografer. Paket dapat dikustomisasi.
+                * Prices exclude catering, floral decor, and photography. Custom packages available.
               </p>
             </div>
           </div>
@@ -253,10 +253,11 @@ export default async function EventDetailPage({ params }: PageProps) {
             className="inline-flex items-center space-x-2 text-sm text-[#717171] hover:text-[#222222] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Kembali ke Semua Event</span>
+            <span>Back to All Events</span>
           </Link>
         </div>
       </div>
     </main>
   )
 }
+

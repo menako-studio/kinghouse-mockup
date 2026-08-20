@@ -8,8 +8,6 @@ import {
   ArrowUpRight,
   Search,
   ExternalLink,
-  ShieldCheck,
-  Calendar,
   Layers,
 } from "lucide-react"
 import { CURATED_VILLAS } from "@/lib/data"
@@ -35,10 +33,10 @@ export default function DashboardOverviewPage() {
             <span className="text-emerald-600 font-bold">Live Sync</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl text-[#222222]">
-            Dashboard Manajemen Properti
+            Property Management CMS
           </h1>
           <p className="text-sm text-[#717171] mt-1">
-            Ringkasan performa 4 properti Jabodetabek yang dikelola KingHouse.
+            Performance summary and multi-channel metrics for KingHouse-managed Jabodetabek properties.
           </p>
         </div>
 
@@ -48,7 +46,7 @@ export default function DashboardOverviewPage() {
             className="inline-flex items-center space-x-2 bg-[#222222] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#333333] transition-colors shadow-sm"
           >
             <Search className="h-4 w-4 text-[#A69C8E]" />
-            <span>Buka SEO Manager (Pitch)</span>
+            <span>Open SEO Manager (Pitch)</span>
           </Link>
           <a
             href="https://www.airbnb.com/users/profile/1470743715397835749"
@@ -56,7 +54,7 @@ export default function DashboardOverviewPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 bg-white border border-[#EBEBEB] text-[#222222] px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#FAFAFA] transition-colors"
           >
-            <span>Host Profile Airbnb</span>
+            <span>Airbnb Host Profile</span>
             <ExternalLink className="h-3.5 w-3.5 text-[#717171]" />
           </a>
         </div>
@@ -65,38 +63,38 @@ export default function DashboardOverviewPage() {
       {/* KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
-          title="Estimasi Revenue Bulanan"
-          value="Rp 82.5 jt"
+          title="Estimated Monthly Revenue"
+          value="Rp 82.5 M"
           change="+34.2%"
           trend="up"
-          period="vs bulan lalu"
+          period="vs previous month"
           icon={DollarSign}
-          subtitle="4 Unit Terkelola"
+          subtitle="4 Managed Units"
         />
         <StatCard
-          title="Tingkat Hunian (Occupancy)"
+          title="Occupancy Rate"
           value="81.4%"
           change="+18.5%"
           trend="up"
           period="vs market average (52%)"
           icon={TrendingUp}
-          subtitle="Target Jabodetabek: >75%"
+          subtitle="Jabodetabek Target: >75%"
         />
         <StatCard
-          title="Rating Rata-rata"
+          title="Average Rating"
           value={`${averageRating} ★`}
           change="+0.2"
           trend="up"
-          period={`${totalReviews} total ulasan`}
+          period={`${totalReviews} total reviews`}
           icon={Star}
-          subtitle="Standar Superhost Airbnb"
+          subtitle="Airbnb Superhost Standard"
         />
         <StatCard
-          title="Total Tamu Terlayani"
+          title="Total Guests Hosted"
           value="148"
-          change="+26 tamu"
+          change="+26 guests"
           trend="up"
-          period="bulan ini"
+          period="this month"
           icon={Users}
           subtitle="Response Time <15 min"
         />
@@ -109,15 +107,15 @@ export default function DashboardOverviewPage() {
             <div className="flex items-center space-x-2">
               <Layers className="h-4 w-4 text-[#A69C8E]" />
               <h3 className="font-serif text-xl text-[#222222]">
-                Sinkronisasi Multi-Channel OTA
+                Multi-Channel OTA Synchronization
               </h3>
             </div>
             <p className="text-xs text-[#717171]">
-              Satu dashboard kalender terintegrasi mencegah overbooking di seluruh channel penjualan.
+              Centralized calendar integration to prevent double-booking across all distribution channels.
             </p>
           </div>
           <span className="text-[11px] font-semibold text-[#A69C8E] bg-[#F5F4F0] px-3 py-1.5 rounded-full self-start sm:self-auto">
-            Fitur 2.0 (Little Hotelier Replica)
+            Feature 2.0 (Little Hotelier Architecture)
           </span>
         </div>
 
@@ -133,16 +131,16 @@ export default function DashboardOverviewPage() {
       <div className="rounded-3xl border border-[#EBEBEB] bg-white overflow-hidden shadow-sm">
         <div className="p-6 sm:p-8 border-b border-[#EBEBEB] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="font-serif text-xl text-[#222222]">Daftar Properti Portofolio</h3>
+            <h3 className="font-serif text-xl text-[#222222]">Portfolio Properties</h3>
             <p className="text-xs text-[#717171]">
-              Status performa dan tarif masing-masing unit Airbnb
+              Live performance metrics, nightly rates, and status for each Airbnb listing
             </p>
           </div>
           <Link
             href="/dashboard/properties"
             className="text-xs font-semibold text-[#222222] hover:underline flex items-center space-x-1"
           >
-            <span>Kelola Semua Properti</span>
+            <span>Manage All Properties</span>
             <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -151,12 +149,12 @@ export default function DashboardOverviewPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-[#EBEBEB] bg-[#FAFAFA] text-[11px] font-bold uppercase tracking-wider text-[#717171]">
-                <th className="py-4 px-6">Properti & Lokasi</th>
-                <th className="py-4 px-6">Tipe</th>
-                <th className="py-4 px-6">Tarif / Malam</th>
-                <th className="py-4 px-6">Kapasitas</th>
-                <th className="py-4 px-6">Rating & Ulasan</th>
-                <th className="py-4 px-6 text-right">Aksi</th>
+                <th className="py-4 px-6">Property & Location</th>
+                <th className="py-4 px-6">Type</th>
+                <th className="py-4 px-6">Nightly Rate</th>
+                <th className="py-4 px-6">Capacity</th>
+                <th className="py-4 px-6">Rating & Reviews</th>
+                <th className="py-4 px-6 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#EBEBEB] text-xs">
@@ -181,10 +179,10 @@ export default function DashboardOverviewPage() {
                   <td className="py-4 px-6">
                     <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-medium bg-[#F5F4F0] text-[#222222]">
                       {villa.propertyType === "entire-home"
-                        ? "Rumah 5BR"
+                        ? "5BR Private Villa"
                         : villa.propertyType === "private-room"
-                        ? "Kamar Privat"
-                        : "Apartemen"}
+                        ? "Private Room"
+                        : "Entire Apartment"}
                     </span>
                   </td>
 
@@ -195,7 +193,7 @@ export default function DashboardOverviewPage() {
 
                   {/* Capacity */}
                   <td className="py-4 px-6 text-[#717171]">
-                    {villa.capacity.guests} Tamu &bull; {villa.capacity.beds} Bed
+                    {villa.capacity.guests} Guests &bull; {villa.capacity.beds} Beds
                   </td>
 
                   {/* Rating */}
@@ -207,7 +205,7 @@ export default function DashboardOverviewPage() {
                         <span className="text-[#A69C8E] font-normal">({villa.reviewsCount})</span>
                       </div>
                     ) : (
-                      <span className="text-[11px] text-[#A69C8E]">Listing Baru</span>
+                      <span className="text-[11px] text-[#A69C8E]">New Listing</span>
                     )}
                   </td>
 
@@ -225,7 +223,7 @@ export default function DashboardOverviewPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-1.5 rounded-lg text-[#717171] hover:text-[#222222] hover:bg-[#F5F4F0] transition-colors"
-                        title="Buka di Airbnb"
+                        title="View on Airbnb"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                       </a>
@@ -240,3 +238,4 @@ export default function DashboardOverviewPage() {
     </div>
   )
 }
+

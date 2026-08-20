@@ -7,12 +7,9 @@ import {
   AlertCircle,
   Sparkles,
   Globe,
-  Share2,
   Save,
   Search,
   ExternalLink,
-  Eye,
-  Sliders,
 } from "lucide-react"
 import { CURATED_VILLAS } from "@/lib/data"
 import { Villa } from "@/lib/types"
@@ -27,7 +24,7 @@ export function SeoEditor() {
   )
   const [metaDescription, setMetaDescription] = useState<string>(
     currentVilla.seoMeta?.metaDescription ||
-      `${currentVilla.editorialDescription.lead} Dikelola oleh KingHouse di Airbnb.`
+      `${currentVilla.editorialDescription.lead} Professionally managed by KingHouse on Airbnb.`
   )
   const [focusKeyword, setFocusKeyword] = useState<string>(
     currentVilla.seoMeta?.focusKeyword || `airbnb ${currentVilla.areaSlug}`
@@ -43,7 +40,7 @@ export function SeoEditor() {
     setMetaTitle(villa.seoMeta?.metaTitle || `${villa.name} — ${villa.area} | KingHouse`)
     setMetaDescription(
       villa.seoMeta?.metaDescription ||
-        `${villa.editorialDescription.lead} Dikelola oleh KingHouse di Airbnb.`
+        `${villa.editorialDescription.lead} Professionally managed by KingHouse on Airbnb.`
     )
     setFocusKeyword(villa.seoMeta?.focusKeyword || `airbnb ${villa.areaSlug}`)
     setCanonicalUrl(`https://kinghouse.id/locations/${villa.areaSlug}/villas/${villa.slug}`)
@@ -65,12 +62,12 @@ export function SeoEditor() {
   const isDescOptimal = descLength >= 120 && descLength <= 165
 
   const checks = [
-    { label: "Panjang Meta Title optimal (40-65 karakter)", passed: isTitleOptimal },
-    { label: "Panjang Meta Description optimal (120-165 karakter)", passed: isDescOptimal },
-    { label: "Focus Keyword terdapat dalam Meta Title", passed: hasKeywordInTitle && focusKeyword.length > 0 },
-    { label: "Focus Keyword terdapat dalam Meta Description", passed: hasKeywordInDesc && focusKeyword.length > 0 },
-    { label: "Structured Data (Schema.org VacationRental + FAQ) Aktif", passed: true },
-    { label: "Canonical URL tervalidasi", passed: canonicalUrl.startsWith("https://") },
+    { label: "Optimal Meta Title length (40-65 characters)", passed: isTitleOptimal },
+    { label: "Optimal Meta Description length (120-165 characters)", passed: isDescOptimal },
+    { label: "Focus Keyword included in Meta Title", passed: hasKeywordInTitle && focusKeyword.length > 0 },
+    { label: "Focus Keyword included in Meta Description", passed: hasKeywordInDesc && focusKeyword.length > 0 },
+    { label: "Structured Data (Schema.org VacationRental + FAQ) Active", passed: true },
+    { label: "Canonical URL validated with HTTPS", passed: canonicalUrl.startsWith("https://") },
   ]
 
   const score = Math.round((checks.filter((c) => c.passed).length / checks.length) * 100)
@@ -83,7 +80,7 @@ export function SeoEditor() {
           <button
             key={villa.id}
             onClick={() => handleSelectProperty(villa)}
-            className={`flex items-center space-x-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex items-center space-x-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               selectedVillaId === villa.id
                 ? "bg-[#222222] text-white shadow-sm"
                 : "text-[#717171] hover:text-[#222222] hover:bg-white"
@@ -104,17 +101,17 @@ export function SeoEditor() {
           <div className="rounded-2xl border border-[#EBEBEB] bg-white p-6 sm:p-8 space-y-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-[#F5F4F0] pb-4">
               <div>
-                <h3 className="font-serif text-xl text-[#222222]">Editor Meta & Konten SEO</h3>
+                <h3 className="font-serif text-xl text-[#222222]">SEO Metadata Editor</h3>
                 <p className="text-xs text-[#717171]">
-                  Optimasi metadata Google Search & Algoritma Airbnb ranking
+                  Fine-tune Google Search snippets and Airbnb Superhost ranking weights
                 </p>
               </div>
               <button
                 onClick={handleSave}
-                className="inline-flex items-center space-x-2 bg-[#222222] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#333333] transition-colors"
+                className="inline-flex items-center space-x-2 bg-[#222222] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#333333] transition-colors cursor-pointer"
               >
                 <Save className="h-3.5 w-3.5" />
-                <span>{isSaved ? "Tersimpan! ✓" : "Simpan Metadata"}</span>
+                <span>{isSaved ? "Saved! ✓" : "Save Metadata"}</span>
               </button>
             </div>
 
@@ -122,9 +119,9 @@ export function SeoEditor() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-[#222222] uppercase tracking-wider">
-                  Target Kata Kunci (Focus Keyword)
+                  Target Keyword (Focus Keyword)
                 </label>
-                <span className="text-[11px] text-[#A69C8E]">Prioritas pencarian tamu</span>
+                <span className="text-[11px] text-[#A69C8E]">High-intent guest search query</span>
               </div>
               <div className="relative">
                 <Search className="absolute left-3.5 top-3 h-4 w-4 text-[#A69C8E]" />
@@ -132,7 +129,7 @@ export function SeoEditor() {
                   type="text"
                   value={focusKeyword}
                   onChange={(e) => setFocusKeyword(e.target.value)}
-                  placeholder="e.g. sewa rumah jagakarsa jakarta selatan"
+                  placeholder="e.g. rent villa jagakarsa south jakarta"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#EBEBEB] text-xs font-medium text-[#222222] focus:outline-none focus:border-[#222222] focus:ring-1 focus:ring-[#222222]"
                 />
               </div>
@@ -149,7 +146,7 @@ export function SeoEditor() {
                     isTitleOptimal ? "text-emerald-600" : "text-amber-600"
                   }`}
                 >
-                  {titleLength}/60 karakter {isTitleOptimal ? "✓" : "(Ideal: 40-60)"}
+                  {titleLength}/60 chars {isTitleOptimal ? "✓" : "(Ideal: 40-60)"}
                 </span>
               </div>
               <input
@@ -171,7 +168,7 @@ export function SeoEditor() {
                     isDescOptimal ? "text-emerald-600" : "text-amber-600"
                   }`}
                 >
-                  {descLength}/160 karakter {isDescOptimal ? "✓" : "(Ideal: 120-160)"}
+                  {descLength}/160 chars {isDescOptimal ? "✓" : "(Ideal: 120-160)"}
                 </span>
               </div>
               <textarea
@@ -186,7 +183,7 @@ export function SeoEditor() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-[#222222] uppercase tracking-wider">
-                  Canonical URL (Anti Duplikat Konten)
+                  Canonical URL (Prevents Duplicate Content)
                 </label>
                 <span className="text-[11px] text-[#A69C8E]">Index Authority</span>
               </div>
@@ -205,9 +202,9 @@ export function SeoEditor() {
             <div className="space-y-2 pt-2 border-t border-[#F5F4F0]">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-[#222222] uppercase tracking-wider">
-                  OpenGraph Image Preview (Social Share)
+                  OpenGraph Social Card Preview
                 </label>
-                <span className="text-[11px] text-emerald-600 font-semibold">1200 x 630px Auto-optimasi</span>
+                <span className="text-[11px] text-emerald-600 font-semibold">1200 x 630px Auto-optimized</span>
               </div>
               <div className="relative aspect-[1200/630] rounded-xl overflow-hidden border border-[#EBEBEB] group">
                 <Image
@@ -235,8 +232,8 @@ export function SeoEditor() {
           <div className="rounded-2xl border border-[#EBEBEB] bg-white p-6 shadow-sm space-y-5">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-serif text-lg text-[#222222]">Skor Kesehatan SEO</h4>
-                <p className="text-xs text-[#717171]">Kesiapan konversi pencarian Google</p>
+                <h4 className="font-serif text-lg text-[#222222]">SEO Health Score</h4>
+                <p className="text-xs text-[#717171]">Google search readiness & quality index</p>
               </div>
               <div
                 className={`flex items-center justify-center h-14 w-14 rounded-2xl font-serif text-xl font-bold ${
@@ -300,13 +297,13 @@ export function SeoEditor() {
             <div className="flex items-center space-x-2">
               <Sparkles className="h-4 w-4 text-[#A69C8E]" />
               <h4 className="font-semibold text-xs text-[#222222] uppercase tracking-wider">
-                Dampak SEO terhadap Occupancy Airbnb
+                SEO Impact on Airbnb Occupancy
               </h4>
             </div>
             <p className="text-xs text-[#717171] leading-relaxed">
-              Listing dengan struktur SEO editorial KingHouse terbukti meningkatkan impression rata-rata
-              <strong className="text-[#222222]"> +280% </strong> di pencarian Airbnb dan menyumbang
-              lonjakan konversi booking hingga <strong className="text-[#222222]">3x lipat</strong> dalam 60 hari.
+              Listings utilizing the KingHouse editorial framework demonstrate average impression gains of
+              <strong className="text-[#222222]"> +280% </strong> on Airbnb search and up to
+              <strong className="text-[#222222]"> 3x booking conversion lift </strong> within the first 60 days.
             </p>
             <div className="pt-2">
               <a
@@ -315,7 +312,7 @@ export function SeoEditor() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#222222] hover:underline"
               >
-                <span>Lihat Listing Airbnb Live</span>
+                <span>View Live Airbnb Listing</span>
                 <ExternalLink className="h-3 w-3" />
               </a>
             </div>
@@ -325,3 +322,4 @@ export function SeoEditor() {
     </div>
   )
 }
+

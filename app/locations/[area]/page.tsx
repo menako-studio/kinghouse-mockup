@@ -23,20 +23,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const areaData = MANAGED_AREAS.find((a) => a.slug === area)
 
   if (!areaData) {
-    return { title: "Area Tidak Ditemukan | KingHouse" }
+    return { title: "Area Not Found | KingHouse" }
   }
 
-  const title = `Sewa Properti & Airbnb di ${areaData.name}, ${areaData.region} | KingHouse`
-  const description = `${areaData.description} Temukan akomodasi terkurasi di ${areaData.name} yang dikelola dengan standar Superhost KingHouse di Airbnb.`
+  const title = `Short-Stay Rentals & Airbnb in ${areaData.name}, ${areaData.region} | KingHouse`
+  const description = `${areaData.description} Explore curated accommodations in ${areaData.name} operated to KingHouse Airbnb Superhost standards.`
 
   return {
     title,
     description,
     keywords: [
-      `sewa properti ${areaData.slug}`,
+      `short stay ${areaData.slug}`,
       `airbnb ${areaData.slug}`,
-      `penginapan ${areaData.name}`,
-      `homestay ${areaData.name} ${areaData.region}`,
+      `accommodations ${areaData.name}`,
+      `villa rentals ${areaData.name} ${areaData.region}`,
       "kinghouse",
     ],
     alternates: { canonical: `/locations/${areaData.slug}` },
@@ -92,7 +92,7 @@ export default async function AreaLandingPage({ params }: PageProps) {
           <nav className="flex items-center space-x-2 text-xs text-[#717171] mb-8">
             <Link href="/" className="hover:text-[#222222]">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/villas" className="hover:text-[#222222]">Properti</Link>
+            <Link href="/villas" className="hover:text-[#222222]">Properties</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-[#222222] font-semibold">{areaData.name}</span>
           </nav>
@@ -104,7 +104,7 @@ export default async function AreaLandingPage({ params }: PageProps) {
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#222222] font-normal leading-tight">
-              Properti Terkurasi di
+              Curated Properties in
               <br />
               <span className="text-[#A69C8E]">{areaData.name}</span>
             </h1>
@@ -115,7 +115,7 @@ export default async function AreaLandingPage({ params }: PageProps) {
 
             <div className="flex items-center space-x-2 pt-2 text-xs text-[#222222] font-medium">
               <Sparkles className="h-4 w-4 text-[#A69C8E]" />
-              <span>Keunggulan Area: <strong>{areaData.highlight}</strong></span>
+              <span>Area Highlight: <strong>{areaData.highlight}</strong></span>
             </div>
           </div>
         </div>
@@ -127,14 +127,14 @@ export default async function AreaLandingPage({ params }: PageProps) {
           <div className="flex items-center justify-between mb-10">
             <div>
               <h2 className="font-serif text-2xl sm:text-3xl text-[#222222]">
-                Unit di {areaData.name}
+                Accommodations in {areaData.name}
               </h2>
               <p className="text-xs text-[#717171] mt-1">
-                Tersedia {villasInArea.length} properti terverifikasi dengan standar Superhost KingHouse
+                {villasInArea.length} verified listings managed to KingHouse Superhost standards
               </p>
             </div>
             <span className="text-xs text-[#A69C8E] font-medium uppercase tracking-wider">
-              {villasInArea.length} Pilihan
+              {villasInArea.length} Available
             </span>
           </div>
 
@@ -146,7 +146,7 @@ export default async function AreaLandingPage({ params }: PageProps) {
             </div>
           ) : (
             <div className="rounded-2xl border border-dashed border-[#EBEBEB] p-12 text-center text-sm text-[#717171]">
-              Unit baru di {areaData.name} sedang dalam proses kurasi.
+              New properties in {areaData.name} are currently undergoing curation.
             </div>
           )}
         </div>
@@ -158,24 +158,21 @@ export default async function AreaLandingPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#A69C8E]">
-                Panduan Lokal Area
+                Local Area Guide
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-[#222222]">
-                Kenapa Memilih Menginap di {areaData.name}?
+                Why Stay in {areaData.name}?
               </h2>
               <p className="text-sm text-[#717171] leading-relaxed">
-                {areaData.name} menawarkan keunikan yang berbeda dari pusat kota Jakarta. Dengan
-                aksesibilitas yang strategis dan karakter kawasan yang khas, unit di area ini
-                menjadi pilihan utama bagi tamu yang membutuhkan ketenangan, ruang yang lebih lega,
-                atau kedekatan dengan kawasan bisnis dan industri.
+                {areaData.name} provides a distinctive stay experience within Greater Jakarta. With strategic connectivity and peaceful neighborhoods, units in this area are prime choices for travelers seeking tranquility, expansive living spaces, or proximity to key commercial hubs.
               </p>
 
               <div className="space-y-3 pt-2">
                 {[
-                  "Kebersihan standar hotel berbintang dengan linen segar setiap tamu",
-                  "Self check-in fleksibel dengan dukungan concierge WhatsApp 24/7",
-                  "WiFi cepat dan meja kerja yang ideal untuk remote work",
-                  "Pemesanan transparan dan terproteksi langsung melalui Airbnb",
+                  "5-star hotel hygiene standards with fresh luxury linens for every guest",
+                  "Flexible self check-in backed by 24/7 WhatsApp concierge support",
+                  "High-speed fiber WiFi and dedicated work desks ideal for remote professionals",
+                  "Transparent, secure reservations processed directly through Airbnb",
                 ].map((point, idx) => (
                   <div key={idx} className="flex items-start space-x-3 text-xs text-[#222222]">
                     <CheckCircle2 className="h-4 w-4 text-[#A69C8E] mt-0.5 flex-shrink-0" />
@@ -191,33 +188,32 @@ export default async function AreaLandingPage({ params }: PageProps) {
                   <ShieldCheck className="h-6 w-6 text-[#A69C8E]" />
                   <div>
                     <h3 className="font-serif text-lg text-[#222222]">
-                      Punya Properti di {areaData.name}?
+                      Own a Property in {areaData.name}?
                     </h3>
                     <p className="text-xs text-[#717171]">
-                      Maksimalkan occupancy rate bersama KingHouse
+                      Maximize your occupancy rate and revenue with KingHouse
                     </p>
                   </div>
                 </div>
 
                 <p className="text-xs text-[#717171] leading-relaxed">
-                  Kami mengelola seluruh proses: mulai dari fotografi editorial, optimasi SEO listing
-                  di Airbnb, penetapan harga dinamis, hingga pembersihan turnover dan layanan tamu 24/7.
+                  We handle the end-to-end asset management: editorial photography, Airbnb SEO listing optimization, dynamic pricing algorithms, turnover housekeeping, and 24/7 guest communications.
                 </p>
 
                 <div className="p-4 rounded-xl bg-[#FAFAFA] border border-[#EBEBEB] text-xs space-y-1">
-                  <p className="font-semibold text-[#222222]">Potensi Revenue di {areaData.name}:</p>
+                  <p className="font-semibold text-[#222222]">Estimated Yield in {areaData.name}:</p>
                   <p className="text-[#717171]">
-                    Rata-rata <strong>Rp 15 - 45 juta / bulan</strong> dengan tingkat hunian &gt;75%.
+                    Average <strong>Rp 15 - 45 Million / month</strong> with &gt;75% occupancy.
                   </p>
                 </div>
 
                 <a
-                  href={`https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20memiliki%20properti%20di%20${areaData.name}%20dan%20ingin%20konsultasi%20manajemen%20Airbnb.`}
+                  href={`https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20own%20a%20property%20in%20${areaData.name}%20and%20would%20like%20a%20management%20consultation.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center space-x-2 w-full bg-[#222222] text-white py-3 rounded-xl text-xs font-semibold hover:bg-[#333333] transition-colors"
                 >
-                  <span>Konsultasi Properti di {areaData.name}</span>
+                  <span>Consult Regarding {areaData.name} Property</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </a>
               </div>
@@ -230,7 +226,7 @@ export default async function AreaLandingPage({ params }: PageProps) {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <h2 className="font-serif text-2xl text-[#222222] mb-8">
-            Jelajahi Area Lainnya di Jabodetabek
+            Explore Other Greater Jakarta Enclaves
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {MANAGED_AREAS.filter((a) => a.slug !== area).map((other) => (
@@ -255,3 +251,4 @@ export default async function AreaLandingPage({ params }: PageProps) {
     </main>
   )
 }
+

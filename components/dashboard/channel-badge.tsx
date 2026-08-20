@@ -20,10 +20,10 @@ export function ChannelBadge({ channel, status, syncTime }: ChannelBadgeProps) {
   }
 
   const statusConfig: Record<string, { label: string; badgeClass: string }> = {
-    connected: { label: "Tersambung", badgeClass: "bg-emerald-100 text-emerald-800" },
-    syncing: { label: "Sinkronisasi...", badgeClass: "bg-blue-100 text-blue-800 animate-pulse" },
-    available: { label: "Tersedia v2.0", badgeClass: "bg-purple-100 text-purple-800" },
-    coming_soon: { label: "Segera Hadir", badgeClass: "bg-gray-100 text-gray-600" },
+    connected: { label: "Connected", badgeClass: "bg-emerald-100 text-emerald-800" },
+    syncing: { label: "Syncing...", badgeClass: "bg-blue-100 text-blue-800 animate-pulse" },
+    available: { label: "Available v2.0", badgeClass: "bg-purple-100 text-purple-800" },
+    coming_soon: { label: "Coming Soon", badgeClass: "bg-gray-100 text-gray-600" },
   }
 
   const currentChannel = channelColors[channel] || channelColors.airbnb

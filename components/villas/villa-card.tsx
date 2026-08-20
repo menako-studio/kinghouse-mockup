@@ -46,7 +46,7 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
                 <span>{villa.rating.toFixed(2)}</span>
               </>
             ) : (
-              <span className="text-[10px] text-[#A69C8E]">Baru</span>
+              <span className="text-[10px] text-[#A69C8E]">New</span>
             )}
           </div>
         </div>
@@ -55,7 +55,7 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
         <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-lg bg-black/40 p-2.5 backdrop-blur-sm text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="font-light truncate">{villa.location}</span>
           <span className="shrink-0 flex items-center text-[10px] font-medium uppercase tracking-wider">
-            Detail <ArrowUpRight className="ml-0.5 h-3 w-3" />
+            Details <ArrowUpRight className="ml-0.5 h-3 w-3" />
           </span>
         </div>
       </Link>
@@ -78,17 +78,17 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
         <div className="flex items-center space-x-4 text-xs text-[#717171] pt-0.5">
           <span className="flex items-center space-x-1">
             <Users className="h-3.5 w-3.5 text-[#A69C8E]" />
-            <span>{villa.capacity.guests} Tamu</span>
+            <span>{villa.capacity.guests} Guests</span>
           </span>
           <span>&bull;</span>
           <span className="flex items-center space-x-1">
             <Bed className="h-3.5 w-3.5 text-[#A69C8E]" />
-            <span>{villa.capacity.bedrooms} Kamar</span>
+            <span>{villa.capacity.bedrooms} Bedrooms</span>
           </span>
           <span>&bull;</span>
           <span className="flex items-center space-x-1">
             <Bath className="h-3.5 w-3.5 text-[#A69C8E]" />
-            <span>{villa.capacity.bathrooms} KM</span>
+            <span>{villa.capacity.bathrooms} Baths</span>
           </span>
         </div>
 
@@ -98,7 +98,7 @@ export function VillaCard({ villa, priority = false }: VillaCardProps) {
             <span className="font-semibold text-sm text-[#222222]">
               {formatCurrency(villa.price.idr, "IDR")}
             </span>
-            <span className="text-xs text-[#717171]"> / malam</span>
+            <span className="text-xs text-[#717171]"> / night</span>
             <span className="block text-[10px] text-[#A69C8E]">
               ≈ {formatCurrency(villa.price.usd, "USD")}/night
             </span>

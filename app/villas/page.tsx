@@ -2,11 +2,13 @@
 
 import { useState, useMemo, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
-import { Filter, SlidersHorizontal, MapPin, Sparkles, RefreshCw } from "lucide-react"
+import { RefreshCw } from "lucide-react"
 import { MANAGED_AREAS } from "@/lib/constants"
 import { CURATED_VILLAS } from "@/lib/data"
 import { VillaCard } from "@/components/villas/villa-card"
 import { Button } from "@/components/ui/button"
+
+type SortOption = "recommended" | "price-asc" | "price-desc" | "rating"
 
 function VillasCatalogContent() {
   const searchParams = useSearchParams()
@@ -15,7 +17,7 @@ function VillasCatalogContent() {
 
   const [selectedArea, setSelectedArea] = useState(initialArea)
   const [selectedGuests, setSelectedGuests] = useState(initialGuests)
-  const [sortBy, setSortBy] = useState<"recommended" | "price-asc" | "price-desc" | "rating">("recommended")
+  const [sortBy, setSortBy] = useState<SortOption>("recommended")
 
   const filteredVillas = useMemo(() => {
     return CURATED_VILLAS.filter((villa) => {
@@ -42,60 +44,66 @@ function VillasCatalogContent() {
   return (
     <main className="min-h-screen bg-white pb-24">
       {/* Editorial Catalog Header */}
-      <section className="border-b border-[#EBEBEB] bg-[#FAFAFA] py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12 space-y-4">
-          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#A69C8E]">
-            Portofolio Terkurasi &bull; Jabodetabek 2026
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#222222] font-normal">
-            Koleksi Properti KingHouse
-          </h1>
-          <p className="text-sm sm:text-base text-[#717171] max-w-2xl leading-relaxed">
-            Setiap properti dikelola dengan standar Superhost Airbnb: kebersihan hotel bintang lima, foto editorial, perlengkapan lengkap, dan layanan concierge 24/7.
-          </p>
+      <section className="section-macro-spacing bg-[#FAFAFA] border-b border-[#EBEBEB]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#A69C8E]">
+              Portfolio 2026
+            </span>
+            <h1 className="font-serif text-4xl sm:text-6xl text-[#222222] font-normal leading-[1.1]">
+              The KingHouse Collection
+            </h1>
+            <p className="text-base sm:text-lg text-[#717171] font-light leading-relaxed">
+              Explore bespoke private villas across Jabodetabek, meticulously curated and operated to Airbnb Superhost standards.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Filter Controls Bar */}
-      <section className="sticky top-20 z-30 border-b border-[#EBEBEB] bg-white/95 backdrop-blur-md py-4">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          {/* Destination Pills */}
-          <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+      {/* Sticky Secondary Filter Bar */}
+      <section className="sticky top-20 z-30 bg-white/95 backdrop-blur-md border-b border-[#EBEBEB] py-4 shadow-xs">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          {/* Area Filter Pills */}
+          <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
             <button
               onClick={() => setSelectedArea("all")}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer ${
                 selectedArea === "all"
                   ? "bg-[#222222] text-white shadow-xs"
-                  : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
+                  : "bg-[#FAFAFA] text-[#717171] hover:bg-[#F2EFEB] hover:text-[#222222] border border-[#EBEBEB]"
               }`}
             >
-              Semua Area
+              All Locations ({CURATED_VILLAS.length})
             </button>
-            {MANAGED_AREAS.map((area) => (
-              <button
-                key={area.slug}
-                onClick={() => setSelectedArea(area.slug)}
-                className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all shrink-0 ${
-                  selectedArea === area.slug
-                    ? "bg-[#222222] text-white shadow-xs"
-                    : "bg-[#FAFAFA] text-[#717171] border border-[#EBEBEB] hover:text-[#222222]"
-                }`}
-              >
-                {area.name}
-              </button>
-            ))}
+            {MANAGED_AREAS.map((area) => {
+              const count = CURATED_VILLAS.filter((v) => v.areaSlug === area.slug).length
+              return (
+                <button
+                  key={area.slug}
+                  onClick={() => setSelectedArea(area.slug)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer ${
+                    selectedArea === area.slug
+                      ? "bg-[#222222] text-white shadow-xs"
+                      : "bg-[#FAFAFA] text-[#717171] hover:bg-[#F2EFEB] hover:text-[#222222] border border-[#EBEBEB]"
+                  }`}
+                >
+                  {area.name} ({count})
+                </button>
+              )
+            })}
           </div>
 
           {/* Guest Count & Sort Dropdowns */}
           <div className="flex items-center space-x-3 text-xs">
             <div className="flex items-center space-x-1.5 bg-[#FAFAFA] border border-[#EBEBEB] rounded-lg px-3 py-1.5">
-              <span className="text-[#717171] font-medium">Guests:</span>
+              <span className="text-[#717171] font-medium">Capacity:</span>
               <select
                 value={selectedGuests}
                 onChange={(e) => setSelectedGuests(e.target.value)}
                 className="bg-transparent font-semibold text-[#222222] focus:outline-none cursor-pointer"
               >
-                <option value="all">Any Capacity</option>
+                <option value="all">Any Guest Size</option>
+                <option value="2">2+ Guests</option>
                 <option value="4">4+ Guests</option>
                 <option value="6">6+ Guests</option>
                 <option value="8">8+ Guests</option>
@@ -106,7 +114,7 @@ function VillasCatalogContent() {
               <span className="text-[#717171] font-medium">Sort:</span>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
                 className="bg-transparent font-semibold text-[#222222] focus:outline-none cursor-pointer"
               >
                 <option value="recommended">Curated Top</option>

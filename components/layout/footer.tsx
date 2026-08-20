@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, ShieldCheck, Star } from "lucide-react"
+import { ArrowUpRight, Star } from "lucide-react"
 import { SITE_CONFIG, MANAGED_AREAS } from "@/lib/constants"
 
 export function Footer() {
@@ -27,7 +27,7 @@ export function Footer() {
             </Link>
 
             <p className="text-sm leading-relaxed text-[#A0A0A0] max-w-sm">
-              Hospitality editorial terintegrasi manajemen aset properti sewa jangka pendek di Jabodetabek — Jagakarsa, Tangerang, Palmerah, dan Cikarang.
+              Editorial-grade short-stay asset management and hospitality curation across Greater Jakarta (Jabodetabek) — Jagakarsa, Tangerang, Palmerah, and Cikarang.
             </p>
 
             <div className="flex items-center space-x-4 pt-2">
@@ -38,10 +38,10 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Nav Column 1: Area & Properti */}
+          {/* Nav Column 1: Area & Properties */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
-              Area Jabodetabek
+              Jabodetabek Areas
             </h4>
             <ul className="space-y-2.5 text-sm">
               {MANAGED_AREAS.map((area) => (
@@ -56,7 +56,7 @@ export function Footer() {
               ))}
               <li>
                 <Link href="/villas" className="hover:text-white transition-colors text-white/70">
-                  Semua Properti &rarr;
+                  All Properties &rarr;
                 </Link>
               </li>
               <li>
@@ -66,21 +66,21 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-[#D4AF37] hover:text-white transition-colors"
                 >
-                  Profil Host Airbnb <ArrowUpRight className="ml-1 h-3 w-3 opacity-70" />
+                  Airbnb Host Profile <ArrowUpRight className="ml-1 h-3 w-3 opacity-70" />
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Nav Column 2: Layanan & Fitur */}
+          {/* Nav Column 2: Services & Features */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
-              Layanan & Konten
+              Services & Features
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link href="/owner-services" className="hover:text-white transition-colors">
-                  Owner Services & Fee (15% vs 20%)
+                  Owner Services & Tiered Fees (15% vs 20%)
                 </Link>
               </li>
               <li>
@@ -90,12 +90,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/blog" className="hover:text-white transition-colors">
-                  Blog & Tips Airbnb
+                  Editorial Blog & Market Insights
                 </Link>
               </li>
               <li>
                 <Link href="/events" className="hover:text-white transition-colors">
-                  Garden Wedding & Events
+                  Garden Weddings & Private Events
                 </Link>
               </li>
               <li>
@@ -103,24 +103,24 @@ export function Footer() {
                   href="/owner-services#audit"
                   className="hover:text-white transition-colors text-white font-medium"
                 >
-                  Konsultasi Properti Gratis &rarr;
+                  Free Property Yield Audit &rarr;
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Nav Column 3: Kontak Langsung */}
+          {/* Nav Column 3: Direct Inquiries */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
-              Kontak Langsung
+              Direct Contact
             </h4>
             <div className="space-y-3 text-sm">
               <p className="text-white font-medium">Concierge & Management Desk</p>
               <p className="text-xs text-[#888888]">
-                Jakarta Selatan, Jabodetabek, Indonesia
+                South Jakarta, Greater Jakarta, Indonesia
               </p>
               <a
-                href="https://wa.me/628129252090?text=Hello%20KingHouse!%20Saya%20tertarik%20dengan%20manajemen%20properti%20Anda."
+                href="https://wa.me/628129252090?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-xs text-[#D4AF37] hover:text-white transition-colors"
@@ -140,7 +140,7 @@ export function Footer() {
           <div className="flex items-center space-x-6">
             <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard CMS</Link>
+            <Link href="/dashboard" className="hover:text-white transition-colors">CMS Dashboard</Link>
             <span className="text-[#444444]">|</span>
             <span className="text-[#888888]">Jabodetabek Property Management</span>
           </div>
@@ -149,3 +149,4 @@ export function Footer() {
     </footer>
   )
 }
+
