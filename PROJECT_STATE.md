@@ -167,6 +167,21 @@ Represents a managed property in Jabodetabek:
   - Elevated Stat Cards (`components/dashboard/stat-card.tsx`) with hover physics and trend chips.
   - Elevated sub-pages: `/dashboard`, `/dashboard/properties`, `/dashboard/seo`, `/dashboard/blog`, `/dashboard/bookings`, `/dashboard/analytics`, `/dashboard/settings`.
 
+### Phase 1.9 — Actual Property Photography Migration & Directory Restructuring (Completed)
+- [x] **Public Assets Structure Optimization** (`public/properties/`):
+  - Organized raw property photos into slug-named dedicated subdirectories following web best practices:
+    - `public/properties/versatile-house/` (5 photos: Exterior pool/garden, master bedroom, living lounge, dining chandelier, bathtub garden view)
+    - `public/properties/sky-house/` (3 photos: IKEA master bedroom, IKEA kitchen, gym facility)
+    - `public/properties/bright-airy/` (2 photos: Wide natural light master bedroom views)
+    - `public/properties/skyline-luxury/` (4 photos: Orange County skyline view, master bedroom, kitchenette, gym facility)
+- [x] **Data Layer Integration** (`lib/data.ts`):
+  - Linked all 4 managed villas (`CURATED_VILLAS`) to actual property photographs for `heroImage`, `gallery`, and `ogImage`.
+  - Updated all Case Studies (`CASE_STUDIES`) with actual property imagery.
+  - Updated Villa Events (`VILLA_EVENTS`) with real photography of Versatile House Jagakarsa (pool & garden, living lounge, dining hall).
+- [x] **Homepage Experience Integration**:
+  - `components/home/hero-slider.tsx`: Linked hero slides to actual property photography (Versatile House, Skyline Luxury Orange County, Sky House).
+  - `components/home/dual-path-split.tsx`: Updated B2C guest escape and B2B owner ROI background images to actual property photos.
+
 ---
 
 ## 5. PHASE 2.0 ROADMAP (Future Scope)

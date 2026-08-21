@@ -12,12 +12,12 @@ An editorial-grade property management, SEO CMS, and dual-audience booking platf
 ## 🌟 Key Platform Features
 
 ### 🌴 For Discerning Guests & Travelers
-- **4 Real Curated Properties**: 
-  - *Versatile House With Beautiful Garden Beyond* (Jagakarsa, Jakarta Selatan — 12 guests, 5BR)
-  - *Sky House • Hotel-Style Bed + IKEA 5min* (Pinang, Tangerang — 2 guests, 1BR)
-  - *Bright & Airy Apartment* (Palmerah, Jakarta Barat — 2 guests, 1BR)
-  - *Skyline Luxury at Orange County* (Cikarang Selatan, Bekasi — 2 guests, 1BR)
-- **Architectural Bento Gallery**: Dynamic 5-photo bento grid with fullscreen lightbox modal.
+- **4 Real Curated Properties with Actual Photography**: 
+  - *Versatile House With Beautiful Garden Beyond* (Jagakarsa, Jakarta Selatan — 12 guests, 5BR, private pool & garden)
+  - *Sky House • Hotel-Style Bed + IKEA 5min* (Pinang, Tangerang — 2 guests, 1BR, Scandinavian aesthetic & gym)
+  - *Bright & Airy Apartment* (Palmerah, Jakarta Barat — 2 guests, 1BR, urban natural light suite)
+  - *Skyline Luxury at Orange County* (Cikarang Selatan, Bekasi — 2 guests, 1BR, executive skyline view & pool/gym)
+- **High-Resolution Architectural Bento Gallery**: Dynamic 5-photo bento grid with fullscreen lightbox modal powered by real property assets.
 - **Dynamic IDR/USD Pricing**: Real-time rate calculation, cleaning fees, and service breakdown.
 - **Location Proximity Maps**: Distances and drive times to MRT stations, KRL, industrial estates, and airports.
 - **Events & Wedding Packages**: Dedicated garden wedding, corporate retreat, and party packages at the Jagakarsa private garden house.
