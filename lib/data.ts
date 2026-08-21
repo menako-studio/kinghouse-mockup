@@ -31,32 +31,32 @@ export const CURATED_VILLAS: Villa[] = [
       bathrooms: 3,
     },
     heroImage:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85",
+      "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85",
-        caption: "Lush garden courtyard and exterior facade of the Jagakarsa family home",
+        url: "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
+        caption: "Lush private garden, swimming pool and tropical exterior facade of the Jagakarsa residence",
         category: "exterior",
       },
       {
-        url: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1400&q=85",
-        caption: "Open-plan living area with garden views and natural ventilation",
+        url: "/properties/versatile-house/VersatileHouse_LivingRoom_Lounge.jpg",
+        caption: "Spacious open-plan living lounge with high ceiling and natural ventilation",
         category: "living",
       },
       {
-        url: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=85",
-        caption: "Master bedroom with queen-size bed and built-in wardrobe",
+        url: "/properties/versatile-house/VersatileHouse_MasterBedroom_GardenAccess.webp",
+        caption: "Master bedroom retreat with plush bedding and direct garden access",
         category: "bedroom",
       },
       {
-        url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=85",
-        caption: "Modern kitchen equipped for group gatherings and family cooking",
-        category: "kitchen",
+        url: "/properties/versatile-house/VersatileHouse_DiningRoom_Chandelier.jpg",
+        caption: "Grand dining hall with chandelier lighting designed for family feasts & group gatherings",
+        category: "living",
       },
       {
-        url: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1400&q=85",
-        caption: "Private garden beyond — ideal for morning coffee or outdoor dining",
-        category: "garden",
+        url: "/properties/versatile-house/VersatileHouse_Bathroom_BathtubGardenView.webp",
+        caption: "Luxury en-suite bathroom with deep soaking bathtub overlooking private greenery",
+        category: "bathroom",
       },
     ],
     editorialDescription: {
@@ -91,7 +91,7 @@ export const CURATED_VILLAS: Villa[] = [
         "Spacious 5-bedroom home in Jagakarsa for up to 12 guests. Private garden, full kitchen, free parking. Managed by KingHouse on Airbnb. Perfect for family stays & gatherings.",
       focusKeyword: "rumah sewa jagakarsa jakarta selatan",
       ogImage:
-        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85",
+        "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
     },
   },
   {
@@ -121,32 +121,32 @@ export const CURATED_VILLAS: Villa[] = [
       bathrooms: 1,
     },
     heroImage:
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=2000&q=85",
+      "/properties/sky-house/SkyHouse_IKEA_KamarUtama_Wide.jpeg",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=2000&q=85",
-        caption: "Hotel-grade queen bed with premium linen and layered lighting",
+        url: "/properties/sky-house/SkyHouse_IKEA_KamarUtama_Wide.jpeg",
+        caption: "Hotel-grade queen bed with Scandinavian styling, fresh linens, and warm natural lighting",
         category: "bedroom",
       },
       {
-        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=85",
-        caption: "Minimalist workspace desk and ergonomic chair for remote workers",
-        category: "living",
+        url: "/properties/sky-house/SkyHouse_IKEA_Dapur.webp",
+        caption: "Modern IKEA-equipped shared kitchenette and pantry area",
+        category: "kitchen",
       },
       {
-        url: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1400&q=85",
-        caption: "Clean en-suite bathroom with hot shower and full amenity set",
-        category: "bathroom",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1400&q=85",
-        caption: "Cosy reading nook and wardrobe storage area",
-        category: "living",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1400&q=85",
-        caption: "Bright room with natural light and IKEA-curated furniture",
+        url: "/properties/sky-house/SkyHouse_Fasilitas_Gym.jpeg",
+        caption: "Full resident fitness gym facilities with cardio equipment and weights",
         category: "exterior",
+      },
+      {
+        url: "/properties/sky-house/SkyHouse_IKEA_KamarUtama_Wide.jpeg",
+        caption: "Minimalist Scandinavian bedroom setup with ergonomic work corner",
+        category: "living",
+      },
+      {
+        url: "/properties/sky-house/SkyHouse_IKEA_Dapur.webp",
+        caption: "Clean, functional dining and coffee preparation counter",
+        category: "living",
       },
     ],
     editorialDescription: {
@@ -180,7 +180,7 @@ export const CURATED_VILLAS: Villa[] = [
         "Boutique hotel-feel private room in Pinang, Tangerang. 5 min from IKEA Alam Sutera. Premium bed, fast WiFi, en-suite bathroom. Book on Airbnb via KingHouse.",
       focusKeyword: "sewa kamar tangerang dekat ikea alam sutera",
       ogImage:
-        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=85",
+        "/properties/sky-house/SkyHouse_IKEA_KamarUtama_Wide.jpeg",
     },
   },
   {
@@ -210,31 +210,31 @@ export const CURATED_VILLAS: Villa[] = [
       bathrooms: 1,
     },
     heroImage:
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=2000&q=85",
+      "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide.webp",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=2000&q=85",
-        caption: "Sun-drenched apartment interior with open floor plan",
-        category: "living",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1400&q=85",
-        caption: "Comfortable bedroom with ample natural light and city view",
+        url: "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide.webp",
+        caption: "Sun-drenched master bedroom with wide city-view windows and queen hotel bed",
         category: "bedroom",
       },
       {
-        url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=85",
-        caption: "Compact but fully-equipped kitchenette",
-        category: "kitchen",
+        url: "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide-2.webp",
+        caption: "Comfortable bedroom lounge perspective featuring natural lighting and clean layout",
+        category: "bedroom",
       },
       {
-        url: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1400&q=85",
-        caption: "Modern bathroom with hot water shower",
-        category: "bathroom",
+        url: "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide.webp",
+        caption: "Crisp white minimalist room aesthetic tailored for remote work and short-stay comfort",
+        category: "living",
       },
       {
-        url: "https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1400&q=85",
-        caption: "City skyline view from the apartment window",
+        url: "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide-2.webp",
+        caption: "Warm afternoon natural light across the bedroom suite",
+        category: "living",
+      },
+      {
+        url: "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide.webp",
+        caption: "Air-conditioned modern suite in central Palmerah Jakarta Barat",
         category: "exterior",
       },
     ],
@@ -269,7 +269,7 @@ export const CURATED_VILLAS: Villa[] = [
         "Entire modern apartment in Palmerah, West Jakarta. 10 min walk to Palmerah KRL Station. Bright interior, full amenities for 2 guests. New listing managed by KingHouse.",
       focusKeyword: "sewa apartemen palmerah jakarta barat airbnb",
       ogImage:
-        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85",
+        "/properties/bright-airy/BrightAiry_Apartment_Kamar_Wide.webp",
     },
   },
   {
@@ -299,32 +299,32 @@ export const CURATED_VILLAS: Villa[] = [
       bathrooms: 1,
     },
     heroImage:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2000&q=85",
+      "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg",
     gallery: [
       {
-        url: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2000&q=85",
-        caption: "Skyline view from the Orange County luxury apartment tower",
+        url: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg",
+        caption: "Panoramic skyline view from the high-floor Orange County luxury apartment balcony",
         category: "exterior",
       },
       {
-        url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1400&q=85",
-        caption: "Premium bedroom with city skyline backdrop and blackout curtains",
+        url: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_KamarUtama.webp",
+        caption: "Executive master bedroom suite with plush bedding and designer accent wall",
         category: "bedroom",
       },
       {
-        url: "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?auto=format&fit=crop&w=1400&q=85",
-        caption: "Modern open-plan living area with floor-to-ceiling glass windows",
-        category: "living",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=85",
-        caption: "Sleek kitchenette with Nespresso machine and full dining setup",
+        url: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_Kitchenette.webp",
+        caption: "Sleek modern kitchenette equipped with microwave, induction stove and refrigerator",
         category: "kitchen",
       },
       {
-        url: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1400&q=85",
-        caption: "Rain shower bathroom with premium finishes and luxury toiletries",
-        category: "bathroom",
+        url: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_FasilitasGym.webp",
+        caption: "Exclusive resident fitness center and gymnasium inside Orange County complex",
+        category: "exterior",
+      },
+      {
+        url: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_KamarUtama.webp",
+        caption: "Hotel-grade comfort with blackout curtains and centralized climate control",
+        category: "living",
       },
     ],
     editorialDescription: {
@@ -360,7 +360,7 @@ export const CURATED_VILLAS: Villa[] = [
         "Executive apartment with skyline view inside Orange County, Cikarang Selatan. Perfect for expats & professionals near Jababeka & EJIP. Managed by KingHouse on Airbnb.",
       focusKeyword: "apartemen orange county cikarang expat airbnb",
       ogImage:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85",
+        "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg",
     },
   },
 ]
@@ -476,7 +476,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     propertyName: "Versatile House With Beautiful Garden Beyond",
     location: "Jagakarsa, Jakarta Selatan",
     image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85",
+      "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
     period: "90-Day Onboarding Performance",
     beforeMetrics: {
       occupancyRate: 28,
@@ -501,7 +501,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     propertyName: "Skyline Luxury at Orange County",
     location: "Cikarang Selatan, Bekasi",
     image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85",
+      "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg",
     period: "6-Month Revenue Review",
     beforeMetrics: {
       occupancyRate: 35,
@@ -841,11 +841,11 @@ export const VILLA_EVENTS: VillaEvent[] = [
       "The lush private garden of our Jagakarsa property creates a magical backdrop for intimate weddings and akad nikah ceremonies. Surrounded by tropical greenery, with space for up to 50 seated guests, this is South Jakarta's best-kept secret for a private, garden-style celebration. No venue rental markup — book the entire home and garden as one.",
     maxCapacity: 50,
     heroImage:
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=85",
+      "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
     gallery: [
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=85",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1400&q=85",
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1400&q=85",
+      "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
+      "/properties/versatile-house/VersatileHouse_LivingRoom_Lounge.jpg",
+      "/properties/versatile-house/VersatileHouse_DiningRoom_Chandelier.jpg",
     ],
     packages: [
       {
@@ -903,11 +903,11 @@ export const VILLA_EVENTS: VillaEvent[] = [
       "Escape the office without leaving the city. Our Jagakarsa home provides the ideal setting for team strategy sessions, quarterly reviews, and creative workshops — large enough for 12 participants to stay overnight, with dedicated indoor and outdoor session spaces.",
     maxCapacity: 30,
     heroImage:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=85",
+      "/properties/versatile-house/VersatileHouse_LivingRoom_Lounge.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=85",
-      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1400&q=85",
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1400&q=85",
+      "/properties/versatile-house/VersatileHouse_LivingRoom_Lounge.jpg",
+      "/properties/versatile-house/VersatileHouse_DiningRoom_Chandelier.jpg",
+      "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
     ],
     packages: [
       {
@@ -964,11 +964,11 @@ export const VILLA_EVENTS: VillaEvent[] = [
       "Why rent an overpriced venue when you can have an entire private home and garden for your party? Our Jagakarsa property is the perfect setting for milestone birthdays, graduation celebrations, and family reunions — with full indoor and outdoor flexibility.",
     maxCapacity: 40,
     heroImage:
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=2000&q=85",
+      "/properties/versatile-house/VersatileHouse_DiningRoom_Chandelier.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1400&q=85",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1400&q=85",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85",
+      "/properties/versatile-house/VersatileHouse_DiningRoom_Chandelier.jpg",
+      "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
+      "/properties/versatile-house/VersatileHouse_LivingRoom_Lounge.jpg",
     ],
     packages: [
       {

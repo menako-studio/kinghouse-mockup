@@ -8,19 +8,19 @@ import { ArrowRight, ChevronRight, Sparkles } from "lucide-react"
 
 const HERO_SLIDES = [
   {
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2200&q=85",
+    image: "/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp",
     title: "Versatile House With Garden",
     location: "Jagakarsa, Jakarta Selatan",
     style: "Modern Tropical",
   },
   {
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2200&q=85",
+    image: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg",
     title: "Skyline Luxury Orange County",
     location: "Cikarang Selatan, Bekasi",
     style: "Contemporary Executive",
   },
   {
-    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=2200&q=85",
+    image: "/properties/sky-house/SkyHouse_IKEA_KamarUtama_Wide.jpeg",
     title: "Sky House Hotel-Style Bed",
     location: "Pinang, Tangerang",
     style: "Scandinavian Minimalist",

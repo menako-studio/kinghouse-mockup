@@ -13,8 +13,8 @@ export function DualPathSplit() {
             {/* Background Lifestyle Image */}
             <div className="absolute inset-0 z-0 overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=85"
-                alt="Guests enjoying a private infinity pool"
+                src="/properties/versatile-house/VersatileHouse_Exterior_PoolAndGarden.webp"
+                alt="Versatile house garden and private pool"
                 fill
                 className="object-cover brightness-[0.45] transition-transform duration-700 ease-out group-hover:scale-105"
               />
@@ -57,8 +57,8 @@ export function DualPathSplit() {
             {/* Background Architectural Blueprint / Structure Image */}
             <div className="absolute inset-0 z-0 overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=85"
-                alt="Architectural villa exterior and layout"
+                src="/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg"
+                alt="Skyline luxury skyline view and layout"
                 fill
                 className="object-cover brightness-[0.40] transition-transform duration-700 ease-out group-hover:scale-105"
               />
