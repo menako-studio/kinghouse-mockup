@@ -125,6 +125,7 @@ kinghouse-mockup/
   - **1-Click CSV/Excel Download**: Instant spreadsheet generation for reservations and POS expenses.
   - **Printable Owner Payout Statements**: Official A4-formatted report generator with signature boxes and itemized revenue/expense breakdown.
   - Step-by-step modal guides for non-technical villa operators (e.g., Airbnb calendar import wizard).
+  - **Enhanced Legibility**: CMS `/dashboard` and `/login` enforced 100% **Plus Jakarta Sans** (sans-serif) for high data legibility, numbers, and operational table scans.
 - [x] **Live Two-Way OTA Synchronization** (`app/api/ical/[villaSlug]/route.ts`):
   - Dynamic RFC 5545 `.ics` calendar feed generation per villa for seamless import into Airbnb, Agoda, and Booking.com.
 - [x] **Security Fortification & Runtime Validation** (`lib/security/`, `lib/validations/`, `middleware.ts`):
@@ -133,6 +134,23 @@ kinghouse-mockup/
   - HTTP defense-in-depth headers: `X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`.
 - [x] **Automated Testing Suite (`tests/`, Vitest)**:
   - 12 comprehensive unit tests running and passing across ERP math, Zod schemas, rate limiters, and CSV exports.
+
+### Phase 2.1 — Dynamic Notification Hub, Non-Tech Blog CRUD & Portal Modals (Completed)
+- [x] **Dynamic System Alerts & In-App Floating Toasts** (`components/dashboard/notification-context.tsx`, `components/dashboard/dashboard-header.tsx`):
+  - Bell notification dropdown with live unread counter badge, pulsing indicator, category-colored tags (Blog, Booking, POS, SEO, Sync, System), mark all as read, and clear alerts.
+  - Real-time floating toast notifications triggered automatically on all CRUD actions across dashboard pages.
+  - Persistent state in browser storage (`localStorage`).
+- [x] **Non-Tech Friendly Editorial Blog CRUD Suite** (`app/dashboard/blog/page.tsx`):
+  - Full Create, Read, Update, and Delete flow with auto-slugification, verified property photo picker presets, custom image URL inputs, and real-time SEO score calculation (0–100).
+  - Tabbed interface switching between Form Editor and Live Card Preview.
+  - 1-click status toggle button (Published vs Draft) directly from the article table.
+  - Safe 2-step deletion modal dialog.
+- [x] **Seamless React Portal Modal Architecture**:
+  - Implemented `createPortal(..., document.body)` across all CMS modals (`/dashboard/blog`, `/dashboard/bookings`, `/dashboard/analytics`) to eliminate containing block transform clipping.
+  - Full-viewport dark backdrop blur (`bg-black/60 backdrop-blur-md`) and unclipped elevated shadows (`shadow-[0_25px_70px_rgba(0,0,0,0.35)]`).
+  - Fixed header + scrollable body + sticky footer pattern guaranteeing action buttons (Save / Cancel) are always visible.
+- [x] **Interactive Public Blog Filtering** (`components/blog/blog-index-client.tsx`, `app/blog/page.tsx`):
+  - Instant category tab filtering and live text search while preserving full SSR `BlogPosting` JSON-LD SEO schema.
 
 ---
 
