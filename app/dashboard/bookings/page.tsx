@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import {
   CalendarDays,
   CheckCircle2,
@@ -19,6 +20,7 @@ import {
   Building2,
   Layers,
   HelpCircle,
+  Trash2,
 } from "lucide-react"
 import { INITIAL_RESERVATIONS } from "@/lib/erp/initial-data"
 import { CURATED_VILLAS } from "@/lib/data"
@@ -26,15 +28,23 @@ import { Reservation, ChannelType, ReservationStatus, FeeTier } from "@/lib/erp/
 import { calculateReservationPayout } from "@/lib/erp/calculations"
 import { exportReservationsToCsv, downloadCsvFile } from "@/lib/erp/export"
 import { formatCurrency } from "@/lib/utils"
+import { useNotifications } from "@/components/dashboard/notification-context"
 
 export default function DashboardBookingsPage() {
+  const { addAlert, showToast } = useNotifications()
+  const [mounted, setMounted] = useState(false)
   const [reservations, setReservations] = useState<Reservation[]>(INITIAL_RESERVATIONS)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedChannel, setSelectedChannel] = useState<string>("all")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [deleteConfirmRes, setDeleteConfirmRes] = useState<Reservation | null>(null)
   const [syncStatus, setSyncStatus] = useState<string>("Up to date")
   const [isSyncing, setIsSyncing] = useState(false)
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Form State for Manual Booking
   const [formPropertyId, setFormPropertyId] = useState(CURATED_VILLAS[0].id)
@@ -88,8 +98,15 @@ export default function DashboardBookingsPage() {
 
     setReservations([newRes, ...reservations])
     setIsModalOpen(false)
-    setFeedbackMsg(`Reservasi baru atas nama ${newRes.guestName} berhasil ditambahkan!`)
-    setTimeout(() => setFeedbackMsg(null), 4000)
+
+    addAlert({
+      title: `Reservasi Baru: ${newRes.guestName} (${newRes.nights} Malam)`,
+      message: `Booking di ${newRes.propertyName} via ${newRes.channel}. Payout: ${formatCurrency(newRes.grossPayoutIdr, "IDR")}.`,
+      category: "booking",
+      actionUrl: "/dashboard/bookings",
+    })
+
+    showToast("Reservasi Berhasil Ditambahkan!", `${newRes.guestName} &bull; ${newRes.propertyName}`, "success")
 
     // Reset Form
     setFormGuestName("")
@@ -97,13 +114,34 @@ export default function DashboardBookingsPage() {
     setFormNotes("")
   }
 
+  const handleDeleteBooking = (id: string) => {
+    const target = reservations.find((r) => r.id === id)
+    setReservations(reservations.filter((r) => r.id !== id))
+    setDeleteConfirmRes(null)
+
+    if (target) {
+      addAlert({
+        title: `Reservasi Dibatalkan: ${target.guestName}`,
+        message: `Nomor booking ${target.id} (${target.propertyName}) telah dibatalkan.`,
+        category: "booking",
+      })
+      showToast("Reservasi Dibatalkan", `Booking #${target.id} berhasil dihapus.`, "info")
+    }
+  }
+
   const handleForceSync = () => {
     setIsSyncing(true)
     setTimeout(() => {
       setIsSyncing(false)
       setSyncStatus("Baru saja disinkronkan (0 konflik terdeteksi)")
-      setFeedbackMsg("Sinkronisasi 2-Arah Airbnb iCal berhasil diperbarui!")
-      setTimeout(() => setFeedbackMsg(null), 3000)
+
+      addAlert({
+        title: "Sinkronisasi Airbnb iCal Berhasil",
+        message: "Seluruh 4 kalender unit Jabodetabek berhasil disinkronkan tanpa bentrok.",
+        category: "sync",
+      })
+
+      showToast("Sinkronisasi 2-Arah Sukses!", "Kalender Airbnb & direct booking telah diperbarui.", "success")
     }, 1200)
   }
 
@@ -111,8 +149,7 @@ export default function DashboardBookingsPage() {
     const csvData = exportReservationsToCsv(reservations)
     const today = new Date().toISOString().split("T")[0]
     downloadCsvFile(csvData, `KingHouse-Reservations-${today}.csv`)
-    setFeedbackMsg("Laporan CSV berhasil diunduh! Siap dibuka di Microsoft Excel / Google Sheets.")
-    setTimeout(() => setFeedbackMsg(null), 4000)
+    showToast("File CSV Berhasil Diunduh", "Buka di Excel atau Google Sheets untuk laporan keuangan.", "success")
   }
 
   // Filtered reservations
@@ -136,7 +173,7 @@ export default function DashboardBookingsPage() {
             <CalendarDays className="h-3.5 w-3.5 text-[#C5A880]" />
             <span>DISTRIBUTION & RESERVATIONS ERP</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#18181A] font-normal tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
             Bookings & Calendar Hub
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -237,7 +274,7 @@ export default function DashboardBookingsPage() {
       <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
         <div className="p-6 sm:p-8 border-b border-[#EBE8E2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#F8F7F4]">
           <div className="space-y-1">
-            <h3 className="font-serif text-xl text-[#18181A] font-normal">Daftar Reservasi Aktif ({filteredReservations.length})</h3>
+            <h3 className="text-xl text-[#18181A] font-semibold">Daftar Reservasi Aktif ({filteredReservations.length})</h3>
             <p className="text-xs text-[#717171]">Transparansi lengkap bagi hasil pemilik dan status kedatangan tamu</p>
           </div>
         </div>
@@ -252,7 +289,8 @@ export default function DashboardBookingsPage() {
                 <th className="py-4 px-6">Tanggal In & Out</th>
                 <th className="py-4 px-6">Gross Payout</th>
                 <th className="py-4 px-6">Bagi Hasil Owner (Net)</th>
-                <th className="py-4 px-6 text-right">Status</th>
+                <th className="py-4 px-6">Status</th>
+                <th className="py-4 px-6 text-right">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F4F3EE] text-xs">
@@ -295,11 +333,21 @@ export default function DashboardBookingsPage() {
                         Komisi: {formatCurrency(res.managementFeeIdr, "IDR")} ({res.managementFeePercent}%)
                       </span>
                     </td>
-                    <td className="py-4 px-6 text-right">
+                    <td className="py-4 px-6">
                       <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
                         <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                         <span>{res.status}</span>
                       </span>
+                    </td>
+                    <td className="py-4 px-6 text-right">
+                      <button
+                        type="button"
+                        onClick={() => setDeleteConfirmRes(res)}
+                        className="p-1.5 rounded-xl text-rose-500 hover:text-rose-700 hover:bg-rose-50 transition-colors cursor-pointer"
+                        title="Batalkan / Hapus Reservasi"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
                     </td>
                   </tr>
                 )
@@ -309,215 +357,268 @@ export default function DashboardBookingsPage() {
         </div>
       </div>
 
-      {/* Manual Booking Modal for Non-Tech Operators */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-[#EBE8E2] max-h-[90vh] overflow-y-auto animate-sana-glow">
-            <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
-              <div>
-                <h3 className="font-serif text-2xl text-[#18181A]">Input Reservasi Manual</h3>
-                <p className="text-xs text-[#717171] mt-0.5">Catat booking tamu dari WhatsApp atau Direct Booking</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleManualAdd} className="space-y-4 pt-4 text-xs">
-              <div>
-                <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                  Pilih Properti Villa / Apartemen
-                </label>
-                <select
-                  value={formPropertyId}
-                  onChange={(e) => setFormPropertyId(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                >
-                  {CURATED_VILLAS.map((villa) => (
-                    <option key={villa.id} value={villa.id}>
-                      {villa.name} ({villa.area})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Manual Booking Modal (Full-Screen Portal) */}
+      {mounted &&
+        isModalOpen &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setIsModalOpen(false)
+            }}
+          >
+            <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#EBE8E2] max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
                 <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Nama Lengkap Tamu
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Contoh: Ibu Jessica Iskandar"
-                    value={formGuestName}
-                    onChange={(e) => setFormGuestName(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
+                  <h3 className="text-2xl text-[#18181A] font-semibold">Tambah Reservasi Manual / Direct</h3>
+                  <p className="text-xs text-[#717171] mt-0.5">
+                    Entri booking WhatsApp atau walk-in. Sistem otomatis menghitung komisi dan bagi hasil pemilik.
+                  </p>
                 </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Nomor WhatsApp Tamu
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="0812-xxxx-xxxx"
-                    value={formGuestPhone}
-                    onChange={(e) => setFormGuestPhone(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Saluran (Channel)
-                  </label>
-                  <select
-                    value={formChannel}
-                    onChange={(e) => setFormChannel(e.target.value as ChannelType)}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  >
-                    <option value="Direct WhatsApp">Direct WhatsApp</option>
-                    <option value="Airbnb">Airbnb</option>
-                    <option value="Booking.com">Booking.com</option>
-                    <option value="Agoda">Agoda</option>
-                    <option value="Walk-in">Walk-in</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Check-in
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={formCheckIn}
-                    onChange={(e) => setFormCheckIn(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Check-out
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={formCheckOut}
-                    onChange={(e) => setFormCheckOut(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Total Gross (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    min={0}
-                    step={50000}
-                    value={formGrossPayout}
-                    onChange={(e) => setFormGrossPayout(Number(e.target.value))}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Cleaning Fee (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    min={0}
-                    step={10000}
-                    value={formCleaningFee}
-                    onChange={(e) => setFormCleaningFee(Number(e.target.value))}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Tier Fee KingHouse
-                  </label>
-                  <select
-                    value={formFeeTier}
-                    onChange={(e) => setFormFeeTier(e.target.value as FeeTier)}
-                    className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  >
-                    <option value="standard">15% Standard</option>
-                    <option value="premium">20% Premium</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Automatic Calculation Preview Box for Non-Tech Users */}
-              <div className="p-4 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] space-y-2">
-                <div className="flex items-center space-x-1.5 font-semibold text-[#18181A]">
-                  <Sparkles className="h-3.5 w-3.5 text-[#C5A880]" />
-                  <span>Kalkulasi Otomatis Sistem ERP:</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-[11px] pt-1">
-                  <div>
-                    <span className="text-[#717171] block">Lama Menginap:</span>
-                    <strong className="text-[#18181A]">{nightsCount} Malam</strong>
-                  </div>
-                  <div>
-                    <span className="text-[#717171] block">Komisi Mgmt ({payoutCalc.managementFeePercent}%):</span>
-                    <strong className="text-amber-700">{formatCurrency(payoutCalc.managementFeeIdr, "IDR")}</strong>
-                  </div>
-                  <div>
-                    <span className="text-[#717171] block">Bagi Hasil Pemilik:</span>
-                    <strong className="text-emerald-700">{formatCurrency(payoutCalc.netOwnerPayoutIdr, "IDR")}</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                  Catatan Tambahan (Opsional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="Contoh: Tamu butuh extra bed dan early check-in jam 13:00"
-                  value={formNotes}
-                  onChange={(e) => setFormNotes(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                />
-              </div>
-
-              <div className="pt-3 flex items-center justify-end space-x-3">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                  className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
                 >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
-                >
-                  Simpan Reservasi
+                  <X className="h-4 w-4" />
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+
+              <form onSubmit={handleManualAdd} className="space-y-4 pt-4 text-xs">
+                <div>
+                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                    Pilih Properti Villa
+                  </label>
+                  <select
+                    value={formPropertyId}
+                    onChange={(e) => setFormPropertyId(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                  >
+                    {CURATED_VILLAS.map((villa) => (
+                      <option key={villa.id} value={villa.id}>
+                        {villa.name} ({villa.area})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Nama Tamu Pemesan *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Contoh: Bpk. Hendra Gunawan"
+                      value={formGuestName}
+                      onChange={(e) => setFormGuestName(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Nomor WhatsApp Tamu
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="08123456789"
+                      value={formGuestPhone}
+                      onChange={(e) => setFormGuestPhone(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Tanggal Check-In
+                    </label>
+                    <input
+                      type="date"
+                      required
+                      value={formCheckIn}
+                      onChange={(e) => setFormCheckIn(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Tanggal Check-Out
+                    </label>
+                    <input
+                      type="date"
+                      required
+                      value={formCheckOut}
+                      onChange={(e) => setFormCheckOut(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Channel Booking
+                    </label>
+                    <select
+                      value={formChannel}
+                      onChange={(e) => setFormChannel(e.target.value as ChannelType)}
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    >
+                      <option value="Direct WhatsApp">Direct WhatsApp</option>
+                      <option value="Airbnb">Airbnb (Manual)</option>
+                      <option value="Booking.com">Booking.com</option>
+                      <option value="Agoda">Agoda</option>
+                      <option value="Traveloka">Traveloka</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Total Nilai Sewa (Rp) *
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min={100000}
+                      step={50000}
+                      value={formGrossPayout}
+                      onChange={(e) => setFormGrossPayout(Number(e.target.value))}
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Cleaning Fee (Rp)
+                    </label>
+                    <input
+                      type="number"
+                      min={0}
+                      step={10000}
+                      value={formCleaningFee}
+                      onChange={(e) => setFormCleaningFee(Number(e.target.value))}
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Tier Fee KingHouse
+                    </label>
+                    <select
+                      value={formFeeTier}
+                      onChange={(e) => setFormFeeTier(e.target.value as FeeTier)}
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    >
+                      <option value="standard">15% Standard</option>
+                      <option value="premium">20% Premium</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Automatic Calculation Preview Box for Non-Tech Users */}
+                <div className="p-4 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] space-y-2">
+                  <div className="flex items-center space-x-1.5 font-semibold text-[#18181A]">
+                    <Sparkles className="h-3.5 w-3.5 text-[#C5A880]" />
+                    <span>Kalkulasi Otomatis Sistem ERP:</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 text-[11px] pt-1">
+                    <div>
+                      <span className="text-[#717171] block">Lama Menginap:</span>
+                      <strong className="text-[#18181A]">{nightsCount} Malam</strong>
+                    </div>
+                    <div>
+                      <span className="text-[#717171] block">Komisi Mgmt ({payoutCalc.managementFeePercent}%):</span>
+                      <strong className="text-amber-700">{formatCurrency(payoutCalc.managementFeeIdr, "IDR")}</strong>
+                    </div>
+                    <div>
+                      <span className="text-[#717171] block">Bagi Hasil Pemilik:</span>
+                      <strong className="text-emerald-700">{formatCurrency(payoutCalc.netOwnerPayoutIdr, "IDR")}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                    Catatan Tambahan (Opsional)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Contoh: Tamu butuh extra bed dan early check-in jam 13:00"
+                    value={formNotes}
+                    onChange={(e) => setFormNotes(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                  />
+                </div>
+
+                <div className="pt-3 flex items-center justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+                  >
+                    Simpan Reservasi
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* Delete Confirmation Modal (Full-Screen Portal) */}
+      {mounted &&
+        deleteConfirmRes &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setDeleteConfirmRes(null)
+            }}
+          >
+            <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-rose-100 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center mx-auto">
+                <Trash2 className="h-6 w-6" />
+              </div>
+
+              <div className="text-center space-y-1.5">
+                <h3 className="text-xl text-[#18181A] font-semibold">Batalkan / Hapus Reservasi?</h3>
+                <p className="text-xs text-[#717171] leading-relaxed">
+                  Anda yakin ingin menghapus reservasi <strong className="text-[#18181A]">#{deleteConfirmRes.id}</strong> atas nama <strong className="text-[#18181A]">{deleteConfirmRes.guestName}</strong> ({deleteConfirmRes.propertyName})?
+                </p>
+              </div>
+
+              <div className="pt-3 flex items-center justify-center space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setDeleteConfirmRes(null)}
+                  className="flex-1 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] text-xs font-semibold transition-all cursor-pointer"
+                >
+                  Kembali
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteBooking(deleteConfirmRes.id)}
+                  className="flex-1 py-2.5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition-all shadow-xs cursor-pointer"
+                >
+                  Hapus Reservasi
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   )
 }

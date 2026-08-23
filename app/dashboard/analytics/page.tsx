@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import {
   TrendingUp,
   DollarSign,
@@ -17,6 +18,7 @@ import {
   X,
   CheckCircle2,
   HelpCircle,
+  Trash2,
 } from "lucide-react"
 import { INITIAL_RESERVATIONS, INITIAL_EXPENSES } from "@/lib/erp/initial-data"
 import { CURATED_VILLAS } from "@/lib/data"
@@ -24,13 +26,21 @@ import { Reservation, ExpenseRecord, ExpenseCategory } from "@/lib/erp/types"
 import { generateOwnerStatement, calculateADR, calculateRevPAR } from "@/lib/erp/calculations"
 import { exportExpensesToCsv, downloadCsvFile, printOwnerStatement } from "@/lib/erp/export"
 import { formatCurrency } from "@/lib/utils"
+import { useNotifications } from "@/components/dashboard/notification-context"
 
 export default function DashboardAnalyticsPage() {
+  const { addAlert, showToast } = useNotifications()
+  const [mounted, setMounted] = useState(false)
   const [reservations, setReservations] = useState<Reservation[]>(INITIAL_RESERVATIONS)
   const [expenses, setExpenses] = useState<ExpenseRecord[]>(INITIAL_EXPENSES)
   const [selectedPropertyId, setSelectedPropertyId] = useState<string>("all")
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false)
+  const [deleteConfirmExp, setDeleteConfirmExp] = useState<ExpenseRecord | null>(null)
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Expense Form State
   const [expPropertyId, setExpPropertyId] = useState(CURATED_VILLAS[0].id)
@@ -80,19 +90,44 @@ export default function DashboardAnalyticsPage() {
 
     setExpenses([newExp, ...expenses])
     setIsExpenseModalOpen(false)
-    setFeedbackMsg(`Pengeluaran sebesar ${formatCurrency(newExp.amountIdr, "IDR")} untuk ${targetVilla.name} berhasil dicatat.`)
-    setTimeout(() => setFeedbackMsg(null), 4000)
+
+    addAlert({
+      title: `POS Expense: ${formatCurrency(newExp.amountIdr, "IDR")} (${newExp.category})`,
+      message: `Tercatat untuk ${targetVilla.name} (${newExp.description}).`,
+      category: "expense",
+      actionUrl: "/dashboard/analytics",
+    })
+
+    showToast(
+      "Biaya Operasional Tercatat!",
+      `${formatCurrency(newExp.amountIdr, "IDR")} &bull; ${targetVilla.name}`,
+      "success"
+    )
 
     // Reset Form
     setExpDescription("")
     setExpVendor("")
   }
 
+  const handleDeleteExpense = (id: string) => {
+    const target = expenses.find((e) => e.id === id)
+    setExpenses(expenses.filter((e) => e.id !== id))
+    setDeleteConfirmExp(null)
+
+    if (target) {
+      addAlert({
+        title: `Biaya Dihapus: ${formatCurrency(target.amountIdr, "IDR")}`,
+        message: `Nota ${target.id} (${target.description}) telah dihapus dari buku operasional.`,
+        category: "expense",
+      })
+      showToast("Nota Dihapus", `Biaya ${formatCurrency(target.amountIdr, "IDR")} telah dihapus.`, "info")
+    }
+  }
+
   const handleExportExpensesCsv = () => {
     const csv = exportExpensesToCsv(activeExpenses)
     downloadCsvFile(csv, `KingHouse-Expenses-August2026.csv`)
-    setFeedbackMsg("Laporan Pengeluaran Operasional (CSV) berhasil diunduh.")
-    setTimeout(() => setFeedbackMsg(null), 3000)
+    showToast("File CSV Berhasil Diunduh", "Buku pengeluaran siap dibuka di Excel.", "success")
   }
 
   const handlePrintStatement = () => {
@@ -109,6 +144,7 @@ export default function DashboardAnalyticsPage() {
       31
     )
     printOwnerStatement(statement)
+    showToast("Mempersiapkan Laporan Cetak", "Format A4 invoice siap dicetak.", "info")
   }
 
   return (
@@ -120,7 +156,7 @@ export default function DashboardAnalyticsPage() {
             <BarChart3 className="h-3.5 w-3.5 text-[#C5A880]" />
             <span>FINANCIAL INTELLIGENCE & POS SUITE</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#18181A] font-normal tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
             Revenue, POS & Owner Yield
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -196,7 +232,7 @@ export default function DashboardAnalyticsPage() {
               <DollarSign className="h-4 w-4 text-[#C5A880]" />
             </div>
           </div>
-          <p className="font-serif text-3xl font-normal text-[#18181A]">{formatCurrency(grossRevenue, "IDR")}</p>
+          <p className="text-3xl font-semibold text-[#18181A] tracking-tight">{formatCurrency(grossRevenue, "IDR")}</p>
           <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
             {activeReservations.length} Transaksi Menginap
           </span>
@@ -209,7 +245,7 @@ export default function DashboardAnalyticsPage() {
               <Award className="h-4 w-4 text-[#C5A880]" />
             </div>
           </div>
-          <p className="font-serif text-3xl font-bold text-emerald-700">{formatCurrency(netOwnerRemittance, "IDR")}</p>
+          <p className="text-3xl font-bold text-emerald-700 tracking-tight">{formatCurrency(netOwnerRemittance, "IDR")}</p>
           <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
             Setelah dikurangi komisi & POS
           </span>
@@ -222,7 +258,7 @@ export default function DashboardAnalyticsPage() {
               <Receipt className="h-4 w-4 text-[#C5A880]" />
             </div>
           </div>
-          <p className="font-serif text-3xl font-normal text-rose-700">{formatCurrency(totalExpenses, "IDR")}</p>
+          <p className="text-3xl font-semibold text-rose-700 tracking-tight">{formatCurrency(totalExpenses, "IDR")}</p>
           <span className="inline-block text-[11px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200">
             {activeExpenses.length} Nota Pembelian Tercatat
           </span>
@@ -235,7 +271,7 @@ export default function DashboardAnalyticsPage() {
               <TrendingUp className="h-4 w-4 text-[#C5A880]" />
             </div>
           </div>
-          <p className="font-serif text-3xl font-normal text-[#18181A]">{formatCurrency(adr, "IDR")}</p>
+          <p className="text-3xl font-semibold text-[#18181A] tracking-tight">{formatCurrency(adr, "IDR")}</p>
           <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
             {totalNights} Total Malam Terjual
           </span>
@@ -246,7 +282,7 @@ export default function DashboardAnalyticsPage() {
       <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
         <div className="p-6 sm:p-8 border-b border-[#EBE8E2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#F8F7F4]">
           <div>
-            <h3 className="font-serif text-xl text-[#18181A] font-normal">Buku Pengeluaran Operasional / POS ({activeExpenses.length})</h3>
+            <h3 className="text-xl text-[#18181A] font-semibold">Buku Pengeluaran Operasional / POS ({activeExpenses.length})</h3>
             <p className="text-xs text-[#717171]">Transparansi nota belanja, token listrik, laundry linen, dan maintenance</p>
           </div>
 
@@ -269,7 +305,8 @@ export default function DashboardAnalyticsPage() {
                 <th className="py-4 px-6">Kategori POS</th>
                 <th className="py-4 px-6">Rincian Pengeluaran</th>
                 <th className="py-4 px-6">Pencatat / Vendor</th>
-                <th className="py-4 px-6 text-right">Nominal (Rp)</th>
+                <th className="py-4 px-6">Nominal (Rp)</th>
+                <th className="py-4 px-6 text-right">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F4F3EE] text-xs">
@@ -294,8 +331,18 @@ export default function DashboardAnalyticsPage() {
                     <p className="font-medium text-[#18181A]">{exp.recordedBy}</p>
                     {exp.vendorName && <span className="text-[10px]">{exp.vendorName}</span>}
                   </td>
-                  <td className="py-4 px-6 text-right font-bold text-rose-700">
+                  <td className="py-4 px-6 font-bold text-rose-700">
                     - {formatCurrency(exp.amountIdr, "IDR")}
+                  </td>
+                  <td className="py-4 px-6 text-right">
+                    <button
+                      type="button"
+                      onClick={() => setDeleteConfirmExp(exp)}
+                      className="p-1.5 rounded-xl text-rose-500 hover:text-rose-700 hover:bg-rose-50 transition-colors cursor-pointer"
+                      title="Hapus Nota Pengeluaran"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -304,151 +351,202 @@ export default function DashboardAnalyticsPage() {
         </div>
       </div>
 
-      {/* POS Expense Modal for Non-Tech Operators */}
-      {isExpenseModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#EBE8E2] max-h-[90vh] overflow-y-auto animate-sana-glow">
-            <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
-              <div>
-                <h3 className="font-serif text-2xl text-[#18181A]">Catat Pengeluaran POS</h3>
-                <p className="text-xs text-[#717171] mt-0.5">Input nota biaya listrik, laundry, atau perbaikan properti</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsExpenseModalOpen(false)}
-                className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleAddExpense} className="space-y-4 pt-4 text-xs">
-              <div>
-                <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                  Properti yang Mengeluarkan Biaya
-                </label>
-                <select
-                  value={expPropertyId}
-                  onChange={(e) => setExpPropertyId(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                >
-                  {CURATED_VILLAS.map((villa) => (
-                    <option key={villa.id} value={villa.id}>
-                      {villa.name} ({villa.area})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Record Expense Modal (Full-Screen Portal) */}
+      {mounted &&
+        isExpenseModalOpen &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setIsExpenseModalOpen(false)
+            }}
+          >
+            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#EBE8E2] max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
                 <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Kategori POS
-                  </label>
-                  <select
-                    value={expCategory}
-                    onChange={(e) => setExpCategory(e.target.value as ExpenseCategory)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  >
-                    <option value="PLN & Utilities">PLN & Utilities (Listrik/Air/WiFi)</option>
-                    <option value="Linen & Laundry">Linen & Laundry Cuci Sprei</option>
-                    <option value="Guest Amenities">Guest Amenities & Galon</option>
-                    <option value="Maintenance & Repairs">Maintenance & Service AC</option>
-                    <option value="Staff & Housekeeping">Staff & Housekeeping</option>
-                    <option value="Marketing & OTAs">Marketing & OTAs</option>
-                  </select>
+                  <h3 className="text-2xl text-[#18181A] font-semibold">Catat Pengeluaran Operasional / POS</h3>
+                  <p className="text-xs text-[#717171] mt-0.5">Input nota belanja, token listrik PLN, laundry, atau service AC</p>
                 </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Tanggal Transaksi
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={expDate}
-                    onChange={(e) => setExpDate(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                  Deskripsi / Keterangan Nota
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Contoh: Beli Token PLN 500rb + Cuci Filter AC Master Bedroom"
-                  value={expDescription}
-                  onChange={(e) => setExpDescription(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Nominal Biaya (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    min={1000}
-                    step={10000}
-                    value={expAmount}
-                    onChange={(e) => setExpAmount(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                    Nama Toko / Vendor (Opsional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Contoh: Toko Listrik Sinar Jaya"
-                    value={expVendor}
-                    onChange={(e) => setExpVendor(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
-                  Nama Staff Pencatat
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={expRecordedBy}
-                  onChange={(e) => setExpRecordedBy(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
-                />
-              </div>
-
-              <div className="pt-3 flex items-center justify-end space-x-3">
                 <button
                   type="button"
                   onClick={() => setIsExpenseModalOpen(false)}
-                  className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                  className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <form onSubmit={handleAddExpense} className="space-y-4 pt-4 text-xs">
+                <div>
+                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                    Pilih Properti Villa
+                  </label>
+                  <select
+                    value={expPropertyId}
+                    onChange={(e) => setExpPropertyId(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                  >
+                    {CURATED_VILLAS.map((villa) => (
+                      <option key={villa.id} value={villa.id}>
+                        {villa.name} ({villa.area})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Kategori POS
+                    </label>
+                    <select
+                      value={expCategory}
+                      onChange={(e) => setExpCategory(e.target.value as ExpenseCategory)}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    >
+                      <option value="PLN & Utilities">PLN & Utilities (Listrik/Air/WiFi)</option>
+                      <option value="Linen & Laundry">Linen & Laundry Cuci Sprei</option>
+                      <option value="Guest Amenities">Guest Amenities & Galon</option>
+                      <option value="Maintenance & Repairs">Maintenance & Service AC</option>
+                      <option value="Staff & Housekeeping">Staff & Housekeeping</option>
+                      <option value="Marketing & OTAs">Marketing & OTAs</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Tanggal Transaksi
+                    </label>
+                    <input
+                      type="date"
+                      required
+                      value={expDate}
+                      onChange={(e) => setExpDate(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                    Deskripsi / Keterangan Nota
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Contoh: Beli Token PLN 500rb + Cuci Filter AC Master Bedroom"
+                    value={expDescription}
+                    onChange={(e) => setExpDescription(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Nominal Biaya (Rp)
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min={1000}
+                      step={10000}
+                      value={expAmount}
+                      onChange={(e) => setExpAmount(Number(e.target.value))}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                      Nama Toko / Vendor (Opsional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Contoh: Toko Listrik Sinar Jaya"
+                      value={expVendor}
+                      onChange={(e) => setExpVendor(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-[#555] uppercase tracking-wider mb-1">
+                    Nama Staff Pencatat
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={expRecordedBy}
+                    onChange={(e) => setExpRecordedBy(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                  />
+                </div>
+
+                <div className="pt-3 flex items-center justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsExpenseModalOpen(false)}
+                    className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+                  >
+                    Simpan Biaya
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* Delete Expense Confirmation Modal (Full-Screen Portal) */}
+      {mounted &&
+        deleteConfirmExp &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setDeleteConfirmExp(null)
+            }}
+          >
+            <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-rose-100 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center mx-auto">
+                <Trash2 className="h-6 w-6" />
+              </div>
+
+              <div className="text-center space-y-1.5">
+                <h3 className="text-xl text-[#18181A] font-semibold">Hapus Nota Biaya POS?</h3>
+                <p className="text-xs text-[#717171] leading-relaxed">
+                  Anda yakin ingin menghapus nota <strong className="text-[#18181A]">#{deleteConfirmExp.id}</strong> sebesar <strong className="text-rose-700">{formatCurrency(deleteConfirmExp.amountIdr, "IDR")}</strong> untuk {deleteConfirmExp.propertyName}?
+                </p>
+              </div>
+
+              <div className="pt-3 flex items-center justify-center space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setDeleteConfirmExp(null)}
+                  className="flex-1 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] text-xs font-semibold transition-all cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+                  type="button"
+                  onClick={() => handleDeleteExpense(deleteConfirmExp.id)}
+                  className="flex-1 py-2.5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition-all shadow-xs cursor-pointer"
                 >
-                  Simpan Biaya
+                  Hapus Biaya
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   )
 }
