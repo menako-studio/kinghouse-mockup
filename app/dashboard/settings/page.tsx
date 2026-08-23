@@ -18,9 +18,11 @@ import {
   Radio,
 } from "lucide-react"
 import { ADMIN_CREDENTIALS } from "@/lib/auth"
+import { useNotifications } from "@/components/dashboard/notification-context"
 
 export default function DashboardSettingsPage() {
   const router = useRouter()
+  const { addAlert, showToast } = useNotifications()
   const [copied, setCopied] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -28,12 +30,21 @@ export default function DashboardSettingsPage() {
   const handleCopyIcal = () => {
     navigator.clipboard.writeText("https://kinghouse.id/api/ical/sync/jabodetabek-master.ics")
     setCopied(true)
+    showToast("Link iCal Disalin!", "Master calendar feed siap diimpor ke channel OTA.", "success")
     setTimeout(() => setCopied(false), 2000)
   }
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault()
     setSaveSuccess(true)
+
+    addAlert({
+      title: "Pengaturan Profil CMS Disimpan",
+      message: "Data profil admin dan kredensial sistem berhasil diperbarui.",
+      category: "system",
+    })
+
+    showToast("Profil Berhasil Disimpan!", "Perubahan akun admin aktif.", "success")
     setTimeout(() => setSaveSuccess(false), 3000)
   }
 
@@ -59,7 +70,7 @@ export default function DashboardSettingsPage() {
             <Settings className="h-3.5 w-3.5 text-[#C5A880]" />
             <span>CONFIGURATION & INFRASTRUCTURE</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#18181A] font-normal tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
             Admin Profile & System Settings
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -93,7 +104,7 @@ export default function DashboardSettingsPage() {
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h3 className="font-serif text-xl text-[#18181A] font-normal">{ADMIN_CREDENTIALS.name}</h3>
+              <h3 className="text-xl text-[#18181A] font-semibold">{ADMIN_CREDENTIALS.name}</h3>
               <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                 <ShieldCheck className="h-3 w-3 text-emerald-600" />
                 <span>Super Admin</span>
@@ -145,7 +156,7 @@ export default function DashboardSettingsPage() {
           <div className="h-7 w-7 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A] border border-[#EBE8E2]">
             <Lock className="h-3.5 w-3.5 text-[#C5A880]" />
           </div>
-          <h3 className="font-serif text-xl text-[#18181A] font-normal">Security & Authentication</h3>
+          <h3 className="text-xl text-[#18181A] font-semibold">Security & Authentication</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
@@ -175,7 +186,7 @@ export default function DashboardSettingsPage() {
           <div className="h-7 w-7 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A] border border-[#EBE8E2]">
             <Layers className="h-3.5 w-3.5 text-[#C5A880]" />
           </div>
-          <h3 className="font-serif text-xl text-[#18181A] font-normal">OTA Multi-Channel Integration</h3>
+          <h3 className="text-xl text-[#18181A] font-semibold">OTA Multi-Channel Integration</h3>
         </div>
 
         <div className="space-y-4">

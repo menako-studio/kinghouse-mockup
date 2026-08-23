@@ -38,7 +38,7 @@ export default function DashboardOverviewPage() {
             <span>PORTFOLIO CMS</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#18181A] font-normal tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
             Asset Management & Yield Suite
           </h1>
           <p className="text-sm text-[#717171] max-w-2xl font-light leading-relaxed">
@@ -116,7 +116,7 @@ export default function DashboardOverviewPage() {
               <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-[#F8F7F4] border border-[#EBE8E2] text-[#18181A]">
                 <Layers className="h-3.5 w-3.5 text-[#C5A880]" />
               </div>
-              <h3 className="font-serif text-xl text-[#18181A] font-normal">
+              <h3 className="text-xl text-[#18181A] font-semibold">
                 Multi-Channel OTA Synchronization
               </h3>
             </div>
@@ -141,7 +141,7 @@ export default function DashboardOverviewPage() {
       <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
         <div className="p-6 sm:p-8 border-b border-[#EBE8E2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#F8F7F4]">
           <div className="space-y-1">
-            <h3 className="font-serif text-xl text-[#18181A] font-normal">Portfolio Properties</h3>
+            <h3 className="text-xl text-[#18181A] font-semibold">Portfolio Properties</h3>
             <p className="text-xs text-[#717171]">
               Live operational metrics, pricing tiers, and active status for each Airbnb listing
             </p>

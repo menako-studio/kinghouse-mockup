@@ -61,7 +61,7 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
       <div className="flex items-center justify-between p-4 border-b border-white/[0.08] h-16 relative">
         {!collapsed ? (
           <Link href="/dashboard" className="flex items-center space-x-3 group">
-            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] flex items-center justify-center font-serif font-semibold text-[#0B0A0E] shadow-[0_0_15px_rgba(197,168,128,0.25)] transition-transform group-hover:scale-105">
+            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] flex items-center justify-center font-bold text-[#0B0A0E] shadow-[0_0_15px_rgba(197,168,128,0.25)] transition-transform group-hover:scale-105">
               K
             </div>
             <div className="flex flex-col">
@@ -76,7 +76,7 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
         ) : (
           <Link
             href="/dashboard"
-            className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] flex items-center justify-center font-serif font-bold text-[#0B0A0E] mx-auto hover:scale-105 transition-transform shadow-[0_0_15px_rgba(197,168,128,0.2)]"
+            className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] flex items-center justify-center font-bold text-[#0B0A0E] mx-auto hover:scale-105 transition-transform shadow-[0_0_15px_rgba(197,168,128,0.2)]"
             title="KingHouse CMS"
           >
             K

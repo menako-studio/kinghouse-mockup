@@ -67,6 +67,19 @@ h1, h2, .font-editorial {
   font-weight: 400;
 }
 
+/* Dashboard / CMS Typography Override (100% Plus Jakarta Sans for maximum legibility) */
+.cms-dashboard-root,
+.cms-dashboard-root h1,
+.cms-dashboard-root h2,
+.cms-dashboard-root h3,
+.cms-dashboard-root h4,
+.cms-dashboard-root h5,
+.cms-dashboard-root h6,
+.cms-dashboard-root .font-serif,
+.cms-dashboard-root .font-editorial {
+  font-family: var(--font-sans-family) !important;
+}
+
 h3, h4, h5, h6 {
   font-family: var(--font-sans-family);
   letter-spacing: -0.015em;

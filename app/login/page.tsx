@@ -91,10 +91,10 @@ function LoginForm() {
       <header className="relative z-10 px-6 py-6 sm:px-12 flex items-center justify-between border-b border-white/[0.06] backdrop-blur-md">
         <Link href="/" className="group flex items-center space-x-3.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-gradient-to-br from-white/10 to-white/[0.02] text-[#C5A880] transition-all duration-300 group-hover:scale-105 group-hover:border-[#C5A880]/60 shadow-[0_0_20px_rgba(197,168,128,0.15)]">
-            <span className="font-serif text-lg font-normal">K</span>
+            <span className="font-bold text-lg">K</span>
           </div>
           <div className="flex flex-col">
-            <span className="font-serif text-lg tracking-tight text-white group-hover:text-[#C5A880] transition-colors">
+            <span className="text-lg font-semibold tracking-tight text-white group-hover:text-[#C5A880] transition-colors">
               KingHouse
             </span>
             <span className="text-[8px] uppercase tracking-[0.25em] text-white/50 -mt-1 font-medium">
@@ -136,7 +136,7 @@ function LoginForm() {
 
             {/* Title & Editorial Description */}
             <div className="mb-8 space-y-2">
-              <h1 className="font-serif text-3xl sm:text-4xl text-white font-normal tracking-tight">
+              <h1 className="text-3xl sm:text-4xl text-white font-semibold tracking-tight">
                 CMS Portal Access
               </h1>
               <p className="text-xs text-white/60 leading-relaxed font-sans font-light">

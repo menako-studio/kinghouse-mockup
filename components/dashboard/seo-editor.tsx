@@ -13,8 +13,10 @@ import {
 } from "lucide-react"
 import { CURATED_VILLAS } from "@/lib/data"
 import { Villa } from "@/lib/types"
+import { useNotifications } from "@/components/dashboard/notification-context"
 
 export function SeoEditor() {
+  const { addAlert, showToast } = useNotifications()
   const [selectedVillaId, setSelectedVillaId] = useState<string>(CURATED_VILLAS[0].id)
   const currentVilla = CURATED_VILLAS.find((v) => v.id === selectedVillaId) || CURATED_VILLAS[0]
 
@@ -47,9 +49,23 @@ export function SeoEditor() {
     setIsSaved(false)
   }
 
-  // Handle simulated save
+  // Handle save
   const handleSave = () => {
     setIsSaved(true)
+
+    addAlert({
+      title: `SEO Diperbarui: ${currentVilla.name}`,
+      message: `Metadata Google SERP & target keyword "${focusKeyword}" berhasil disimpan.`,
+      category: "seo",
+      actionUrl: "/dashboard/seo",
+    })
+
+    showToast(
+      "Metadata SEO Disimpan!",
+      `${currentVilla.name} &bull; Score: ${score}%`,
+      "success"
+    )
+
     setTimeout(() => setIsSaved(false), 3000)
   }
 
@@ -101,7 +117,7 @@ export function SeoEditor() {
           <div className="rounded-2xl border border-[#EBEBEB] bg-white p-6 sm:p-8 space-y-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-[#F5F4F0] pb-4">
               <div>
-                <h3 className="font-serif text-xl text-[#222222]">SEO Metadata Editor</h3>
+                <h3 className="text-xl text-[#222222] font-semibold">SEO Metadata Editor</h3>
                 <p className="text-xs text-[#717171]">
                   Fine-tune Google Search snippets and Airbnb Superhost ranking weights
                 </p>
@@ -217,7 +233,7 @@ export function SeoEditor() {
                   <span className="text-[10px] uppercase font-bold tracking-widest text-[#D4B896]">
                     KingHouse Curated Property &bull; {currentVilla.area}
                   </span>
-                  <p className="font-serif text-sm font-semibold text-white truncate">
+                  <p className="text-sm font-semibold text-white truncate">
                     {metaTitle}
                   </p>
                 </div>
@@ -232,11 +248,11 @@ export function SeoEditor() {
           <div className="rounded-2xl border border-[#EBEBEB] bg-white p-6 shadow-sm space-y-5">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-serif text-lg text-[#222222]">SEO Health Score</h4>
+                <h4 className="text-lg text-[#222222] font-semibold">SEO Health Score</h4>
                 <p className="text-xs text-[#717171]">Google search readiness & quality index</p>
               </div>
               <div
-                className={`flex items-center justify-center h-14 w-14 rounded-2xl font-serif text-xl font-bold ${
+                className={`flex items-center justify-center h-14 w-14 rounded-2xl text-xl font-bold ${
                   score >= 80
                     ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                     : score >= 60

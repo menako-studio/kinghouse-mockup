@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   },
 }
 
+import { NotificationProvider } from "@/components/dashboard/notification-context"
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -26,24 +28,26 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F8F7F4] text-[#18181A] relative selection:bg-[#C5A880] selection:text-[#18181A]">
-      {/* Subtle Ambient Lighting Accents */}
-      <div className="fixed top-0 left-64 right-0 h-96 bg-gradient-to-b from-[#C5A880]/[0.03] to-transparent pointer-events-none z-0" />
+    <NotificationProvider>
+      <div className="cms-dashboard-root font-sans flex min-h-screen bg-[#F8F7F4] text-[#18181A] relative selection:bg-[#C5A880] selection:text-[#18181A]">
+        {/* Subtle Ambient Lighting Accents */}
+        <div className="fixed top-0 left-64 right-0 h-96 bg-gradient-to-b from-[#C5A880]/[0.03] to-transparent pointer-events-none z-0" />
 
-      {/* Collapsible Sidebar */}
-      <DashboardSidebar adminUser={adminUser} />
+        {/* Collapsible Sidebar */}
+        <DashboardSidebar adminUser={adminUser} />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
-        {/* Top Header with Breadcrumb, Notifications & Admin Profile */}
-        <DashboardHeader adminUser={adminUser} />
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
+          {/* Top Header with Breadcrumb, Notifications & Admin Profile */}
+          <DashboardHeader adminUser={adminUser} />
 
-        {/* Scrollable Page Body */}
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 max-w-7xl w-full mx-auto overflow-y-auto">
-          {children}
-        </main>
+          {/* Scrollable Page Body */}
+          <main className="flex-1 p-6 sm:p-8 lg:p-10 max-w-7xl w-full mx-auto overflow-y-auto">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </NotificationProvider>
   )
 }
 

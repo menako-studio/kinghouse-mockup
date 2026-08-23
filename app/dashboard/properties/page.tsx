@@ -44,7 +44,7 @@ export default function DashboardPropertiesPage() {
             <Sparkles className="h-3.5 w-3.5 text-[#C5A880]" />
             <span>PORTFOLIO ASSETS & OTA SYNC</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#18181A] font-normal tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
             Property Portfolio & Channel Sync
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -80,7 +80,7 @@ export default function DashboardPropertiesPage() {
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
                   <div>
                     <p className="text-[10px] text-white/75 uppercase tracking-wider font-semibold">Tarif Dasar / Malam</p>
-                    <p className="font-serif text-2xl font-normal text-white">
+                    <p className="text-2xl font-bold text-white tracking-tight">
                       {formatCurrency(villa.price.idr, "IDR")}
                     </p>
                   </div>
@@ -101,7 +101,7 @@ export default function DashboardPropertiesPage() {
               {/* Content */}
               <div className="p-6 space-y-4">
                 <div>
-                  <h3 className="font-serif text-xl text-[#18181A] font-normal leading-snug line-clamp-1">
+                  <h3 className="text-xl text-[#18181A] font-semibold leading-snug line-clamp-1">
                     {villa.name}
                   </h3>
                   <div className="flex items-center space-x-1.5 text-xs text-[#717171] mt-1">
@@ -216,7 +216,7 @@ export default function DashboardPropertiesPage() {
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#EBE8E2] max-h-[90vh] overflow-y-auto animate-sana-glow">
             <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
               <div>
-                <h3 className="font-serif text-2xl text-[#18181A]">Panduan Sinkronisasi Kalender</h3>
+                <h3 className="text-2xl text-[#18181A] font-semibold">Panduan Sinkronisasi Kalender</h3>
                 <p className="text-xs text-[#717171] mt-0.5">{selectedGuideVilla}</p>
               </div>
               <button

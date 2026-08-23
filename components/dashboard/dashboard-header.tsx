@@ -21,6 +21,7 @@ import {
   Activity,
 } from "lucide-react"
 import { AdminUser } from "@/lib/auth"
+import { useNotifications, AlertCategory } from "@/components/dashboard/notification-context"
 
 interface DashboardHeaderProps {
   adminUser: AdminUser
@@ -31,6 +32,8 @@ export function DashboardHeader({ adminUser }: DashboardHeaderProps) {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const { alerts, unreadCount, markAsRead, markAllAsRead, clearAlert, clearAllAlerts } = useNotifications()
 
   const profileRef = useRef<HTMLDivElement>(null)
   const notifRef = useRef<HTMLDivElement>(null)
@@ -76,6 +79,23 @@ export function DashboardHeader({ adminUser }: DashboardHeaderProps) {
     }
   }
 
+  const getCategoryBadge = (cat: AlertCategory) => {
+    switch (cat) {
+      case "blog":
+        return <span className="text-[9px] font-bold uppercase bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded-md border border-purple-200">Blog</span>
+      case "booking":
+        return <span className="text-[9px] font-bold uppercase bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded-md border border-emerald-200">Booking</span>
+      case "expense":
+        return <span className="text-[9px] font-bold uppercase bg-rose-50 text-rose-700 px-1.5 py-0.5 rounded-md border border-rose-200">POS</span>
+      case "seo":
+        return <span className="text-[9px] font-bold uppercase bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded-md border border-blue-200">SEO</span>
+      case "sync":
+        return <span className="text-[9px] font-bold uppercase bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded-md border border-amber-200">iCal</span>
+      default:
+        return <span className="text-[9px] font-bold uppercase bg-[#F4F3EE] text-[#717171] px-1.5 py-0.5 rounded-md border border-[#EBE8E2]">System</span>
+    }
+  }
+
   return (
     <>
       <header className="h-16 border-b border-[#EBE8E2] bg-white/80 backdrop-blur-xl px-6 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
@@ -117,63 +137,114 @@ export function DashboardHeader({ adminUser }: DashboardHeaderProps) {
               aria-label="Notifications"
             >
               <Bell className="h-4 w-4" />
-              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#FF3B70]" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[#FF3B70] animate-pulse" />
+              )}
             </button>
 
             {isNotificationsOpen && (
               <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_20px_50px_rgba(0,0,0,0.12)] p-4 z-50 animate-sana-fade-in">
                 <div className="flex items-center justify-between pb-3 border-b border-[#F4F3EE]">
                   <div className="flex items-center space-x-2">
-                    <span className="font-serif text-sm font-semibold text-[#18181A]">
+                    <span className="text-sm font-semibold text-[#18181A]">
                       System Alerts
                     </span>
-                    <span className="text-[10px] bg-[#FF3B70]/10 text-[#FF3B70] px-2 py-0.5 rounded-full font-bold">
-                      3 New
-                    </span>
+                    {unreadCount > 0 ? (
+                      <span className="text-[10px] bg-[#FF3B70]/10 text-[#FF3B70] px-2 py-0.5 rounded-full font-bold">
+                        {unreadCount} New
+                      </span>
+                    ) : (
+                      <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
+                        All Read
+                      </span>
+                    )}
                   </div>
-                  <button
-                    onClick={() => setIsNotificationsOpen(false)}
-                    className="text-xs text-[#717171] hover:text-[#18181A] cursor-pointer"
-                  >
-                    Close
-                  </button>
+                  <div className="flex items-center space-x-2">
+                    {unreadCount > 0 && (
+                      <button
+                        type="button"
+                        onClick={markAllAsRead}
+                        className="text-[11px] font-semibold text-[#C5A880] hover:text-[#18181A] cursor-pointer"
+                      >
+                        Read All
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setIsNotificationsOpen(false)}
+                      className="text-xs text-[#717171] hover:text-[#18181A] cursor-pointer p-1"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
                 </div>
 
                 <div className="divide-y divide-[#F4F3EE] text-xs max-h-72 overflow-y-auto">
-                  <div className="py-3 hover:bg-[#FAFAF8] rounded-2xl px-2.5 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[#18181A]">
-                        Dynamic Pricing Calibrated
-                      </span>
-                      <span className="text-[10px] text-[#C5A880] font-mono">10m ago</span>
+                  {alerts.length > 0 ? (
+                    alerts.map((alert) => (
+                      <div
+                        key={alert.id}
+                        onClick={() => {
+                          markAsRead(alert.id)
+                          if (alert.actionUrl) {
+                            setIsNotificationsOpen(false)
+                            router.push(alert.actionUrl)
+                          }
+                        }}
+                        className={`py-3 rounded-2xl px-2.5 transition-colors cursor-pointer group relative ${
+                          alert.isRead ? "hover:bg-[#FAFAF8] opacity-75" : "bg-[#F8F7F4]/60 hover:bg-[#F4F3EE]"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center space-x-1.5">
+                            {!alert.isRead && (
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#FF3B70] flex-shrink-0" />
+                            )}
+                            <span className="font-semibold text-[#18181A] line-clamp-1">
+                              {alert.title}
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-1.5 flex-shrink-0">
+                            {getCategoryBadge(alert.category)}
+                            <span className="text-[10px] text-[#C5A880] font-mono">{alert.timeAgo}</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                clearAlert(alert.id)
+                              }}
+                              className="opacity-0 group-hover:opacity-100 p-1 text-[#717171] hover:text-rose-600 rounded transition-opacity cursor-pointer"
+                              title="Hapus Notifikasi"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        </div>
+                        <p className="text-[11px] text-[#717171] mt-1 leading-relaxed">
+                          {alert.message}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="py-8 text-center space-y-1">
+                      <p className="text-xs font-semibold text-[#18181A]">Tidak Ada Notifikasi</p>
+                      <p className="text-[11px] text-[#717171]">Semua sistem beroperasi normal tanpa kendala.</p>
                     </div>
-                    <p className="text-[11px] text-[#717171] mt-0.5 leading-relaxed">
-                      Jagakarsa 5BR Villa weekend pricing updated based on South Jakarta market surge.
-                    </p>
-                  </div>
-                  <div className="py-3 hover:bg-[#FAFAF8] rounded-2xl px-2.5 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[#18181A]">
-                        Airbnb iCal Synced
-                      </span>
-                      <span className="text-[10px] text-[#C5A880] font-mono">1h ago</span>
-                    </div>
-                    <p className="text-[11px] text-[#717171] mt-0.5 leading-relaxed">
-                      All 4 Jabodetabek listing calendars synced with 0 conflicts detected.
-                    </p>
-                  </div>
-                  <div className="py-3 hover:bg-[#FAFAF8] rounded-2xl px-2.5 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[#18181A]">
-                        SEO Performance Pitch Ready
-                      </span>
-                      <span className="text-[10px] text-[#C5A880] font-mono">3h ago</span>
-                    </div>
-                    <p className="text-[11px] text-[#717171] mt-0.5 leading-relaxed">
-                      Audit scores computed: 96% SEO health across current active listings.
-                    </p>
-                  </div>
+                  )}
                 </div>
+
+                {alerts.length > 0 && (
+                  <div className="pt-2 border-t border-[#F4F3EE] flex items-center justify-between text-[11px]">
+                    <span className="text-[#717171] font-mono">{alerts.length} Total Alerts</span>
+                    <button
+                      type="button"
+                      onClick={clearAllAlerts}
+                      className="text-rose-600 hover:text-rose-700 font-semibold cursor-pointer"
+                    >
+                      Hapus Semua
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -297,7 +368,7 @@ export function DashboardHeader({ adminUser }: DashboardHeaderProps) {
                   KH
                 </div>
                 <div>
-                  <h3 className="font-serif text-lg text-white font-normal">
+                  <h3 className="text-lg text-white font-semibold">
                     Admin Profile & Credentials
                   </h3>
                   <p className="text-xs text-[#C5A880]">

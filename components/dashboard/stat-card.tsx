@@ -34,7 +34,7 @@ export function StatCard({
           </div>
         </div>
         <div className="space-y-1">
-          <p className="font-serif text-3xl sm:text-4xl font-normal text-[#18181A] tracking-tight">
+          <p className="text-3xl sm:text-4xl font-semibold text-[#18181A] tracking-tight">
             {value}
           </p>
           {subtitle && (

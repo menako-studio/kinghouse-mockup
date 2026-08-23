@@ -29,7 +29,7 @@ export default function SeoManagerPage() {
             <span className="uppercase">KEY OWNER PITCHING ASSET</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight text-white">
             SEO & Listing Algorithm Suite
           </h1>
 
@@ -41,19 +41,19 @@ export default function SeoManagerPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-5 border-t border-white/10">
             <div>
-              <p className="font-serif text-3xl text-[#C5A880] font-normal">+280%</p>
+              <p className="text-3xl text-[#C5A880] font-bold tracking-tight">+280%</p>
               <p className="text-[10px] text-white/50 uppercase tracking-wider font-medium mt-1">
                 Airbnb Search Impressions
               </p>
             </div>
             <div>
-              <p className="font-serif text-3xl text-[#C5A880] font-normal">Top 3</p>
+              <p className="text-3xl text-[#C5A880] font-bold tracking-tight">Top 3</p>
               <p className="text-[10px] text-white/50 uppercase tracking-wider font-medium mt-1">
                 Google Organic Area Rank
               </p>
             </div>
             <div>
-              <p className="font-serif text-3xl text-[#C5A880] font-normal">81.4%</p>
+              <p className="text-3xl text-[#C5A880] font-bold tracking-tight">81.4%</p>
               <p className="text-[10px] text-white/50 uppercase tracking-wider font-medium mt-1">
                 Average Occupancy Rate
               </p>
@@ -66,7 +66,7 @@ export default function SeoManagerPage() {
       <section className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#EBE8E2] pb-4">
           <div>
-            <h2 className="font-serif text-2xl text-[#18181A] font-normal">Property SEO Editor</h2>
+            <h2 className="text-2xl text-[#18181A] font-semibold">Property SEO Editor</h2>
             <p className="text-xs text-[#717171] font-light">
               Select any of the 4 managed properties to inspect and modify real-time SEO metadata
             </p>
@@ -83,7 +83,7 @@ export default function SeoManagerPage() {
       <section className="space-y-6 pt-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBE8E2] pb-4">
           <div>
-            <h2 className="font-serif text-2xl text-[#18181A] font-normal">
+            <h2 className="text-2xl text-[#18181A] font-semibold">
               Editorial Content & Targeted Keywords
             </h2>
             <p className="text-xs text-[#717171] font-light">
@@ -153,7 +153,7 @@ export default function SeoManagerPage() {
           <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C5A880]">
             CLIENT PITCHING FRAMEWORK
           </span>
-          <h3 className="font-serif text-2xl sm:text-3xl text-[#18181A] font-normal mt-2 mb-3">
+          <h3 className="text-2xl sm:text-3xl text-[#18181A] font-semibold mt-2 mb-3">
             The KingHouse Formula: Transforming Properties into Guest Magnets
           </h3>
           <p className="text-xs sm:text-sm text-[#717171] leading-relaxed font-light">
