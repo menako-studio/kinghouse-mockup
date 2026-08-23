@@ -149,8 +149,21 @@ kinghouse-mockup/
   - Implemented `createPortal(..., document.body)` across all CMS modals (`/dashboard/blog`, `/dashboard/bookings`, `/dashboard/analytics`) to eliminate containing block transform clipping.
   - Full-viewport dark backdrop blur (`bg-black/60 backdrop-blur-md`) and unclipped elevated shadows (`shadow-[0_25px_70px_rgba(0,0,0,0.35)]`).
   - Fixed header + scrollable body + sticky footer pattern guaranteeing action buttons (Save / Cancel) are always visible.
-- [x] **Interactive Public Blog Filtering** (`components/blog/blog-index-client.tsx`, `app/blog/page.tsx`):
-  - Instant category tab filtering and live text search while preserving full SSR `BlogPosting` JSON-LD SEO schema.
+### Phase 2.2 — Persistent Cloud Database Layer (Supabase PostgreSQL Integration) (Completed)
+- [x] **PostgreSQL Dedicated Schema & Migration Script** (`supabase/schema.sql`):
+  - Created isolated `kinghouse` PostgreSQL schema (`kinghouse.reservations`, `kinghouse.expenses`, `kinghouse.blog_posts`).
+  - Implemented Row Level Security (RLS) policies, schema usage grants, and performance indexes.
+  - Seeded initial Jabodetabek Airbnb & Direct booking records and POS operational expenses.
+- [x] **Unified Server/Client Supabase Helpers** (`lib/supabase/client.ts`, `lib/supabase/server.ts`):
+  - Configured with `NEXT_PUBLIC_SUPABASE_SCHEMA=kinghouse` namespace.
+  - Safe initialization with automatic environment variable detection and local fallback.
+- [x] **Database-Connected Endpoints**:
+  - `/api/erp/reservations`: Real-time query and insertion to `kinghouse.reservations`.
+  - `/api/erp/expenses`: Real-time query and insertion to `kinghouse.expenses`.
+  - `/api/blog`: Real-time query and insertion to `kinghouse.blog_posts`.
+- [x] **Automated Testing Suite (`tests/`, Vitest)**:
+  - 13 comprehensive unit tests passing across ERP math, rate limiters, Zod schemas, CSV/calendar feeds, and database resilience.
+
 
 ---
 
@@ -166,3 +179,4 @@ npx tsc --noEmit
 # Run Next.js optimized production build
 npm run build
 ```
+

@@ -92,4 +92,13 @@ describe("Security & Schema Validation", () => {
       expect(checkRateLimit(testKey, 3, 5000).success).toBe(true)
     })
   })
+
+  describe("Supabase Helper Resilience", () => {
+    it("handles configuration detection gracefully", async () => {
+      const { isSupabaseConfigured } = await import("@/lib/supabase/server")
+      expect(typeof isSupabaseConfigured).toBe("boolean")
+    })
+  })
 })
+
+

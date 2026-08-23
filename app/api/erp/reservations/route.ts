@@ -3,16 +3,75 @@ import { ReservationSchema } from "@/lib/validations"
 import { calculateReservationPayout } from "@/lib/erp/calculations"
 import { INITIAL_RESERVATIONS } from "@/lib/erp/initial-data"
 import { Reservation } from "@/lib/erp/types"
+import { getSupabaseServerClient } from "@/lib/supabase/server"
 
-// In-memory store initialized with realistic seed data
-let reservationsStore: Reservation[] = [...INITIAL_RESERVATIONS]
+// In-memory fallback store
+let fallbackReservationsStore: Reservation[] = [...INITIAL_RESERVATIONS]
+
+// Map snake_case database row to TypeScript domain model
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapRowToReservation(row: any): Reservation {
+  return {
+    id: row.id,
+    propertyId: row.property_id,
+    propertySlug: row.property_slug,
+    propertyName: row.property_name,
+    guestName: row.guest_name,
+    guestPhone: row.guest_phone || undefined,
+    guestEmail: row.guest_email || undefined,
+    channel: row.channel,
+    checkIn: typeof row.check_in === "string" ? row.check_in.split("T")[0] : row.check_in,
+    checkOut: typeof row.check_out === "string" ? row.check_out.split("T")[0] : row.check_out,
+    nights: Number(row.nights),
+    guests: Number(row.guests),
+    grossPayoutIdr: Number(row.gross_payout_idr),
+    cleaningFeeIdr: Number(row.cleaning_fee_idr),
+    feeTier: row.fee_tier,
+    managementFeePercent: Number(row.management_fee_percent),
+    managementFeeIdr: Number(row.management_fee_idr),
+    netOwnerPayoutIdr: Number(row.net_owner_payout_idr),
+    status: row.status,
+    notes: row.notes || undefined,
+    createdAt: row.created_at,
+  }
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const propertyId = searchParams.get("propertyId")
   const channel = searchParams.get("channel")
 
-  let filtered = [...reservationsStore]
+  const supabase = getSupabaseServerClient()
+
+  if (supabase) {
+    try {
+      let query = supabase.from("reservations").select("*").order("check_in", { ascending: false })
+
+      if (propertyId) {
+        query = query.or(`property_id.eq.${propertyId},property_slug.eq.${propertyId}`)
+      }
+      if (channel) {
+        query = query.ilike("channel", channel)
+      }
+
+      const { data, error } = await query
+
+      if (!error && data) {
+        const mapped = data.map(mapRowToReservation)
+        return NextResponse.json({
+          success: true,
+          source: "supabase",
+          total: mapped.length,
+          reservations: mapped,
+        })
+      }
+    } catch (err) {
+      console.warn("Supabase query error, falling back to local store:", err)
+    }
+  }
+
+  // Fallback to in-memory store
+  let filtered = [...fallbackReservationsStore]
   if (propertyId) {
     filtered = filtered.filter((r) => r.propertyId === propertyId || r.propertySlug === propertyId)
   }
@@ -22,6 +81,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
+    source: "local-fallback",
     total: filtered.length,
     reservations: filtered,
   })
@@ -70,11 +130,53 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     }
 
-    reservationsStore.unshift(newReservation)
+    const supabase = getSupabaseServerClient()
+
+    if (supabase) {
+      try {
+        const { error } = await supabase.from("reservations").insert({
+          id: newReservation.id,
+          property_id: newReservation.propertyId,
+          property_slug: newReservation.propertySlug,
+          property_name: newReservation.propertyName,
+          guest_name: newReservation.guestName,
+          guest_phone: newReservation.guestPhone || null,
+          guest_email: newReservation.guestEmail || null,
+          channel: newReservation.channel,
+          check_in: newReservation.checkIn,
+          check_out: newReservation.checkOut,
+          nights: newReservation.nights,
+          guests: newReservation.guests,
+          gross_payout_idr: newReservation.grossPayoutIdr,
+          cleaning_fee_idr: newReservation.cleaningFeeIdr,
+          fee_tier: newReservation.feeTier,
+          management_fee_percent: newReservation.managementFeePercent,
+          management_fee_idr: newReservation.managementFeeIdr,
+          net_owner_payout_idr: newReservation.netOwnerPayoutIdr,
+          status: newReservation.status,
+          notes: newReservation.notes || null,
+          created_at: newReservation.createdAt,
+        })
+
+        if (!error) {
+          return NextResponse.json({
+            success: true,
+            source: "supabase",
+            message: "Reservasi berhasil disimpan ke Supabase Database.",
+            reservation: newReservation,
+          }, { status: 201 })
+        }
+      } catch (err) {
+        console.warn("Supabase insert error, falling back to local store:", err)
+      }
+    }
+
+    fallbackReservationsStore.unshift(newReservation)
 
     return NextResponse.json({
       success: true,
-      message: "Reservasi berhasil ditambahkan ke kalender ERP.",
+      source: "local-fallback",
+      message: "Reservasi berhasil ditambahkan ke kalender ERP (local).",
       reservation: newReservation,
     }, { status: 201 })
   } catch {

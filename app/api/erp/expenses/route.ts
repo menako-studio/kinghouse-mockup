@@ -2,15 +2,65 @@ import { NextRequest, NextResponse } from "next/server"
 import { ExpenseSchema } from "@/lib/validations"
 import { INITIAL_EXPENSES } from "@/lib/erp/initial-data"
 import { ExpenseRecord } from "@/lib/erp/types"
+import { getSupabaseServerClient } from "@/lib/supabase/server"
 
-let expensesStore: ExpenseRecord[] = [...INITIAL_EXPENSES]
+let fallbackExpensesStore: ExpenseRecord[] = [...INITIAL_EXPENSES]
+
+// Map snake_case database row to TypeScript domain model
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapRowToExpense(row: any): ExpenseRecord {
+  return {
+    id: row.id,
+    propertyId: row.property_id,
+    propertySlug: row.property_slug,
+    propertyName: row.property_name,
+    category: row.category,
+    description: row.description,
+    amountIdr: Number(row.amount_idr),
+    date: typeof row.date === "string" ? row.date.split("T")[0] : row.date,
+    recordedBy: row.recorded_by,
+    vendorName: row.vendor_name || undefined,
+    receiptUrl: row.receipt_url || undefined,
+  }
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const propertyId = searchParams.get("propertyId")
   const category = searchParams.get("category")
 
-  let filtered = [...expensesStore]
+  const supabase = getSupabaseServerClient()
+
+  if (supabase) {
+    try {
+      let query = supabase.from("expenses").select("*").order("date", { ascending: false })
+
+      if (propertyId) {
+        query = query.or(`property_id.eq.${propertyId},property_slug.eq.${propertyId}`)
+      }
+      if (category) {
+        query = query.eq("category", category)
+      }
+
+      const { data, error } = await query
+
+      if (!error && data) {
+        const mapped = data.map(mapRowToExpense)
+        const totalAmount = mapped.reduce((sum, e) => sum + e.amountIdr, 0)
+        return NextResponse.json({
+          success: true,
+          source: "supabase",
+          totalCount: mapped.length,
+          totalAmountIdr: totalAmount,
+          expenses: mapped,
+        })
+      }
+    } catch (err) {
+      console.warn("Supabase expenses query error, falling back:", err)
+    }
+  }
+
+  let filtered = [...fallbackExpensesStore]
   if (propertyId) {
     filtered = filtered.filter((e) => e.propertyId === propertyId || e.propertySlug === propertyId)
   }
@@ -22,6 +72,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
+    source: "local-fallback",
     totalCount: filtered.length,
     totalAmountIdr: totalAmount,
     expenses: filtered,
@@ -54,11 +105,43 @@ export async function POST(request: NextRequest) {
       receiptUrl: data.receiptUrl,
     }
 
-    expensesStore.unshift(newExpense)
+    const supabase = getSupabaseServerClient()
+
+    if (supabase) {
+      try {
+        const { error } = await supabase.from("expenses").insert({
+          id: newExpense.id,
+          property_id: newExpense.propertyId,
+          property_slug: newExpense.propertySlug,
+          property_name: newExpense.propertyName,
+          category: newExpense.category,
+          description: newExpense.description,
+          amount_idr: newExpense.amountIdr,
+          date: newExpense.date,
+          recorded_by: newExpense.recordedBy,
+          vendor_name: newExpense.vendorName || null,
+          receipt_url: newExpense.receiptUrl || null,
+        })
+
+        if (!error) {
+          return NextResponse.json({
+            success: true,
+            source: "supabase",
+            message: "Biaya operasional properti berhasil dicatat ke Supabase.",
+            expense: newExpense,
+          }, { status: 201 })
+        }
+      } catch (err) {
+        console.warn("Supabase expense insert error, falling back:", err)
+      }
+    }
+
+    fallbackExpensesStore.unshift(newExpense)
 
     return NextResponse.json({
       success: true,
-      message: "Biaya operasional properti berhasil dicatat.",
+      source: "local-fallback",
+      message: "Biaya operasional properti berhasil dicatat (local).",
       expense: newExpense,
     }, { status: 201 })
   } catch {
