@@ -60,10 +60,9 @@ const CATEGORY_FILTERS = [
   { slug: "jabodetabek-guide", label: "Area Guides" },
 ]
 
-export default function BlogPage() {
-  const featuredPosts = BLOG_POSTS.filter((p) => p.featured)
-  const regularPosts = BLOG_POSTS.filter((p) => !p.featured)
+import { BlogIndexClient } from "@/components/blog/blog-index-client"
 
+export default function BlogPage() {
   return (
     <main className="min-h-screen bg-white">
       <script
@@ -116,57 +115,8 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Category Filter Tabs */}
-      <section className="border-b border-[#EBEBEB] bg-white sticky top-16 z-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <div className="flex items-center space-x-1 overflow-x-auto py-3 scrollbar-hide">
-            {CATEGORY_FILTERS.map((cat) => (
-              <button
-                key={cat.slug}
-                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
-                  cat.slug === "all"
-                    ? "bg-[#222222] text-white"
-                    : "text-[#717171] hover:text-[#222222] hover:bg-[#F5F4F0]"
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Articles */}
-      {featuredPosts.length > 0 && (
-        <section className="py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-12">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="font-serif text-2xl text-[#222222]">Featured Article</h2>
-              <span className="text-xs text-[#A69C8E] uppercase tracking-wider font-medium">Editor&apos;s Pick</span>
-            </div>
-            <div className="space-y-6">
-              {featuredPosts.map((post) => (
-                <BlogCard key={post.id} post={post} featured />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* All Articles Grid */}
-      <section className="pb-24 bg-[#FAFAFA]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12 pt-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-2xl text-[#222222]">All Articles</h2>
-            <span className="text-xs text-[#A69C8E]">{BLOG_POSTS.length} posts</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {regularPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Interactive Blog Index & Filters */}
+      <BlogIndexClient initialPosts={BLOG_POSTS} />
 
       {/* CTA Banner */}
       <section className="bg-[#222222] py-16">
