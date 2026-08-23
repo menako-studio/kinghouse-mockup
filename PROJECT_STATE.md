@@ -157,18 +157,25 @@ kinghouse-mockup/
   - **Appliance & House Rules Accordion** (`components/stay/guide-section.tsx`): Guides for Daikin AC, Ariston water heater, Samsung Netflix 4K, swimming pool safety, and quiet hours.
   - **Curated Neighborhood Guide**: Verified local food, 24-hour convenience stores, and emergency hospitals with direct Google Maps navigation.
   - **Printable Room Table QR Code Modal** (`components/stay/qr-modal.tsx`): High-res QR code generator for room table displays.
-- [x] **In-Stay Ancillary Upsell Service Engine** (`components/stay/upsell-menu.tsx`, `lib/guest-guide/`):
-  - Interactive add-on item catalog: Late Check-Out (2 PM / 4 PM), BBQ Charcoal Grill setup, Extra Hotel Bedding, Mid-Stay Refresh.
-  - Dynamic IDR subtotal calculation and 1-click structured WhatsApp Concierge dispatch (`wa.me` generator).
+### Phase 2.4 — Little Hotelier Front-Desk Timeline Gantt & 2-Way Inbound iCal Sync (Completed)
+- [x] **Front-Desk Visual Timeline Gantt Chart** (`components/dashboard/bookings-gantt-chart.tsx`, `app/dashboard/bookings/page.tsx`):
+  - Interactive calendar timeline with property rows for 4 Jabodetabek properties.
+  - Multi-channel color-coded reservation bars (Airbnb, Direct WhatsApp, Booking.com, Agoda, Walk-in).
+  - Quick popup modal for guest details, nights, gross rent, and 15%/20% owner fee splits.
+  - View Switcher toggle: `[📋 List Tabel]` vs `[📅 Visual Timeline Gantt]`.
+- [x] **2-Way Inbound iCal Sync Engine** (`lib/ical/parser.ts`, `lib/ical/sync.ts`, `app/api/erp/ical-sync/route.ts`):
+  - Zero-dependency RFC 5545 iCalendar `.ics` parser for multi-event OTA calendar feeds.
+  - Automatic deduplication and auto-blocking of dates in Supabase `kinghouse.reservations`.
+  - Inbound iCal sync modal on `/dashboard/bookings` with real-time feedback toast.
 - [x] **Automated Testing Suite (`tests/`, Vitest)**:
-  - 16 comprehensive unit tests passing across ERP math, guest compendiums, upsell order calculations, rate limiters, and Zod schemas.
+  - 19 comprehensive unit tests passing across ERP calculations, 2-way iCal sync parser, guest compendiums, rate limiters, and Zod schemas.
 
 ---
 
 ## 4. VERIFICATION COMMANDS
 
 ```bash
-# Run automated Vitest test suite (16 tests)
+# Run automated Vitest test suite (19 tests)
 npm test
 
 # Run TypeScript strict type verification
@@ -177,5 +184,6 @@ npx tsc --noEmit
 # Run Next.js optimized production build
 npm run build
 ```
+
 
 

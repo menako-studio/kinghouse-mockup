@@ -40,7 +40,10 @@ An editorial-grade property management, SEO CMS, and 100% Free-Tier Hospitality 
   - **1-Click Spreadsheet Export**: Instant download of clean CSV/Excel files for reservations and operational expenses.
   - **Print-Ready Owner Payout Statements (Laporan Bagi Hasil)**: Official printable A4 formatted revenue statements with commission breakdown (15% Standard vs 20% Premium) and expense deductions.
   - **POS Operational Expense Ledger**: Track PLN tokens, laundry linen, guest amenities, and technician maintenance with vendor tagging.
-  - **Direct RFC 5545 iCalendar OTA Synchronization**: Per-property dynamic `.ics` feeds (`/api/ical/[villaSlug]`) to import into Airbnb, Agoda, and Booking.com with zero double-booking risk.
+  - **Little Hotelier Front-Desk Visual Timeline Gantt (`/dashboard/bookings`)**: Interactive daily room turnover grid with property rows, color-coded OTA channel chips (Airbnb, Direct WhatsApp, Booking.com, Agoda), and 1-click guest/commission popups.
+  - **2-Way OTA Synchronization Engine (Outbound & Inbound iCal)**:
+    - *Outbound*: Per-property dynamic RFC 5545 `.ics` feeds (`/api/ical/[villaSlug]`) to export to Airbnb, Agoda, and Booking.com.
+    - *Inbound Parser*: Direct `.ics` import modal (`/api/erp/ical-sync`) to pull external Airbnb/Agoda calendars, deduplicate UIDs, and auto-block dates on the timeline.
 - **Production-Grade CMS Authorization & Security (`/login`, `/dashboard`)**:
   - **In-Memory Sliding Window Rate Limiting**: Brute-force protection on `/api/auth/login` blocking credential stuffing.
   - **Runtime Zod Schema Validation**: Form inputs, numeric bounds, dates, and API payloads validated strictly via Zod.
@@ -53,7 +56,7 @@ An editorial-grade property management, SEO CMS, and 100% Free-Tier Hospitality 
   - **Overview (`/dashboard`)**: Multi-channel OTA status, occupancy KPIs, and quick shortcuts.
   - **Properties (`/dashboard/properties`)**: Portfolio inventory, 1-click iCal URL copy, and step-by-step Airbnb sync guide.
   - **SEO Manager (`/dashboard/seo`)**: Interactive per-property Meta Title & Description editor, real-time Google SERP preview, and SEO health checklist.
-  - **Bookings Hub (`/dashboard/bookings`)**: Multi-channel reservation table, manual WhatsApp booking modal, cancellation flow, and 1-click CSV export.
+  - **Bookings Hub (`/dashboard/bookings`)**: Multi-channel reservation table, visual Gantt timeline switcher, Inbound iCal sync modal, manual WhatsApp booking modal, and 1-click CSV export.
   - **Revenue & POS Analytics (`/dashboard/analytics`)**: Financial yield intelligence (ADR, RevPAR, Occupancy rate), POS expense ledger with deletion flow, and printable Owner Statement generator.
   - **Settings & Profile (`/dashboard/settings`)**: Admin profile credentials, session security inspect, and master iCal calendar feed exporter.
 
