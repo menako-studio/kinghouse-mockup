@@ -8,11 +8,11 @@
 ## 1. EXECUTIVE SUMMARY & SCOPE
 
 ### 1.1 Core Purpose & Scope
-**KingHouse** is an editorial-grade property management, SEO CMS, and dual-path short-stay booking platform focused on **Jabodetabek** (Jagakarsa - Jakarta Selatan, Pinang - Tangerang, Palmerah - Jakarta Barat, and Cikarang Selatan - Bekasi).
+**KingHouse** is an editorial-grade property management, SEO CMS, 100% Free-Tier Hospitality ERP/POS, and dual-path short-stay booking platform focused on **Jabodetabek** (Jagakarsa - Jakarta Selatan, Pinang - Tangerang, Palmerah - Jakarta Barat, and Cikarang Selatan - Bekasi).
 
 The platform serves two primary user personas:
 1. **Discerning Guests**: Seeking curated, hotel-standard short-stay accommodations and event venues with rich architectural bento photo galleries, IDR pricing, amenity breakdowns, proximity maps, and seamless Airbnb booking.
-2. **Property Owners & Investors**: Pitching client property owners on how KingHouse maximizes occupancy rate (>75-80%) and revenue through editorial photography, keyword-optimized Airbnb SEO, dynamic pricing, and turnkey operations.
+2. **Property Owners & Operators**: Managing portfolio yield, occupancy, automated owner revenue statements (15% Standard vs 20% Premium), POS expense tracking, 1-click spreadsheet exports, and OTA 2-way calendar synchronization without any paid third-party API dependencies.
 
 ### 1.2 Active Managed Properties (Airbnb Host #1470743715397835749)
 | # | Property Name | Area / Region | Capacity | Airbnb Room ID | Rating / Reviews |
@@ -26,15 +26,16 @@ The platform serves two primary user personas:
 
 | Category | Technology | Version / Configuration | Purpose |
 | :--- | :--- | :--- | :--- |
-| **Framework** | Next.js (App Router) | `16.0.7` (`next dev --turbopack`) | Core fullstack framework & static page generation |
+| **Framework** | Next.js (App Router) | `16.0.7` (`next dev --turbopack`) | Core fullstack framework & static/dynamic generation |
 | **Runtime / Core** | React / React DOM | `19.2.0` | Modern React UI with Server/Client Components |
 | **Language** | TypeScript | `^5.0` (Strict mode) | Type safety across schemas, state, and props |
 | **Styling** | Tailwind CSS v4 + PostCSS | `@tailwindcss/postcss ^4`, `tailwindcss ^4` | CSS-in-JS utility engine (`@theme inline`) |
 | **UI Primitives** | Radix UI Slot, CVA | `class-variance-authority ^0.7.1`, `clsx`, `tailwind-merge` | Headless, accessible components |
 | **Animations** | Framer Motion | `^12.23.25` | Fluid micro-interactions and transitions |
 | **Icons** | Lucide React | `^0.556.0` | Vector iconography |
-| **Typography** | Playfair Display & Plus Jakarta Sans | `next/font/google` | Editorial serif headings & sans-serif UI body |
-| **Structured Data** | Schema.org JSON-LD | VacationRental, Organization, LocalBusiness, FAQPage, BreadcrumbList, BlogPosting, Event, ItemList | Comprehensive Google Rich Results SEO |
+| **Validation** | Zod | `^4.4.3` | Runtime schema validation for forms & API payloads |
+| **Testing** | Vitest | `^4.1.11` | Automated unit testing for ERP, security, and feeds |
+| **Security** | Web Crypto HMAC-SHA256 + Rate Limiter | In-Memory Sliding Window | Edge session protection and brute-force mitigation |
 | **Hosting** | Vercel (Hobby Tier) | 100% Free Tier Compatible | Zero external paid API dependencies |
 
 ---
@@ -46,23 +47,25 @@ The platform serves two primary user personas:
 ```
 kinghouse-mockup/
 ├── app/
-│   ├── blog/                         # Blog index page
-│   │   ├── [slug]/page.tsx           # Individual blog post with BlogPosting JSON-LD
-│   │   └── page.tsx                  # Blog catalog with category tabs & featured post
-│   ├── dashboard/                    # CMS Dashboard for pitching & management
-│   │   ├── properties/page.tsx       # Property portfolio management view
+│   ├── api/
+│   │   ├── auth/                     # Login (with rate-limiting & Zod), logout, me routes
+│   │   ├── erp/                      # Dynamic ERP endpoints (reservations, expenses)
+│   │   └── ical/[villaSlug]/         # Dynamic RFC 5545 iCal calendar feeds
+│   ├── blog/                         # Blog index & article reader with BlogPosting schema
+│   ├── dashboard/                    # Hospitality ERP/POS & CMS Suite
+│   │   ├── analytics/page.tsx        # Revenue intelligence, POS expense ledger, & print statements
+│   │   ├── blog/page.tsx             # Blog article manager
+│   │   ├── bookings/page.tsx         # Multi-channel reservations hub with 1-click CSV export
+│   │   ├── properties/page.tsx       # Portfolio asset inventory & iCal sync setup wizard
 │   │   ├── seo/page.tsx              # Interactive SEO Editor & Live Google SERP preview
+│   │   ├── settings/page.tsx         # Admin credentials, security audit, & master feeds
 │   │   ├── layout.tsx                # Dashboard layout with dark collapsible sidebar
 │   │   └── page.tsx                  # Portfolio KPIs & multi-channel OTA status
 │   ├── events/                       # Events & garden wedding venue pages
-│   │   ├── [slug]/page.tsx           # Event package detail with Event schema & WhatsApp CTA
-│   │   └── page.tsx                  # Events overview categorized by Wedding/Corporate/Party
-│   ├── locations/
-│   │   └── [area]/                   # Dynamic area landing pages (Jagakarsa, Cikarang, etc.)
-│   │       ├── villas/[slug]/page.tsx# Single property editorial detail page
-│   │       └── page.tsx              # Area guide with TouristDestination JSON-LD
+│   ├── locations/[area]/             # Dynamic area landing pages (TouristDestination schema)
+│   ├── login/page.tsx                # Sana Labs styled administrative login portal
 │   ├── owner-services/page.tsx       # Tiered fees (15% vs 20%), ROI case studies, audit form
-│   ├── villas/page.tsx               # Property catalog with area filter pills
+│   ├── villas/                       # Property catalog & single villa editorial detail
 │   ├── about/page.tsx                # Company profile & hospitality standards
 │   ├── contact/page.tsx              # Contact info & direct WhatsApp concierge
 │   ├── globals.css                   # Tailwind v4 theme, variables & scrollbars
@@ -77,119 +80,71 @@ kinghouse-mockup/
 │   ├── owner/                        # Pricing tables, ROI metrics, lead audit form
 │   ├── ui/                           # Badge, button, card, input primitives
 │   └── villas/                       # Amenities grid, booking sidebar, map, villa card
-└── lib/
-    ├── constants.ts                  # SITE_CONFIG, MANAGED_AREAS, MANAGEMENT_SERVICES
-    ├── data.ts                       # Real Airbnb properties, 6 blog posts, 3 event packages
-    ├── types.ts                      # Domain models (Villa, BlogPost, VillaEvent, SeoMeta)
-    └── utils.ts                      # VacationRental schema generator, currency formatters
+├── lib/
+│   ├── erp/                          # Calculations, types, export engine, seed data
+│   │   ├── calculations.ts           # 15% vs 20% fee splits, ADR, RevPAR, owner statements
+│   │   ├── export.ts                 # 1-click CSV and printable HTML statements
+│   │   ├── initial-data.ts           # Realistic reservations and POS expenses seed
+│   │   └── types.ts                  # ERP domain models (Reservation, ExpenseRecord, OwnerStatement)
+│   ├── security/
+│   │   └── rate-limiter.ts           # Zero-cost in-memory sliding window rate limiter
+│   ├── validations/
+│   │   └── index.ts                  # Zod validation schemas for forms, APIs, and auth
+│   ├── auth.ts                       # HMAC-SHA256 session tokenization
+│   ├── constants.ts                  # SITE_CONFIG, MANAGED_AREAS, MANAGEMENT_SERVICES
+│   ├── data.ts                       # Real Airbnb properties, 6 blog posts, 3 event packages
+│   ├── types.ts                      # Core domain models (Villa, BlogPost, VillaEvent, SeoMeta)
+│   └── utils.ts                      # VacationRental schema generator, currency formatters
+├── tests/
+│   ├── erp-calculations.test.ts      # Automated unit tests for financial math & statement generator
+│   ├── ical-feed.test.ts             # Automated unit tests for CSV and calendar feeds
+│   └── validation-security.test.ts   # Automated unit tests for Zod schemas & rate limiter
+└── middleware.ts                     # Edge security headers & route protection
 ```
 
 ---
 
-## 3. CORE DOMAIN SCHEMAS (`lib/types.ts`)
+## 3. CURRENT STATUS & COMPLETED WORK
 
-### 3.1 `Villa` Schema
-Represents a managed property in Jabodetabek:
-- `id`, `name`, `tagline`, `slug`, `area`, `areaSlug`, `location`
-- `propertyType`: `"entire-home" | "private-room" | "entire-apartment" | "villa"`
-- `airbnbUrl`, `bookingComUrl?`, `agodaUrl?`
-- `rating`, `reviewsCount`, `superhost`, `guestFavorite`
-- `price`: `{ usd, idr, cleaningFeeIdr, serviceFeePercent }`
-- `capacity`: `{ guests, bedrooms, beds, bathrooms }`
-- `gallery`: `Array<{ url, caption, category }>`
-- `editorialDescription`: `{ lead, architecturalHighlights, theSpace }`
-- `amenities`, `nearbySpots`, `featured`, `architecturalStyle`
-- `seoMeta?`: `{ metaTitle, metaDescription, focusKeyword, ogImage, canonicalUrl }`
+### Phase 1.0 - 1.9 (Completed)
+- [x] **Core Editorial Hospitality Foundation**: Next.js 16 App Router, React 19, Tailwind v4, Google Fonts (*Playfair Display* & *Plus Jakarta Sans*).
+- [x] **Real Property Assets**: 4 real Jabodetabek Airbnb properties with high-res photography galleries and dynamic pricing.
+- [x] **SEO Schema Suite**: Organization, LocalBusiness, VacationRental, FAQPage, BreadcrumbList, TouristDestination, BlogPosting, Event JSON-LD schemas.
+- [x] **Sana Labs Design System**: Minimalist luxury tokens, ambient glow meshes, frosted glassmorphism, and responsive bento layouts.
+- [x] **Official Contact Integration**: Desk & WhatsApp (`082123933218`) and Email (`ptkreasiusmangosse@gmail.com`).
 
-### 3.2 `BlogPost` Schema
-- `id`, `title`, `slug`, `excerpt`, `content`, `category`, `publishedAt`
-- `author`: `{ name, role, avatar }`
-- `heroImage`, `tags`, `seoKeywords`, `readTime`, `featured`
-
-### 3.3 `VillaEvent` Schema
-- `id`, `propertyId`, `propertySlug`, `propertyName`, `title`, `slug`, `category`
-- `tagline`, `description`, `maxCapacity`, `heroImage`, `gallery`
-- `packages`: `Array<{ name, description, priceIdr, priceNote, includes }>`
-- `highlights`: `string[]`
-
----
-
-## 4. CURRENT STATUS & COMPLETED WORK
-
-### Phase 1.0 & Phase 1.5 (Completed)
-- [x] **Constants Modernization**: Replaced stale Jakarta mocks with real Jabodetabek data in `lib/constants.ts` (Commit `c7e38ba`).
-- [x] **Data Layer Migration**: Replaced 4 mock Bali villas with 4 real Airbnb properties, added 6 SEO blog posts, 3 event packages in `lib/data.ts` (Commit `907cac1`).
-- [x] **SEO Schema Maximization**: Organization + LocalBusiness JSON-LD in `app/layout.tsx`, BreadcrumbList + FAQPage in villa detail page, VacationRental geo coordinates (Commit `50bfda0`).
-- [x] **Blog System**: Built `/blog` index with category filtering and `/blog/[slug]` article reader with BlogPosting schema (Commit `597c5c7`).
-- [x] **Events & Weddings**: Built `/events` catalog and `/events/[slug]` package booking with Event schema (Commit `b4b6df2`).
-- [x] **CMS Dashboard Prototype**: Built `/dashboard`, `/dashboard/seo` (interactive SEO pitch editor with live Google SERP preview), `/dashboard/properties`, and multi-channel badges (Commit `746696d`).
-- [x] **Location Landing Pages**: Built `/locations/[area]` for local SEO across 4 areas with TouristDestination schema (Commit `adf7397`).
-- [x] **Navigation & Route Polish**: Updated header, footer, hero slider, search bar, catalog, and contact details with real Jabodetabek routes (Commit `8b8f5e4`).
-
-### Phase 1.6 — Production CMS Authorization & English Localization (Completed)
-- [x] **CMS Admin Authentication Engine** (`lib/auth.ts` & `lib/auth-server.ts`):
-  - Zero-dependency Web Crypto HMAC-SHA256 session token generation and verification.
-  - HttpOnly, SameSite=Lax, Secure cookie management (`kinghouse_admin_session`, 7-day max-age).
-  - Environment variable overrides: `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `AUTH_SECRET`.
-  - Default Admin Credentials: `admin@kinghouse.id` / `KingHouse2026!Admin`.
-- [x] **Edge Route Protection Middleware** (`middleware.ts`):
-  - Intercepts `/dashboard/:path*` -> Redirects unauthenticated visitors to `/login?callbackUrl=/dashboard`.
-  - Intercepts `/login` -> Redirects authenticated sessions directly to `/dashboard`.
-- [x] **Editorial Admin Login Portal** (`app/login/page.tsx`):
-  - Playfair & Plus Jakarta Sans typography, password visibility toggle, animated loading spinner.
-  - One-click "Fill Demo Admin Credentials" helper for testing and demonstration.
-- [x] **Defense-in-Depth CMS Layout & API Routes**:
-  - `app/dashboard/layout.tsx`: Server Component session verification (`getAdminSession()`) & authenticated admin status pill.
-  - `components/dashboard/sidebar.tsx`: Working async logout button with session invalidation.
-  - `app/api/auth/login`: POST handler setting HttpOnly cookie on credential match.
-  - `app/api/auth/logout`: POST handler clearing session cookie.
-  - `app/api/auth/me`: GET handler returning authenticated admin profile or 401.
-- [x] **Universal English Localization**:
-  - 100% consistent editorial English across all pages: Home, Properties (`/villas`, `/villas/[slug]`), Area Landing Pages (`/locations/[area]`), Events (`/events`, `/events/[slug]`), Blog (`/blog`, `/blog/[slug]`), Owner Services (`/owner-services`), About, Contact, and CMS Dashboard (`/dashboard`, `/dashboard/properties`, `/dashboard/seo`).
-
-### Phase 1.8 — Sana Labs Summer-2026 Visual Overhaul & Official Contact Migration (Completed)
-- [x] **Official Contact Information Update**:
-  - Official WhatsApp: `082123933218` / `+62 821-2393-3218` (wa.me link: `https://wa.me/6282123933218`) configured across `SITE_CONFIG`, header, footer, booking sidebar, lead audit form, events, blog, and area landing pages.
-  - Official Email: `ptkreasiusmangosse@gmail.com` updated across `SITE_CONFIG`, default `ADMIN_CREDENTIALS`, contact pages, and footer.
-- [x] **Global CSS & Sana Labs Minimalist Design System** (`app/globals.css`):
-  - Added Sana design tokens (warm off-white canvas `#F8F7F4`, rich obsidian dark `#0A090D`, champagne gold `#C5A880`, plum/coral aura `#FF3B70`).
-  - Added glassmorphic utilities (`.sana-glass`, `.sana-glass-dark`, `.sana-badge`, `.sana-card-hover`).
-  - Added keyframe animations (`animate-sana-glow`, `animate-sana-float`, `animate-sana-fade-in`, `animate-sana-shimmer`).
-- [x] **Sana Labs-Inspired `/login` Portal (`app/login/page.tsx`)**:
-  - Dark obsidian canvas with animated multi-layered ambient light orbs (coral/plum & champagne glow).
-  - Frosted glassmorphism authentication card with hairline shimmer border and inner glow.
-  - `SUMMER 2026 PROTOCOL` live pulsing capsule badge.
-  - Minimalist floating form fields with micro-focus physics, 1-click evaluation auto-fill, and smooth error/success notifications.
-- [x] **Refined Luxury `/dashboard` Suite & Sub-Pages**:
-  - Warm minimalist canvas with subtle top ambient lighting.
-  - Sleek dark glass sidebar with glowing active capsules and verified Super Admin badge.
-  - Frosted glass header with live sync ping indicator and floating notifications drawer.
-  - Elevated Stat Cards (`components/dashboard/stat-card.tsx`) with hover physics and trend chips.
-  - Elevated sub-pages: `/dashboard`, `/dashboard/properties`, `/dashboard/seo`, `/dashboard/blog`, `/dashboard/bookings`, `/dashboard/analytics`, `/dashboard/settings`.
-
-### Phase 1.9 — Actual Property Photography Migration & Directory Restructuring (Completed)
-- [x] **Public Assets Structure Optimization** (`public/properties/`):
-  - Organized raw property photos into slug-named dedicated subdirectories following web best practices:
-    - `public/properties/versatile-house/` (5 photos: Exterior pool/garden, master bedroom, living lounge, dining chandelier, bathtub garden view)
-    - `public/properties/sky-house/` (3 photos: IKEA master bedroom, IKEA kitchen, gym facility)
-    - `public/properties/bright-airy/` (2 photos: Wide natural light master bedroom views)
-    - `public/properties/skyline-luxury/` (4 photos: Orange County skyline view, master bedroom, kitchenette, gym facility)
-- [x] **Data Layer Integration** (`lib/data.ts`):
-  - Linked all 4 managed villas (`CURATED_VILLAS`) to actual property photographs for `heroImage`, `gallery`, and `ogImage`.
-  - Updated all Case Studies (`CASE_STUDIES`) with actual property imagery.
-  - Updated Villa Events (`VILLA_EVENTS`) with real photography of Versatile House Jagakarsa (pool & garden, living lounge, dining hall).
-- [x] **Homepage Experience Integration**:
-  - `components/home/hero-slider.tsx`: Linked hero slides to actual property photography (Versatile House, Skyline Luxury Orange County, Sky House).
-  - `components/home/dual-path-split.tsx`: Updated B2C guest escape and B2B owner ROI background images to actual property photos.
+### Phase 2.0 — Production-Ready UMKM Hospitality ERP/POS & Fortified CMS (Completed)
+- [x] **Hospitality ERP & Financial Calculation Engine** (`lib/erp/`):
+  - Automated management commission fee splits: **15% Standard Full-Service** vs **20% Multi-Channel Premium**.
+  - Net Owner Payout calculation with cleaning fee exemptions and operating expense deductions.
+  - Granular yield metrics: ADR (Average Daily Rate), RevPAR, and occupancy percentage.
+- [x] **POS Operational Expense Ledger** (`app/dashboard/analytics/` & `/api/erp/expenses`):
+  - Per-property tracking for PLN tokens, laundry linen, guest amenities, maintenance, and staff costs.
+  - Modal quick-entry for on-the-ground operational staff.
+- [x] **Non-Tech Operator Friendly UI/UX & 1-Click Exports** (`lib/erp/export.ts`):
+  - **1-Click CSV/Excel Download**: Instant spreadsheet generation for reservations and POS expenses.
+  - **Printable Owner Payout Statements**: Official A4-formatted report generator with signature boxes and itemized revenue/expense breakdown.
+  - Step-by-step modal guides for non-technical villa operators (e.g., Airbnb calendar import wizard).
+- [x] **Live Two-Way OTA Synchronization** (`app/api/ical/[villaSlug]/route.ts`):
+  - Dynamic RFC 5545 `.ics` calendar feed generation per villa for seamless import into Airbnb, Agoda, and Booking.com.
+- [x] **Security Fortification & Runtime Validation** (`lib/security/`, `lib/validations/`, `middleware.ts`):
+  - Zero-dependency in-memory sliding window rate limiting on `/api/auth/login` to thwart brute-force attacks.
+  - Strict **Zod** schema validation across login, manual reservations, expenses, and SEO metadata.
+  - HTTP defense-in-depth headers: `X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`.
+- [x] **Automated Testing Suite (`tests/`, Vitest)**:
+  - 12 comprehensive unit tests running and passing across ERP math, Zod schemas, rate limiters, and CSV exports.
 
 ---
 
-## 5. PHASE 2.0 ROADMAP (Future Scope)
+## 4. VERIFICATION COMMANDS
 
-The following items are planned for Phase 2.0 when backend infrastructure is added:
-1. **Multi-Tenant Database & Role-Based Auth**: Supabase / PostgreSQL with NextAuth for individual property owner portals with restricted multi-villa scoping.
-2. **Real Multi-Channel OTA Sync**: iCal two-way synchronization with Airbnb, Booking.com, and Agoda APIs.
-3. **Payment Gateway Integration**: Midtrans / Xendit integration for direct credit card, QRIS, and bank transfer deposits.
-4. **Automated WhatsApp Guest Concierge**: WhatsApp Business Cloud API integration for automated check-in guide dispatches (Desk: `082123933218`).
+```bash
+# Run automated Vitest test suite
+npm test
 
+# Run TypeScript strict type verification
+npx tsc --noEmit
 
+# Run Next.js optimized production build
+npm run build
+```
