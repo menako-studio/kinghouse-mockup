@@ -24,9 +24,18 @@ An editorial-grade property management, SEO CMS, and 100% Free-Tier Hospitality 
 - **Location Proximity Maps**: Distances and drive times to MRT stations, KRL, industrial estates, and airports.
 - **Events & Wedding Packages**: Dedicated garden wedding, corporate retreat, and party packages at the Jagakarsa private garden house.
 
+### 🛎️ For In-House Guests (Digital Guest Compendium & Upselling Suite — `/stay`)
+- **Vouch-Style Digital Guest Compendium (`/stay/[slug]`)**:
+  - **High-Speed WiFi Widget**: 1-Click instant copy for SSID & Password with tested speed ratings.
+  - **Digital House Manual**: Step-by-step smart lock / gate PIN instructions, check-in/out hours, and appliance manuals (AC inverter, Ariston water heater, smart TV Netflix).
+  - **In-Stay Ancillary Upsell Service Menu**: Interactive add-on item selector with dynamic IDR subtotal calculation and 1-click WhatsApp concierge dispatch (Late check-out 2 PM / 4 PM, BBQ charcoal setup, extra hotel bed, mid-stay refresh).
+  - **Curated Neighborhood Guide**: Top verified local cafes, Indonesian specialties, 24-hour convenience stores, and emergency pharmacies with direct Google Maps navigation.
+  - **Printable Room Table QR Code**: Instant QR code generator modal (`/stay/[slug]`) for caretakers to print or frame in living areas.
+
 ### 💼 For Property Owners & Pitching (CMS Dashboard & ERP/POS Suite)
 - **100% Free-Tier Hospitality ERP / POS Architecture**:
-  - **Zero External Paid API Dependency**: Full functionality running on Vercel Hobby + Supabase Free PostgreSQL & S3 Storage (Cost: **Rp 0 / month**).
+  - **Persistent Cloud Database (Supabase PostgreSQL)**: Fully integrated with dedicated `kinghouse` schema (`kinghouse.reservations`, `kinghouse.expenses`, `kinghouse.blog_posts`) ensuring persistent multi-device state with zero cold-start data loss.
+  - **Zero External Paid API Dependency**: Full functionality running on Vercel Hobby + Supabase Free PostgreSQL (Cost: **Rp 0 / month**).
   - **Non-Tech Operator Friendly (UI/UX)**: Designed for non-technical villa operators and staff with Indonesian & English helper tooltips, step-by-step modal wizards, and color-coded status badges.
   - **1-Click Spreadsheet Export**: Instant download of clean CSV/Excel files for reservations and operational expenses.
   - **Print-Ready Owner Payout Statements (Laporan Bagi Hasil)**: Official printable A4 formatted revenue statements with commission breakdown (15% Standard vs 20% Premium) and expense deductions.
@@ -55,18 +64,32 @@ An editorial-grade property management, SEO CMS, and 100% Free-Tier Hospitality 
 | Category | Technology | Purpose & Free Tier Capability |
 | :--- | :--- | :--- |
 | **Framework** | Next.js 16.0.7 (App Router) | High-speed SSR, ISR, and API endpoints |
+| **Database** | Supabase (PostgreSQL) | Isolated `kinghouse` dedicated schema for persistent ERP & CMS |
 | **Runtime & UI** | React 19.2.0 + TypeScript 5 | Type safety across schemas, state, and props |
 | **Styling** | Tailwind CSS v4 + PostCSS | Luxury minimalist styling with Sana tokens |
 | **Icons & Motion** | Lucide React + Framer Motion | Accessible vector icons and smooth physics |
 | **Validation** | Zod (`zod`) | Strict runtime schema validation for forms and APIs |
 | **Security** | Web Crypto HMAC-SHA256 + Rate Limiter | Zero-cost edge authentication and brute-force defense |
-| **Testing** | Vitest (`vitest`) | Lightning fast automated unit testing suite |
+| **Testing** | Vitest (`vitest`) | Lightning fast automated unit testing suite (16 tests passing) |
 | **Channel Sync** | Native RFC 5545 iCal Generator | Free 2-way calendar sync for Airbnb / Agoda / Booking.com |
+| **Guest Upsell** | Vouch-Style Digital Compendium | Interactive add-on cart & dynamic WhatsApp dispatch |
 | **Hosting** | Vercel Free Hobby Tier | 100% Free Tier Compatible ($0/month) |
 
 ---
 
 ## 🧪 Automated Testing Suite
+
+```bash
+# Run automated Vitest test suite (16 comprehensive tests)
+npm test
+
+# Run TypeScript strict compilation
+npx tsc --noEmit
+
+# Run Next.js production build
+npm run build
+```
+
 
 The project includes an automated test suite powered by **Vitest** covering ERP calculations, commission fee splits, Zod validators, rate limiters, and calendar feeds.
 

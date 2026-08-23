@@ -99,6 +99,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/stay" className="hover:text-white transition-colors text-amber-400 font-medium">
+                  Digital Guest Compendium & WiFi 🛎️
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/owner-services#audit"
                   className="hover:text-white transition-colors text-white font-medium"
@@ -138,6 +143,7 @@ export function Footer() {
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#717171]">
           <p>&copy; {currentYear} KingHouse Hospitality Asset Management. All rights reserved.</p>
           <div className="flex items-center space-x-6">
+            <Link href="/stay" className="hover:text-white transition-colors text-[#A0A0A0]">Guest Guide</Link>
             <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             <Link href="/login" className="hover:text-[#A69C8E] transition-colors text-[#555555]">Admin Portal</Link>

@@ -149,28 +149,26 @@ kinghouse-mockup/
   - Implemented `createPortal(..., document.body)` across all CMS modals (`/dashboard/blog`, `/dashboard/bookings`, `/dashboard/analytics`) to eliminate containing block transform clipping.
   - Full-viewport dark backdrop blur (`bg-black/60 backdrop-blur-md`) and unclipped elevated shadows (`shadow-[0_25px_70px_rgba(0,0,0,0.35)]`).
   - Fixed header + scrollable body + sticky footer pattern guaranteeing action buttons (Save / Cancel) are always visible.
-### Phase 2.2 — Persistent Cloud Database Layer (Supabase PostgreSQL Integration) (Completed)
-- [x] **PostgreSQL Dedicated Schema & Migration Script** (`supabase/schema.sql`):
-  - Created isolated `kinghouse` PostgreSQL schema (`kinghouse.reservations`, `kinghouse.expenses`, `kinghouse.blog_posts`).
-  - Implemented Row Level Security (RLS) policies, schema usage grants, and performance indexes.
-  - Seeded initial Jabodetabek Airbnb & Direct booking records and POS operational expenses.
-- [x] **Unified Server/Client Supabase Helpers** (`lib/supabase/client.ts`, `lib/supabase/server.ts`):
-  - Configured with `NEXT_PUBLIC_SUPABASE_SCHEMA=kinghouse` namespace.
-  - Safe initialization with automatic environment variable detection and local fallback.
-- [x] **Database-Connected Endpoints**:
-  - `/api/erp/reservations`: Real-time query and insertion to `kinghouse.reservations`.
-  - `/api/erp/expenses`: Real-time query and insertion to `kinghouse.expenses`.
-  - `/api/blog`: Real-time query and insertion to `kinghouse.blog_posts`.
+### Phase 2.3 — Digital Guest Experience & In-Stay Upselling Platform (Vouch-Style) (Completed)
+- [x] **Vouch-Style Digital Guest Compendium Suite** (`app/stay/[slug]/page.tsx`, `app/stay/page.tsx`):
+  - Dedicated mobile-first digital house manual for all 4 managed Jabodetabek properties.
+  - **High-Speed WiFi Card** (`components/stay/wifi-widget.tsx`): 1-click clipboard copy for SSID and Password with toast confirmation.
+  - **Smart Lock & Access Guide**: PIN keypad instructions, parking guide, and check-in/out schedules.
+  - **Appliance & House Rules Accordion** (`components/stay/guide-section.tsx`): Guides for Daikin AC, Ariston water heater, Samsung Netflix 4K, swimming pool safety, and quiet hours.
+  - **Curated Neighborhood Guide**: Verified local food, 24-hour convenience stores, and emergency hospitals with direct Google Maps navigation.
+  - **Printable Room Table QR Code Modal** (`components/stay/qr-modal.tsx`): High-res QR code generator for room table displays.
+- [x] **In-Stay Ancillary Upsell Service Engine** (`components/stay/upsell-menu.tsx`, `lib/guest-guide/`):
+  - Interactive add-on item catalog: Late Check-Out (2 PM / 4 PM), BBQ Charcoal Grill setup, Extra Hotel Bedding, Mid-Stay Refresh.
+  - Dynamic IDR subtotal calculation and 1-click structured WhatsApp Concierge dispatch (`wa.me` generator).
 - [x] **Automated Testing Suite (`tests/`, Vitest)**:
-  - 13 comprehensive unit tests passing across ERP math, rate limiters, Zod schemas, CSV/calendar feeds, and database resilience.
-
+  - 16 comprehensive unit tests passing across ERP math, guest compendiums, upsell order calculations, rate limiters, and Zod schemas.
 
 ---
 
 ## 4. VERIFICATION COMMANDS
 
 ```bash
-# Run automated Vitest test suite
+# Run automated Vitest test suite (16 tests)
 npm test
 
 # Run TypeScript strict type verification
@@ -179,4 +177,5 @@ npx tsc --noEmit
 # Run Next.js optimized production build
 npm run build
 ```
+
 
