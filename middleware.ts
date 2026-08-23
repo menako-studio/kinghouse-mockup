@@ -16,21 +16,32 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Helper to add security headers to any outgoing response
+  const applySecurityHeaders = (response: NextResponse) => {
+    response.headers.set("X-DNS-Prefetch-Control", "on")
+    response.headers.set("X-XSS-Protection", "1; mode=block")
+    response.headers.set("X-Frame-Options", "SAMEORIGIN")
+    response.headers.set("X-Content-Type-Options", "nosniff")
+    response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
+    return response
+  }
+
   // 1. Protect /dashboard routes: unauthenticated users redirected to /login
   if (isDashboardRoute && !isAuthenticated) {
     const loginUrl = new URL("/login", request.url)
     const callbackUrl = `${pathname}${search}`
     loginUrl.searchParams.set("callbackUrl", callbackUrl)
-    return NextResponse.redirect(loginUrl)
+    return applySecurityHeaders(NextResponse.redirect(loginUrl))
   }
 
   // 2. Redirect authenticated users away from /login to /dashboard
   if (isLoginRoute && isAuthenticated) {
     const dashboardUrl = new URL("/dashboard", request.url)
-    return NextResponse.redirect(dashboardUrl)
+    return applySecurityHeaders(NextResponse.redirect(dashboardUrl))
   }
 
-  return NextResponse.next()
+  const response = NextResponse.next()
+  return applySecurityHeaders(response)
 }
 
 export const config = {
