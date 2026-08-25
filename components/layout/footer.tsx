@@ -8,9 +8,6 @@ import {
   Phone,
   ArrowRight,
   CheckCircle2,
-  Instagram,
-  Facebook,
-  Linkedin,
   MessageSquare,
   Cookie,
 } from "lucide-react"
@@ -265,40 +262,16 @@ export function Footer() {
                 </h4>
                 <div className="flex items-center space-x-3">
                   <a
-                    href="https://facebook.com"
+                    href="https://www.tiktok.com/@kinghouse.id"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Facebook"
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#8C7F5F] hover:bg-[#FAF8F3] hover:scale-105 transition-transform"
+                    aria-label="TikTok @kinghouse.id"
+                    className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white text-[#8C7F5F] hover:bg-[#FAF8F3] hover:scale-105 transition-all text-xs font-semibold shadow-xs"
                   >
-                    <Facebook className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="https://instagram.com/kinghouse.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram"
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#8C7F5F] hover:bg-[#FAF8F3] hover:scale-105 transition-transform"
-                  >
-                    <Instagram className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="https://tiktok.com/@kinghouse.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="TikTok"
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#8C7F5F] hover:bg-[#FAF8F3] hover:scale-105 transition-transform"
-                  >
-                    <span className="font-bold text-xs">TT</span>
-                  </a>
-                  <a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn"
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#8C7F5F] hover:bg-[#FAF8F3] hover:scale-105 transition-transform"
-                  >
-                    <Linkedin className="h-4 w-4" />
+                    <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.76c-.99-.02-1.95-.07-1.8-.07z" />
+                    </svg>
+                    <span>TikTok @kinghouse.id</span>
                   </a>
                 </div>
               </div>

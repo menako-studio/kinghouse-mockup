@@ -17,10 +17,7 @@ export const SITE_CONFIG = {
     address: "Jakarta, Indonesia",
   },
   social: {
-    instagram: "https://instagram.com/kinghouse.id",
-    facebook: "https://facebook.com/kinghouse.id",
-    twitter: "https://twitter.com/kinghouse_id",
-    linkedin: "https://linkedin.com/company/kinghouse",
+    tiktok: "https://www.tiktok.com/@kinghouse.id",
   },
   airbnbHostProfile:
     "https://www.airbnb.com/users/profile/1470743715397835749?previous_page_name=PdpHomeMarketplace",
