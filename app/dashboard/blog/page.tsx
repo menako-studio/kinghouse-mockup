@@ -158,6 +158,7 @@ export default function DashboardBlogPage() {
 
   // Mount flag for Portal
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
@@ -168,6 +169,7 @@ export default function DashboardBlogPage() {
       if (saved) {
         const parsed = JSON.parse(saved)
         if (Array.isArray(parsed) && parsed.length > 0) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setArticles(parsed)
         }
       }
@@ -389,13 +391,13 @@ export default function DashboardBlogPage() {
   return (
     <div className="space-y-8">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBE8E2] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E4DC] pb-6">
         <div>
-          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#18181A] bg-[#F4F3EE] px-3 py-1 rounded-full border border-[#EBE8E2] mb-3">
-            <BookOpen className="h-3.5 w-3.5 text-[#C5A880]" />
+          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#222225] bg-[#FAF8F5] px-3 py-1 rounded-full border border-[#E8E4DC] mb-3">
+            <BookOpen className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>EDITORIAL & SEO CMS SUITE</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#222225] font-semibold tracking-tight">
             Editorial Blog & SEO Articles
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -406,26 +408,26 @@ export default function DashboardBlogPage() {
         <button
           type="button"
           onClick={handleOpenCreateModal}
-          className="inline-flex items-center space-x-2 bg-[#18181A] text-white px-5 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs self-start sm:self-auto cursor-pointer"
+          className="inline-flex items-center space-x-2 bg-[#222225] text-white px-5 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs self-start sm:self-auto cursor-pointer"
         >
-          <Plus className="h-4 w-4 text-[#C5A880]" />
+          <Plus className="h-4 w-4 text-[#B8934C]" />
           <span>Buat Artikel Baru</span>
         </button>
       </div>
 
       {/* Dynamic Stats Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
-        <div className="p-6 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
+        <div className="p-6 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
           <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">
             Total Artikel
           </span>
-          <p className="text-3xl font-bold text-[#18181A] tracking-tight">{articles.length}</p>
-          <span className="inline-block text-[10px] font-semibold text-[#717171] bg-[#F4F3EE] px-2 py-0.5 rounded-full border border-[#EBE8E2]">
+          <p className="text-3xl font-bold text-[#222225] tracking-tight">{articles.length}</p>
+          <span className="inline-block text-[10px] font-semibold text-[#717171] bg-[#FAF8F5] px-2 py-0.5 rounded-full border border-[#E8E4DC]">
             {publishedCount} Terbit &bull; {draftCount} Draft
           </span>
         </div>
 
-        <div className="p-6 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
+        <div className="p-6 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
           <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">
             Artikel Tayang (Live)
           </span>
@@ -435,7 +437,7 @@ export default function DashboardBlogPage() {
           </span>
         </div>
 
-        <div className="p-6 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
+        <div className="p-6 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
           <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">
             Draft Disiapkan
           </span>
@@ -445,19 +447,19 @@ export default function DashboardBlogPage() {
           </span>
         </div>
 
-        <div className="p-6 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
+        <div className="p-6 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-1 hover:-translate-y-0.5 transition-transform">
           <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">
             Rata-Rata SEO Score
           </span>
-          <p className="text-3xl font-bold text-[#18181A] tracking-tight">{avgSeo} / 100</p>
-          <span className="inline-block text-[10px] font-semibold text-[#C5A880] bg-[#F4F3EE] px-2 py-0.5 rounded-full border border-[#EBE8E2]">
+          <p className="text-3xl font-bold text-[#222225] tracking-tight">{avgSeo} / 100</p>
+          <span className="inline-block text-[10px] font-semibold text-[#B8934C] bg-[#FAF8F5] px-2 py-0.5 rounded-full border border-[#E8E4DC]">
             Standar Editorial SEO
           </span>
         </div>
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="rounded-3xl border border-[#EBE8E2] bg-white p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
+      <div className="rounded-3xl border border-[#E8E4DC] bg-white p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
         <div className="relative flex-1 max-w-md">
           <Search className="h-3.5 w-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#717171]" />
           <input
@@ -465,13 +467,13 @@ export default function DashboardBlogPage() {
             placeholder="Cari judul artikel, topik, atau kata kunci SEO..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] text-xs focus:outline-none focus:border-[#C5A880] transition-all"
+            className="w-full pl-9 pr-4 py-2 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] text-xs focus:outline-none focus:border-[#B8934C] transition-all"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Status Tabs */}
-          <div className="flex items-center space-x-1 bg-[#F8F7F4] p-1 rounded-2xl border border-[#EBE8E2]">
+          <div className="flex items-center space-x-1 bg-[#FAF8F5] p-1 rounded-2xl border border-[#E8E4DC]">
             {(["all", "Published", "Draft"] as const).map((st) => (
               <button
                 key={st}
@@ -479,8 +481,8 @@ export default function DashboardBlogPage() {
                 onClick={() => setStatusFilter(st)}
                 className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   statusFilter === st
-                    ? "bg-[#18181A] text-white shadow-xs"
-                    : "text-[#717171] hover:text-[#18181A]"
+                    ? "bg-[#222225] text-white shadow-xs"
+                    : "text-[#717171] hover:text-[#222225]"
                 }`}
               >
                 {st === "all" ? "Semua" : st}
@@ -492,7 +494,7 @@ export default function DashboardBlogPage() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] text-xs font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880] cursor-pointer"
+            className="px-3 py-1.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] text-xs font-medium text-[#222225] focus:outline-none focus:border-[#B8934C] cursor-pointer"
           >
             <option value="all">Semua Kategori</option>
             {CATEGORY_OPTIONS.map((cat) => (
@@ -505,7 +507,7 @@ export default function DashboardBlogPage() {
           <Link
             href="/blog"
             target="_blank"
-            className="inline-flex items-center space-x-1 text-xs font-semibold text-[#18181A] hover:text-[#C5A880] px-3 py-1.5 rounded-2xl hover:bg-[#F8F7F4] transition-colors"
+            className="inline-flex items-center space-x-1 text-xs font-semibold text-[#222225] hover:text-[#B8934C] px-3 py-1.5 rounded-2xl hover:bg-[#FAF8F5] transition-colors"
           >
             <span>Public Blog</span>
             <ExternalLink className="h-3 w-3" />
@@ -514,10 +516,10 @@ export default function DashboardBlogPage() {
       </div>
 
       {/* Article Table */}
-      <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
-        <div className="p-6 sm:p-8 border-b border-[#EBE8E2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#F8F7F4]">
+      <div className="rounded-3xl border border-[#E8E4DC] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
+        <div className="p-6 sm:p-8 border-b border-[#E8E4DC] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#FAF8F5]">
           <div>
-            <h3 className="text-xl text-[#18181A] font-semibold">
+            <h3 className="text-xl text-[#222225] font-semibold">
               Daftar Artikel ({filteredArticles.length})
             </h3>
             <p className="text-xs text-[#717171] mt-0.5">
@@ -529,7 +531,7 @@ export default function DashboardBlogPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[#EBE8E2] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
+              <tr className="border-b border-[#E8E4DC] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
                 <th className="py-4 px-6">Judul & Kategori</th>
                 <th className="py-4 px-6">Status Publikasi</th>
                 <th className="py-4 px-6">SEO Score</th>
@@ -538,21 +540,21 @@ export default function DashboardBlogPage() {
                 <th className="py-4 px-6 text-right">Aksi Manajemen</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#F4F3EE] text-xs">
+            <tbody className="divide-y divide-[#FAF8F5] text-xs">
               {filteredArticles.length > 0 ? (
                 filteredArticles.map((article) => (
                   <tr key={article.id} className="hover:bg-[#FAFAF8]/90 transition-colors group">
                     <td className="py-4 px-6 max-w-sm">
                       <div className="flex items-center space-x-3">
-                        <div className="relative h-10 w-14 rounded-xl overflow-hidden flex-shrink-0 bg-[#F4F3EE] border border-[#EBE8E2]">
+                        <div className="relative h-10 w-14 rounded-xl overflow-hidden flex-shrink-0 bg-[#FAF8F5] border border-[#E8E4DC]">
                           <Image src={article.heroImage || IMAGE_PRESETS[0].url} alt={article.title} fill className="object-cover" />
                         </div>
                         <div className="min-w-0">
-                          <p className="font-semibold text-[#18181A] line-clamp-1 group-hover:text-[#C5A880] transition-colors">
+                          <p className="font-semibold text-[#222225] line-clamp-1 group-hover:text-[#B8934C] transition-colors">
                             {article.title}
                           </p>
                           <div className="flex items-center space-x-2 text-[11px] text-[#717171] mt-0.5">
-                            <span className="font-medium text-[#C5A880]">{article.category}</span>
+                            <span className="font-medium text-[#B8934C]">{article.category}</span>
                             <span>&bull;</span>
                             <span className="font-mono text-[10px]">/blog/{article.slug}</span>
                           </div>
@@ -586,15 +588,15 @@ export default function DashboardBlogPage() {
                     </td>
 
                     <td className="py-4 px-6">
-                      <div className="flex items-center space-x-1.5 font-mono font-semibold text-[#18181A]">
-                        <Sparkles className="h-3.5 w-3.5 text-[#C5A880]" />
+                      <div className="flex items-center space-x-1.5 font-mono font-semibold text-[#222225]">
+                        <Sparkles className="h-3.5 w-3.5 text-[#B8934C]" />
                         <span>{article.seoScore}/100</span>
                       </div>
                     </td>
 
                     <td className="py-4 px-6 text-[#717171] font-mono">{article.date}</td>
 
-                    <td className="py-4 px-6 font-semibold text-[#18181A]">
+                    <td className="py-4 px-6 font-semibold text-[#222225]">
                       {article.views} reads
                     </td>
 
@@ -603,7 +605,7 @@ export default function DashboardBlogPage() {
                         <button
                           type="button"
                           onClick={() => handleOpenEditModal(article)}
-                          className="p-2 rounded-xl text-[#717171] hover:text-[#18181A] hover:bg-[#F4F3EE] transition-colors cursor-pointer"
+                          className="p-2 rounded-xl text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] transition-colors cursor-pointer"
                           title="Edit Artikel"
                         >
                           <Edit3 className="h-4 w-4" />
@@ -612,7 +614,7 @@ export default function DashboardBlogPage() {
                         <Link
                           href={`/blog/${article.slug}`}
                           target="_blank"
-                          className="p-2 rounded-xl text-[#717171] hover:text-[#18181A] hover:bg-[#F4F3EE] transition-colors"
+                          className="p-2 rounded-xl text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] transition-colors"
                           title="Lihat Pratinjau Public"
                         >
                           <Eye className="h-4 w-4" />
@@ -633,7 +635,7 @@ export default function DashboardBlogPage() {
               ) : (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-xs text-[#717171] space-y-2">
-                    <p className="font-semibold text-[#18181A]">Tidak ada artikel yang cocok dengan filter.</p>
+                    <p className="font-semibold text-[#222225]">Tidak ada artikel yang cocok dengan filter.</p>
                     <button
                       type="button"
                       onClick={() => {
@@ -641,7 +643,7 @@ export default function DashboardBlogPage() {
                         setStatusFilter("all")
                         setCategoryFilter("all")
                       }}
-                      className="text-[#C5A880] hover:underline font-semibold cursor-pointer"
+                      className="text-[#B8934C] hover:underline font-semibold cursor-pointer"
                     >
                       Reset Filter Pencarian
                     </button>
@@ -663,11 +665,11 @@ export default function DashboardBlogPage() {
               if (e.target === e.currentTarget) setIsModalOpen(false)
             }}
           >
-            <div className="bg-white rounded-3xl max-w-3xl w-full flex flex-col shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#EBE8E2] max-h-[90vh] overflow-hidden">
+            <div className="bg-white rounded-3xl max-w-3xl w-full flex flex-col shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#E8E4DC] max-h-[90vh] overflow-hidden">
               {/* Modal Header (Fixed) */}
-              <div className="p-6 pb-4 border-b border-[#EBE8E2] flex items-center justify-between flex-shrink-0 bg-white">
+              <div className="p-6 pb-4 border-b border-[#E8E4DC] flex items-center justify-between flex-shrink-0 bg-white">
                 <div>
-                  <h3 className="text-2xl text-[#18181A] font-semibold">
+                  <h3 className="text-2xl text-[#222225] font-semibold">
                     {modalMode === "create" ? "Buat Artikel Baru" : "Edit Konten Artikel"}
                   </h3>
                   <p className="text-xs text-[#717171] mt-0.5">
@@ -677,21 +679,21 @@ export default function DashboardBlogPage() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="h-9 w-9 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer flex-shrink-0"
+                  className="h-9 w-9 rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#717171] hover:text-[#222225] transition-colors cursor-pointer flex-shrink-0"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
 
               {/* Tab Selector */}
-              <div className="flex items-center space-x-2 px-6 pt-3 border-b border-[#F4F3EE] bg-white flex-shrink-0">
+              <div className="flex items-center space-x-2 px-6 pt-3 border-b border-[#FAF8F5] bg-white flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => setActiveTab("form")}
                   className={`px-4 py-2 border-b-2 text-xs font-semibold transition-all cursor-pointer ${
                     activeTab === "form"
-                      ? "border-[#18181A] text-[#18181A]"
-                      : "border-transparent text-[#717171] hover:text-[#18181A]"
+                      ? "border-[#222225] text-[#222225]"
+                      : "border-transparent text-[#717171] hover:text-[#222225]"
                   }`}
                 >
                   Form Editor
@@ -701,8 +703,8 @@ export default function DashboardBlogPage() {
                   onClick={() => setActiveTab("preview")}
                   className={`px-4 py-2 border-b-2 text-xs font-semibold transition-all cursor-pointer ${
                     activeTab === "preview"
-                      ? "border-[#18181A] text-[#18181A]"
-                      : "border-transparent text-[#717171] hover:text-[#18181A]"
+                      ? "border-[#222225] text-[#222225]"
+                      : "border-transparent text-[#717171] hover:text-[#222225]"
                   }`}
                 >
                   Pratinjau Live Card
@@ -730,7 +732,7 @@ export default function DashboardBlogPage() {
                               setFormSlug(slugify(e.target.value))
                             }
                           }}
-                          className="w-full px-4 py-3 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880] text-sm shadow-xs"
+                          className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C] text-sm shadow-xs"
                         />
                       </div>
 
@@ -745,7 +747,7 @@ export default function DashboardBlogPage() {
                             placeholder="cara-meningkatkan-okupansi-villa"
                             value={formSlug}
                             onChange={(e) => setFormSlug(slugify(e.target.value))}
-                            className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-mono text-[11px] text-[#555] focus:outline-none focus:border-[#C5A880]"
+                            className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-mono text-[11px] text-[#555] focus:outline-none focus:border-[#B8934C]"
                           />
                         </div>
 
@@ -756,7 +758,7 @@ export default function DashboardBlogPage() {
                           <select
                             value={formCategory}
                             onChange={(e) => setFormCategory(e.target.value)}
-                            className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                            className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                           >
                             {CATEGORY_OPTIONS.map((cat) => (
                               <option key={cat} value={cat}>
@@ -782,7 +784,7 @@ export default function DashboardBlogPage() {
                         placeholder="Tulis 1-2 kalimat ringkasan yang menarik minat pembaca dan muncul di Google snippet..."
                         value={formExcerpt}
                         onChange={(e) => setFormExcerpt(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880] leading-relaxed resize-none"
+                        className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C] leading-relaxed resize-none"
                       />
                     </div>
 
@@ -797,7 +799,7 @@ export default function DashboardBlogPage() {
                         placeholder="Tulis isi artikel secara lengkap di sini..."
                         value={formContent}
                         onChange={(e) => setFormContent(e.target.value)}
-                        className="w-full px-4 py-3 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-sans text-xs text-[#18181A] focus:outline-none focus:border-[#C5A880] leading-relaxed resize-y"
+                        className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-sans text-xs text-[#222225] focus:outline-none focus:border-[#B8934C] leading-relaxed resize-y"
                       />
                     </div>
 
@@ -807,7 +809,7 @@ export default function DashboardBlogPage() {
                         <label className="font-semibold text-[#555] uppercase tracking-wider">
                           Pilih Gambar Utama (Cover Photo)
                         </label>
-                        <span className="text-[10px] text-[#C5A880] font-medium">Klik salah satu foto villa di bawah:</span>
+                        <span className="text-[10px] text-[#B8934C] font-medium">Klik salah satu foto villa di bawah:</span>
                       </div>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {IMAGE_PRESETS.map((preset) => (
@@ -817,8 +819,8 @@ export default function DashboardBlogPage() {
                             onClick={() => setFormHeroImage(preset.url)}
                             className={`relative aspect-[16/10] rounded-2xl overflow-hidden border-2 transition-all cursor-pointer shadow-xs ${
                               formHeroImage === preset.url
-                                ? "border-[#18181A] ring-2 ring-[#C5A880] scale-102"
-                                : "border-[#EBE8E2] opacity-75 hover:opacity-100 hover:scale-101"
+                                ? "border-[#222225] ring-2 ring-[#B8934C] scale-102"
+                                : "border-[#E8E4DC] opacity-75 hover:opacity-100 hover:scale-101"
                             }`}
                           >
                             <Image src={preset.url} alt={preset.name} fill className="object-cover" />
@@ -828,7 +830,7 @@ export default function DashboardBlogPage() {
                               </span>
                             </div>
                             {formHeroImage === preset.url && (
-                              <div className="absolute top-2 right-2 h-5 w-5 rounded-full bg-[#18181A] text-[#C5A880] flex items-center justify-center shadow-md">
+                              <div className="absolute top-2 right-2 h-5 w-5 rounded-full bg-[#222225] text-[#B8934C] flex items-center justify-center shadow-md">
                                 <Check className="h-3 w-3" />
                               </div>
                             )}
@@ -846,7 +848,7 @@ export default function DashboardBlogPage() {
                           placeholder="https://images.unsplash.com/..."
                           value={formHeroImage}
                           onChange={(e) => setFormHeroImage(e.target.value)}
-                          className="w-full px-3 py-2 rounded-xl bg-[#F8F7F4] border border-[#EBE8E2] text-xs font-mono text-[#555] focus:outline-none focus:border-[#C5A880]"
+                          className="w-full px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DC] text-xs font-mono text-[#555] focus:outline-none focus:border-[#B8934C]"
                         />
                       </div>
                     </div>
@@ -862,7 +864,7 @@ export default function DashboardBlogPage() {
                           placeholder="sewa villa jakarta selatan, airbnb jagakarsa, tips tuan rumah"
                           value={formKeywords}
                           onChange={(e) => setFormKeywords(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                          className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                         />
                       </div>
 
@@ -873,7 +875,7 @@ export default function DashboardBlogPage() {
                         <select
                           value={formStatus}
                           onChange={(e) => setFormStatus(e.target.value as "Published" | "Draft")}
-                          className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                          className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C]"
                         >
                           <option value="Published">✓ Published (Tayang)</option>
                           <option value="Draft">⏱ Draft (Simpan Dulu)</option>
@@ -884,15 +886,15 @@ export default function DashboardBlogPage() {
                 ) : (
                   /* Live Preview Card */
                   <div className="space-y-4 py-2 animate-sana-fade-in">
-                    <div className="p-4 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] text-xs text-[#555]">
-                      <p className="font-semibold text-[#18181A] mb-1">Pratinjau Tampilan Publik</p>
+                    <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] text-xs text-[#555]">
+                      <p className="font-semibold text-[#222225] mb-1">Pratinjau Tampilan Publik</p>
                       <p>Inilah tampilan kartu artikel Anda di halaman /blog publik.</p>
                     </div>
 
-                    <div className="max-w-md mx-auto rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-sm">
+                    <div className="max-w-md mx-auto rounded-3xl border border-[#E8E4DC] bg-white overflow-hidden shadow-sm">
                       <div className="relative aspect-[16/9]">
                         <Image src={formHeroImage || IMAGE_PRESETS[0].url} alt={formTitle || "Preview"} fill className="object-cover" />
-                        <span className="absolute top-3 left-3 bg-[#18181A]/80 text-white text-[10px] font-bold px-3 py-1 rounded-full backdrop-blur-xs uppercase tracking-wider">
+                        <span className="absolute top-3 left-3 bg-[#222225]/80 text-white text-[10px] font-bold px-3 py-1 rounded-full backdrop-blur-xs uppercase tracking-wider">
                           {formCategory}
                         </span>
                       </div>
@@ -902,7 +904,7 @@ export default function DashboardBlogPage() {
                           <span>&bull;</span>
                           <span>{formReadTime} min read</span>
                         </div>
-                        <h4 className="font-serif text-lg font-bold text-[#18181A] leading-snug">
+                        <h4 className="font-serif text-lg font-bold text-[#222225] leading-snug">
                           {formTitle || "Judul Artikel Anda Muncul di Sini"}
                         </h4>
                         <p className="text-xs text-[#717171] line-clamp-2 leading-relaxed">
@@ -915,11 +917,11 @@ export default function DashboardBlogPage() {
               </div>
 
               {/* Modal Footer (Sticky / Fixed at bottom of modal) */}
-              <div className="p-4 sm:p-6 border-t border-[#EBE8E2] bg-[#FAFAF8] flex items-center justify-end space-x-3 flex-shrink-0 rounded-b-3xl">
+              <div className="p-4 sm:p-6 border-t border-[#E8E4DC] bg-[#FAFAF8] flex items-center justify-end space-x-3 flex-shrink-0 rounded-b-3xl">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-white text-xs font-semibold transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-white text-xs font-semibold transition-all cursor-pointer"
                 >
                   Batal
                 </button>
@@ -931,9 +933,9 @@ export default function DashboardBlogPage() {
                       handleSaveArticle(e)
                     }
                   }}
-                  className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-md cursor-pointer flex items-center space-x-2"
+                  className="px-6 py-2.5 rounded-2xl bg-[#222225] text-white text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-md cursor-pointer flex items-center space-x-2"
                 >
-                  <Check className="h-4 w-4 text-[#C5A880]" />
+                  <Check className="h-4 w-4 text-[#B8934C]" />
                   <span>{modalMode === "create" ? "Terbitkan Artikel" : "Simpan Perubahan"}</span>
                 </button>
               </div>
@@ -959,9 +961,9 @@ export default function DashboardBlogPage() {
               </div>
 
               <div className="text-center space-y-2">
-                <h3 className="text-xl text-[#18181A] font-semibold">Hapus Artikel Ini?</h3>
+                <h3 className="text-xl text-[#222225] font-semibold">Hapus Artikel Ini?</h3>
                 <p className="text-xs text-[#717171] leading-relaxed">
-                  Anda yakin ingin menghapus artikel <strong className="text-[#18181A]">"{deletingArticle.title}"</strong>? Tindakan ini akan menghapus artikel dari daftar CMS.
+                  Anda yakin ingin menghapus artikel <strong className="text-[#222225]">&quot;{deletingArticle.title}&quot;</strong>? Tindakan ini akan menghapus artikel dari daftar CMS.
                 </p>
               </div>
 
@@ -969,7 +971,7 @@ export default function DashboardBlogPage() {
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmId(null)}
-                  className="flex-1 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] text-xs font-semibold transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] text-xs font-semibold transition-all cursor-pointer"
                 >
                   Batal
                 </button>

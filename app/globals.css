@@ -1,30 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  /* Global Color Palette (Monochromatic, Warm Earthy & Sana Minimalist) */
+  /* Global Color Palette (Aligned with KingHouse Logo & Nakula Aesthetics) */
   --bg-main: #FFFFFF;
-  --bg-secondary: #FAFAF8;
-  --bg-tertiary: #F4F3EE;
-  --bg-canvas-subtle: #F8F7F4;
-  --text-primary: #18181A;
-  --text-muted: #6B6A68;
-  --accent-color: #A69C8E;
+  --bg-secondary: #FAF8F5;
+  --bg-tertiary: #F3EFE6;
+  --bg-canvas-subtle: #F8F6F0;
+  
+  /* Brand Colors from logo-kinghouse.jpg */
+  --brand-gold: #B8934C;
+  --brand-gold-light: #DFC58E;
+  --brand-gold-dark: #987635;
+  --brand-charcoal: #28282B;
+  --brand-charcoal-dark: #19191B;
+  
+  /* Nakula Style Khaki / Olive Taupe */
+  --nakula-khaki: #8C7F5F;
+  --nakula-khaki-dark: #776B4E;
+  --nakula-khaki-light: #A59877;
+  --nakula-khaki-bg: #8C7F5F;
+
+  --text-primary: #222225;
+  --text-muted: #6B6862;
+  --accent-color: #8C7F5F;
   --accent-light: #EFECE6;
-  --accent-gold: #C5A880;
+  --accent-gold: #B8934C;
   --accent-plum: #2D0C1A;
-  --accent-coral: #FF3B70;
-  --cta-primary: #18181A;
-  --cta-hover: #000000;
+  --accent-coral: #E64A19;
+  --cta-primary: #8C7F5F;
+  --cta-hover: #776B4E;
   
   /* Borders & Shadows */
-  --border-subtle: #EBE8E2;
-  --border-medium: #DAD5CC;
-  --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
-  --shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.07), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
-  --shadow-sana-glow: 0 0 50px -10px rgba(255, 59, 112, 0.15);
+  --border-subtle: #E8E4DC;
+  --border-medium: #D5CFC3;
+  --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  --shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+  --shadow-gold-glow: 0 0 40px -8px rgba(184, 147, 76, 0.25);
 
   /* Fonts */
-  --font-serif-family: var(--font-serif), "Playfair Display", "Lora", Georgia, serif;
+  --font-serif-family: var(--font-serif), "Philosopher", Georgia, serif;
   --font-sans-family: var(--font-sans), "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
 }
 
@@ -38,8 +52,9 @@
   --color-accent: var(--accent-color);
   --color-accent-light: var(--accent-light);
   --color-accent-gold: var(--accent-gold);
-  --color-accent-plum: var(--accent-plum);
-  --color-accent-coral: var(--accent-coral);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-nakula-khaki: var(--nakula-khaki);
   --color-cta: var(--cta-primary);
   --color-border-subtle: var(--border-subtle);
 

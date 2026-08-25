@@ -29,9 +29,9 @@ export default async function DashboardLayout({
 
   return (
     <NotificationProvider>
-      <div className="cms-dashboard-root font-sans flex min-h-screen bg-[#F8F7F4] text-[#18181A] relative selection:bg-[#C5A880] selection:text-[#18181A]">
+      <div className="cms-dashboard-root font-sans flex min-h-screen bg-[#FAF8F5] text-[#222225] relative selection:bg-[#B8934C] selection:text-[#19191B]">
         {/* Subtle Ambient Lighting Accents */}
-        <div className="fixed top-0 left-64 right-0 h-96 bg-gradient-to-b from-[#C5A880]/[0.03] to-transparent pointer-events-none z-0" />
+        <div className="fixed top-0 left-64 right-0 h-96 bg-gradient-to-b from-[#B8934C]/[0.03] to-transparent pointer-events-none z-0" />
 
         {/* Collapsible Sidebar */}
         <DashboardSidebar adminUser={adminUser} />
@@ -50,5 +50,3 @@ export default async function DashboardLayout({
     </NotificationProvider>
   )
 }
-
-

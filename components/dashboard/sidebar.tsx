@@ -23,7 +23,7 @@ import { AdminUser } from "@/lib/auth"
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/properties", label: "Properties", icon: Home },
-  { href: "/dashboard/seo", label: "SEO Manager", icon: Search, badge: "Pitch" },
+  { href: "/dashboard/seo", label: "SEO Manager", icon: Search, badge: "Rank" },
   { href: "/dashboard/blog", label: "Blog Posts", icon: BookOpen },
   { href: "/dashboard/bookings", label: "Calendar", icon: CalendarDays },
   { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp },
@@ -53,7 +53,7 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
 
   return (
     <aside
-      className={`flex flex-col h-screen sticky top-0 bg-[#0B0A0E] border-r border-white/[0.08] transition-all duration-300 z-40 select-none ${
+      className={`flex flex-col h-screen sticky top-0 bg-[#19191B] border-r border-white/[0.08] transition-all duration-300 z-40 select-none ${
         collapsed ? "w-16" : "w-64"
       }`}
     >
@@ -61,14 +61,14 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
       <div className="flex items-center justify-between p-4 border-b border-white/[0.08] h-16 relative">
         {!collapsed ? (
           <Link href="/dashboard" className="flex items-center space-x-3 group">
-            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] flex items-center justify-center font-bold text-[#0B0A0E] shadow-[0_0_15px_rgba(197,168,128,0.25)] transition-transform group-hover:scale-105">
+            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#B8934C] to-[#8C7F5F] flex items-center justify-center font-bold text-[#19191B] shadow-[0_0_15px_rgba(184,147,76,0.25)] transition-transform group-hover:scale-105">
               K
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-white tracking-tight leading-tight group-hover:text-[#C5A880] transition-colors">
+              <span className="text-sm font-semibold text-white tracking-tight leading-tight group-hover:text-[#DFC58E] transition-colors">
                 KingHouse
               </span>
-              <span className="text-[8px] uppercase tracking-[0.25em] text-[#C5A880] font-medium leading-none mt-0.5">
+              <span className="text-[8px] uppercase tracking-[0.25em] text-[#DFC58E] font-medium leading-none mt-0.5">
                 Hospitality CMS
               </span>
             </div>
@@ -76,7 +76,7 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
         ) : (
           <Link
             href="/dashboard"
-            className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] flex items-center justify-center font-bold text-[#0B0A0E] mx-auto hover:scale-105 transition-transform shadow-[0_0_15px_rgba(197,168,128,0.2)]"
+            className="h-8 w-8 rounded-xl bg-gradient-to-br from-[#B8934C] to-[#8C7F5F] flex items-center justify-center font-bold text-[#19191B] mx-auto hover:scale-105 transition-transform shadow-[0_0_15px_rgba(184,147,76,0.2)]"
             title="KingHouse CMS"
           >
             K
@@ -86,10 +86,10 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
 
       {/* Primary CMS Navigation Links */}
       <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto">
-        <div className="text-[10px] uppercase font-mono tracking-widest text-white/35 px-3 py-1 mb-1 flex items-center justify-between">
+        <div className="text-[10px] uppercase font-mono tracking-widest text-white/40 px-3 py-1 mb-1 flex items-center justify-between">
           <span>{!collapsed ? "Management Suite" : "•"}</span>
           {!collapsed && (
-            <span className="text-[9px] text-[#C5A880]/80 font-sans tracking-normal">2026</span>
+            <span className="text-[9px] text-[#DFC58E]/90 font-sans tracking-normal font-semibold">2026</span>
           )}
         </div>
         {NAV_ITEMS.map((item) => {
@@ -106,35 +106,35 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
               title={collapsed ? item.label : undefined}
               className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-2xl text-xs font-medium transition-all group relative overflow-hidden ${
                 isActive
-                  ? "bg-white/[0.08] text-white font-semibold shadow-[0_4px_20px_rgba(0,0,0,0.25)] border border-white/[0.08]"
-                  : "text-white/60 hover:text-white hover:bg-white/[0.04]"
+                  ? "bg-white/[0.1] text-white font-semibold shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-white/[0.1]"
+                  : "text-white/70 hover:text-white hover:bg-white/[0.05]"
               }`}
             >
               <Icon
                 className={`h-4 w-4 flex-shrink-0 transition-colors ${
-                  isActive ? "text-[#C5A880]" : "text-white/45 group-hover:text-white"
+                  isActive ? "text-[#DFC58E]" : "text-white/50 group-hover:text-white"
                 }`}
               />
               {!collapsed && (
                 <>
                   <span className="flex-1 truncate">{item.label}</span>
                   {item.badge && (
-                    <span className="text-[9px] font-bold bg-gradient-to-r from-[#FF3B70] to-[#FF5C8A] text-white px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                    <span className="text-[9px] font-bold bg-[#B8934C] text-[#19191B] px-2 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
                       {item.badge}
                     </span>
                   )}
                 </>
               )}
               {isActive && (
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-gradient-to-b from-[#C5A880] to-[#FF3B70] rounded-r-full" />
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-gradient-to-b from-[#B8934C] to-[#8C7F5F] rounded-r-full" />
               )}
             </Link>
           )
         })}
 
         {/* Public Website Preview Link */}
-        <div className="pt-4 mt-4 border-t border-white/[0.06]">
-          <div className="text-[10px] uppercase font-mono tracking-widest text-white/35 px-3 py-1 mb-1">
+        <div className="pt-4 mt-4 border-t border-white/[0.08]">
+          <div className="text-[10px] uppercase font-mono tracking-widest text-white/40 px-3 py-1 mb-1">
             {!collapsed ? "Public View" : "•"}
           </div>
           <a
@@ -142,23 +142,23 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
             target="_blank"
             rel="noopener noreferrer"
             title={collapsed ? "Public Website" : undefined}
-            className="flex items-center space-x-3 px-3.5 py-2.5 rounded-2xl text-xs font-medium text-white/50 hover:text-white hover:bg-white/[0.04] transition-all group"
+            className="flex items-center space-x-3 px-3.5 py-2.5 rounded-2xl text-xs font-medium text-white/60 hover:text-white hover:bg-white/[0.05] transition-all group"
           >
-            <Globe className="h-4 w-4 flex-shrink-0 group-hover:text-[#C5A880] transition-colors" />
+            <Globe className="h-4 w-4 flex-shrink-0 group-hover:text-[#DFC58E] transition-colors" />
             {!collapsed && <span className="flex-1">Live Public Site ↗</span>}
           </a>
         </div>
       </nav>
 
       {/* Account Profile Details & Logout Section */}
-      <div className="p-3 border-t border-white/[0.08] space-y-2 bg-[#08070A]/80 backdrop-blur-md">
+      <div className="p-3 border-t border-white/[0.08] space-y-2 bg-[#141416] backdrop-blur-md">
         {adminUser && !collapsed && (
           <Link
             href="/dashboard/settings"
-            className="block p-2.5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-[#C5A880]/40 hover:bg-white/[0.07] transition-all group cursor-pointer"
+            className="block p-2.5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-[#B8934C]/40 hover:bg-white/[0.07] transition-all group cursor-pointer"
           >
             <div className="flex items-center space-x-2.5">
-              <div className="h-7 w-7 rounded-xl bg-gradient-to-br from-[#C5A880] to-[#9E8668] text-[#0B0A0E] flex items-center justify-center text-xs font-bold flex-shrink-0">
+              <div className="h-7 w-7 rounded-xl bg-gradient-to-br from-[#B8934C] to-[#8C7F5F] text-[#19191B] flex items-center justify-center text-xs font-bold flex-shrink-0">
                 KH
               </div>
               <div className="flex-1 min-w-0">
@@ -191,7 +191,7 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
       {/* Collapse/Expand Toggle Button */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="absolute -right-3.5 top-20 h-7 w-7 rounded-full bg-[#1A1820] border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-[#C5A880] hover:scale-105 transition-all shadow-lg z-50 cursor-pointer"
+        className="absolute -right-3.5 top-20 h-7 w-7 rounded-full bg-[#28282B] border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-[#B8934C] hover:scale-105 transition-all shadow-lg z-50 cursor-pointer"
         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {collapsed ? <ChevronRight className="h-3.5 w-3.5" /> : <ChevronLeft className="h-3.5 w-3.5" />}
@@ -199,4 +199,3 @@ export function DashboardSidebar({ adminUser }: { adminUser?: AdminUser | null }
     </aside>
   )
 }
-

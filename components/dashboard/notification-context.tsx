@@ -111,6 +111,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
             ...a,
             timeAgo: formatTimeAgo(a.timestamp),
           }))
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setAlerts(updated)
         }
       }
@@ -229,7 +230,7 @@ function ToastContainer({
       {toasts.map((toast) => {
         let icon = <CheckCircle2 className="h-5 w-5 text-emerald-500 flex-shrink-0" />
         let borderColor = "border-emerald-200"
-        let bgColor = "bg-white"
+        const bgColor = "bg-white"
 
         if (toast.type === "error") {
           icon = <AlertCircle className="h-5 w-5 text-rose-500 flex-shrink-0" />
@@ -238,8 +239,8 @@ function ToastContainer({
           icon = <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0" />
           borderColor = "border-amber-200"
         } else if (toast.type === "info") {
-          icon = <Info className="h-5 w-5 text-[#C5A880] flex-shrink-0" />
-          borderColor = "border-[#EBE8E2]"
+          icon = <Info className="h-5 w-5 text-[#B8934C] flex-shrink-0" />
+          borderColor = "border-[#E8E4DC]"
         }
 
         return (
@@ -249,7 +250,7 @@ function ToastContainer({
           >
             {icon}
             <div className="flex-1 min-w-0 pr-2">
-              <p className="text-xs font-semibold text-[#18181A] leading-snug">{toast.title}</p>
+              <p className="text-xs font-semibold text-[#222225] leading-snug">{toast.title}</p>
               {toast.message && (
                 <p className="text-[11px] text-[#717171] mt-0.5 leading-relaxed font-light">
                   {toast.message}
@@ -259,7 +260,7 @@ function ToastContainer({
             <button
               type="button"
               onClick={() => onDismiss(toast.id)}
-              className="p-1 text-[#717171] hover:text-[#18181A] rounded-lg transition-colors cursor-pointer"
+              className="p-1 text-[#717171] hover:text-[#222225] rounded-lg transition-colors cursor-pointer"
             >
               <X className="h-3.5 w-3.5" />
             </button>

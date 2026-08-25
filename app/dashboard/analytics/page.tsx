@@ -39,6 +39,7 @@ export default function DashboardAnalyticsPage() {
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
@@ -150,13 +151,13 @@ export default function DashboardAnalyticsPage() {
   return (
     <div className="space-y-8 animate-sana-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBE8E2] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E4DC] pb-6">
         <div>
-          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#18181A] bg-[#F4F3EE] px-3 py-1 rounded-full border border-[#EBE8E2] mb-3">
-            <BarChart3 className="h-3.5 w-3.5 text-[#C5A880]" />
+          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#222225] bg-[#FAF8F5] px-3 py-1 rounded-full border border-[#E8E4DC] mb-3">
+            <BarChart3 className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>FINANCIAL INTELLIGENCE & POS SUITE</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#222225] font-semibold tracking-tight">
             Revenue, POS & Owner Yield
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -168,19 +169,19 @@ export default function DashboardAnalyticsPage() {
           <button
             type="button"
             onClick={handlePrintStatement}
-            className="inline-flex items-center space-x-2 bg-white border border-[#EBE8E2] text-[#18181A] px-4 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#F8F7F4] hover:border-[#DAD5CC] transition-all shadow-xs cursor-pointer"
+            className="inline-flex items-center space-x-2 bg-white border border-[#E8E4DC] text-[#222225] px-4 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#FAF8F5] hover:border-[#DAD5CC] transition-all shadow-xs cursor-pointer"
             title="Cetak format invoice resmi A4 untuk dikirim ke pemilik villa"
           >
-            <Printer className="h-3.5 w-3.5 text-[#C5A880]" />
+            <Printer className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>Cetak Laporan Owner</span>
           </button>
 
           <button
             type="button"
             onClick={() => setIsExpenseModalOpen(true)}
-            className="inline-flex items-center space-x-2 bg-[#18181A] text-white px-5 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+            className="inline-flex items-center space-x-2 bg-[#222225] text-white px-5 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
           >
-            <Plus className="h-3.5 w-3.5 text-[#C5A880]" />
+            <Plus className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>Catat Biaya POS</span>
           </button>
         </div>
@@ -201,8 +202,8 @@ export default function DashboardAnalyticsPage() {
           onClick={() => setSelectedPropertyId("all")}
           className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
             selectedPropertyId === "all"
-              ? "bg-[#18181A] text-white shadow-xs"
-              : "bg-white text-[#717171] hover:text-[#18181A] border border-[#EBE8E2]"
+              ? "bg-[#222225] text-white shadow-xs"
+              : "bg-white text-[#717171] hover:text-[#222225] border border-[#E8E4DC]"
           }`}
         >
           Semua Portofolio (4 Unit)
@@ -214,8 +215,8 @@ export default function DashboardAnalyticsPage() {
             onClick={() => setSelectedPropertyId(villa.id)}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
               selectedPropertyId === villa.id
-                ? "bg-[#18181A] text-white shadow-xs"
-                : "bg-white text-[#717171] hover:text-[#18181A] border border-[#EBE8E2]"
+                ? "bg-[#222225] text-white shadow-xs"
+                : "bg-white text-[#717171] hover:text-[#222225] border border-[#E8E4DC]"
             }`}
           >
             {villa.area}: {villa.name.split(" ")[0]}...
@@ -225,24 +226,24 @@ export default function DashboardAnalyticsPage() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="p-7 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
+        <div className="p-7 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">Gross Payout Terkumpul</span>
-            <div className="h-8 w-8 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A]">
-              <DollarSign className="h-4 w-4 text-[#C5A880]" />
+            <div className="h-8 w-8 rounded-xl bg-[#FAF8F5] flex items-center justify-center text-[#222225]">
+              <DollarSign className="h-4 w-4 text-[#B8934C]" />
             </div>
           </div>
-          <p className="text-3xl font-semibold text-[#18181A] tracking-tight">{formatCurrency(grossRevenue, "IDR")}</p>
+          <p className="text-3xl font-semibold text-[#222225] tracking-tight">{formatCurrency(grossRevenue, "IDR")}</p>
           <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
             {activeReservations.length} Transaksi Menginap
           </span>
         </div>
 
-        <div className="p-7 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
+        <div className="p-7 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">Net Bagi Hasil Pemilik</span>
-            <div className="h-8 w-8 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A]">
-              <Award className="h-4 w-4 text-[#C5A880]" />
+            <div className="h-8 w-8 rounded-xl bg-[#FAF8F5] flex items-center justify-center text-[#222225]">
+              <Award className="h-4 w-4 text-[#B8934C]" />
             </div>
           </div>
           <p className="text-3xl font-bold text-emerald-700 tracking-tight">{formatCurrency(netOwnerRemittance, "IDR")}</p>
@@ -251,11 +252,11 @@ export default function DashboardAnalyticsPage() {
           </span>
         </div>
 
-        <div className="p-7 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
+        <div className="p-7 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">Total Biaya Operasional (POS)</span>
-            <div className="h-8 w-8 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A]">
-              <Receipt className="h-4 w-4 text-[#C5A880]" />
+            <div className="h-8 w-8 rounded-xl bg-[#FAF8F5] flex items-center justify-center text-[#222225]">
+              <Receipt className="h-4 w-4 text-[#B8934C]" />
             </div>
           </div>
           <p className="text-3xl font-semibold text-rose-700 tracking-tight">{formatCurrency(totalExpenses, "IDR")}</p>
@@ -264,14 +265,14 @@ export default function DashboardAnalyticsPage() {
           </span>
         </div>
 
-        <div className="p-7 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
+        <div className="p-7 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] space-y-2 hover:-translate-y-1 transition-all duration-300">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-semibold text-[#717171] uppercase tracking-wider">ADR (Rata-Rata Tarif/Malam)</span>
-            <div className="h-8 w-8 rounded-xl bg-[#F8F7F4] flex items-center justify-center text-[#18181A]">
-              <TrendingUp className="h-4 w-4 text-[#C5A880]" />
+            <div className="h-8 w-8 rounded-xl bg-[#FAF8F5] flex items-center justify-center text-[#222225]">
+              <TrendingUp className="h-4 w-4 text-[#B8934C]" />
             </div>
           </div>
-          <p className="text-3xl font-semibold text-[#18181A] tracking-tight">{formatCurrency(adr, "IDR")}</p>
+          <p className="text-3xl font-semibold text-[#222225] tracking-tight">{formatCurrency(adr, "IDR")}</p>
           <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
             {totalNights} Total Malam Terjual
           </span>
@@ -279,19 +280,19 @@ export default function DashboardAnalyticsPage() {
       </div>
 
       {/* POS Expense Ledger Table */}
-      <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
-        <div className="p-6 sm:p-8 border-b border-[#EBE8E2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#F8F7F4]">
+      <div className="rounded-3xl border border-[#E8E4DC] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
+        <div className="p-6 sm:p-8 border-b border-[#E8E4DC] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#FAF8F5]">
           <div>
-            <h3 className="text-xl text-[#18181A] font-semibold">Buku Pengeluaran Operasional / POS ({activeExpenses.length})</h3>
+            <h3 className="text-xl text-[#222225] font-semibold">Buku Pengeluaran Operasional / POS ({activeExpenses.length})</h3>
             <p className="text-xs text-[#717171]">Transparansi nota belanja, token listrik, laundry linen, dan maintenance</p>
           </div>
 
           <button
             type="button"
             onClick={handleExportExpensesCsv}
-            className="inline-flex items-center space-x-2 bg-white border border-[#EBE8E2] text-[#18181A] px-4 py-2 rounded-2xl text-xs font-semibold hover:bg-[#F8F7F4] transition-all shadow-xs cursor-pointer self-start sm:self-auto"
+            className="inline-flex items-center space-x-2 bg-white border border-[#E8E4DC] text-[#222225] px-4 py-2 rounded-2xl text-xs font-semibold hover:bg-[#FAF8F5] transition-all shadow-xs cursor-pointer self-start sm:self-auto"
           >
-            <Download className="h-3.5 w-3.5 text-[#C5A880]" />
+            <Download className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>Export Pengeluaran (CSV)</span>
           </button>
         </div>
@@ -299,7 +300,7 @@ export default function DashboardAnalyticsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[#EBE8E2] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
+              <tr className="border-b border-[#E8E4DC] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
                 <th className="py-4 px-6">ID & Tanggal</th>
                 <th className="py-4 px-6">Properti</th>
                 <th className="py-4 px-6">Kategori POS</th>
@@ -309,26 +310,26 @@ export default function DashboardAnalyticsPage() {
                 <th className="py-4 px-6 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#F4F3EE] text-xs">
+            <tbody className="divide-y divide-[#FAF8F5] text-xs">
               {activeExpenses.map((exp) => (
                 <tr key={exp.id} className="hover:bg-[#FAFAF8]/90 transition-colors">
                   <td className="py-4 px-6">
-                    <p className="font-semibold text-[#18181A]">{exp.date}</p>
+                    <p className="font-semibold text-[#222225]">{exp.date}</p>
                     <span className="text-[10px] text-[#717171] font-mono">{exp.id}</span>
                   </td>
                   <td className="py-4 px-6">
-                    <p className="font-medium text-[#18181A] max-w-[200px] truncate">{exp.propertyName}</p>
+                    <p className="font-medium text-[#222225] max-w-[200px] truncate">{exp.propertyName}</p>
                   </td>
                   <td className="py-4 px-6">
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#F4F3EE] text-[#18181A] border border-[#EBE8E2]">
+                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#FAF8F5] text-[#222225] border border-[#E8E4DC]">
                       {exp.category}
                     </span>
                   </td>
                   <td className="py-4 px-6">
-                    <p className="text-[#18181A] font-medium">{exp.description}</p>
+                    <p className="text-[#222225] font-medium">{exp.description}</p>
                   </td>
                   <td className="py-4 px-6 text-[11px] text-[#717171]">
-                    <p className="font-medium text-[#18181A]">{exp.recordedBy}</p>
+                    <p className="font-medium text-[#222225]">{exp.recordedBy}</p>
                     {exp.vendorName && <span className="text-[10px]">{exp.vendorName}</span>}
                   </td>
                   <td className="py-4 px-6 font-bold text-rose-700">
@@ -361,16 +362,16 @@ export default function DashboardAnalyticsPage() {
               if (e.target === e.currentTarget) setIsExpenseModalOpen(false)
             }}
           >
-            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#EBE8E2] max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
+            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#E8E4DC] max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E8E4DC]">
                 <div>
-                  <h3 className="text-2xl text-[#18181A] font-semibold">Catat Pengeluaran Operasional / POS</h3>
+                  <h3 className="text-2xl text-[#222225] font-semibold">Catat Pengeluaran Operasional / POS</h3>
                   <p className="text-xs text-[#717171] mt-0.5">Input nota belanja, token listrik PLN, laundry, atau service AC</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsExpenseModalOpen(false)}
-                  className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
+                  className="h-8 w-8 rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#717171] hover:text-[#222225] transition-colors cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -384,7 +385,7 @@ export default function DashboardAnalyticsPage() {
                   <select
                     value={expPropertyId}
                     onChange={(e) => setExpPropertyId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   >
                     {CURATED_VILLAS.map((villa) => (
                       <option key={villa.id} value={villa.id}>
@@ -402,7 +403,7 @@ export default function DashboardAnalyticsPage() {
                     <select
                       value={expCategory}
                       onChange={(e) => setExpCategory(e.target.value as ExpenseCategory)}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     >
                       <option value="PLN & Utilities">PLN & Utilities (Listrik/Air/WiFi)</option>
                       <option value="Linen & Laundry">Linen & Laundry Cuci Sprei</option>
@@ -422,7 +423,7 @@ export default function DashboardAnalyticsPage() {
                       required
                       value={expDate}
                       onChange={(e) => setExpDate(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
                 </div>
@@ -437,7 +438,7 @@ export default function DashboardAnalyticsPage() {
                     placeholder="Contoh: Beli Token PLN 500rb + Cuci Filter AC Master Bedroom"
                     value={expDescription}
                     onChange={(e) => setExpDescription(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   />
                 </div>
 
@@ -453,7 +454,7 @@ export default function DashboardAnalyticsPage() {
                       step={10000}
                       value={expAmount}
                       onChange={(e) => setExpAmount(Number(e.target.value))}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
 
@@ -466,7 +467,7 @@ export default function DashboardAnalyticsPage() {
                       placeholder="Contoh: Toko Listrik Sinar Jaya"
                       value={expVendor}
                       onChange={(e) => setExpVendor(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
                 </div>
@@ -480,7 +481,7 @@ export default function DashboardAnalyticsPage() {
                     required
                     value={expRecordedBy}
                     onChange={(e) => setExpRecordedBy(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   />
                 </div>
 
@@ -488,13 +489,13 @@ export default function DashboardAnalyticsPage() {
                   <button
                     type="button"
                     onClick={() => setIsExpenseModalOpen(false)}
-                    className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                    className="px-5 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] transition-all cursor-pointer font-semibold"
                   >
                     Batal
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+                    className="px-6 py-2.5 rounded-2xl bg-[#222225] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
                   >
                     Simpan Biaya
                   </button>
@@ -521,9 +522,9 @@ export default function DashboardAnalyticsPage() {
               </div>
 
               <div className="text-center space-y-1.5">
-                <h3 className="text-xl text-[#18181A] font-semibold">Hapus Nota Biaya POS?</h3>
+                <h3 className="text-xl text-[#222225] font-semibold">Hapus Nota Biaya POS?</h3>
                 <p className="text-xs text-[#717171] leading-relaxed">
-                  Anda yakin ingin menghapus nota <strong className="text-[#18181A]">#{deleteConfirmExp.id}</strong> sebesar <strong className="text-rose-700">{formatCurrency(deleteConfirmExp.amountIdr, "IDR")}</strong> untuk {deleteConfirmExp.propertyName}?
+                  Anda yakin ingin menghapus nota <strong className="text-[#222225]">#{deleteConfirmExp.id}</strong> sebesar <strong className="text-rose-700">{formatCurrency(deleteConfirmExp.amountIdr, "IDR")}</strong> untuk {deleteConfirmExp.propertyName}?
                 </p>
               </div>
 
@@ -531,7 +532,7 @@ export default function DashboardAnalyticsPage() {
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmExp(null)}
-                  className="flex-1 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] text-xs font-semibold transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] text-xs font-semibold transition-all cursor-pointer"
                 >
                   Batal
                 </button>

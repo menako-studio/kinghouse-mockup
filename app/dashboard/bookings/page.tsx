@@ -219,13 +219,13 @@ export default function DashboardBookingsPage() {
   return (
     <div className="space-y-8 animate-sana-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EBE8E2] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E4DC] pb-6">
         <div>
-          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#18181A] bg-[#F4F3EE] px-3 py-1 rounded-full border border-[#EBE8E2] mb-3">
-            <CalendarDays className="h-3.5 w-3.5 text-[#C5A880]" />
+          <div className="inline-flex items-center space-x-2 text-[10px] font-semibold uppercase tracking-wider text-[#222225] bg-[#FAF8F5] px-3 py-1 rounded-full border border-[#E8E4DC] mb-3">
+            <CalendarDays className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>DISTRIBUTION & RESERVATIONS ERP</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl text-[#18181A] font-semibold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl text-[#222225] font-semibold tracking-tight">
             Bookings & Calendar Hub
           </h1>
           <p className="text-sm text-[#717171] mt-1 font-light leading-relaxed">
@@ -235,14 +235,14 @@ export default function DashboardBookingsPage() {
 
         <div className="flex flex-wrap items-center gap-3">
           {/* View Switcher (Gantt vs Table) */}
-          <div className="flex items-center rounded-2xl bg-[#F4F3EE] p-1 border border-[#EBE8E2]">
+          <div className="flex items-center rounded-2xl bg-[#FAF8F5] p-1 border border-[#E8E4DC]">
             <button
               type="button"
               onClick={() => setViewMode("gantt")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 viewMode === "gantt"
-                  ? "bg-[#18181A] text-white shadow-xs"
-                  : "text-[#717171] hover:text-[#18181A]"
+                  ? "bg-[#222225] text-white shadow-xs"
+                  : "text-[#717171] hover:text-[#222225]"
               }`}
             >
               <CalendarDays className="h-3.5 w-3.5" />
@@ -253,8 +253,8 @@ export default function DashboardBookingsPage() {
               onClick={() => setViewMode("table")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 viewMode === "table"
-                  ? "bg-[#18181A] text-white shadow-xs"
-                  : "text-[#717171] hover:text-[#18181A]"
+                  ? "bg-[#222225] text-white shadow-xs"
+                  : "text-[#717171] hover:text-[#222225]"
               }`}
             >
               <Layers className="h-3.5 w-3.5" />
@@ -265,19 +265,19 @@ export default function DashboardBookingsPage() {
           <button
             type="button"
             onClick={handleExportCsv}
-            className="inline-flex items-center space-x-2 bg-white border border-[#EBE8E2] text-[#18181A] px-4 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#F8F7F4] hover:border-[#DAD5CC] transition-all shadow-xs cursor-pointer"
+            className="inline-flex items-center space-x-2 bg-white border border-[#E8E4DC] text-[#222225] px-4 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#FAF8F5] hover:border-[#DAD5CC] transition-all shadow-xs cursor-pointer"
             title="Download file spreadsheet Excel/CSV untuk pembukuan"
           >
-            <Download className="h-3.5 w-3.5 text-[#C5A880]" />
+            <Download className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>Export CSV</span>
           </button>
 
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center space-x-2 bg-[#18181A] text-white px-5 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+            className="inline-flex items-center space-x-2 bg-[#222225] text-white px-5 py-2.5 rounded-2xl text-xs font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
           >
-            <Plus className="h-3.5 w-3.5 text-[#C5A880]" />
+            <Plus className="h-3.5 w-3.5 text-[#B8934C]" />
             <span>Tambah Reservasi</span>
           </button>
         </div>
@@ -291,11 +291,11 @@ export default function DashboardBookingsPage() {
       )}
 
       {/* Sync Status Banner */}
-      <div className="p-5 rounded-3xl bg-white border border-[#EBE8E2] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-5 rounded-3xl bg-white border border-[#E8E4DC] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center space-x-3.5">
           <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-100" />
           <div>
-            <p className="text-xs font-semibold text-[#18181A]">Sinkronisasi Otomatis iCal 2-Arah Aktif</p>
+            <p className="text-xs font-semibold text-[#222225]">Sinkronisasi Otomatis iCal 2-Arah Aktif</p>
             <p className="text-[11px] text-[#717171] font-light">{syncStatus}. Menjaga agar kalender Airbnb dan WhatsApp tidak bentrok (Zero Double-Booking).</p>
           </div>
         </div>
@@ -303,7 +303,7 @@ export default function DashboardBookingsPage() {
           <button
             type="button"
             onClick={() => setIsSyncModalOpen(true)}
-            className="inline-flex items-center space-x-1.5 text-xs text-[#18181A] bg-amber-50 hover:bg-amber-100 px-3.5 py-1.5 rounded-full transition-all border border-amber-200 cursor-pointer font-medium"
+            className="inline-flex items-center space-x-1.5 text-xs text-[#222225] bg-amber-50 hover:bg-amber-100 px-3.5 py-1.5 rounded-full transition-all border border-amber-200 cursor-pointer font-medium"
           >
             <Sparkles className="h-3 w-3 text-amber-600" />
             <span>Impor URL Airbnb</span>
@@ -312,9 +312,9 @@ export default function DashboardBookingsPage() {
             type="button"
             onClick={handleForceSync}
             disabled={isSyncing}
-            className="inline-flex items-center space-x-1.5 text-xs text-[#717171] hover:text-[#18181A] bg-[#F8F7F4] hover:bg-[#EBE8E2] px-3.5 py-1.5 rounded-full transition-all border border-[#EBE8E2] cursor-pointer"
+            className="inline-flex items-center space-x-1.5 text-xs text-[#717171] hover:text-[#222225] bg-[#FAF8F5] hover:bg-[#E8E4DC] px-3.5 py-1.5 rounded-full transition-all border border-[#E8E4DC] cursor-pointer"
           >
-            <RefreshCw className={`h-3 w-3 ${isSyncing ? "animate-spin text-[#C5A880]" : ""}`} />
+            <RefreshCw className={`h-3 w-3 ${isSyncing ? "animate-spin text-[#B8934C]" : ""}`} />
             <span>{isSyncing ? "Menyinkronkan..." : "Sinkronkan Sekarang"}</span>
           </button>
         </div>
@@ -322,7 +322,7 @@ export default function DashboardBookingsPage() {
 
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center bg-white p-4 rounded-3xl border border-[#EBE8E2]">
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center bg-white p-4 rounded-3xl border border-[#E8E4DC]">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#717171]" />
           <input
@@ -330,7 +330,7 @@ export default function DashboardBookingsPage() {
             placeholder="Cari nama tamu, nomor booking, atau properti..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] text-xs focus:outline-none focus:border-[#C5A880] transition-all"
+            className="w-full pl-9 pr-4 py-2 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] text-xs focus:outline-none focus:border-[#B8934C] transition-all"
           />
         </div>
 
@@ -346,8 +346,8 @@ export default function DashboardBookingsPage() {
               onClick={() => setSelectedChannel(ch)}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 selectedChannel === ch
-                  ? "bg-[#18181A] text-white"
-                  : "bg-[#F8F7F4] text-[#717171] hover:text-[#18181A] border border-[#EBE8E2]"
+                  ? "bg-[#222225] text-white"
+                  : "bg-[#FAF8F5] text-[#717171] hover:text-[#222225] border border-[#E8E4DC]"
               }`}
             >
               {ch === "all" ? "Semua Saluran" : ch}
@@ -360,10 +360,10 @@ export default function DashboardBookingsPage() {
       {viewMode === "gantt" ? (
         <BookingsGanttChart reservations={filteredReservations} />
       ) : (
-        <div className="rounded-3xl border border-[#EBE8E2] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
-          <div className="p-6 sm:p-8 border-b border-[#EBE8E2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#F8F7F4]">
+        <div className="rounded-3xl border border-[#E8E4DC] bg-white overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.03)]">
+          <div className="p-6 sm:p-8 border-b border-[#E8E4DC] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-white via-white to-[#FAF8F5]">
             <div className="space-y-1">
-              <h3 className="text-xl text-[#18181A] font-semibold">Daftar Reservasi Aktif ({filteredReservations.length})</h3>
+              <h3 className="text-xl text-[#222225] font-semibold">Daftar Reservasi Aktif ({filteredReservations.length})</h3>
               <p className="text-xs text-[#717171]">Transparansi lengkap bagi hasil pemilik dan status kedatangan tamu</p>
             </div>
           </div>
@@ -371,7 +371,7 @@ export default function DashboardBookingsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#EBE8E2] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
+                <tr className="border-b border-[#E8E4DC] bg-[#FAFAF8] text-[10px] font-bold uppercase tracking-wider text-[#717171]">
                   <th className="py-4 px-6">ID & Tamu</th>
                   <th className="py-4 px-6">Properti</th>
                   <th className="py-4 px-6">Saluran Booking</th>
@@ -382,20 +382,20 @@ export default function DashboardBookingsPage() {
                   <th className="py-4 px-6 text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#F4F3EE] text-xs">
+              <tbody className="divide-y divide-[#FAF8F5] text-xs">
                 {filteredReservations.map((res) => {
                   const isDirect = res.channel === "Direct WhatsApp"
                   return (
                     <tr key={res.id} className="hover:bg-[#FAFAF8]/90 transition-colors">
                       <td className="py-4 px-6">
-                        <p className="font-semibold text-[#18181A]">{res.guestName}</p>
+                        <p className="font-semibold text-[#222225]">{res.guestName}</p>
                         <span className="text-[10px] text-[#717171] font-mono">{res.id}</span>
                         {res.guestPhone && (
                           <p className="text-[10px] text-[#717171] mt-0.5">{res.guestPhone}</p>
                         )}
                       </td>
                       <td className="py-4 px-6">
-                        <p className="font-medium text-[#18181A] max-w-[220px] truncate">{res.propertyName}</p>
+                        <p className="font-medium text-[#222225] max-w-[220px] truncate">{res.propertyName}</p>
                         <span className="text-[11px] text-[#717171]">{res.guests} Tamu &bull; {res.nights} Malam</span>
                       </td>
                       <td className="py-4 px-6">
@@ -410,10 +410,10 @@ export default function DashboardBookingsPage() {
                         </span>
                       </td>
                       <td className="py-4 px-6">
-                        <p className="font-medium text-[#18181A]">{res.checkIn} &rarr; {res.checkOut}</p>
-                        <span className="text-[10px] text-[#C5A880] font-medium">{res.nights} malam menginap</span>
+                        <p className="font-medium text-[#222225]">{res.checkIn} &rarr; {res.checkOut}</p>
+                        <span className="text-[10px] text-[#B8934C] font-medium">{res.nights} malam menginap</span>
                       </td>
-                      <td className="py-4 px-6 font-semibold text-[#18181A]">
+                      <td className="py-4 px-6 font-semibold text-[#222225]">
                         {formatCurrency(res.grossPayoutIdr, "IDR")}
                       </td>
                       <td className="py-4 px-6">
@@ -457,21 +457,21 @@ export default function DashboardBookingsPage() {
               if (e.target === e.currentTarget) setIsSyncModalOpen(false)
             }}
           >
-            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#EBE8E2]">
-              <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
+            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#E8E4DC]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E8E4DC]">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 border border-amber-500/20">
                     <Sparkles className="h-4 w-4" />
                   </div>
                   <div>
-                    <h3 className="text-xl text-[#18181A] font-semibold">Impor Feed iCal Airbnb / OTA</h3>
+                    <h3 className="text-xl text-[#222225] font-semibold">Impor Feed iCal Airbnb / OTA</h3>
                     <p className="text-xs text-[#717171]">Tarik jadwal booking eksternal untuk auto-block tanggal</p>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsSyncModalOpen(false)}
-                  className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
+                  className="h-8 w-8 rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#717171] hover:text-[#222225] transition-colors cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -485,7 +485,7 @@ export default function DashboardBookingsPage() {
                   <select
                     value={syncVillaSlug}
                     onChange={(e) => setSyncVillaSlug(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   >
                     {CURATED_VILLAS.map((villa) => (
                       <option key={villa.slug} value={villa.slug}>
@@ -505,7 +505,7 @@ export default function DashboardBookingsPage() {
                     placeholder="https://www.airbnb.com/calendar/ical/1234567.ics?s=abcdef"
                     value={inboundSyncUrl}
                     onChange={(e) => setInboundSyncUrl(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-mono text-xs text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-mono text-xs text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   />
                   <p className="text-[11px] text-[#717171] mt-1.5 leading-relaxed">
                     Salin URL dari menu <em>Airbnb Host Dashboard &rarr; Pricing and availability &rarr; Calendar sync &rarr; Export calendar</em>.
@@ -516,16 +516,16 @@ export default function DashboardBookingsPage() {
                   <button
                     type="button"
                     onClick={() => setIsSyncModalOpen(false)}
-                    className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                    className="px-5 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] transition-all cursor-pointer font-semibold"
                   >
                     Batal
                   </button>
                   <button
                     type="submit"
                     disabled={isSyncing}
-                    className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer disabled:opacity-50"
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#222225] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer disabled:opacity-50"
                   >
-                    <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? "animate-spin text-[#C5A880]" : ""}`} />
+                    <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? "animate-spin text-[#B8934C]" : ""}`} />
                     <span>{isSyncing ? "Mengimpor..." : "Mulai Sinkronisasi"}</span>
                   </button>
                 </div>
@@ -545,10 +545,10 @@ export default function DashboardBookingsPage() {
               if (e.target === e.currentTarget) setIsModalOpen(false)
             }}
           >
-            <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#EBE8E2] max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between pb-4 border-b border-[#EBE8E2]">
+            <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-[#E8E4DC] max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E8E4DC]">
                 <div>
-                  <h3 className="text-2xl text-[#18181A] font-semibold">Tambah Reservasi Manual / Direct</h3>
+                  <h3 className="text-2xl text-[#222225] font-semibold">Tambah Reservasi Manual / Direct</h3>
                   <p className="text-xs text-[#717171] mt-0.5">
                     Entri booking WhatsApp atau walk-in. Sistem otomatis menghitung komisi dan bagi hasil pemilik.
                   </p>
@@ -556,7 +556,7 @@ export default function DashboardBookingsPage() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="h-8 w-8 rounded-full bg-[#F8F7F4] flex items-center justify-center text-[#717171] hover:text-[#18181A] transition-colors cursor-pointer"
+                  className="h-8 w-8 rounded-full bg-[#FAF8F5] flex items-center justify-center text-[#717171] hover:text-[#222225] transition-colors cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -570,7 +570,7 @@ export default function DashboardBookingsPage() {
                   <select
                     value={formPropertyId}
                     onChange={(e) => setFormPropertyId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   >
                     {CURATED_VILLAS.map((villa) => (
                       <option key={villa.id} value={villa.id}>
@@ -591,7 +591,7 @@ export default function DashboardBookingsPage() {
                       placeholder="Contoh: Bpk. Hendra Gunawan"
                       value={formGuestName}
                       onChange={(e) => setFormGuestName(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
 
@@ -604,7 +604,7 @@ export default function DashboardBookingsPage() {
                       placeholder="08123456789"
                       value={formGuestPhone}
                       onChange={(e) => setFormGuestPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
                 </div>
@@ -619,7 +619,7 @@ export default function DashboardBookingsPage() {
                       required
                       value={formCheckIn}
                       onChange={(e) => setFormCheckIn(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
 
@@ -632,7 +632,7 @@ export default function DashboardBookingsPage() {
                       required
                       value={formCheckOut}
                       onChange={(e) => setFormCheckOut(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
 
@@ -643,7 +643,7 @@ export default function DashboardBookingsPage() {
                     <select
                       value={formChannel}
                       onChange={(e) => setFormChannel(e.target.value as ChannelType)}
-                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     >
                       <option value="Direct WhatsApp">Direct WhatsApp</option>
                       <option value="Airbnb">Airbnb (Manual)</option>
@@ -666,7 +666,7 @@ export default function DashboardBookingsPage() {
                       step={50000}
                       value={formGrossPayout}
                       onChange={(e) => setFormGrossPayout(Number(e.target.value))}
-                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-semibold text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
 
@@ -680,7 +680,7 @@ export default function DashboardBookingsPage() {
                       step={10000}
                       value={formCleaningFee}
                       onChange={(e) => setFormCleaningFee(Number(e.target.value))}
-                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     />
                   </div>
 
@@ -691,7 +691,7 @@ export default function DashboardBookingsPage() {
                     <select
                       value={formFeeTier}
                       onChange={(e) => setFormFeeTier(e.target.value as FeeTier)}
-                      className="w-full px-3 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                      className="w-full px-3 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                     >
                       <option value="standard">15% Standard</option>
                       <option value="premium">20% Premium</option>
@@ -700,15 +700,15 @@ export default function DashboardBookingsPage() {
                 </div>
 
                 {/* Automatic Calculation Preview Box for Non-Tech Users */}
-                <div className="p-4 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] space-y-2">
-                  <div className="flex items-center space-x-1.5 font-semibold text-[#18181A]">
-                    <Sparkles className="h-3.5 w-3.5 text-[#C5A880]" />
+                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] space-y-2">
+                  <div className="flex items-center space-x-1.5 font-semibold text-[#222225]">
+                    <Sparkles className="h-3.5 w-3.5 text-[#B8934C]" />
                     <span>Kalkulasi Otomatis Sistem ERP:</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-[11px] pt-1">
                     <div>
                       <span className="text-[#717171] block">Lama Menginap:</span>
-                      <strong className="text-[#18181A]">{nightsCount} Malam</strong>
+                      <strong className="text-[#222225]">{nightsCount} Malam</strong>
                     </div>
                     <div>
                       <span className="text-[#717171] block">Komisi Mgmt ({payoutCalc.managementFeePercent}%):</span>
@@ -730,7 +730,7 @@ export default function DashboardBookingsPage() {
                     placeholder="Contoh: Tamu butuh extra bed dan early check-in jam 13:00"
                     value={formNotes}
                     onChange={(e) => setFormNotes(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-[#F8F7F4] border border-[#EBE8E2] font-medium text-[#18181A] focus:outline-none focus:border-[#C5A880]"
+                    className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-medium text-[#222225] focus:outline-none focus:border-[#B8934C]"
                   />
                 </div>
 
@@ -738,13 +738,13 @@ export default function DashboardBookingsPage() {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-5 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] transition-all cursor-pointer font-semibold"
+                    className="px-5 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] transition-all cursor-pointer font-semibold"
                   >
                     Batal
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-2xl bg-[#18181A] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
+                    className="px-6 py-2.5 rounded-2xl bg-[#222225] text-white font-semibold hover:bg-[#2B2A30] transition-all shadow-xs cursor-pointer"
                   >
                     Simpan Reservasi
                   </button>
@@ -771,9 +771,9 @@ export default function DashboardBookingsPage() {
               </div>
 
               <div className="text-center space-y-1.5">
-                <h3 className="text-xl text-[#18181A] font-semibold">Batalkan / Hapus Reservasi?</h3>
+                <h3 className="text-xl text-[#222225] font-semibold">Batalkan / Hapus Reservasi?</h3>
                 <p className="text-xs text-[#717171] leading-relaxed">
-                  Anda yakin ingin menghapus reservasi <strong className="text-[#18181A]">#{deleteConfirmRes.id}</strong> atas nama <strong className="text-[#18181A]">{deleteConfirmRes.guestName}</strong> ({deleteConfirmRes.propertyName})?
+                  Anda yakin ingin menghapus reservasi <strong className="text-[#222225]">#{deleteConfirmRes.id}</strong> atas nama <strong className="text-[#222225]">{deleteConfirmRes.guestName}</strong> ({deleteConfirmRes.propertyName})?
                 </p>
               </div>
 
@@ -781,7 +781,7 @@ export default function DashboardBookingsPage() {
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmRes(null)}
-                  className="flex-1 py-2.5 rounded-2xl border border-[#EBE8E2] text-[#717171] hover:text-[#18181A] hover:bg-[#F8F7F4] text-xs font-semibold transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-2xl border border-[#E8E4DC] text-[#717171] hover:text-[#222225] hover:bg-[#FAF8F5] text-xs font-semibold transition-all cursor-pointer"
                 >
                   Kembali
                 </button>
