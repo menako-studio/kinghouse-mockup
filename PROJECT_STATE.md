@@ -29,7 +29,9 @@ The platform serves two primary user personas:
 | **Framework** | Next.js (App Router) | `16.0.7` (`next dev --turbopack`) | Core fullstack framework & static/dynamic generation |
 | **Runtime / Core** | React / React DOM | `19.2.0` | Modern React UI with Server/Client Components |
 | **Language** | TypeScript | `^5.0` (Strict mode) | Type safety across schemas, state, and props |
-| **Styling** | Tailwind CSS v4 + PostCSS | `@tailwindcss/postcss ^4`, `tailwindcss ^4` | CSS-in-JS utility engine (`@theme inline`) |
+| **Typography** | Philosopher & Plus Jakarta Sans | Google Fonts (`next/font/google`) | Luxury editorial headers (`Philosopher`) & ultra-clean UI |
+| **Localization** | Multi-Language & Multi-Currency Context | Custom `LocalizationProvider` | Real-time conversions (10 currencies) & i18n (9 languages: JA, ZH, FR, ES, DE, RU, ID, EN) |
+| **Styling** | Tailwind CSS v4 + PostCSS | `@tailwindcss/postcss ^4`, `tailwindcss ^4` | Nakula Olive-Khaki (`#8C7F5F`) + KingHouse Gold (`#B8934C`) & Slate |
 | **UI Primitives** | Radix UI Slot, CVA | `class-variance-authority ^0.7.1`, `clsx`, `tailwind-merge` | Headless, accessible components |
 | **Animations** | Framer Motion | `^12.23.25` | Fluid micro-interactions and transitions |
 | **Icons** | Lucide React | `^0.556.0` | Vector iconography |
@@ -170,6 +172,45 @@ kinghouse-mockup/
 - [x] **Automated Testing Suite (`tests/`, Vitest)**:
   - 19 comprehensive unit tests passing across ERP calculations, 2-way iCal sync parser, guest compendiums, rate limiters, and Zod schemas.
 
+### Phase 2.5 — Nakula Left-Sidebar Filtering & CMS Color Palette Standardization (Completed)
+- [x] **Left-Sidebar Catalog & Events Filtering (`app/villas/page.tsx`, `app/events/page.tsx`)**:
+  - Restructured layout to match reference designs (`properties.png` and `events.png`) with a sticky left sidebar filter (`w-full lg:w-72`) alongside a 2-column card grid.
+  - Interactive multi-select checkboxes for property types & events, datepicker availability, destination dropdowns, room/capacity selectors, and Search with `[APPLY]` and `[CLEAR]` action buttons.
+  - **Nakula Editorial 2-Col Grid**: Cards styled with bottom-left `Start From IDR X / Night` (or `/ Event`) price badges, bottom-right `↗` action buttons, meta lines, rating/reviews, `DOWNLOAD BROCHURE` buttons, capacity specs, and pill tags.
+  - Retained rich editorial sections on `/villas` (About, Summary Table, Photo Strip, FAQ Accordion) and `/events` (Official Price Matrix and Stay Configurations).
+- [x] **Complete CMS Suite & Login Color Palette Harmonization (`app/globals.css`)**:
+  - Replaced legacy neon pinks (`#FF3B70`) and non-standard dark purple surfaces with official KingHouse Gold (`#B8934C`, `#DFC58E`), Nakula Khaki (`#8C7F5F`), and Luxury Charcoal (`#19191B`, `#222225`, `#28282B`).
+  - Standardized all CMS pages (`/dashboard`, `/dashboard/bookings`, `/dashboard/analytics`, `/dashboard/blog`, `/dashboard/properties`, `/dashboard/seo`, `/dashboard/settings`) and `/login` to use consistent design tokens, glassmorphism, and border colors (`#E8E4DC`, `#FAF8F5`).
+
+### Phase 2.6 — Property House Rules & Digital Compendium Synchronization (Completed)
+- [x] **Sky House Tangerang (`sky-house-tangerang`) Verified Guidelines**:
+  - **WiFi**: SSID `KINGSKYHOUSE22` | Password `120210120069#`.
+  - **House Rules**: No smoking, No pets, Flush toilet, Switch off electricity points/AC when not in use, Keep room clean & hygienic, No noise pollution, Return items after use, Material damage charged, No eating/drinking on bed (stains subject to cleaning fee), Review request on checkout.
+  - **Check-Out Guidelines**: Check-out 12:00 PM, turn off utilities, leave access card & key on table, lock doors & windows.
+- [x] **Skyline Luxury at Orange County Cikarang (`skyline-luxury-orange-county-cikarang`) Verified Guidelines**:
+  - **Access & Delivery**: Newport Building mailbox N0510, 5th floor unit, package delivery pickup at security lobby.
+  - **WiFi**: SSID `N0510` | Password `Kinghouse`.
+  - **Facilities & Waste**: Level 2 pool/gym/playground, trash disposal in KWH room near lift.
+  - **House Rules & Safety**: No smoking 🚭, No pets, No parties/commercial use, Do not rearrange furniture, Respect neighbors.
+  - **Electrical Safety Suggestion**: Prevent electrical overload by not using high-power appliances (stove, hair dryer, kettle) simultaneously; use one at a time.
+- [x] **Versatile House Jagakarsa (`versatile-house-jagakarsa`) Verified Guidelines**:
+  - **Rules**: No pets (service animals per Airbnb policy), No events for overnight stay, No indoor smoking (outdoor smoking in gazebo/garden), Quiet hours 10:00 PM – 6:00 AM, No commercial photography/filming without permit, Max 12 overnight guests (2 per bedroom).
+  - **Schedule & Fees**: Check-in 3:00 PM (flexible), Check-out before 12:00 PM. Early check-in / late check-out Rp 950,000. Extra guest Rp 300,000/pax (>4 pax). Cleaning fee Rp 350,000.
+### Phase 2.7 — Multi-Currency & Multi-Language Localization Engine (Completed)
+- [x] **Universal Multi-Currency Conversion Engine** (`lib/context/localization-context.tsx`):
+  - Real-time exchange rate calculation across 10 global currencies: IDR (Rp), USD ($), SGD (S$), AUD (A$), EUR (€), GBP (£), JPY (¥), CNY (¥), MYR (RM), AED (AED).
+  - Floating and header dropdown selectors with persistent user preferences in `localStorage`.
+- [x] **Multi-Language Internationalization (i18n)** (`lib/context/localization-context.tsx`):
+  - Support for 9 languages: Indonesian (`ID`), English (`EN`), Japanese (`JA`), Mandarin Chinese (`ZH`), French (`FR`), Spanish (`ES`), German (`DE`), Russian (`RU`), and Arabic (`AR`).
+- [x] **Multi-Channel Direct Booking & Price Comparison Modal** (`components/villas/booking-channel-modal.tsx`, `components/villas/booking-sidebar.tsx`):
+  - Transparent price comparison between Direct Booking (0% extra commission, best rate guarantee) vs Airbnb, Agoda, and Booking.com.
+  - 1-click WhatsApp concierge pre-filled message dispatch with check-in, check-out, and guest count.
+
+### Phase 2.8 — Production Pre-Deployment Audit & Quality Assurance (Completed)
+- [x] **Zero ESLint Errors**: Resolved all strict React 19 / Next.js 16 compiler linting errors and escaped entity issues.
+- [x] **19/19 Automated Tests Passing**: Verified financial calculations, iCal parser, rate limiters, Zod security schemas, and digital compendiums.
+- [x] **52/52 Routes Built Successfully**: Full Next.js production build (`next build`) validated across static generation (SSG) and dynamic endpoints.
+
 ---
 
 ## 4. VERIFICATION COMMANDS
@@ -180,6 +221,9 @@ npm test
 
 # Run TypeScript strict type verification
 npx tsc --noEmit
+
+# Run ESLint validation (0 errors)
+npm run lint
 
 # Run Next.js optimized production build
 npm run build

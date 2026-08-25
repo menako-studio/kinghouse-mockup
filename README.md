@@ -73,36 +73,36 @@ An editorial-grade property management, SEO CMS, and 100% Free-Tier Hospitality 
 | **Icons & Motion** | Lucide React + Framer Motion | Accessible vector icons and smooth physics |
 | **Validation** | Zod (`zod`) | Strict runtime schema validation for forms and APIs |
 | **Security** | Web Crypto HMAC-SHA256 + Rate Limiter | Zero-cost edge authentication and brute-force defense |
-| **Testing** | Vitest (`vitest`) | Lightning fast automated unit testing suite (16 tests passing) |
+| **Testing** | Vitest (`vitest`) | Lightning fast automated unit testing suite (19 tests passing) |
 | **Channel Sync** | Native RFC 5545 iCal Generator | Free 2-way calendar sync for Airbnb / Agoda / Booking.com |
+| **Localization** | Multi-Currency & i18n Context | 10 currencies (IDR, USD, EUR, etc.) & 9 languages |
 | **Guest Upsell** | Vouch-Style Digital Compendium | Interactive add-on cart & dynamic WhatsApp dispatch |
 | **Hosting** | Vercel Free Hobby Tier | 100% Free Tier Compatible ($0/month) |
 
 ---
 
-## 🧪 Automated Testing Suite
+## 🧪 Automated Testing & Production Quality Assurance
 
 ```bash
-# Run automated Vitest test suite (16 comprehensive tests)
+# Run automated Vitest test suite (19 comprehensive tests)
 npm test
 
 # Run TypeScript strict compilation
 npx tsc --noEmit
 
-# Run Next.js production build
+# Run ESLint validation (0 errors)
+npm run lint
+
+# Run Next.js production build (52/52 routes verified)
 npm run build
 ```
 
-
-The project includes an automated test suite powered by **Vitest** covering ERP calculations, commission fee splits, Zod validators, rate limiters, and calendar feeds.
-
-To execute tests:
-```bash
-npm test
-```
+The project includes an automated test suite powered by **Vitest** covering ERP calculations, 2-way iCal sync, commission fee splits, Zod validators, rate limiters, and calendar feeds.
 
 ### Test Coverage Highlights:
 - `tests/erp-calculations.test.ts`: Validates 15% vs 20% commission splits, cleaning fee exemptions, net owner payouts, ADR, and RevPAR math.
+- `tests/ical-sync-engine.test.ts`: Validates 2-way iCal synchronization and RFC 5545 parsing.
+- `tests/guest-compendium.test.ts`: Verifies house rules, amenities, and digital compendium structure.
 - `tests/validation-security.test.ts`: Verifies Zod schema boundaries, invalid email/date rejections, and rate-limiting sliding windows.
 - `tests/ical-feed.test.ts`: Verifies CSV export engine headers and row escaping.
 
