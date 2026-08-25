@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google"
+import { Philosopher, Plus_Jakarta_Sans } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
 import { SiteShell } from "@/components/layout/site-shell"
+import { LocalizationProvider } from "@/lib/context/localization-context"
 
-const playfair = Playfair_Display({
+const philosopher = Philosopher({
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
@@ -147,18 +149,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="id" className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[var(--bg-main)] font-sans text-[var(--text-primary)] antialiased selection:bg-[#222222] selection:text-white">
+    <html lang="id" className={`${philosopher.variable} ${plusJakarta.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-[var(--bg-main)] font-sans text-[var(--text-primary)] antialiased selection:bg-[#B8934C] selection:text-white">
         <Script
           id="org-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
-        <SiteShell>
-          {children}
-        </SiteShell>
+        <LocalizationProvider>
+          <SiteShell>
+            {children}
+          </SiteShell>
+        </LocalizationProvider>
       </body>
     </html>
   )
 }
+
 

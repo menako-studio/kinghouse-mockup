@@ -2,21 +2,49 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
-import { Menu, X, ArrowUpRight } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import {
+  ChevronDown,
+  Globe,
+  DollarSign,
+  ArrowRight,
+  Menu,
+  X,
+  Sparkles,
+  Check,
+} from "lucide-react"
+import {
+  useLocalization,
+  SUPPORTED_CURRENCIES,
+  SUPPORTED_LANGUAGES,
+  CurrencyCode,
+  LanguageCode,
+} from "@/lib/context/localization-context"
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
-  const [prevPathname, setPrevPathname] = useState(pathname)
+  const {
+    currency,
+    setCurrency,
+    currentCurrencyConfig,
+    language,
+    setLanguage,
+    currentLanguageConfig,
+    t,
+  } = useLocalization()
 
-  if (prevPathname !== pathname) {
-    setPrevPathname(pathname)
-    setIsMenuOpen(false)
-  }
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [propertiesMenuOpen, setPropertiesMenuOpen] = useState(false)
+  const [rewardsMenuOpen, setRewardsMenuOpen] = useState(false)
+  const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false)
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const navRef = useRef<HTMLDivElement>(null)
+  const currencyRef = useRef<HTMLDivElement>(null)
+  const languageRef = useRef<HTMLDivElement>(null)
+
+  // Auto-close dropdowns on scroll or path change
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -29,129 +57,516 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const navLinks = [
-    { label: "Properties", href: "/villas" },
-    { label: "Owner Services", href: "/owner-services" },
-    { label: "Blog", href: "/blog" },
-    { label: "Events", href: "/events" },
-  ]
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPropertiesMenuOpen(false)
+    setRewardsMenuOpen(false)
+    setCurrencyDropdownOpen(false)
+    setLanguageDropdownOpen(false)
+    setMobileMenuOpen(false)
+  }, [pathname])
+
+  // Click outside listener
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        currencyRef.current &&
+        !currencyRef.current.contains(event.target as Node)
+      ) {
+        setCurrencyDropdownOpen(false)
+      }
+      if (
+        languageRef.current &&
+        !languageRef.current.contains(event.target as Node)
+      ) {
+        setLanguageDropdownOpen(false)
+      }
+      if (
+        navRef.current &&
+        !navRef.current.contains(event.target as Node)
+      ) {
+        setPropertiesMenuOpen(false)
+        setRewardsMenuOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   return (
     <header
+      ref={navRef}
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? "border-b border-[#EBEBEB] bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
-          : "border-b border-transparent bg-white"
+          ? "border-b border-[#E8E4DC] bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+          : "border-b border-[#F0ECE1] bg-white"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-12">
-        {/* Architectural Monogram Logo */}
-        <Link href="/" className="group flex items-center space-x-3">
-          <div className="flex h-9 w-9 items-center justify-center border border-[#222222] bg-[#222222] text-white transition-all duration-300 group-hover:bg-white group-hover:text-[#222222]">
-            <span className="font-serif text-lg font-normal tracking-wider">K</span>
-          </div>
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-12">
+        {/* Left: Brand Logo in Nakula Minimalist Luxury Style */}
+        <Link
+          href="/"
+          className="group flex items-center space-x-2.5"
+          onClick={() => {
+            setPropertiesMenuOpen(false)
+            setRewardsMenuOpen(false)
+          }}
+        >
           <div className="flex flex-col">
-            <span className="font-serif text-xl tracking-tight text-[#222222]">
-              KingHouse
-            </span>
-            <span className="text-[9px] uppercase tracking-[0.25em] text-[#717171] -mt-1 font-medium">
-              Villa Management
+            <span className="font-serif text-2xl sm:text-3xl tracking-[0.22em] text-[#8C7F5F] uppercase transition-colors group-hover:text-[#776B4E]">
+              KINGHOUSE
             </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href))
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-[13px] font-medium uppercase tracking-[0.12em] transition-colors ${
-                  isActive
-                    ? "text-[#222222] font-semibold border-b border-[#222222] pb-1"
-                    : "text-[#717171] hover:text-[#222222]"
+        {/* Center: Desktop Navigation Bar */}
+        <nav className="hidden lg:flex items-center space-x-7">
+          <Link
+            href="/"
+            className={`text-xs font-medium uppercase tracking-[0.15em] transition-colors py-2 ${
+              pathname === "/" ? "text-[#8C7F5F] font-semibold" : "text-[#555555] hover:text-[#8C7F5F]"
+            }`}
+          >
+            {t("home")}
+          </Link>
+
+          {/* OUR PROPERTIES dropdown toggle */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setPropertiesMenuOpen(!propertiesMenuOpen)
+                setRewardsMenuOpen(false)
+                setCurrencyDropdownOpen(false)
+                setLanguageDropdownOpen(false)
+              }}
+              onMouseEnter={() => setPropertiesMenuOpen(true)}
+              className={`flex items-center space-x-1 text-xs font-medium uppercase tracking-[0.15em] transition-colors py-2 cursor-pointer ${
+                propertiesMenuOpen || pathname.startsWith("/villas") || pathname.startsWith("/locations")
+                  ? "text-[#8C7F5F] font-semibold"
+                  : "text-[#555555] hover:text-[#8C7F5F]"
+              }`}
+            >
+              <span>{t("ourProperties")}</span>
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                  propertiesMenuOpen ? "rotate-180 text-[#8C7F5F]" : "text-[#888888]"
                 }`}
-              >
-                {link.label}
-              </Link>
-            )
-          })}
+              />
+            </button>
+          </div>
+
+          <Link
+            href="/villas"
+            className={`text-xs font-medium uppercase tracking-[0.15em] transition-colors py-2 ${
+              pathname === "/offers" ? "text-[#8C7F5F] font-semibold" : "text-[#555555] hover:text-[#8C7F5F]"
+            }`}
+          >
+            {t("monthlyOffers")}
+          </Link>
+
+          <Link
+            href="/events"
+            className={`text-xs font-medium uppercase tracking-[0.15em] transition-colors py-2 ${
+              pathname === "/events" ? "text-[#8C7F5F] font-semibold" : "text-[#555555] hover:text-[#8C7F5F]"
+            }`}
+          >
+            {t("events")}
+          </Link>
+
+          {/* REWARDS dropdown toggle */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setRewardsMenuOpen(!rewardsMenuOpen)
+                setPropertiesMenuOpen(false)
+              }}
+              className={`flex items-center space-x-1 text-xs font-medium uppercase tracking-[0.15em] transition-colors py-2 cursor-pointer ${
+                rewardsMenuOpen ? "text-[#8C7F5F] font-semibold" : "text-[#555555] hover:text-[#8C7F5F]"
+              }`}
+            >
+              <span>{t("rewards")}</span>
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                  rewardsMenuOpen ? "rotate-180 text-[#8C7F5F]" : "text-[#888888]"
+                }`}
+              />
+            </button>
+
+            {rewardsMenuOpen && (
+              <div className="absolute left-0 mt-2 w-56 rounded-md bg-[#8C7F5F] p-3 text-white shadow-xl ring-1 ring-black/10 z-50">
+                <Link
+                  href="/owner-services"
+                  className="block rounded px-3 py-2 text-xs font-medium hover:bg-black/15 transition-colors"
+                  onClick={() => setRewardsMenuOpen(false)}
+                >
+                  👑 Owner Superhost Rewards
+                </Link>
+                <Link
+                  href="/stay"
+                  className="block rounded px-3 py-2 text-xs font-medium hover:bg-black/15 transition-colors"
+                  onClick={() => setRewardsMenuOpen(false)}
+                >
+                  🛎️ Guest Loyalty & Perks
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* ENQUIRE underlined */}
+          <Link
+            href="/contact"
+            className="text-xs font-semibold uppercase tracking-[0.15em] text-[#8C7F5F] underline underline-offset-4 hover:text-[#776B4E] transition-colors py-2"
+          >
+            {t("enquire")}
+          </Link>
         </nav>
 
-        {/* Action CTAs: Dual Funnel Access */}
-        <div className="hidden lg:flex items-center space-x-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            asChild
-            className="text-xs uppercase tracking-wider text-[#717171] hover:text-[#222222]"
-          >
-            <Link href="/owner-services">
-              For Property Owners
-            </Link>
-          </Button>
+        {/* Right: Currency, Language & Sign In */}
+        <div className="hidden md:flex items-center space-x-4 lg:space-x-5">
+          {/* Currency Dropdown (matching currency.png) */}
+          <div className="relative" ref={currencyRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setCurrencyDropdownOpen(!currencyDropdownOpen)
+                setLanguageDropdownOpen(false)
+                setPropertiesMenuOpen(false)
+              }}
+              className="flex items-center space-x-1.5 text-xs uppercase tracking-wider font-medium text-[#444444] hover:text-[#8C7F5F] transition-colors py-1.5 px-2 rounded-md hover:bg-[#F5F2EB]"
+            >
+              <DollarSign className="h-3.5 w-3.5 text-[#8C7F5F]" />
+              <span className="font-semibold">{currentCurrencyConfig.short}</span>
+              <ChevronDown
+                className={`h-3 w-3 text-[#777777] transition-transform ${
+                  currencyDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
 
-          <Button
-            variant="default"
-            size="sm"
-            asChild
-            className="text-xs uppercase tracking-wider font-semibold"
+            {currencyDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 rounded-lg bg-white py-1.5 shadow-2xl border border-[#E8E4DC] ring-1 ring-black/5 z-50">
+                <div className="px-3 py-1 text-[10px] uppercase font-semibold text-[#8C7F5F] tracking-wider border-b border-[#F0ECE1]">
+                  Select Currency
+                </div>
+                <div className="max-h-64 overflow-y-auto py-1">
+                  {SUPPORTED_CURRENCIES.map((curr) => (
+                    <button
+                      key={curr.code}
+                      type="button"
+                      onClick={() => {
+                        setCurrency(curr.code)
+                        setCurrencyDropdownOpen(false)
+                      }}
+                      className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs transition-colors ${
+                        currency === curr.code
+                          ? "bg-[#FAF8F3] text-[#8C7F5F] font-semibold"
+                          : "text-[#444444] hover:bg-[#F7F5F0] hover:text-[#222222]"
+                      }`}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span className="w-6 font-semibold text-center text-[#8C7F5F]">
+                          {curr.symbol}
+                        </span>
+                        <span>{curr.label}</span>
+                      </div>
+                      {currency === curr.code && <Check className="h-3.5 w-3.5 text-[#8C7F5F]" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Language Dropdown (matching language.png) */}
+          <div className="relative" ref={languageRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setLanguageDropdownOpen(!languageDropdownOpen)
+                setCurrencyDropdownOpen(false)
+                setPropertiesMenuOpen(false)
+              }}
+              className="flex items-center space-x-1.5 text-xs uppercase tracking-wider font-medium text-[#444444] hover:text-[#8C7F5F] transition-colors py-1.5 px-2 rounded-md hover:bg-[#F5F2EB]"
+            >
+              <Globe className="h-3.5 w-3.5 text-[#8C7F5F]" />
+              <span className="font-semibold">{currentLanguageConfig.code}</span>
+              <ChevronDown
+                className={`h-3 w-3 text-[#777777] transition-transform ${
+                  languageDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {languageDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-52 rounded-lg bg-white py-1.5 shadow-2xl border border-[#E8E4DC] ring-1 ring-black/5 z-50">
+                <div className="px-3 py-1 text-[10px] uppercase font-semibold text-[#8C7F5F] tracking-wider border-b border-[#F0ECE1]">
+                  Select Language
+                </div>
+                <div className="max-h-72 overflow-y-auto py-1">
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <button
+                      key={lang.code}
+                      type="button"
+                      onClick={() => {
+                        setLanguage(lang.code)
+                        setLanguageDropdownOpen(false)
+                      }}
+                      className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs transition-colors ${
+                        language === lang.code
+                          ? "bg-[#FAF8F3] text-[#8C7F5F] font-semibold"
+                          : "text-[#444444] hover:bg-[#F7F5F0] hover:text-[#222222]"
+                      }`}
+                    >
+                      <div className="flex items-center space-x-2.5">
+                        <span className="w-9 font-mono text-[11px] font-semibold text-[#8C7F5F]">
+                          {lang.code}
+                        </span>
+                        <span>{lang.nativeName}</span>
+                      </div>
+                      {language === lang.code && <Check className="h-3.5 w-3.5 text-[#8C7F5F]" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* SIGN IN Pill Button (Nakula Style) */}
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center rounded-full border border-[#8C7F5F] px-5 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#8C7F5F] hover:bg-[#8C7F5F] hover:text-white transition-all shadow-xs"
           >
-            <Link href="/villas">
-              Explore Collection
-            </Link>
-          </Button>
+            {t("signIn")}
+          </Link>
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Hamburger Toggle */}
         <button
           type="button"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden flex h-10 w-10 items-center justify-center text-[#222222] focus:outline-none"
-          aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden flex h-10 w-10 items-center justify-center text-[#222222] focus:outline-none rounded-md hover:bg-[#F5F2EB]"
+          aria-label="Toggle navigation menu"
         >
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
-      {isMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-20 bottom-0 bg-white z-40 px-6 py-8 flex flex-col justify-between border-t border-[#EBEBEB]">
+      {/* Mega Menu Dropdown for "OUR PROPERTIES" (Exact Nakula Khaki Theme) */}
+      {propertiesMenuOpen && (
+        <div
+          className="w-full bg-[#8C7F5F] text-white shadow-2xl border-t border-[#7A6E50] animate-in fade-in slide-in-from-top-2 duration-200"
+          onMouseLeave={() => setPropertiesMenuOpen(false)}
+        >
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-12">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+              {/* Column 1: By Property Type */}
+              <div className="md:col-span-4 space-y-4">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#EFECE6] border-b border-white/20 pb-2">
+                  {t("byPropertyType")}
+                </h3>
+                <ul className="space-y-3 text-sm">
+                  <li>
+                    <Link
+                      href="/villas?bedrooms=4"
+                      className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                      onClick={() => setPropertiesMenuOpen(false)}
+                    >
+                      <span className="font-light">{t("villasUpTo4")}</span>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/villas?bedrooms=5"
+                      className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                      onClick={() => setPropertiesMenuOpen(false)}
+                    >
+                      <span className="font-light">{t("villas5Plus")}</span>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/villas"
+                      className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                      onClick={() => setPropertiesMenuOpen(false)}
+                    >
+                      <span className="font-light">{t("resortApartment")}</span>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/events"
+                      className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                      onClick={() => setPropertiesMenuOpen(false)}
+                    >
+                      <span className="font-light">{t("eventsAndWeddings")}</span>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Column 2 & 3: By Location (2 Grid Columns) */}
+              <div className="md:col-span-8 space-y-4">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#EFECE6] border-b border-white/20 pb-2">
+                  {t("byLocation")}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
+                  <Link
+                    href="/locations/jagakarsa"
+                    className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                    onClick={() => setPropertiesMenuOpen(false)}
+                  >
+                    <span className="font-light">Jagakarsa (Jakarta Selatan)</span>
+                    <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                  </Link>
+
+                  <Link
+                    href="/locations/tangerang"
+                    className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                    onClick={() => setPropertiesMenuOpen(false)}
+                  >
+                    <span className="font-light">Tangerang (Banten)</span>
+                    <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                  </Link>
+
+                  <Link
+                    href="/locations/palmerah"
+                    className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                    onClick={() => setPropertiesMenuOpen(false)}
+                  >
+                    <span className="font-light">Palmerah (Jakarta Barat)</span>
+                    <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                  </Link>
+
+                  <Link
+                    href="/locations/cikarang"
+                    className="group flex items-center justify-between text-white/90 hover:text-white transition-colors"
+                    onClick={() => setPropertiesMenuOpen(false)}
+                  >
+                    <span className="font-light">Cikarang (Bekasi)</span>
+                    <ArrowRight className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all" />
+                  </Link>
+
+                  <Link
+                    href="/villas"
+                    className="group flex items-center justify-between text-[#DFC58E] font-medium hover:text-white transition-colors sm:col-span-2 pt-2 border-t border-white/10"
+                    onClick={() => setPropertiesMenuOpen(false)}
+                  >
+                    <span>{t("allLocations")} &rarr;</span>
+                    <Sparkles className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-white z-50 overflow-y-auto px-6 py-8 flex flex-col justify-between border-t border-[#E8E4DC]">
           <div className="space-y-6">
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="font-serif text-2xl text-[#222222] hover:text-[#A69C8E] transition-colors py-1"
+            {/* Quick Currency & Language Selectors */}
+            <div className="flex items-center justify-between pb-4 border-b border-[#F0ECE1]">
+              <div className="flex items-center space-x-2">
+                <span className="text-xs text-[#777777]">Currency:</span>
+                <select
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
+                  aria-label="Select Currency"
+                  className="rounded border border-[#E8E4DC] bg-[#FAF8F3] px-2.5 py-1 text-xs font-semibold text-[#8C7F5F]"
                 >
-                  {link.label}
-                </Link>
-              ))}
+                  {SUPPORTED_CURRENCIES.map((curr) => (
+                    <option key={curr.code} value={curr.code}>
+                      {curr.symbol} - {curr.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <span className="text-xs text-[#777777]">Lang:</span>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value as LanguageCode)}
+                  aria-label="Select Language"
+                  className="rounded border border-[#E8E4DC] bg-[#FAF8F3] px-2.5 py-1 text-xs font-semibold text-[#8C7F5F]"
+                >
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.code} - {lang.nativeName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Mobile Nav Links */}
+            <nav className="flex flex-col space-y-3">
+              <Link
+                href="/"
+                className="font-serif text-xl text-[#222222] hover:text-[#8C7F5F] py-1 border-b border-[#F5F3EF]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("home")}
+              </Link>
+              <Link
+                href="/villas"
+                className="font-serif text-xl text-[#222222] hover:text-[#8C7F5F] py-1 border-b border-[#F5F3EF]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("ourProperties")}
+              </Link>
+              <Link
+                href="/events"
+                className="font-serif text-xl text-[#222222] hover:text-[#8C7F5F] py-1 border-b border-[#F5F3EF]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("events")}
+              </Link>
+              <Link
+                href="/owner-services"
+                className="font-serif text-xl text-[#222222] hover:text-[#8C7F5F] py-1 border-b border-[#F5F3EF]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("ownerServices")}
+              </Link>
+              <Link
+                href="/contact"
+                className="font-serif text-xl text-[#8C7F5F] py-1 border-b border-[#F5F3EF]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("enquire")}
+              </Link>
             </nav>
 
-            <div className="pt-6 border-t border-[#EBEBEB] space-y-3">
-              <Button asChild className="w-full justify-center" size="lg">
-                <Link href="/villas">Explore Properties</Link>
-              </Button>
-              <Button asChild variant="outline" className="w-full justify-center" size="lg">
-                <Link href="/owner-services">Partner with Us (Owner Services)</Link>
-              </Button>
+            {/* Mobile CTAs */}
+            <div className="pt-4 space-y-2.5">
+              <Link
+                href="/villas"
+                className="w-full flex items-center justify-center rounded-lg bg-[#8C7F5F] py-3 text-xs font-semibold uppercase tracking-wider text-white"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("exploreProperties")}
+              </Link>
+              <Link
+                href="/login"
+                className="w-full flex items-center justify-center rounded-lg border border-[#8C7F5F] py-3 text-xs font-semibold uppercase tracking-wider text-[#8C7F5F]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("signIn")}
+              </Link>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-[#EBEBEB] text-xs text-[#717171] space-y-2">
-            <p>Direct Concierge & WhatsApp Desk:</p>
-            <a
-              href="https://wa.me/6282123933218?text=Hello%20KingHouse!%20I%20am%20interested%20in%20your%20property%20management%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-[#222222] font-medium"
-            >
-              +62 821-2393-3218 <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
-            </a>
+          <div className="pt-6 border-t border-[#E8E4DC] text-xs text-[#717171] space-y-1">
+            <p className="font-medium text-[#222222]">KingHouse Hospitality Concierge</p>
+            <p>Jakarta Selatan, Greater Jakarta, Indonesia</p>
           </div>
         </div>
       )}
