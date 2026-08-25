@@ -257,6 +257,41 @@ export default async function VillaDetailPage({ params }: PageProps) {
             {/* 2-Column Amenities Grid */}
             <AmenitiesGrid amenities={villa.amenities} />
 
+            {/* House Rules & Stay Policies */}
+            {villa.houseRules && villa.houseRules.length > 0 && (
+              <div className="rounded-2xl border border-[#EBEBEB] bg-[#FAFAFA] p-6 sm:p-8 space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EBEBEB] pb-4">
+                  <div className="space-y-1">
+                    <h3 className="font-serif text-2xl text-[#222222]">House Rules & Policies</h3>
+                    <p className="text-xs text-[#717171]">
+                      Ketentuan dan peraturan menginap di {villa.name}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/stay/${villa.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B8934C] hover:text-[#8C7F5F] transition-colors self-start sm:self-auto"
+                  >
+                    <span>Buka Panduan Tamu Digital (Stay Guide)</span>
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  {villa.houseRules.map((rule, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-2.5 rounded-xl border border-[#EBEBEB] bg-white p-3.5 text-xs text-[#444444] shadow-xs"
+                    >
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#222222] text-[10px] font-bold text-white mt-0.5">
+                        {idx + 1}
+                      </span>
+                      <span className="leading-relaxed">{rule}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Location & Proximity Map */}
             <LocationProximityMap
               location={villa.location}

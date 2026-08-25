@@ -21,6 +21,16 @@ describe("Digital Guest Compendium & Upsell Engine", () => {
       expect(comp.access.checkInTime).toBeTruthy()
       expect(comp.houseRules.length).toBeGreaterThan(0)
     })
+
+    // Sky House verified credentials
+    expect(GUEST_COMPENDIUMS["sky-house-tangerang"].wifi.networkName).toBe("KINGSKYHOUSE22")
+    expect(GUEST_COMPENDIUMS["sky-house-tangerang"].wifi.password).toBe("120210120069#")
+    expect(GUEST_COMPENDIUMS["sky-house-tangerang"].houseRules.some((r) => r.includes("NO SMOKING"))).toBe(true)
+
+    // Orange County verified credentials
+    expect(GUEST_COMPENDIUMS["skyline-luxury-orange-county-cikarang"].wifi.networkName).toBe("N0510")
+    expect(GUEST_COMPENDIUMS["skyline-luxury-orange-county-cikarang"].wifi.password).toBe("Kinghouse")
+    expect(GUEST_COMPENDIUMS["skyline-luxury-orange-county-cikarang"].houseRules.some((r) => r.includes("ELECTRICAL SAFETY"))).toBe(true)
   })
 
   it("calculates upsell order totals accurately", () => {

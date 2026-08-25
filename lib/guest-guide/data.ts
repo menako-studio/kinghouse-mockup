@@ -59,6 +59,16 @@ export const UPSELL_SERVICES: UpsellService[] = [
     icon: "Coffee",
     applicableSlugs: ["versatile-house-jagakarsa"],
   },
+  {
+    id: "early-checkin-late-checkout-versatile",
+    title: "Early Check-In / Late Check-Out (Versatile House)",
+    category: "timing",
+    description: "Penyesuaian jadwal check-in lebih awal (sebelum 15:00) atau check-out lebih lama (setelah 12:00) khusus villa Versatile House Jagakarsa.",
+    priceIdr: 950000,
+    unit: "per request",
+    icon: "Clock",
+    applicableSlugs: ["versatile-house-jagakarsa"],
+  },
 ]
 
 export const GUEST_COMPENDIUMS: Record<string, GuestCompendium> = {
@@ -75,21 +85,28 @@ export const GUEST_COMPENDIUMS: Record<string, GuestCompendium> = {
       notes: "Router utama berada di ruang keluarga dekat TV. Hubungkan ke frekuensi 5GHz untuk streaming lancar.",
     },
     access: {
-      checkInTime: "15:00 WIB",
-      checkOutTime: "12:00 WIB",
-      smartLockCodeOrPin: "Pin diberikan 2 jam sebelum kedatangan oleh host via WhatsApp",
+      checkInTime: "15:00 WIB (Flexible)",
+      checkOutTime: "Sebelum 12:00 WIB (12:00 PM)",
+      smartLockCodeOrPin: "Pin diberikan 2 jam sebelum kedatangan oleh host via Airbnb / WhatsApp",
       accessInstructions: [
         "Pintu gerbang utama dilengkapi smart lock digital keypad.",
         "Masukkan 6-digit PIN yang telah dikirimkan via WA lalu akhiri dengan tanda '#'.",
         "Kunci cadangan dan remote AC master tersedia di keyholder dinding ruang tamu.",
+        "Early Check-in / Late Check-out dikenakan biaya Rp 950.000 (tergantung ketersediaan jadwal).",
       ],
       parkingInfo: "Garasi & carport dalam muat hingga 4 mobil keluarga. Parkir aman dengan pagar tertutup.",
     },
     houseRules: [
-      "Dilarang merokok di dalam kamar / ruang indoor (area merokok tersedia di gazebo taman).",
-      "Waktu tenang (Quiet hours) berlaku mulai pukul 22:00 WIB demi kenyamanan lingkungan sekitar.",
-      "Anak-anak yang berenang di kolam renang privat wajib dalam pengawasan orang dewasa.",
-      "Matikan AC dan lampu ruang tamu saat meninggalkan villa.",
+      "1. Pets: Pets are not allowed. Service animals are accommodated as required by Airbnb policy.",
+      "2. Events: Events are not allowed for standard overnight stays (Price & package for events is separate from overnight stays).",
+      "3. Smoking: Smoking, vaping, and e-cigarettes are not allowed indoors. Smoking is allowed outdoors only (gazebo & garden area).",
+      "4. Quiet Hours: 10:00 PM – 6:00 AM. Please keep noise levels down and respect the neighbors.",
+      "5. Commercial Photography & Filming: Commercial photography and filming are not allowed. Photo/video and film shooting for events is also disallowed without prior booking/permission.",
+      "6. Maximum Overnight Guests: Maximum 12 guests for overnight stays. Each bedroom is designed for 2 guests.",
+      "7. Check-in & Check-out: Check-in: 3:00 PM – Flexible | Check-out: before 12:00 PM (Early Check-in / Late Check-out: Rp950,000).",
+      "8. Additional Charges: Extra charge Rp300,000 for each guest after 4 guests. Cleaning fee: Rp350,000.",
+      "9. Additional Policies: Property surveys or site visits are not permitted prior to booking.",
+      "10. Communication Policy: For security and documentation purposes, all inquiries and communication must be conducted through the Airbnb messaging system.",
     ],
     appliances: [
       {
@@ -156,26 +173,35 @@ export const GUEST_COMPENDIUMS: Record<string, GuestCompendium> = {
     heroImage: "/properties/sky-house/SkyHouse_LivingArea_BedView.webp",
     whatsappConciergePhone: "6282123933218",
     wifi: {
-      networkName: "SkyHouse_HighSpeed",
-      password: "SkyAlamSutera2026",
+      networkName: "KINGSKYHOUSE22",
+      password: "120210120069#",
       speed: "50 Mbps Fiber",
-      notes: "Koneksi stabil untuk WFH dan Zoom meeting.",
+      notes: "High-speed connection for remote work, streaming, and video calls.",
     },
     access: {
       checkInTime: "15:00 WIB",
-      checkOutTime: "12:00 WIB",
+      checkOutTime: "12:00 PM (12:00 WIB)",
       smartLockCodeOrPin: "Akses kartu tap lift & Smart Lock Door handle",
       accessInstructions: [
         "Ambil kartu akses di security lobby Ground Floor.",
         "Tap kartu di lift menuju lantai unit.",
-        "Buka pintu unit dengan memasukkan PIN 6 digit di handle pintu digital.",
+        "Buka pintu unit dengan memasukkan PIN di handle pintu digital.",
+        "Check-out: Matikan seluruh utilitas/listrik, tinggalkan kartu akses & kunci di atas meja, dan pastikan pintu & jendela terkunci rapat.",
       ],
       parkingInfo: "Parkir basement apartemen tarif normal per jam atau hubungi pengelola untuk voucher harian.",
     },
     houseRules: [
-      "No smoking di dalam unit apartemen (tersedia balkon pribadi).",
-      "Kapasitas maksimal 2 orang dewasa.",
-      "Harap menjaga ketenangan setelah pukul 22:00 WIB.",
+      "NO SMOKING — Strictly no smoking inside the room or indoor area.",
+      "NO PETS ALLOWED — Pets are not permitted in the unit.",
+      "PLEASE FLUSH THE TOILET AFTER USE — Keep bathroom clean and sanitary.",
+      "PLEASE SWITCH OFF ALL THE ELECTRICITY POINTS WHEN NOT IN USE — Turn off AC, lights, and appliances when leaving.",
+      "PLEASE KEEP THE ROOM CLEAN, TIDY, AND HYGIENIC — Treat the space with care.",
+      "PLEASE DO NOT MAKE ANY NOISE POLLUTION — Respect quiet hours and neighboring residents.",
+      "PLEASE KEEP THE ITEMS BACK AFTER USAGE — Return appliances and utensils to original place.",
+      "ANY MATERIAL DAMAGE BY THE GUEST WILL BE CHARGED — Guests are responsible for replacement/repair costs.",
+      "PLEASE DO NOT EAT OR DRINK ON THE BED — Any stains on the bedding will be subject to a cleaning fee.",
+      "CHECK-OUT GUIDELINES: Check-out time 12:00 PM • Turn off utilities • Leave access card & key on the table • Make sure doors & windows are properly locked.",
+      "IF YOU ENJOYED YOUR STAY, PLEASE LEAVE US A REVIEW ⭐",
     ],
     appliances: [
       {
@@ -183,6 +209,7 @@ export const GUEST_COMPENDIUMS: Record<string, GuestCompendium> = {
         icon: "Wind",
         instructions: [
           "Gunakan remote AC dinding. Suhu ideal hemat energi 22-24°C.",
+          "Matikan AC saat meninggalkan ruangan demi efisiensi energi.",
         ],
       },
       {
@@ -237,12 +264,16 @@ export const GUEST_COMPENDIUMS: Record<string, GuestCompendium> = {
       accessInstructions: [
         "Keybox terletak di sebelah kanan bel pintu.",
         "Masukkan kode PIN 4 digit untuk membuka kotak kunci.",
+        "Buang sampah pada ruang shaft sampah yang tersedia di dekat lorong lift.",
       ],
       parkingInfo: "Parkir tersedia di area gedung apartemen.",
     },
     houseRules: [
+      "No smoking inside the unit (Dilarang merokok di dalam kamar/unit).",
+      "No pets allowed (Dilarang membawa hewan peliharaan).",
       "Dilarang mengadakan pesta atau mengundang tamu luar berlebihan.",
       "Jagalah kebersihan dapur dan buang sampah di ruang shaft lantai.",
+      "Quiet hours: Harap menjaga ketenangan setelah pukul 22:00 WIB.",
     ],
     appliances: [
       {
@@ -276,35 +307,54 @@ export const GUEST_COMPENDIUMS: Record<string, GuestCompendium> = {
     heroImage: "/properties/skyline-luxury-orange-county-cikarang/SkylineLuxury_Living_Sofa_Balcony.jpg",
     whatsappConciergePhone: "6282123933218",
     wifi: {
-      networkName: "OrangeCounty_Luxury_5G",
-      password: "CikarangStay2026",
-      speed: "100 Mbps",
+      networkName: "N0510",
+      password: "Kinghouse",
+      speed: "100 Mbps Dedicated Fiber",
       notes: "Kecepatan ultra-cepat ideal untuk corporate expat & business stay.",
     },
     access: {
       checkInTime: "15:00 WIB",
       checkOutTime: "12:00 WIB",
-      smartLockCodeOrPin: "Kartu akses VIP lobby & Smart Digital Keypad",
+      smartLockCodeOrPin: "Self check-in via Mailbox N0510 (Newport Building)",
       accessInstructions: [
-        "Lobby concierge 24 jam dengan staf berbahasa Inggris & Jepang.",
-        "Gunakan smart keycard untuk akses lift eksklusif.",
+        "Welcome to Skyline Luxury at Orange County ✨",
+        "Self check-in: Head to Newport Building and ask security to show you the mailbox area.",
+        "Look for mailbox N0510 to retrieve your room key and access card.",
+        "The room is located on the 5th floor (Unit N0510).",
+        "Delivery: You can pick up packages at security in front of the lobby (Orange County – Unit N0510).",
+        "Facilities: Pool, gym, playground on Level 2 (Access card required).",
+        "Trash: Dispose of garbage in the KWH room (nearby the lift).",
       ],
-      parkingInfo: "Dedicated lot parkir tamu di B1.",
+      parkingInfo: "Dedicated lot parkir tamu di B1 (Access card required).",
     },
     houseRules: [
-      "Strictly no smoking inside unit.",
-      "Quiet hours after 22:00 WIB.",
+      "No smoking 🚭 (Strictly prohibited inside the unit).",
+      "No pets allowed.",
+      "No parties or commercial use.",
+      "Do not rearrange the furniture.",
+      "Please keep the noise down and respect the neighbors 🙏.",
+      "ELECTRICAL SAFETY SUGGESTION: For safety reasons and to prevent electrical overload, please do not use high-power appliances such as the electric stove, hair dryer, and electric kettle at the same time. We kindly ask that you use them one at a time to ensure a stable power supply and a comfortable stay.",
+      "TRASH DISPOSAL: Dispose of garbage in the KWH room (nearby the lift).",
+      "DELIVERY SERVICE: Package deliveries can be picked up at security in front of the lobby (Unit N0510).",
     ],
     appliances: [
+      {
+        title: "Electrical Appliances & Power Usage",
+        icon: "Flame",
+        instructions: [
+          "Untuk keselamatan dan mencegah kelebihan beban listrik (overload), mohon tidak menggunakan peralatan berdaya tinggi seperti kompor listrik, hair dryer, dan ketel listrik secara bersamaan.",
+          "Gunakan peralatan listrik berdaya tinggi satu per satu (one at a time) demi kestabilan daya dan kenyamanan stay Anda.",
+        ],
+      },
       {
         title: "Washing Machine & Dryer",
         icon: "Sparkles",
         instructions: ["Mesin cuci front loading otomatis lengkap dengan deterjen gel."],
       },
       {
-        title: "Modern Kitchenette",
+        title: "Modern Kitchenette & Induction Stove",
         icon: "Utensils",
-        instructions: ["Kompor induksi dan peralatan masak premium."],
+        instructions: ["Kompor induksi dan peralatan masak premium. Bersihkan setelah penggunaan."],
       },
     ],
     localGuide: [

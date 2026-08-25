@@ -19,6 +19,15 @@ export interface SeoMeta {
   canonicalUrl?: string
 }
 
+export interface RoomStayConfiguration {
+  bedrooms: number
+  maxGuests: number
+  weekdayPriceIdr: number
+  weekendPriceIdr: number
+  peakSeasonPriceIdr: number
+  extraGuestPriceIdr: number
+}
+
 export interface Villa {
   id: string
   name: string
@@ -41,6 +50,7 @@ export interface Villa {
     cleaningFeeIdr: number
     serviceFeePercent: number
   }
+  stayConfigurations?: RoomStayConfiguration[]
   capacity: {
     guests: number
     bedrooms: number
@@ -60,6 +70,7 @@ export interface Villa {
   }
   amenities: VillaAmenity[]
   nearbySpots: NearbySpot[]
+  houseRules?: string[]
   featured: boolean
   architecturalStyle: string
   seoMeta?: SeoMeta
@@ -147,7 +158,11 @@ export interface BlogPost {
 export interface EventPackage {
   name: string
   description: string
+  pax?: number
+  durationHours?: number
+  packageType?: "half-day" | "full-day" | "full-board"
   priceIdr: number
+  weekendPriceIdr?: number
   priceNote: string
   includes: string[]
 }
@@ -168,3 +183,4 @@ export interface VillaEvent {
   packages: EventPackage[]
   highlights: string[]
 }
+

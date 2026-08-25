@@ -190,20 +190,59 @@ export function GuideSection({
 
       {/* Tab 3: House Rules */}
       {activeTab === "rules" && (
-        <div className="rounded-2xl border border-stone-800 bg-stone-900/40 p-5 animate-in fade-in duration-200">
-          <h4 className="text-sm font-bold text-stone-200 mb-3 flex items-center gap-2">
-            <ShieldAlert className="h-4 w-4 text-amber-400" />
-            Aturan Menginap (House Guidelines)
-          </h4>
-          <ul className="space-y-3">
-            {houseRules.map((rule, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-xs text-stone-300 leading-relaxed">
-                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-stone-800 text-[10px] font-bold text-stone-400 border border-stone-700">
-                  ✓
-                </span>
-                <span>{rule}</span>
-              </li>
-            ))}
+        <div className="rounded-2xl border border-stone-800 bg-stone-900/40 p-5 sm:p-6 animate-in fade-in duration-200 space-y-4">
+          <div className="flex items-center justify-between border-b border-stone-800 pb-3">
+            <h4 className="text-sm font-bold text-stone-100 flex items-center gap-2 font-serif">
+              <ShieldAlert className="h-4 w-4 text-amber-400" />
+              Peraturan & Ketentuan Menginap (House Rules)
+            </h4>
+            <span className="text-[11px] font-semibold text-amber-400/90 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+              KingHouse Hospitality Standard
+            </span>
+          </div>
+
+          <p className="text-xs text-stone-400 leading-relaxed">
+            Demi kenyamanan, keamanan bersama, dan menjaga kualitas unit properti, kami mohon seluruh tamu mematuhi panduan berikut:
+          </p>
+
+          <ul className="space-y-3 pt-1">
+            {houseRules.map((rule, i) => {
+              const isWarning =
+                rule.toLowerCase().includes("no smoking") ||
+                rule.toLowerCase().includes("no pets") ||
+                rule.toLowerCase().includes("safety") ||
+                rule.toLowerCase().includes("electrical") ||
+                rule.toLowerCase().includes("damage") ||
+                rule.toLowerCase().includes("stains")
+
+              const isCheckout = rule.toLowerCase().includes("check-out") || rule.toLowerCase().includes("checkout")
+
+              return (
+                <li
+                  key={i}
+                  className={`flex items-start gap-3 text-xs leading-relaxed p-3 rounded-xl border transition-colors ${
+                    isWarning
+                      ? "border-amber-500/30 bg-amber-500/5 text-amber-100/90"
+                      : isCheckout
+                      ? "border-emerald-500/30 bg-emerald-500/5 text-emerald-100/90"
+                      : "border-stone-800/80 bg-stone-900/60 text-stone-300"
+                  }`}
+                >
+                  <span
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold mt-0.5 ${
+                      isWarning
+                        ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                        : isCheckout
+                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                        : "bg-stone-800 text-stone-400 border border-stone-700"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <span className="font-normal">{rule}</span>
+                </li>
+              )
+            })}
           </ul>
         </div>
       )}
