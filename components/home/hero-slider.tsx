@@ -14,7 +14,7 @@ const HERO_SLIDES = [
     style: "Modern Tropical",
   },
   {
-    image: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg",
+    image: "/properties/skyline-luxury/SkylineLuxury_OrangeCounty_KamarUtama.webp",
     title: "Skyline Luxury Orange County",
     location: "Cikarang Selatan, Bekasi",
     style: "Contemporary Executive",

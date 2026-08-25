@@ -212,9 +212,17 @@ export default async function EventDetailPage({ params }: PageProps) {
                   )}
                   <h4 className="font-semibold text-[#222222] text-sm mb-1">{pkg.name}</h4>
                   <p className="text-xs text-[#717171] mb-3">{pkg.description}</p>
-                  <p className="font-serif text-2xl text-[#222222] mb-1">
-                    {formatCurrency(pkg.priceIdr, "IDR")}
-                  </p>
+                  <div className="mb-2">
+                    <p className="font-serif text-2xl text-[#222222]">
+                      {formatCurrency(pkg.priceIdr, "IDR")}
+                      <span className="text-xs font-normal text-[#717171]"> (Weekday)</span>
+                    </p>
+                    {pkg.weekendPriceIdr && (
+                      <p className="text-xs text-[#8C7F5F] font-semibold mt-0.5">
+                        Weekend Rate: {formatCurrency(pkg.weekendPriceIdr, "IDR")}
+                      </p>
+                    )}
+                  </div>
                   <p className="text-[10px] text-[#A69C8E] mb-4">{pkg.priceNote}</p>
                   <div className="space-y-1.5 mb-5 border-t border-[#EBEBEB] pt-4">
                     {pkg.includes.map((item) => (

@@ -57,7 +57,7 @@ export function DualPathSplit() {
             {/* Background Architectural Blueprint / Structure Image */}
             <div className="absolute inset-0 z-0 overflow-hidden">
               <Image
-                src="/properties/skyline-luxury/SkylineLuxury_OrangeCounty_PemandanganView.jpeg"
+                src="/properties/skyline-luxury/SkylineLuxury_OrangeCounty_KamarUtama.webp"
                 alt="Skyline luxury skyline view and layout"
                 fill
                 className="object-cover brightness-[0.40] transition-transform duration-700 ease-out group-hover:scale-105"
