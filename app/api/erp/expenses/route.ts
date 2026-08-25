@@ -4,7 +4,7 @@ import { INITIAL_EXPENSES } from "@/lib/erp/initial-data"
 import { ExpenseRecord } from "@/lib/erp/types"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 
-let fallbackExpensesStore: ExpenseRecord[] = [...INITIAL_EXPENSES]
+const fallbackExpensesStore: ExpenseRecord[] = [...INITIAL_EXPENSES]
 
 // Map snake_case database row to TypeScript domain model
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -6,7 +6,7 @@ import { Reservation } from "@/lib/erp/types"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 
 // In-memory fallback store
-let fallbackReservationsStore: Reservation[] = [...INITIAL_RESERVATIONS]
+const fallbackReservationsStore: Reservation[] = [...INITIAL_RESERVATIONS]
 
 // Map snake_case database row to TypeScript domain model
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

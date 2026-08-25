@@ -116,12 +116,13 @@ export async function syncPropertyIcal(
       importedCount: newReservations.length,
       reservations: newReservations,
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "Failed to execute iCal sync"
     return {
       success: false,
       importedCount: 0,
       reservations: [],
-      error: err.message || "Failed to execute iCal sync",
+      error: errorMessage,
     }
   }
 }

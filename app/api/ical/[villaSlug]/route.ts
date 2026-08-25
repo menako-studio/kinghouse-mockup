@@ -22,7 +22,7 @@ export async function GET(
   const timestamp = now.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"
 
   // Build RFC 5545 iCalendar content
-  let icsLines: string[] = [
+  const icsLines: string[] = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "PRODID:-//KingHouse Hospitality//EN",
