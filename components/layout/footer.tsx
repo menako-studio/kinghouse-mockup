@@ -183,11 +183,15 @@ export function Footer() {
                 </h4>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Mail className="h-3 w-3 opacity-70" />
-                  <span>reservation@kinghouse.id</span>
+                  <a href="mailto:ptkreasiusmangosse@gmail.com" className="hover:text-white transition-colors">
+                    ptkreasiusmangosse@gmail.com
+                  </a>
                 </p>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Phone className="h-3 w-3 opacity-70" />
-                  <span>+62 821 2393 3218</span>
+                  <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                    +62 821 2393 3218
+                  </a>
                 </p>
               </div>
 
@@ -198,11 +202,15 @@ export function Footer() {
                 </h4>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Mail className="h-3 w-3 opacity-70" />
-                  <span>concierge@kinghouse.id</span>
+                  <a href="mailto:ptkreasiusmangosse@gmail.com" className="hover:text-white transition-colors">
+                    ptkreasiusmangosse@gmail.com
+                  </a>
                 </p>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Phone className="h-3 w-3 opacity-70" />
-                  <span>+62 811 3855 855</span>
+                  <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                    +62 821 2393 3218
+                  </a>
                 </p>
               </div>
 
@@ -213,11 +221,15 @@ export function Footer() {
                 </h4>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Mail className="h-3 w-3 opacity-70" />
-                  <span>management@kinghouse.id</span>
+                  <a href="mailto:ptkreasiusmangosse@gmail.com" className="hover:text-white transition-colors">
+                    ptkreasiusmangosse@gmail.com
+                  </a>
                 </p>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Phone className="h-3 w-3 opacity-70" />
-                  <span>+62 812 3557 7779</span>
+                  <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                    +62 821 2393 3218
+                  </a>
                 </p>
               </div>
             </div>
