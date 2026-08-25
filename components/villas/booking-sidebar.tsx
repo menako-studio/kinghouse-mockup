@@ -1,19 +1,22 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowUpRight, MessageSquare, ShieldCheck, Sparkles, Calendar, Users, HelpCircle } from "lucide-react"
+import { ArrowUpRight, MessageSquare, ShieldCheck, Sparkles } from "lucide-react"
 import { Villa } from "@/lib/types"
-import { formatCurrency } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { useLocalization } from "@/lib/context/localization-context"
+import { BookingChannelModal } from "./booking-channel-modal"
 
 interface BookingSidebarProps {
   villa: Villa
 }
 
 export function BookingSidebar({ villa }: BookingSidebarProps) {
+  const { formatPrice, currency, t } = useLocalization()
   const [checkIn, setCheckIn] = useState("2026-09-10")
   const [checkOut, setCheckOut] = useState("2026-09-15")
   const [guestCount, setGuestCount] = useState("2")
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Calculate nights & fees (IDR primary)
   const nights = 5
@@ -28,19 +31,21 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
   const whatsappUrl = `https://wa.me/6282123933218?text=${whatsappMessage}`
 
   return (
-    <div className="sticky top-28 rounded-2xl border border-[#EBEBEB] bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
+    <div className="sticky top-28 rounded-2xl border border-[#E8E4DC] bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
       {/* Price Header */}
-      <div className="flex items-baseline justify-between pb-6 border-b border-[#EBEBEB]">
+      <div className="flex items-baseline justify-between pb-6 border-b border-[#F0ECE1]">
         <div>
           <div className="flex items-baseline space-x-1">
             <span className="font-serif text-3xl font-normal text-[#222222]">
-              {formatCurrency(villa.price.idr, "IDR")}
+              {formatPrice(villa.price.idr)}
             </span>
-            <span className="text-sm text-[#717171]"> / night</span>
+            <span className="text-sm text-[#717171]"> {t("perNight")}</span>
           </div>
-          <span className="text-xs text-[#A69C8E] block">
-            ≈ {formatCurrency(villa.price.usd, "USD")}/night
-          </span>
+          {currency !== "IDR" && (
+            <span className="text-xs text-[#8C7F5F] block">
+              ≈ {formatPrice(villa.price.idr, "IDR")} / malam
+            </span>
+          )}
         </div>
 
         <div className="text-right">
@@ -48,15 +53,15 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
             <span>★ {villa.rating.toFixed(2)}</span>
             <span className="text-[#717171] font-normal">({villa.reviewsCount} reviews)</span>
           </div>
-          <span className="text-[10px] uppercase tracking-wider text-[#717171] block">
+          <span className="text-[10px] uppercase tracking-wider text-[#8C7F5F] font-semibold block">
             Airbnb Superhost
           </span>
         </div>
       </div>
 
       {/* Date & Guest Selector Box (Airbnb Style) */}
-      <div className="my-6 overflow-hidden rounded-xl border border-[#EBEBEB] divide-y divide-[#EBEBEB]">
-        <div className="grid grid-cols-2 divide-x divide-[#EBEBEB] bg-[#FAFAFA]">
+      <div className="my-6 overflow-hidden rounded-xl border border-[#E8E4DC] divide-y divide-[#E8E4DC]">
+        <div className="grid grid-cols-2 divide-x divide-[#E8E4DC] bg-[#FAF8F5]">
           <div className="p-3">
             <label className="block text-[10px] font-bold uppercase tracking-wider text-[#222222]">
               Check-in
@@ -92,86 +97,104 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
           >
             {Array.from({ length: villa.capacity.guests }, (_, i) => i + 1).map((n) => (
               <option key={n} value={n}>
-                {n} {n === 1 ? "Guest" : "Guests"}
+                {n} {n === 1 ? t("guests") : t("guests")}
               </option>
             ))}
           </select>
         </div>
       </div>
 
-      {/* Primary & Secondary Conversion CTAs */}
-      <div className="space-y-3">
-        {/* Primary Solid Dark CTA */}
-        <Button
-          size="lg"
-          asChild
-          className="w-full h-13 bg-[#222222] text-white hover:bg-black font-semibold text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.99]"
-        >
-          <a
-            href={villa.airbnbUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center space-x-2"
+        {/* Primary & Secondary Conversion CTAs */}
+        <div className="space-y-2.5">
+          {/* Direct Booking Modal Button */}
+          <Button
+            size="lg"
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="w-full h-13 bg-[#2D2118] text-white hover:bg-[#3D2E22] font-semibold text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.99] cursor-pointer"
           >
-            <span>Check Availability on Airbnb</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </Button>
+            <Sparkles className="h-4 w-4 text-[#D8B486] mr-2" />
+            <span>Book Direct with Perks</span>
+            <ArrowUpRight className="h-4 w-4 ml-1 text-[#D8B486]" />
+          </Button>
 
-        {/* Secondary Outline WhatsApp CTA */}
-        <Button
-          size="lg"
-          variant="outline"
-          asChild
-          className="w-full h-12 text-xs uppercase tracking-wider font-semibold border-[#222222]"
-        >
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center space-x-2"
-          >
-            <MessageSquare className="h-4 w-4 text-[#25D366]" />
-            <span>Chat via WhatsApp Concierge</span>
-          </a>
-        </Button>
-      </div>
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <a
+              href={villa.airbnbUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#E51D53]/30 bg-[#FFF5F7] text-[#E51D53] hover:bg-[#FFE8EE] text-xs font-semibold transition-colors text-center"
+            >
+              <span>Airbnb</span>
+              <ArrowUpRight className="h-3 w-3" />
+            </a>
 
-      <p className="mt-4 text-center text-[11px] text-[#717171]">
-        You won&apos;t be charged yet &bull; Direct booking finalized securely on Airbnb
-      </p>
+            {villa.agodaUrl ? (
+              <a
+                href={villa.agodaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#003580]/30 bg-[#F0F5FD] text-[#003580] hover:bg-[#E1ECFB] text-xs font-semibold transition-colors text-center"
+              >
+                <span>Agoda</span>
+                <ArrowUpRight className="h-3 w-3" />
+              </a>
+            ) : (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#25D366]/30 bg-[#F0FDF4] text-[#15803D] hover:bg-[#DCFCE7] text-xs font-semibold transition-colors text-center"
+              >
+                <span>WhatsApp</span>
+                <MessageSquare className="h-3 w-3" />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <p className="mt-3 text-center text-[11px] text-[#717171]">
+          Best Price Guarantee &bull; Verified Airbnb Superhost &bull; 24/7 Concierge
+        </p>
+
+        {/* Multi-Channel Modal */}
+        <BookingChannelModal
+          villa={villa}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
 
       {/* Pricing Breakdown */}
-      <div className="mt-6 pt-6 border-t border-[#EBEBEB] space-y-2.5 text-xs text-[#717171]">
+      <div className="mt-6 pt-6 border-t border-[#F0ECE1] space-y-2.5 text-xs text-[#717171]">
         <div className="flex justify-between">
           <span className="underline decoration-dotted">
-            {formatCurrency(villa.price.usd, "USD")} x {nights} nights
+            {formatPrice(villa.price.idr)} x {nights} nights
           </span>
-          <span className="text-[#222222] font-medium">{formatCurrency(baseTotal, "USD")}</span>
+          <span className="text-[#222222] font-medium">{formatPrice(baseTotal)}</span>
         </div>
         <div className="flex justify-between">
           <span className="underline decoration-dotted">Cleaning & Linen Preparation</span>
-          <span className="text-[#222222] font-medium">{formatCurrency(cleaningFee, "USD")}</span>
+          <span className="text-[#222222] font-medium">{formatPrice(cleaningFee)}</span>
         </div>
         <div className="flex justify-between">
           <span className="underline decoration-dotted">Airbnb Service Fee (est.)</span>
-          <span className="text-[#222222] font-medium">{formatCurrency(serviceFee, "USD")}</span>
+          <span className="text-[#222222] font-medium">{formatPrice(serviceFee)}</span>
         </div>
 
-        <div className="flex justify-between pt-3 border-t border-[#EBEBEB] text-sm font-semibold text-[#222222]">
-          <span>Estimated Total (USD)</span>
-          <span>{formatCurrency(estimatedTotal, "USD")}</span>
+        <div className="flex justify-between pt-3 border-t border-[#F0ECE1] text-sm font-semibold text-[#222222]">
+          <span>Estimated Total ({currency})</span>
+          <span className="text-[#8C7F5F] font-bold">{formatPrice(estimatedTotal)}</span>
         </div>
       </div>
 
       {/* Trust Badges */}
-      <div className="mt-6 pt-6 border-t border-[#EBEBEB] space-y-2 text-[11px] text-[#717171]">
+      <div className="mt-6 pt-6 border-t border-[#F0ECE1] space-y-2 text-[11px] text-[#717171]">
         <div className="flex items-center space-x-2">
-          <ShieldCheck className="h-4 w-4 text-[#A69C8E]" />
+          <ShieldCheck className="h-4 w-4 text-[#8C7F5F]" />
           <span>Best Price Guarantee & Verified Airbnb Superhost</span>
         </div>
         <div className="flex items-center space-x-2">
-          <Sparkles className="h-4 w-4 text-[#A69C8E]" />
+          <Sparkles className="h-4 w-4 text-[#B8934C]" />
           <span>KingHouse dedicated on-site butler & daily housekeeping</span>
         </div>
       </div>
