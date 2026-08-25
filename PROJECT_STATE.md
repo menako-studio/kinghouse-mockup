@@ -113,7 +113,7 @@ kinghouse-mockup/
 - [x] **Real Property Assets**: 4 real Jabodetabek Airbnb properties with high-res photography galleries and dynamic pricing.
 - [x] **SEO Schema Suite**: Organization, LocalBusiness, VacationRental, FAQPage, BreadcrumbList, TouristDestination, BlogPosting, Event JSON-LD schemas.
 - [x] **Sana Labs Design System**: Minimalist luxury tokens, ambient glow meshes, frosted glassmorphism, and responsive bento layouts.
-- [x] **Official Contact Integration**: Desk & WhatsApp (`082123933218`) and Email (`ptkreasiusmangosse@gmail.com`).
+- [x] **Official Contact & Social Integration**: Desk & WhatsApp (`082123933218`), Email (`ptkreasiusmangosse@gmail.com`), and TikTok ([`@kinghouse.id`](https://www.tiktok.com/@kinghouse.id)).
 
 ### Phase 2.0 — Production-Ready UMKM Hospitality ERP/POS & Fortified CMS (Completed)
 - [x] **Hospitality ERP & Financial Calculation Engine** (`lib/erp/`):

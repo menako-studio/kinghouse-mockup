@@ -129,8 +129,9 @@ AUTH_SECRET=kinghouse-hospitality-production-secret-key-2026-secure-jwt-hmac-tok
 
 ---
 
-## 📞 Official Corporate Contact
+## 📞 Official Corporate Contact & Social Media
 
 - **WhatsApp Concierge & Desk**: `082123933218` / `+62 821-2393-3218` (`https://wa.me/6282123933218`)
 - **Corporate Email**: `ptkreasiusmangosse@gmail.com`
+- **Official TikTok**: [`@kinghouse.id`](https://www.tiktok.com/@kinghouse.id) (`https://www.tiktok.com/@kinghouse.id`)
 - **Location**: Jabodetabek (Jakarta Selatan, Tangerang, Jakarta Barat, Cikarang Selatan)
