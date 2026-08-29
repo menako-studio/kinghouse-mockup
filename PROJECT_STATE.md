@@ -206,10 +206,34 @@ kinghouse-mockup/
   - Transparent price comparison between Direct Booking (0% extra commission, best rate guarantee) vs Airbnb, Agoda, and Booking.com.
   - 1-click WhatsApp concierge pre-filled message dispatch with check-in, check-out, and guest count.
 
-### Phase 2.8 — Production Pre-Deployment Audit & Quality Assurance (Completed)
-- [x] **Zero ESLint Errors**: Resolved all strict React 19 / Next.js 16 compiler linting errors and escaped entity issues.
-- [x] **19/19 Automated Tests Passing**: Verified financial calculations, iCal parser, rate limiters, Zod security schemas, and digital compendiums.
-- [x] **52/52 Routes Built Successfully**: Full Next.js production build (`next build`) validated across static generation (SSG) and dynamic endpoints.
+### Phase 2.9 — Dynamic API Data Layer & Supabase Full CRUD Synchronization (Completed)
+- [x] **Central Dynamic Blog Service** (`lib/blog/service.ts`):
+  - Server & client shared repository querying Supabase PostgreSQL table `kinghouse.blog_posts` with graceful runtime fallback.
+  - CRUD operations: `getBlogPosts`, `getBlogPostBySlug`, `saveBlogPost`, `deleteBlogPost`.
+- [x] **Full-Suite Dynamic Blog API** (`app/api/blog/route.ts`):
+  - Added complete HTTP handlers: `GET` (with query filtering for slug, category, status, search), `POST` (create), `PUT` (edit/toggle status), and `DELETE` (delete).
+- [x] **Dynamic CMS & Public Frontend Linkage**:
+  - `app/dashboard/blog/page.tsx`: Connected to `/api/blog` for all create, edit, delete, and publish/draft toggling operations with instant state sync.
+  - `app/blog/page.tsx` & `app/blog/[slug]/page.tsx`: Set to `force-dynamic` dynamic rendering; newly added/edited articles in CMS **immediately display on public frontend pages** and render dynamic Schema.org JSON-LD.
+- [x] **ERP Reservasi & POS API Synchronizer**:
+  - Added `DELETE` route handlers to `app/api/erp/reservations/route.ts` and `app/api/erp/expenses/route.ts`.
+  - Connected `/dashboard/bookings` and `/dashboard/analytics` to asynchronously create, fetch, and delete items from backend routes.
+### Phase 3.0 — Rich In-Content Media Editor, Live SEO Scorecard & Soft-Delete Architecture (Completed)
+- [x] **Rich Markdown Formatting Toolbar** (`app/dashboard/blog/page.tsx`):
+  - Heading 2 (`## `), Heading 3 (`### `), Bold (`**`), Italic (`*`), Bullet List (`- `), Blockquote (`> `).
+  - 1-Click Villa Internal Linking dropdown (Jagakarsa, BSD, Palmerah, Cikarang) to maximize SEO Topical Authority.
+- [x] **In-Content Visual Asset & Alt-Tag Inserter Modal**:
+  - Image preset picker from verified high-resolution property photography + custom URL input.
+  - Mandatory keyword-rich Alt-Text generator for Google Image SEO.
+  - Seamless Next.js `<Image>` & styled `<figure>` rendering with captions in `app/blog/[slug]/page.tsx`.
+- [x] **Live Rank Math / Yoast SEO Scorecard (0–100)**:
+  - Real-time 6-point checklist: Keyword in H1, Keyword in first 100 words, H2/H3 structure, In-content image with alt tag, internal links count, and word depth (>300 words).
+  - Live Google SERP mobile/desktop snippet preview.
+- [x] **Enterprise Soft-Delete Architecture & Trash Management**:
+  - Soft-delete by default (`status: 'Archived'`) preventing Google 404 broken links.
+  - Dedicated **Sampah (Archived)** tab with 1-Click Restore to Draft and Permanent Purge safeguards.
+- [x] **Full 100% Free-Tier PostgREST Supabase Sync**:
+  - Direct PostgreSQL table synchronization on `public.blog_posts`, `public.reservations`, and `public.expenses`.
 
 ---
 
@@ -228,6 +252,8 @@ npm run lint
 # Run Next.js optimized production build
 npm run build
 ```
+
+
 
 
 
