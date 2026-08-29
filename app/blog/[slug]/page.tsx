@@ -3,19 +3,24 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Clock, Calendar, ArrowLeft, Tag, ArrowRight } from "lucide-react"
-import { BLOG_POSTS } from "@/lib/data"
+import { getBlogPostBySlug, getBlogPosts } from "@/lib/blog/service"
+
+export const dynamic = "force-dynamic"
+export const dynamicParams = true
+export const revalidate = 0
 
 interface PageProps {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }))
+  const posts = await getBlogPosts()
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const post = BLOG_POSTS.find((p) => p.slug === slug)
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     return { title: "Article Not Found | KingHouse" }
@@ -61,62 +66,102 @@ const CATEGORY_COLORS: Record<string, string> = {
   "guest-experience": "bg-rose-50 text-rose-700 border-rose-200",
 }
 
-// Simple markdown-like renderer for article content
+// Enhanced SEO-optimized markdown renderer for article content
 function renderContent(content: string) {
   const lines = content.split("\n")
   const elements: React.ReactNode[] = []
   let i = 0
 
   while (i < lines.length) {
-    const line = lines[i]
+    const line = lines[i].trim()
 
+    // 1. Heading 2
     if (line.startsWith("## ")) {
       elements.push(
-        <h2 key={i} className="font-serif text-2xl text-[#222222] mt-10 mb-4">
+        <h2 key={`h2-${i}`} className="font-serif text-2xl sm:text-3xl text-[#222222] mt-10 mb-4 font-normal tracking-tight">
           {line.slice(3)}
         </h2>
       )
-    } else if (line.startsWith("### ")) {
+    }
+    // 2. Heading 3
+    else if (line.startsWith("### ")) {
       elements.push(
-        <h3 key={i} className="font-serif text-xl text-[#222222] mt-8 mb-3">
+        <h3 key={`h3-${i}`} className="font-serif text-xl sm:text-2xl text-[#222222] mt-8 mb-3 font-normal">
           {line.slice(4)}
         </h3>
       )
-    } else if (line.startsWith("- ")) {
+    }
+    // 3. In-Content Markdown Image: ![Alt Text](imageUrl)
+    else if (line.startsWith("![") && line.includes("](") && line.endsWith(")")) {
+      const match = line.match(/^!\[(.*?)\]\((.*?)\)$/)
+      if (match) {
+        const altText = match[1] || "KingHouse Hospitality Visual"
+        const imageUrl = match[2]
+        elements.push(
+          <figure key={`img-${i}`} className="my-8 rounded-3xl overflow-hidden border border-[#E8E4DC] bg-[#FAF8F5] p-2 space-y-2 shadow-xs">
+            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-[#EAE7E0]">
+              <Image src={imageUrl} alt={altText} fill className="object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+            {altText && (
+              <figcaption className="text-center text-xs text-[#717171] font-light py-1 px-4 italic">
+                {altText}
+              </figcaption>
+            )}
+          </figure>
+        )
+      }
+    }
+    // 4. Blockquote: > Callout text
+    else if (line.startsWith("> ")) {
+      elements.push(
+        <blockquote key={`quote-${i}`} className="border-l-4 border-[#B8934C] bg-[#FAF8F5] px-6 py-4 rounded-r-2xl my-6 text-sm sm:text-base text-[#222225] font-serif italic shadow-xs">
+          {line.slice(2)}
+        </blockquote>
+      )
+    }
+    // 5. Bullet list: - Item
+    else if (line.startsWith("- ")) {
       const listItems: string[] = []
-      while (i < lines.length && lines[i].startsWith("- ")) {
-        listItems.push(lines[i].slice(2))
+      while (i < lines.length && lines[i].trim().startsWith("- ")) {
+        listItems.push(lines[i].trim().slice(2))
         i++
       }
       elements.push(
-        <ul key={`ul-${i}`} className="list-none space-y-2 my-4">
-          {listItems.map((item, idx) => (
-            <li key={idx} className="flex items-start space-x-2 text-sm text-[#717171]">
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#A69C8E] flex-shrink-0" />
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: item.replace(/\*\*([^*]+)\*\*/g, "<strong class='text-[#222222] font-semibold'>$1</strong>"),
-                }}
-              />
-            </li>
-          ))}
+        <ul key={`ul-${i}`} className="list-none space-y-2.5 my-5 pl-2">
+          {listItems.map((item, idx) => {
+            const formatted = item
+              .replace(/\*\*([^*]+)\*\*/g, "<strong class='text-[#222222] font-semibold'>$1</strong>")
+              .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href='$2' class='text-[#B8934C] hover:underline font-semibold'>$1</a>")
+            return (
+              <li key={idx} className="flex items-start space-x-3 text-sm sm:text-base text-[#555] leading-relaxed">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#B8934C] flex-shrink-0" />
+                <span dangerouslySetInnerHTML={{ __html: formatted }} />
+              </li>
+            )
+          })}
         </ul>
       )
       continue
-    } else if (line.startsWith("*") && line.endsWith("*") && !line.startsWith("**")) {
+    }
+    // 6. Italic single line
+    else if (line.startsWith("*") && line.endsWith("*") && !line.startsWith("**")) {
       elements.push(
-        <p key={i} className="text-xs text-[#A69C8E] italic border-l-2 border-[#EBEBEB] pl-4 my-4">
+        <p key={`it-${i}`} className="text-xs text-[#8C7F5F] italic border-l-2 border-[#E8E4DC] pl-4 my-4">
           {line.slice(1, -1)}
         </p>
       )
-    } else if (line.trim() !== "") {
+    }
+    // 7. Regular paragraph with links and bold formatting
+    else if (line.trim() !== "") {
+      const formatted = line
+        .replace(/\*\*([^*]+)\*\*/g, "<strong class='text-[#222222] font-semibold'>$1</strong>")
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href='$2' class='text-[#B8934C] hover:underline font-semibold'>$1</a>")
+
       elements.push(
         <p
-          key={i}
-          className="text-sm sm:text-base text-[#717171] leading-relaxed my-3"
-          dangerouslySetInnerHTML={{
-            __html: line.replace(/\*\*([^*]+)\*\*/g, "<strong class='text-[#222222] font-semibold'>$1</strong>"),
-          }}
+          key={`p-${i}`}
+          className="text-sm sm:text-base text-[#555] leading-relaxed my-4 font-light"
+          dangerouslySetInnerHTML={{ __html: formatted }}
         />
       )
     }
@@ -127,13 +172,14 @@ function renderContent(content: string) {
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
-  const post = BLOG_POSTS.find((p) => p.slug === slug)
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()
   }
 
-  const relatedPosts = BLOG_POSTS.filter(
+  const allPosts = await getBlogPosts()
+  const relatedPosts = allPosts.filter(
     (p) => p.id !== post.id && (p.category === post.category || p.tags.some((t) => post.tags.includes(t)))
   ).slice(0, 3)
 
@@ -329,4 +375,3 @@ export default async function BlogPostPage({ params }: PageProps) {
     </main>
   )
 }
-

@@ -1,7 +1,10 @@
 import { Metadata } from "next"
 import { BookOpen, Rss } from "lucide-react"
-import { BLOG_POSTS } from "@/lib/data"
-import { BlogCard } from "@/components/blog/blog-card"
+import { getBlogPosts } from "@/lib/blog/service"
+import { BlogIndexClient } from "@/components/blog/blog-index-client"
+
+export const dynamic = "force-dynamic"
+export const revalidate = 0
 
 export const metadata: Metadata = {
   title: "Blog — Airbnb SEO & Property Management Insights | KingHouse",
@@ -24,45 +27,36 @@ export const metadata: Metadata = {
   },
 }
 
-// Article JSON-LD for blog index
-const blogIndexSchema = {
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  name: "KingHouse Blog",
-  description:
-    "Tips, strategies, and property management guides for Airbnb hosts across Greater Jakarta from the KingHouse team.",
-  url: "https://kinghouse.id/blog",
-  author: {
-    "@type": "Organization",
-    name: "KingHouse",
-    url: "https://kinghouse.id",
-  },
-  blogPost: BLOG_POSTS.map((post) => ({
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    url: `https://kinghouse.id/blog/${post.slug}`,
-    datePublished: post.publishedAt,
+export default async function BlogPage() {
+  const posts = await getBlogPosts({ status: "Published" })
+
+  const blogIndexSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "KingHouse Blog",
+    description:
+      "Tips, strategies, and property management guides for Airbnb hosts across Greater Jakarta from the KingHouse team.",
+    url: "https://kinghouse.id/blog",
     author: {
       "@type": "Organization",
-      name: post.author.name,
+      name: "KingHouse",
+      url: "https://kinghouse.id",
     },
-    image: post.heroImage,
-    keywords: post.seoKeywords.join(", "),
-  })),
-}
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      url: `https://kinghouse.id/blog/${post.slug}`,
+      datePublished: post.publishedAt,
+      author: {
+        "@type": "Organization",
+        name: post.author.name,
+      },
+      image: post.heroImage,
+      keywords: post.seoKeywords.join(", "),
+    })),
+  }
 
-const CATEGORY_FILTERS = [
-  { slug: "all", label: "All Articles" },
-  { slug: "owner-tips", label: "Owner Insights" },
-  { slug: "airbnb-seo", label: "Airbnb SEO" },
-  { slug: "revenue-management", label: "Yield & Revenue" },
-  { slug: "jabodetabek-guide", label: "Area Guides" },
-]
-
-import { BlogIndexClient } from "@/components/blog/blog-index-client"
-
-export default function BlogPage() {
   return (
     <main className="min-h-screen bg-white">
       <script
@@ -96,27 +90,27 @@ export default function BlogPage() {
           {/* Stats Bar */}
           <div className="flex flex-wrap items-center gap-8 mt-10 pt-10 border-t border-[#EBEBEB]">
             <div className="space-y-0.5">
-              <p className="font-serif text-2xl text-[#222222]">{BLOG_POSTS.length}</p>
-              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Articles</p>
+              <p className="font-serif text-2xl text-[#222225]">{posts.length}</p>
+              <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Articles Live</p>
             </div>
             <div className="space-y-0.5">
-              <p className="font-serif text-2xl text-[#222222]">4</p>
+              <p className="font-serif text-2xl text-[#222225]">4</p>
               <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Managed Areas</p>
             </div>
             <div className="space-y-0.5">
-              <p className="font-serif text-2xl text-[#222222]">Free</p>
+              <p className="font-serif text-2xl text-[#222225]">Free</p>
               <p className="text-xs text-[#A69C8E] uppercase tracking-wider">Open Access</p>
             </div>
             <div className="flex items-center space-x-2 ml-auto">
               <Rss className="h-4 w-4 text-[#A69C8E]" />
-              <span className="text-xs text-[#717171]">Weekly Editorial Updates</span>
+              <span className="text-xs text-[#717171]">Direct API Dynamic Synced</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Interactive Blog Index & Filters */}
-      <BlogIndexClient initialPosts={BLOG_POSTS} />
+      <BlogIndexClient initialPosts={posts} />
 
       {/* CTA Banner */}
       <section className="bg-[#222222] py-16">
@@ -140,4 +134,3 @@ export default function BlogPage() {
     </main>
   )
 }
-
