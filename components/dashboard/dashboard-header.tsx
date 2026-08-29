@@ -115,10 +115,20 @@ export function DashboardHeader({ adminUser }: DashboardHeaderProps) {
 
         {/* Right: Live Sync Badge, Notifications, & Profile Menu */}
         <div className="flex items-center space-x-3 sm:space-x-4">
-          {/* Live Sync Status */}
+          {/* Environment & Live Sync Status */}
           <div className="hidden lg:flex items-center space-x-2 text-[11px] text-[#6B6862] bg-[#FAF8F5] px-3.5 py-1.5 rounded-full border border-[#E8E4DC]">
+            {process.env.NEXT_PUBLIC_ENVIRONMENT === "staging" ? (
+              <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-bold text-[9px] uppercase tracking-wider">
+                🧪 Staging DB
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-[9px] uppercase tracking-wider">
+                🛡️ Production DB
+              </span>
+            )}
+            <span className="text-[#D5CFC3]">&bull;</span>
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-medium">4 Properties Synced</span>
+            <span className="font-medium">4 Units Synced</span>
             <span className="text-[#D5CFC3]">&bull;</span>
             <span className="text-emerald-700 font-semibold flex items-center space-x-1">
               <span>Airbnb iCal Live</span>
