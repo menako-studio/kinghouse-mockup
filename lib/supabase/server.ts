@@ -13,7 +13,7 @@ export const isSupabaseConfigured = Boolean(
     !supabaseUrl.includes("your-project-ref")
 )
 
-export const SUPABASE_SCHEMA = process.env.NEXT_PUBLIC_SUPABASE_SCHEMA || "kinghouse"
+export const SUPABASE_SCHEMA = process.env.NEXT_PUBLIC_SUPABASE_SCHEMA || "public"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let serverClient: SupabaseClient<any, any, any> | null = null
@@ -41,5 +41,3 @@ export function getSupabaseServerClient(): SupabaseClient<any, any, any> | null 
 
   return serverClient
 }
-
-

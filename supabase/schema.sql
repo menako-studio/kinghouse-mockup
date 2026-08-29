@@ -1,13 +1,10 @@
 -- ==============================================================================
 -- KINGHOUSE HOSPITALITY ERP & CMS DATABASE SCHEMA (SUPABASE POSTGRESQL)
--- Schema: kinghouse (Dedicated Namespacing for KingHouse Backend)
+-- Standard Schema: public (PostgREST Default Exposed Schema)
 -- ==============================================================================
 
--- 0. INITIALIZE DEDICATED SCHEMA
-CREATE SCHEMA IF NOT EXISTS kinghouse;
-
 -- 1. RESERVATIONS TABLE
-CREATE TABLE IF NOT EXISTS kinghouse.reservations (
+CREATE TABLE IF NOT EXISTS public.reservations (
     id TEXT PRIMARY KEY,
     property_id TEXT NOT NULL,
     property_slug TEXT NOT NULL,
@@ -32,12 +29,12 @@ CREATE TABLE IF NOT EXISTS kinghouse.reservations (
 );
 
 -- Indexes for fast filtering
-CREATE INDEX IF NOT EXISTS idx_reservations_property_id ON kinghouse.reservations (property_id);
-CREATE INDEX IF NOT EXISTS idx_reservations_check_in ON kinghouse.reservations (check_in);
-CREATE INDEX IF NOT EXISTS idx_reservations_channel ON kinghouse.reservations (channel);
+CREATE INDEX IF NOT EXISTS idx_reservations_property_id ON public.reservations (property_id);
+CREATE INDEX IF NOT EXISTS idx_reservations_check_in ON public.reservations (check_in);
+CREATE INDEX IF NOT EXISTS idx_reservations_channel ON public.reservations (channel);
 
 -- 2. OPERATIONAL EXPENSES (POS LEDGER) TABLE
-CREATE TABLE IF NOT EXISTS kinghouse.expenses (
+CREATE TABLE IF NOT EXISTS public.expenses (
     id TEXT PRIMARY KEY,
     property_id TEXT NOT NULL,
     property_slug TEXT NOT NULL,
@@ -53,12 +50,12 @@ CREATE TABLE IF NOT EXISTS kinghouse.expenses (
 );
 
 -- Indexes for expenses
-CREATE INDEX IF NOT EXISTS idx_expenses_property_id ON kinghouse.expenses (property_id);
-CREATE INDEX IF NOT EXISTS idx_expenses_date ON kinghouse.expenses (date);
-CREATE INDEX IF NOT EXISTS idx_expenses_category ON kinghouse.expenses (category);
+CREATE INDEX IF NOT EXISTS idx_expenses_property_id ON public.expenses (property_id);
+CREATE INDEX IF NOT EXISTS idx_expenses_date ON public.expenses (date);
+CREATE INDEX IF NOT EXISTS idx_expenses_category ON public.expenses (category);
 
 -- 3. BLOG POSTS TABLE (CMS)
-CREATE TABLE IF NOT EXISTS kinghouse.blog_posts (
+CREATE TABLE IF NOT EXISTS public.blog_posts (
     id TEXT PRIMARY KEY,
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
@@ -79,38 +76,38 @@ CREATE TABLE IF NOT EXISTS kinghouse.blog_posts (
 );
 
 -- Grant schema and table permissions
-GRANT USAGE ON SCHEMA kinghouse TO anon, authenticated, service_role;
-GRANT ALL ON ALL TABLES IN SCHEMA kinghouse TO anon, authenticated, service_role;
-GRANT ALL ON ALL SEQUENCES IN SCHEMA kinghouse TO anon, authenticated, service_role;
+GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
 
 -- Enable Row Level Security (RLS)
-ALTER TABLE kinghouse.reservations ENABLE ROW LEVEL SECURITY;
-ALTER TABLE kinghouse.expenses ENABLE ROW LEVEL SECURITY;
-ALTER TABLE kinghouse.blog_posts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.reservations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.expenses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.blog_posts ENABLE ROW LEVEL SECURITY;
 
 -- Allow public read access (anon / service_role)
-CREATE POLICY "Public Read Reservations" ON kinghouse.reservations FOR SELECT USING (true);
-CREATE POLICY "Public Read Expenses" ON kinghouse.expenses FOR SELECT USING (true);
-CREATE POLICY "Public Read Blog Posts" ON kinghouse.blog_posts FOR SELECT USING (true);
+CREATE POLICY "Public Read Reservations" ON public.reservations FOR SELECT USING (true);
+CREATE POLICY "Public Read Expenses" ON public.expenses FOR SELECT USING (true);
+CREATE POLICY "Public Read Blog Posts" ON public.blog_posts FOR SELECT USING (true);
 
 -- Allow authenticated / service_role inserts and updates
-CREATE POLICY "Allow All Insert Reservations" ON kinghouse.reservations FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow All Update Reservations" ON kinghouse.reservations FOR UPDATE USING (true);
-CREATE POLICY "Allow All Delete Reservations" ON kinghouse.reservations FOR DELETE USING (true);
+CREATE POLICY "Allow All Insert Reservations" ON public.reservations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow All Update Reservations" ON public.reservations FOR UPDATE USING (true);
+CREATE POLICY "Allow All Delete Reservations" ON public.reservations FOR DELETE USING (true);
 
-CREATE POLICY "Allow All Insert Expenses" ON kinghouse.expenses FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow All Update Expenses" ON kinghouse.expenses FOR UPDATE USING (true);
-CREATE POLICY "Allow All Delete Expenses" ON kinghouse.expenses FOR DELETE USING (true);
+CREATE POLICY "Allow All Insert Expenses" ON public.expenses FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow All Update Expenses" ON public.expenses FOR UPDATE USING (true);
+CREATE POLICY "Allow All Delete Expenses" ON public.expenses FOR DELETE USING (true);
 
-CREATE POLICY "Allow All Insert Blog Posts" ON kinghouse.blog_posts FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow All Update Blog Posts" ON kinghouse.blog_posts FOR UPDATE USING (true);
-CREATE POLICY "Allow All Delete Blog Posts" ON kinghouse.blog_posts FOR DELETE USING (true);
+CREATE POLICY "Allow All Insert Blog Posts" ON public.blog_posts FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow All Update Blog Posts" ON public.blog_posts FOR UPDATE USING (true);
+CREATE POLICY "Allow All Delete Blog Posts" ON public.blog_posts FOR DELETE USING (true);
 
 -- ==============================================================================
 -- INITIAL SEED DATA (JABODETABEK PROPERTIES)
 -- ==============================================================================
 
-INSERT INTO kinghouse.reservations (
+INSERT INTO public.reservations (
     id, property_id, property_slug, property_name, guest_name, guest_phone, guest_email, 
     channel, check_in, check_out, nights, guests, gross_payout_idr, cleaning_fee_idr, 
     fee_tier, management_fee_percent, management_fee_idr, net_owner_payout_idr, status, notes
@@ -121,7 +118,7 @@ INSERT INTO kinghouse.reservations (
 ('RES-8494', 'cikarang-luxury', 'skyline-luxury-at-orange-county', 'Skyline Luxury at Orange County', 'Kenji Tanaka', '+628189876543', 'kenji.tanaka@corporation.jp', 'Airbnb', '2026-09-01', '2026-09-05', 4, 2, 2800000, 100000, 'premium', 20.00, 540000, 2160000, 'Confirmed', 'Expat corporate assignment.')
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO kinghouse.expenses (
+INSERT INTO public.expenses (
     id, property_id, property_slug, property_name, category, description, amount_idr, date, recorded_by, vendor_name
 ) VALUES
 ('EXP-101', 'villa-jagakarsa', 'versatile-house-with-beautiful-garden-beyond', 'Versatile House With Beautiful Garden Beyond', 'PLN & Utilities', 'Pembelian Token Listrik 1000k PLN Pascabayar', 1000000, '2026-08-15', 'Pak Joko (Caretaker)', 'PLN Mobile'),
