@@ -186,3 +186,36 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get("id")
+
+    if (!id) {
+      return NextResponse.json({ error: "ID reservasi wajib diisi." }, { status: 400 })
+    }
+
+    const supabase = getSupabaseServerClient()
+    if (supabase) {
+      try {
+        await supabase.from("reservations").delete().eq("id", id)
+      } catch (err) {
+        console.warn("Supabase reservation delete error:", err)
+      }
+    }
+
+    const idx = fallbackReservationsStore.findIndex((r) => r.id === id)
+    if (idx >= 0) {
+      fallbackReservationsStore.splice(idx, 1)
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Reservasi #${id} berhasil dihapus.`,
+    })
+  } catch {
+    return NextResponse.json({ error: "Gagal menghapus reservasi." }, { status: 500 })
+  }
+}
+

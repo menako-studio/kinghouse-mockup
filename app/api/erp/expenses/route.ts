@@ -151,3 +151,36 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get("id")
+
+    if (!id) {
+      return NextResponse.json({ error: "ID pengeluaran wajib diisi." }, { status: 400 })
+    }
+
+    const supabase = getSupabaseServerClient()
+    if (supabase) {
+      try {
+        await supabase.from("expenses").delete().eq("id", id)
+      } catch (err) {
+        console.warn("Supabase expense delete error:", err)
+      }
+    }
+
+    const idx = fallbackExpensesStore.findIndex((e) => e.id === id)
+    if (idx >= 0) {
+      fallbackExpensesStore.splice(idx, 1)
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Nota pengeluaran #${id} berhasil dihapus.`,
+    })
+  } catch {
+    return NextResponse.json({ error: "Gagal menghapus pengeluaran." }, { status: 500 })
+  }
+}
+
