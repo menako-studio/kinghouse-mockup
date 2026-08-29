@@ -50,6 +50,18 @@ export default function DashboardBookingsPage() {
 
   useEffect(() => {
     setMounted(true)
+    const loadReservations = async () => {
+      try {
+        const res = await fetch("/api/erp/reservations")
+        const data = await res.json()
+        if (data.success && Array.isArray(data.reservations) && data.reservations.length > 0) {
+          setReservations(data.reservations)
+        }
+      } catch (err) {
+        console.warn("Failed to load reservations from API:", err)
+      }
+    }
+    loadReservations()
   }, [])
 
   // Form State for Manual Booking
@@ -75,7 +87,7 @@ export default function DashboardBookingsPage() {
 
   const payoutCalc = calculateReservationPayout(formGrossPayout, formCleaningFee, formFeeTier)
 
-  const handleManualAdd = (e: React.FormEvent) => {
+  const handleManualAdd = async (e: React.FormEvent) => {
     e.preventDefault()
     const selectedVilla = CURATED_VILLAS.find((v) => v.id === formPropertyId) || CURATED_VILLAS[0]
 
@@ -105,6 +117,31 @@ export default function DashboardBookingsPage() {
     setReservations([newRes, ...reservations])
     setIsModalOpen(false)
 
+    try {
+      await fetch("/api/erp/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          propertyId: newRes.propertyId,
+          propertyName: newRes.propertyName,
+          guestName: newRes.guestName,
+          guestPhone: newRes.guestPhone,
+          channel: newRes.channel,
+          checkIn: newRes.checkIn,
+          checkOut: newRes.checkOut,
+          nights: newRes.nights,
+          guests: newRes.guests,
+          grossPayoutIdr: newRes.grossPayoutIdr,
+          cleaningFeeIdr: newRes.cleaningFeeIdr,
+          feeTier: newRes.feeTier,
+          status: newRes.status,
+          notes: newRes.notes,
+        }),
+      })
+    } catch (err) {
+      console.warn("API Add Reservation error:", err)
+    }
+
     addAlert({
       title: `Reservasi Baru: ${newRes.guestName} (${newRes.nights} Malam)`,
       message: `Booking di ${newRes.propertyName} via ${newRes.channel}. Payout: ${formatCurrency(newRes.grossPayoutIdr, "IDR")}.`,
@@ -120,10 +157,18 @@ export default function DashboardBookingsPage() {
     setFormNotes("")
   }
 
-  const handleDeleteBooking = (id: string) => {
+  const handleDeleteBooking = async (id: string) => {
     const target = reservations.find((r) => r.id === id)
     setReservations(reservations.filter((r) => r.id !== id))
     setDeleteConfirmRes(null)
+
+    try {
+      await fetch(`/api/erp/reservations?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      })
+    } catch (err) {
+      console.warn("API Delete Reservation error:", err)
+    }
 
     if (target) {
       addAlert({

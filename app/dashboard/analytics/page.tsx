@@ -39,8 +39,19 @@ export default function DashboardAnalyticsPage() {
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
+    const loadExpenses = async () => {
+      try {
+        const res = await fetch("/api/erp/expenses")
+        const data = await res.json()
+        if (data.success && Array.isArray(data.expenses) && data.expenses.length > 0) {
+          setExpenses(data.expenses)
+        }
+      } catch (err) {
+        console.warn("Failed to load expenses from API:", err)
+      }
+    }
+    loadExpenses()
   }, [])
 
   // Expense Form State
@@ -72,7 +83,7 @@ export default function DashboardAnalyticsPage() {
   const adr = calculateADR(grossRevenue, totalNights)
   const revpar = calculateRevPAR(grossRevenue, 4 * 31) // 4 properties * 31 days
 
-  const handleAddExpense = (e: React.FormEvent) => {
+  const handleAddExpense = async (e: React.FormEvent) => {
     e.preventDefault()
     const targetVilla = CURATED_VILLAS.find((v) => v.id === expPropertyId) || CURATED_VILLAS[0]
 
@@ -92,6 +103,25 @@ export default function DashboardAnalyticsPage() {
     setExpenses([newExp, ...expenses])
     setIsExpenseModalOpen(false)
 
+    try {
+      await fetch("/api/erp/expenses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          propertyId: newExp.propertyId,
+          propertyName: newExp.propertyName,
+          category: newExp.category,
+          description: newExp.description,
+          amountIdr: newExp.amountIdr,
+          date: newExp.date,
+          recordedBy: newExp.recordedBy,
+          vendorName: newExp.vendorName,
+        }),
+      })
+    } catch (err) {
+      console.warn("API Add Expense error:", err)
+    }
+
     addAlert({
       title: `POS Expense: ${formatCurrency(newExp.amountIdr, "IDR")} (${newExp.category})`,
       message: `Tercatat untuk ${targetVilla.name} (${newExp.description}).`,
@@ -110,10 +140,18 @@ export default function DashboardAnalyticsPage() {
     setExpVendor("")
   }
 
-  const handleDeleteExpense = (id: string) => {
+  const handleDeleteExpense = async (id: string) => {
     const target = expenses.find((e) => e.id === id)
     setExpenses(expenses.filter((e) => e.id !== id))
     setDeleteConfirmExp(null)
+
+    try {
+      await fetch(`/api/erp/expenses?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      })
+    } catch (err) {
+      console.warn("API Delete Expense error:", err)
+    }
 
     if (target) {
       addAlert({
