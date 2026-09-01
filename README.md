@@ -84,7 +84,7 @@ An editorial-grade property management, SEO CMS, and 100% Free-Tier Hospitality 
 ## 🧪 Automated Testing & Production Quality Assurance
 
 ```bash
-# Run automated Vitest test suite (19 comprehensive tests)
+# Run automated Vitest test suite (33 comprehensive tests)
 npm test
 
 # Run TypeScript strict compilation
@@ -93,31 +93,39 @@ npx tsc --noEmit
 # Run ESLint validation (0 errors)
 npm run lint
 
-# Run Next.js production build (52/52 routes verified)
+# Run Next.js production build (57/57 routes verified)
 npm run build
 ```
 
-The project includes an automated test suite powered by **Vitest** covering ERP calculations, 2-way iCal sync, commission fee splits, Zod validators, rate limiters, and calendar feeds.
+The project includes an automated test suite powered by **Vitest** covering ERP calculations, 2-way iCal sync, commission fee splits, Zod validators, rate limiters, GA4/GTM tracking, and XML sitemaps.
 
 ### Test Coverage Highlights:
 - `tests/erp-calculations.test.ts`: Validates 15% vs 20% commission splits, cleaning fee exemptions, net owner payouts, ADR, and RevPAR math.
 - `tests/ical-sync-engine.test.ts`: Validates 2-way iCal synchronization and RFC 5545 parsing.
 - `tests/guest-compendium.test.ts`: Verifies house rules, amenities, and digital compendium structure.
-- `tests/validation-security.test.ts`: Verifies Zod schema boundaries, invalid email/date rejections, and rate-limiting sliding windows.
+- `tests/validation-security.test.ts`: Verifies Zod schema boundaries, timing-safe authentication, and rate-limiting sliding windows.
+- `tests/analytics-seo.test.ts`: Verifies GTM/GA4 event dispatching, VacationRental Schema.org, robots.txt directives, and dynamic sitemap generation.
 - `tests/ical-feed.test.ts`: Verifies CSV export engine headers and row escaping.
 
 ---
 
-## 🔐 Administrative Authentication & Credentials
+## 🔐 Administrative Authentication & Security Architecture
 
-The CMS Dashboard is protected and only accessible with administrative credentials.
+The CMS Dashboard is fortified and only accessible with verified administrative session tokens:
+- **Server Runtime Isolation**: Superadmin credentials are exclusively resolved on the server side via environment variables (`ADMIN_EMAIL`, `ADMIN_PASSWORD`, `AUTH_SECRET_KEY`) and never leaked into client bundles.
+- **Timing-Safe Authentication**: Constant-time string comparisons protect password verification against side-channel timing attacks.
+- **Search Engine Isolation**: The `/dashboard` and `/login` routes are explicitly disallowed in `robots.txt`, omitted from `sitemap.xml`, and return `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` response headers.
+- **Rate Limiting**: Sliding-window rate limiters block brute-force attempts on `/api/auth/login`.
 
-### Default Admin Credentials:
-| Field | Default Value | Notes |
+### Environment Configuration:
+| Field | Environment Variable | Notes |
 | :--- | :--- | :--- |
-| **Login URL** | `/login` | Redirects to `/dashboard` upon successful authorization |
-| **Admin Email** | `ptkreasiusmangosse@gmail.com` | Configurable via `ADMIN_EMAIL` |
-| **Admin Password** | `KingHouse2026!Admin` | Configurable via `ADMIN_PASSWORD` |
+| **Admin Email** | `ADMIN_EMAIL` | Administrative email for login |
+| **Admin Password** | `ADMIN_PASSWORD` | Strong password configured in production environment variables |
+| **Session Secret** | `AUTH_SECRET_KEY` | HMAC-SHA256 signing secret for session tokens |
+| **Base URL** | `NEXT_PUBLIC_SITE_URL` | Set to `https://www.kinghousemanagement.com` |
+| **GA4 ID** | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics Measurement ID |
+| **GTM ID** | `NEXT_PUBLIC_GTM_ID` | Google Tag Manager Container ID |
 
 ### Environment Variables:
 ```env
