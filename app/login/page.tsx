@@ -11,13 +11,10 @@ import {
   ShieldCheck,
   ArrowRight,
   Loader2,
-  Sparkles,
-  KeyRound,
   CheckCircle2,
   AlertCircle,
   Fingerprint,
 } from "lucide-react"
-import { ADMIN_CREDENTIALS } from "@/lib/auth"
 
 function LoginForm() {
   const router = useRouter()
@@ -31,12 +28,6 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
-
-  const handleFillDemo = () => {
-    setEmail(ADMIN_CREDENTIALS.email)
-    setPassword(ADMIN_CREDENTIALS.password)
-    setErrorMessage(null)
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -174,7 +165,7 @@ function LoginForm() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="ptkreasiusmangosse@gmail.com"
+                    placeholder="admin@kinghousemanagement.com"
                     className="w-full pl-10 pr-4 py-3 bg-white/[0.05] border border-white/10 rounded-2xl text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#B8934C] focus:ring-2 focus:ring-[#B8934C]/20 transition-all font-sans"
                   />
                 </div>
@@ -246,35 +237,6 @@ function LoginForm() {
                 )}
               </button>
             </form>
-
-            {/* Quick Demo Helper Section */}
-            <div className="mt-8 pt-6 border-t border-white/[0.08]">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-white/60 font-semibold flex items-center space-x-1.5">
-                  <KeyRound className="h-3 w-3 text-[#DFC58E]" />
-                  <span>Evaluation Credentials</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={handleFillDemo}
-                  className="inline-flex items-center space-x-1 text-[11px] font-semibold text-[#DFC58E] hover:text-white transition-colors bg-[#B8934C]/15 hover:bg-[#B8934C]/25 px-2.5 py-1 rounded-full cursor-pointer border border-[#B8934C]/35"
-                >
-                  <Sparkles className="h-3 w-3" />
-                  <span>Auto-Fill</span>
-                </button>
-              </div>
-
-              <div className="p-3.5 bg-white/[0.03] rounded-2xl border border-white/[0.06] text-[11px] font-mono text-white/75 space-y-1.5 backdrop-blur-sm">
-                <div className="flex justify-between items-center">
-                  <span className="text-white/50">Email:</span>
-                  <span className="text-white/95">{ADMIN_CREDENTIALS.email}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/50">Password:</span>
-                  <span className="text-white/95">KingHouse2026!Admin</span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Footer Security Badge */}

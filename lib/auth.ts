@@ -4,14 +4,17 @@ export const SESSION_COOKIE_NAME = "kinghouse_admin_session"
 export const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7 days in seconds
 
 // Production-ready Admin credentials with environment variable support
-export const ADMIN_CREDENTIALS = {
+const ADMIN_CREDENTIALS = {
   email: process.env.ADMIN_EMAIL || "ptkreasiusmangosse@gmail.com",
   password: process.env.ADMIN_PASSWORD || "KingHouse2026!Admin",
-  name: "KingHouse Principal Admin",
+  name: process.env.ADMIN_NAME || "KingHouse Principal Admin",
   role: "admin" as const,
 }
 
-const AUTH_SECRET = process.env.AUTH_SECRET || "kinghouse-hospitality-production-secret-key-2026-secure-jwt-hmac-token"
+const AUTH_SECRET =
+  process.env.AUTH_SECRET ||
+  process.env.AUTH_SECRET_KEY ||
+  "kinghouse-hospitality-production-secret-key-2026-secure-jwt-hmac-token"
 
 export interface AdminUser {
   id: string
@@ -50,6 +53,20 @@ function base64UrlDecode(str: string): string {
     base64 += "="
   }
   return atob(base64)
+}
+
+/**
+ * Constant time string comparison to prevent timing attacks
+ */
+function constantTimeStringCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) {
+    return false
+  }
+  let result = 0
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i)
+  }
+  return result === 0
 }
 
 /**
@@ -131,13 +148,16 @@ export async function verifyAdminSessionToken(token: string): Promise<SessionPay
 }
 
 /**
- * Verify email & password against configured Admin credentials
+ * Verify email & password against configured Admin credentials using timing-safe comparison
  */
 export function verifyAdminCredentials(email: string, password: string): AdminUser | null {
-  const normalizedEmail = email.trim().toLowerCase()
+  const normalizedInputEmail = email.trim().toLowerCase()
   const expectedEmail = ADMIN_CREDENTIALS.email.toLowerCase()
 
-  if (normalizedEmail === expectedEmail && password === ADMIN_CREDENTIALS.password) {
+  const isEmailMatch = constantTimeStringCompare(normalizedInputEmail, expectedEmail)
+  const isPasswordMatch = constantTimeStringCompare(password, ADMIN_CREDENTIALS.password)
+
+  if (isEmailMatch && isPasswordMatch) {
     return {
       id: "admin-kinghouse-01",
       email: ADMIN_CREDENTIALS.email,
