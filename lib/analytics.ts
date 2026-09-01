@@ -45,14 +45,15 @@ export function trackEvent(eventName: string, params: Record<string, unknown> = 
 export function trackPageView(url: string, title?: string) {
   if (typeof window === "undefined") return
 
-  const pageTitle = title || document.title
+  const pageTitle = title || (typeof document !== "undefined" ? document.title : "")
+  const pageLocation = typeof window.location !== "undefined" && window.location.href ? window.location.href : url
 
   // GA4 standard config update
   if (typeof window.gtag === "function" && GA_MEASUREMENT_ID) {
     window.gtag("config", GA_MEASUREMENT_ID, {
       page_path: url,
       page_title: pageTitle,
-      page_location: window.location.href,
+      page_location: pageLocation,
     })
   }
 
@@ -60,9 +61,10 @@ export function trackPageView(url: string, title?: string) {
   trackEvent("virtual_page_view", {
     page_path: url,
     page_title: pageTitle,
-    page_location: window.location.href,
+    page_location: pageLocation,
   })
 }
+
 
 /**
  * Track WhatsApp Concierge / Inquiries

@@ -39,8 +39,10 @@ export default function DashboardAnalyticsPage() {
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     const loadExpenses = async () => {
+
       try {
         const res = await fetch("/api/erp/expenses")
         const data = await res.json()

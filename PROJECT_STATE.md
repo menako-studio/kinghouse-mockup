@@ -235,12 +235,33 @@ kinghouse-mockup/
 - [x] **Full 100% Free-Tier PostgREST Supabase Sync**:
   - Direct PostgreSQL table synchronization on `public.blog_posts`, `public.reservations`, and `public.expenses`.
 
+### Phase 3.1 — GA4, GTM, GSC Verification, Dynamic XML Sitemaps & Full-Funnel Event Tracking (Completed)
+- [x] **Enterprise Google Tag Manager & Google Analytics 4 Architecture** (`lib/analytics.ts`, `components/analytics/`):
+  - Injected GTM (`GTM-PH9N4N7H`) and GA4 (`G-TWXVH3RCP4`) via non-blocking Next.js `<Script>` with `<noscript>` iframe fallback.
+  - Virtual Page View route transition observer (`components/analytics/page-view-tracker.tsx`) wrapped in `<Suspense>`.
+  - Dual-dispatch layer pushing to `window.dataLayer` and calling `window.gtag` across all interactive client events.
+- [x] **Google Search Console & Technical SEO Infrastructure** (`app/sitemap.ts`, `app/robots.ts`, `app/layout.tsx`):
+  - Dynamic XML Sitemap generator (`app/sitemap.ts`) indexing static pages, dynamic areas, properties, blog posts, and guest stay manuals.
+  - Robots.txt (`app/robots.ts`) with custom Googlebot directives, sitemap pointer, and security route exclusions (`/dashboard/*`, `/api/*`, `/login`).
+  - WebSite JSON-LD with Sitelinks `SearchAction`, Organization, LocalBusiness, Breadcrumbs, and Brand Aliases targeting `kinghousemanagemet.com` / `KingHouse Management`.
+  - GSC verification meta tag integration via `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`.
+- [x] **Full-Funnel Commercial Event Tracking Across All Pages**:
+  - WhatsApp concierge inquiries (Header, Footer, Villa detail, Event packages, Contact desk, Guest stay).
+  - Booking inquiries & channel split comparisons (Direct WhatsApp vs Airbnb vs Agoda).
+  - Owner Free Property Revenue Audit lead generation submissions.
+  - Brochure downloads (Villas & Event packages).
+  - Catalog search query and multi-select filter interactions (Destination, Bedrooms, Property Type).
+  - Digital Guest Stay Compendium WiFi password copies & Google Maps directions clicks.
+  - Localization preference changes (10 currencies & 9 languages).
+- [x] **Automated Testing Suite (`tests/`, Vitest)**:
+  - 31 comprehensive unit tests passing across ERP math, iCal sync engine, guest compendiums, Zod schemas, GA4/GTM event dispatcher, and SEO schemas.
+
 ---
 
 ## 4. VERIFICATION COMMANDS
 
 ```bash
-# Run automated Vitest test suite (19 tests)
+# Run automated Vitest test suite (31 tests)
 npm test
 
 # Run TypeScript strict type verification
@@ -252,6 +273,7 @@ npm run lint
 # Run Next.js optimized production build
 npm run build
 ```
+
 
 
 

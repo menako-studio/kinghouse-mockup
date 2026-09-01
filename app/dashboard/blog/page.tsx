@@ -38,6 +38,8 @@ import {
   Info,
 } from "lucide-react"
 import { BLOG_POSTS, CURATED_VILLAS } from "@/lib/data"
+import { BlogPost } from "@/lib/types"
+
 import { useNotifications } from "@/components/dashboard/notification-context"
 
 export interface DashboardArticle {
@@ -185,6 +187,7 @@ export default function DashboardBlogPage() {
 
   // Mount flag for Portal
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
@@ -194,7 +197,7 @@ export default function DashboardBlogPage() {
       const res = await fetch("/api/blog?status=all")
       const data = await res.json()
       if (data.success && Array.isArray(data.posts) && data.posts.length > 0) {
-        const mapped: DashboardArticle[] = data.posts.map((p: any, idx: number) => ({
+        const mapped: DashboardArticle[] = data.posts.map((p: BlogPost, idx: number) => ({
           id: p.id || `post-${idx}`,
           title: p.title,
           slug: p.slug,
@@ -241,6 +244,7 @@ export default function DashboardBlogPage() {
       if (saved) {
         const parsed = JSON.parse(saved)
         if (Array.isArray(parsed) && parsed.length > 0) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setArticles(parsed)
         }
       }
@@ -248,6 +252,7 @@ export default function DashboardBlogPage() {
     setIsHydrated(true)
     fetchArticlesFromApi()
   }, [])
+
 
   // Sync to localStorage
   useEffect(() => {
@@ -740,7 +745,7 @@ export default function DashboardBlogPage() {
               <button
                 key={st.key}
                 type="button"
-                onClick={() => setStatusFilter(st.key as any)}
+                onClick={() => setStatusFilter(st.key as "all" | "Published" | "Draft" | "Archived")}
                 className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   statusFilter === st.key
                     ? "bg-[#222225] text-white shadow-xs"
@@ -748,6 +753,7 @@ export default function DashboardBlogPage() {
                 }`}
               >
                 {st.label}
+
               </button>
             ))}
           </div>
@@ -1263,13 +1269,14 @@ export default function DashboardBlogPage() {
                         </label>
                         <select
                           value={formStatus}
-                          onChange={(e) => setFormStatus(e.target.value as any)}
+                          onChange={(e) => setFormStatus(e.target.value as "Published" | "Draft" | "Archived")}
                           className="w-full px-4 py-2.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] font-semibold text-[#222225] focus:outline-none focus:border-[#B8934C]"
                         >
                           <option value="Published">Published (Tayang di Web & Terindeks)</option>
                           <option value="Draft">Draft (Disimpan Internal)</option>
                           <option value="Archived">Archived (Sampah / Soft Delete)</option>
                         </select>
+
                       </div>
 
                       <div>

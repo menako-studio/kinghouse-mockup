@@ -143,6 +143,8 @@ export interface BlogPost {
   content: string
   category: string
   publishedAt: string
+  status?: "Published" | "Draft" | "Archived"
+  seoScore?: number
   author: {
     name: string
     role: string
@@ -154,6 +156,7 @@ export interface BlogPost {
   readTime: number
   featured: boolean
 }
+
 
 export interface EventPackage {
   name: string
