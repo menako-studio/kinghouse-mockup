@@ -5,6 +5,12 @@ import Link from "next/link"
 import { Mail, Phone, MapPin, MessageSquare, ArrowUpRight, CheckCircle2, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  trackEvent,
+  trackWhatsAppClick,
+  trackEmailClick,
+  trackPhoneCall,
+} from "@/lib/analytics"
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
@@ -17,6 +23,13 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    trackEvent("contact_form_submit", {
+      event_category: "Lead Generation",
+      event_label: formData.subject,
+      sender_name: formData.name,
+      sender_email: formData.email,
+      inquiry_subject: formData.subject,
+    })
     setSubmitted(true)
   }
 
@@ -70,6 +83,7 @@ export default function ContactPage() {
                     href="https://wa.me/6282123933218?text=Hello%20KingHouse%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick({ source: "contact_page", context: "instant_concierge" })}
                   >
                     Open WhatsApp Chat <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
                   </a>
@@ -82,7 +96,11 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs text-[#717171] block">Direct Inquiries</span>
-                    <a href="mailto:ptkreasiusmangosse@gmail.com" className="font-medium hover:underline">
+                    <a
+                      href="mailto:ptkreasiusmangosse@gmail.com"
+                      onClick={() => trackEmailClick({ source: "contact_page", email: "ptkreasiusmangosse@gmail.com" })}
+                      className="font-medium hover:underline"
+                    >
                       ptkreasiusmangosse@gmail.com
                     </a>
                   </div>
@@ -92,11 +110,18 @@ export default function ContactPage() {
                   <Phone className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-xs text-[#717171] block">WhatsApp Desk</span>
-                    <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">
+                    <a
+                      href="https://wa.me/6282123933218"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackPhoneCall({ source: "contact_page", phoneNumber: "+62 821-2393-3218" })}
+                      className="font-medium hover:underline"
+                    >
                       +62 821-2393-3218
                     </a>
                   </div>
                 </div>
+
 
                 <div className="flex items-start space-x-3">
                   <MapPin className="h-5 w-5 text-[#A69C8E] shrink-0 mt-0.5" />

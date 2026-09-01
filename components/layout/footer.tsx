@@ -13,6 +13,12 @@ import {
 } from "lucide-react"
 import { useLocalization } from "@/lib/context/localization-context"
 import { SITE_CONFIG } from "@/lib/constants"
+import {
+  trackEvent,
+  trackWhatsAppClick,
+  trackPhoneCall,
+  trackEmailClick,
+} from "@/lib/analytics"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -24,6 +30,11 @@ export function Footer() {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault()
     if (email.trim()) {
+      trackEvent("newsletter_subscribe", {
+        event_category: "Engagement",
+        event_label: "Footer Newsletter",
+        email_submitted: email.trim(),
+      })
       setIsSubscribed(true)
       setTimeout(() => {
         setEmail("")
@@ -31,6 +42,7 @@ export function Footer() {
       }, 4000)
     }
   }
+
 
   return (
     <footer className="w-full">
@@ -180,13 +192,23 @@ export function Footer() {
                 </h4>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Mail className="h-3 w-3 opacity-70" />
-                  <a href="mailto:ptkreasiusmangosse@gmail.com" className="hover:text-white transition-colors">
+                  <a
+                    href="mailto:ptkreasiusmangosse@gmail.com"
+                    onClick={() => trackEmailClick({ source: "footer_reservation", email: "ptkreasiusmangosse@gmail.com" })}
+                    className="hover:text-white transition-colors"
+                  >
                     ptkreasiusmangosse@gmail.com
                   </a>
                 </p>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Phone className="h-3 w-3 opacity-70" />
-                  <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  <a
+                    href="https://wa.me/6282123933218"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick({ source: "footer", context: "reservation" })}
+                    className="hover:text-white transition-colors"
+                  >
                     +62 821 2393 3218
                   </a>
                 </p>
@@ -199,13 +221,23 @@ export function Footer() {
                 </h4>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Mail className="h-3 w-3 opacity-70" />
-                  <a href="mailto:ptkreasiusmangosse@gmail.com" className="hover:text-white transition-colors">
+                  <a
+                    href="mailto:ptkreasiusmangosse@gmail.com"
+                    onClick={() => trackEmailClick({ source: "footer_guest_assistance", email: "ptkreasiusmangosse@gmail.com" })}
+                    className="hover:text-white transition-colors"
+                  >
                     ptkreasiusmangosse@gmail.com
                   </a>
                 </p>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Phone className="h-3 w-3 opacity-70" />
-                  <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  <a
+                    href="https://wa.me/6282123933218"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick({ source: "footer", context: "guest_assistance" })}
+                    className="hover:text-white transition-colors"
+                  >
                     +62 821 2393 3218
                   </a>
                 </p>
@@ -218,17 +250,28 @@ export function Footer() {
                 </h4>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Mail className="h-3 w-3 opacity-70" />
-                  <a href="mailto:ptkreasiusmangosse@gmail.com" className="hover:text-white transition-colors">
+                  <a
+                    href="mailto:ptkreasiusmangosse@gmail.com"
+                    onClick={() => trackEmailClick({ source: "footer_management", email: "ptkreasiusmangosse@gmail.com" })}
+                    className="hover:text-white transition-colors"
+                  >
                     ptkreasiusmangosse@gmail.com
                   </a>
                 </p>
                 <p className="text-xs font-light text-[#F0EBE0] flex items-center space-x-2">
                   <Phone className="h-3 w-3 opacity-70" />
-                  <a href="https://wa.me/6282123933218" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  <a
+                    href="https://wa.me/6282123933218"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick({ source: "footer", context: "management" })}
+                    className="hover:text-white transition-colors"
+                  >
                     +62 821 2393 3218
                   </a>
                 </p>
               </div>
+
             </div>
 
             {/* Column 3: OFFICE, HOURS, CONNECT WITH US */}

@@ -1,6 +1,9 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect } from "react"
+import { trackCurrencyChange, trackLanguageChange } from "@/lib/analytics"
+
+
 
 export type CurrencyCode = "IDR" | "USD" | "EUR" | "CNY" | "TWD" | "RUB" | "JPY" | "AUD" | "SGD" | "GBP"
 export type LanguageCode = "EN" | "ID" | "JA" | "ZH-CN" | "ZH-TW" | "FR" | "ES" | "DE" | "RU"
@@ -426,6 +429,7 @@ export function LocalizationProvider({ children }: { children: React.ReactNode }
 
   const setCurrency = (c: CurrencyCode) => {
     setCurrencyState(c)
+    trackCurrencyChange(c)
     try {
       localStorage.setItem("kinghouse_currency", c)
     } catch {}
@@ -433,10 +437,12 @@ export function LocalizationProvider({ children }: { children: React.ReactNode }
 
   const setLanguage = (l: LanguageCode) => {
     setLanguageState(l)
+    trackLanguageChange(l)
     try {
       localStorage.setItem("kinghouse_language", l)
     } catch {}
   }
+
 
   const currentCurrencyConfig =
     SUPPORTED_CURRENCIES.find((c) => c.code === currency) ?? SUPPORTED_CURRENCIES[0]

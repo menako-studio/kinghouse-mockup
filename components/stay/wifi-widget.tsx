@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Wifi, Copy, Check, ShieldCheck, Zap } from "lucide-react"
 import { WifiInfo } from "@/lib/guest-guide/types"
+import { trackWiFiCopy } from "@/lib/analytics"
 
 interface WifiWidgetProps {
   wifi: WifiInfo
@@ -13,9 +14,14 @@ export function WifiWidget({ wifi }: WifiWidgetProps) {
 
   const copyToClipboard = (text: string, type: "pass" | "ssid") => {
     navigator.clipboard.writeText(text)
+    trackWiFiCopy({
+      propertyName: wifi.networkName,
+      ssid: type === "pass" ? "Password copied" : wifi.networkName,
+    })
     setCopied(type)
     setTimeout(() => setCopied("none"), 2000)
   }
+
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-stone-800 bg-stone-950/80 p-5 backdrop-blur-xl shadow-xl">

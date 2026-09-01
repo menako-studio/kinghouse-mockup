@@ -16,8 +16,15 @@ import {
 } from "lucide-react"
 import { Villa } from "@/lib/types"
 import { useLocalization } from "@/lib/context/localization-context"
+import {
+  trackBookingInquiry,
+  trackWhatsAppClick,
+  trackAirbnbClick,
+  trackEvent,
+} from "@/lib/analytics"
 
 interface BookingChannelModalProps {
+
   villa: Villa
   isOpen: boolean
   onClose: () => void
@@ -254,6 +261,18 @@ export function BookingChannelModal({ villa, isOpen, onClose }: BookingChannelMo
               href={generateWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackBookingInquiry({
+                  propertyName: villa.name,
+                  channel: "direct_whatsapp",
+                  estimatedTotal: villa.price.idr,
+                })
+                trackWhatsAppClick({
+                  source: "booking_modal",
+                  propertyName: villa.name,
+                  value: villa.price.idr,
+                })
+              }}
               className="flex items-center justify-center space-x-2 w-full py-3.5 px-4 rounded-xl bg-[#2D2118] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#3D2E22] transition-all shadow-md active:scale-[0.99]"
             >
               <MessageCircle className="h-4 w-4 text-[#25D366]" />
@@ -271,6 +290,19 @@ export function BookingChannelModal({ villa, isOpen, onClose }: BookingChannelMo
                   href={villa.airbnbUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    trackBookingInquiry({
+                      propertyName: villa.name,
+                      channel: "airbnb",
+                      estimatedTotal: villa.price.idr,
+                    })
+                    trackAirbnbClick({
+                      propertyName: villa.name,
+                      airbnbUrl: villa.airbnbUrl,
+                      nightlyPrice: villa.price.idr,
+                      source: "booking_channel_modal",
+                    })
+                  }}
                   className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#E51D53]/30 bg-[#FFF5F7] text-[#E51D53] hover:bg-[#FFE8EE] text-xs font-semibold transition-colors"
                 >
                   <span>Book on Airbnb</span>
@@ -283,6 +315,17 @@ export function BookingChannelModal({ villa, isOpen, onClose }: BookingChannelMo
                     href={villa.agodaUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      trackBookingInquiry({
+                        propertyName: villa.name,
+                        channel: "agoda",
+                        estimatedTotal: villa.price.idr,
+                      })
+                      trackEvent("agoda_outbound_click", {
+                        property_name: villa.name,
+                        agoda_url: villa.agodaUrl,
+                      })
+                    }}
                     className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#003580]/30 bg-[#F0F5FD] text-[#003580] hover:bg-[#E1ECFB] text-xs font-semibold transition-colors"
                   >
                     <span>Book on Agoda</span>
@@ -293,6 +336,7 @@ export function BookingChannelModal({ villa, isOpen, onClose }: BookingChannelMo
                     href={`https://wa.me/6282123933218?text=${encodeURIComponent(`Hello KingHouse! I am inquiring about OTA booking for ${villa.name}.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick({ source: "booking_modal", propertyName: villa.name, context: "ota_inquiry" })}
                     className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#EBEBEB] bg-[#FAFAFA] text-[#717171] hover:bg-[#F2EFEB] text-xs font-medium transition-colors"
                   >
                     <span>Agoda Inquire</span>
@@ -302,6 +346,7 @@ export function BookingChannelModal({ villa, isOpen, onClose }: BookingChannelMo
               </div>
             </div>
           </div>
+
         </div>
 
         {/* Footer Guarantee */}

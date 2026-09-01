@@ -29,6 +29,7 @@ import {
 import { VILLA_EVENTS, VERSATILE_HOUSE_EVENT_PRICELIST, CURATED_VILLAS } from "@/lib/data"
 import { VillaEvent } from "@/lib/types"
 import { Button } from "@/components/ui/button"
+import { trackBrochureDownload, trackWhatsAppClick } from "@/lib/analytics"
 
 type SortOption = "recommended" | "price-asc" | "price-desc" | "capacity"
 
@@ -103,12 +104,25 @@ function NakulaEventCard({ event }: { event: VillaEvent }) {
             href={`https://wa.me/6282123933218?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              trackBrochureDownload({
+                brochureType: "event",
+                itemName: event.title,
+              })
+              trackWhatsAppClick({
+                source: "event_page",
+                propertyName: event.propertyName,
+                context: event.title,
+                value: startingPriceIdr,
+              })
+            }}
             className="inline-flex items-center space-x-1 px-3 py-1 bg-[#8C7F5F] hover:bg-[#776B4E] text-white text-[10px] font-bold uppercase tracking-wider rounded-md transition-colors shadow-2xs shrink-0 cursor-pointer"
           >
             <Download className="h-2.5 w-2.5" />
             <span>DOWNLOAD BROCHURE</span>
           </a>
         </div>
+
 
         {/* Venue / Event Title */}
         <Link href={`/events/${event.slug}`}>

@@ -6,8 +6,14 @@ import { Villa } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { useLocalization } from "@/lib/context/localization-context"
 import { BookingChannelModal } from "./booking-channel-modal"
+import {
+  trackAirbnbClick,
+  trackWhatsAppClick,
+  trackEvent,
+} from "@/lib/analytics"
 
 interface BookingSidebarProps {
+
   villa: Villa
 }
 
@@ -110,7 +116,15 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
           <Button
             size="lg"
             type="button"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              trackEvent("open_booking_modal", {
+                property_name: villa.name,
+                check_in: checkIn,
+                check_out: checkOut,
+                guests: Number(guestCount),
+              })
+              setIsModalOpen(true)
+            }}
             className="w-full h-13 bg-[#2D2118] text-white hover:bg-[#3D2E22] font-semibold text-xs uppercase tracking-widest shadow-md transition-all active:scale-[0.99] cursor-pointer"
           >
             <Sparkles className="h-4 w-4 text-[#D8B486] mr-2" />
@@ -123,6 +137,14 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
               href={villa.airbnbUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackAirbnbClick({
+                  propertyName: villa.name,
+                  airbnbUrl: villa.airbnbUrl,
+                  nightlyPrice: villa.price.idr,
+                  source: "booking_sidebar",
+                })
+              }}
               className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#E51D53]/30 bg-[#FFF5F7] text-[#E51D53] hover:bg-[#FFE8EE] text-xs font-semibold transition-colors text-center"
             >
               <span>Airbnb</span>
@@ -134,6 +156,13 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
                 href={villa.agodaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  trackEvent("agoda_outbound_click", {
+                    property_name: villa.name,
+                    agoda_url: villa.agodaUrl,
+                    source: "booking_sidebar",
+                  })
+                }}
                 className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#003580]/30 bg-[#F0F5FD] text-[#003580] hover:bg-[#E1ECFB] text-xs font-semibold transition-colors text-center"
               >
                 <span>Agoda</span>
@@ -144,6 +173,13 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  trackWhatsAppClick({
+                    source: "villa_detail",
+                    propertyName: villa.name,
+                    value: estimatedTotal,
+                  })
+                }}
                 className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-lg border border-[#25D366]/30 bg-[#F0FDF4] text-[#15803D] hover:bg-[#DCFCE7] text-xs font-semibold transition-colors text-center"
               >
                 <span>WhatsApp</span>
@@ -152,6 +188,7 @@ export function BookingSidebar({ villa }: BookingSidebarProps) {
             )}
           </div>
         </div>
+
 
         <p className="mt-3 text-center text-[11px] text-[#717171]">
           Best Price Guarantee &bull; Verified Airbnb Superhost &bull; 24/7 Concierge

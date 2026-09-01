@@ -27,8 +27,10 @@ import { CURATED_VILLAS } from "@/lib/data"
 import { Villa } from "@/lib/types"
 import { useLocalization } from "@/lib/context/localization-context"
 import { BookingChannelModal } from "@/components/villas/booking-channel-modal"
+import { trackSearchFilter, trackWhatsAppClick, trackEvent } from "@/lib/analytics"
 
 type SortOption = "recommended" | "price-asc" | "price-desc" | "rating"
+
 
 // Nakula Editorial Card matching properties.png
 function NakulaVillaCard({ villa }: { villa: Villa }) {
@@ -195,6 +197,10 @@ function VillasCatalogContent() {
 
   // Property Type Checkbox Toggle
   const togglePropertyType = (type: string) => {
+    trackSearchFilter({
+      filterType: "property_type",
+      filterValue: type,
+    })
     setPropertyTypes((prev) =>
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     )
@@ -202,6 +208,10 @@ function VillasCatalogContent() {
 
   // Clear / Reset All Filters
   const handleClear = () => {
+    trackSearchFilter({
+      filterType: "clear_all",
+      filterValue: "reset",
+    })
     setPropertyTypes([])
     setSelectedArea("all")
     setSelectedRooms("all")
@@ -210,6 +220,7 @@ function VillasCatalogContent() {
     setGridSearchQuery("")
     setSortBy("recommended")
   }
+
 
   // Check if any filter is active
   const isFilterActive = useMemo(() => {

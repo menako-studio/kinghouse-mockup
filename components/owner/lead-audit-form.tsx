@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { trackOwnerLead, trackWhatsAppClick } from "@/lib/analytics"
 
 export function LeadAuditForm() {
   const [formData, setFormData] = useState({
@@ -20,11 +21,19 @@ export function LeadAuditForm() {
     e.preventDefault()
     setIsLoading(true)
 
+    trackOwnerLead({
+      propertyType: formData.managementModel,
+      area: formData.villaLinkOrLocation || "Jabodetabek",
+      ownerName: formData.fullName,
+      serviceTier: formData.managementModel === "full-management" ? "15% Full Service" : "20% Premium",
+    })
+
     setTimeout(() => {
       setIsLoading(false)
       setIsSubmitted(true)
     }, 800)
   }
+
 
   return (
     <section id="audit" className="section-macro-spacing bg-white">
@@ -63,10 +72,12 @@ export function LeadAuditForm() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick({ source: "owner_page", context: "fast_track_audit" })}
                   >
                     <MessageSquare className="mr-2 h-4 w-4 text-[#25D366]" />
                     Fast-Track via WhatsApp
                   </a>
+
                 </Button>
               </div>
             </div>
