@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Clock, Calendar, ArrowLeft, Tag, ArrowRight } from "lucide-react"
 import { getBlogPostBySlug, getBlogPosts } from "@/lib/blog/service"
+import { SITE_CONFIG } from "@/lib/constants"
 
 export const dynamic = "force-dynamic"
 export const dynamicParams = true
@@ -189,26 +190,26 @@ export default async function BlogPostPage({ params }: PageProps) {
     headline: post.title,
     description: post.excerpt,
     image: post.heroImage,
-    url: `https://kinghouse.id/blog/${post.slug}`,
+    url: `${SITE_CONFIG.baseUrl}/blog/${post.slug}`,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     author: {
       "@type": "Organization",
       name: post.author.name,
-      url: "https://kinghouse.id",
+      url: SITE_CONFIG.baseUrl,
     },
     publisher: {
       "@type": "Organization",
-      name: "KingHouse",
-      logo: { "@type": "ImageObject", url: "https://kinghouse.id/logo.png" },
+      name: "KingHouse Management",
+      logo: { "@type": "ImageObject", url: `${SITE_CONFIG.baseUrl}/favicon.ico` },
     },
     keywords: post.seoKeywords.join(", "),
     wordCount: post.content.split(" ").length,
     timeRequired: `PT${post.readTime}M`,
-    inLanguage: "en",
+    inLanguage: "id-ID",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://kinghouse.id/blog/${post.slug}`,
+      "@id": `${SITE_CONFIG.baseUrl}/blog/${post.slug}`,
     },
   }
 

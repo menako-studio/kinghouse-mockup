@@ -6,7 +6,11 @@ import { DualPathSplit } from "@/components/home/dual-path-split"
 
 export const metadata = {
   title: "KingHouse — Curated Villas, Managed to Perfection",
-  description: "Experience discrete architectural vacation retreats with seamless Airbnb booking, paired with institutional-grade villa asset management for luxury property owners.",
+  description:
+    "Experience curated vacation retreats in Jabodetabek with seamless Airbnb booking and institutional-grade property asset management for owners.",
+  alternates: {
+    canonical: "/",
+  },
 }
 
 export default function HomePage() {

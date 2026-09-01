@@ -28,7 +28,7 @@ export default function DashboardPropertiesPage() {
   const [selectedGuideVilla, setSelectedGuideVilla] = useState<string | null>(null)
 
   const handleCopyIcal = (slug: string) => {
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://kinghouse.id"
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://www.kinghousemanagement.com"
     const url = `${origin}/api/ical/${slug}`
     navigator.clipboard.writeText(url)
     setCopiedSlug(slug)

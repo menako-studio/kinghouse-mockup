@@ -8,15 +8,14 @@ export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: "Blog & Insights | KingHouse Management",
+  title: "Blog & Hospitality Insights | KingHouse",
   description:
-    "Articles, strategies, and editorial guides from KingHouse Management hospitality experts. Learn how to maximize Airbnb occupancy, optimize listing SEO, and grow short-stay revenue across Jabodetabek.",
+    "Panduan strategi Airbnb, SEO listing, optimasi okupansi, dan analisis pasar sewa properti jangka pendek di Jabodetabek bersama KingHouse.",
   keywords: [
     "KingHouse Management blog",
     "King House Management",
     "kinghousemanagement.com",
     "airbnb property management blog",
-
     "superhost tips jabodetabek",
     "airbnb seo optimization",
     "short stay asset management",
@@ -24,9 +23,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "KingHouse Management Blog — Airbnb SEO & Property Management Insights",
+    title: "Blog & Hospitality Insights | KingHouse",
     description:
-      "Actionable strategies and market insights from KingHouse Management to maximize your Airbnb rental yield in Jabodetabek.",
+      "Panduan strategi Airbnb, SEO listing, optimasi okupansi, dan analisis pasar sewa properti jangka pendek di Jabodetabek bersama KingHouse.",
     url: "/blog",
     type: "website",
   },

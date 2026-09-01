@@ -5,8 +5,12 @@ import { Sparkles, MapPin, ArrowRight, ShieldCheck, QrCode } from "lucide-react"
 import { GUEST_COMPENDIUMS } from "@/lib/guest-guide/data"
 
 export const metadata: Metadata = {
-  title: "Digital Guest Compendium & Concierge | KingHouse Hospitality",
-  description: "Buku panduan digital, password WiFi, dan pemesanan layanan tambahan untuk tamu villa & apartemen kelolaan KingHouse.",
+  title: "Digital Guest Compendium & Concierge | KingHouse",
+  description:
+    "Panduan digital tamu, petunjuk check-in, password WiFi instan, dan layanan concierge 24/7 untuk villa & apartemen kelolaan KingHouse.",
+  alternates: {
+    canonical: "/stay",
+  },
 }
 
 export default function GuestDirectoryPage() {

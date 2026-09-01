@@ -23,11 +23,11 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "KingHouse Management | Editorial Short-Stay & Villa Property Management Jabodetabek",
+    default: "KingHouse Management | Short-Stay & Villa Asset Management",
     template: "%s | KingHouse Management",
   },
   description:
-    "KingHouse Management (kinghousemanagement.com) adalah jasa manajemen properti sewa harian dan villa profesional di Jabodetabek (Jagakarsa Jakarta Selatan, Tangerang, Palmerah Jakarta Barat, Cikarang). Maksimalkan pendapatan properti dan okupansi Airbnb dengan dynamic pricing, fotografi editorial, dan 24/7 guest concierge.",
+    "Jasa manajemen properti sewa harian & villa profesional di Jabodetabek. Maksimalkan okupansi Airbnb, dynamic pricing, dan 24/7 concierge bersama KingHouse.",
   keywords: [
     "KingHouse Management",
     "King House Management",

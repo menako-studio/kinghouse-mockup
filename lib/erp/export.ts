@@ -317,7 +317,7 @@ export function printOwnerStatement(statement: OwnerStatement): void {
       </div>
 
       <div class="footer">
-        <div>Dicetak otomatis melalui KingHouse Hospitality CMS Platform &bull; kinghouse.id</div>
+        <div>Dicetak otomatis melalui KingHouse Hospitality CMS Platform &bull; kinghousemanagement.com</div>
         <div>Dokumen Resmi &bull; Generated: ${new Date(statement.generatedAt).toLocaleString("id-ID")}</div>
       </div>
 

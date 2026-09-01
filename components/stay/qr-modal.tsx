@@ -14,7 +14,7 @@ export function QrModal({ propertySlug, propertyName }: QrModalProps) {
 
   const stayUrl = typeof window !== "undefined"
     ? `${window.location.origin}/stay/${propertySlug}`
-    : `https://kinghouse.id/stay/${propertySlug}`
+    : `https://www.kinghousemanagement.com/stay/${propertySlug}`
 
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(
     stayUrl

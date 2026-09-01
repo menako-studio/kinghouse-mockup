@@ -32,7 +32,7 @@ export function SeoEditor() {
     currentVilla.seoMeta?.focusKeyword || `airbnb ${currentVilla.areaSlug}`
   )
   const [canonicalUrl, setCanonicalUrl] = useState<string>(
-    `https://kinghouse.id/locations/${currentVilla.areaSlug}/villas/${currentVilla.slug}`
+    `https://www.kinghousemanagement.com/locations/${currentVilla.areaSlug}/villas/${currentVilla.slug}`
   )
   const [isSaved, setIsSaved] = useState(false)
 
@@ -45,7 +45,7 @@ export function SeoEditor() {
         `${villa.editorialDescription.lead} Professionally managed by KingHouse on Airbnb.`
     )
     setFocusKeyword(villa.seoMeta?.focusKeyword || `airbnb ${villa.areaSlug}`)
-    setCanonicalUrl(`https://kinghouse.id/locations/${villa.areaSlug}/villas/${villa.slug}`)
+    setCanonicalUrl(`https://www.kinghousemanagement.com/locations/${villa.areaSlug}/villas/${villa.slug}`)
     setIsSaved(false)
   }
 
@@ -294,7 +294,7 @@ export function SeoEditor() {
                 <div className="h-4 w-4 rounded-full bg-[#EBEBEB] flex items-center justify-center text-[9px] font-bold">
                   K
                 </div>
-                <span className="text-[#202124] font-medium">kinghouse.id</span>
+                <span className="text-[#202124] font-medium">kinghousemanagement.com</span>
                 <span className="text-[#5f6368] text-[10px]">
                   &rsaquo; locations &rsaquo; {currentVilla.areaSlug}
                 </span>

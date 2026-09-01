@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   name: "KingHouse Management",
   shortName: "KingHouse",
   domain: "kinghousemanagement.com",
-  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://kinghousemanagement.com",
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.kinghousemanagement.com",
   tagline: "Professional Short-Stay Property Management & Villa Concierge in Jabodetabek",
   brandAliases: [
     "KingHouse Management",

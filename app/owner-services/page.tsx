@@ -10,7 +10,11 @@ import { LeadAuditForm } from "@/components/owner/lead-audit-form"
 
 export const metadata = {
   title: "Property Management & Owner Services | KingHouse",
-  description: "Institutional villa asset management, dynamic yield optimization, and transparent 15%–20% fee structures. Maximize your property EBITDA with KingHouse.",
+  description:
+    "Institutional villa asset management, dynamic yield optimization, and transparent 15%–20% fee structures. Maximize your property EBITDA with KingHouse.",
+  alternates: {
+    canonical: "/owner-services",
+  },
 }
 
 export default function OwnerServicesPage() {

@@ -1319,7 +1319,7 @@ export default function DashboardBlogPage() {
                       <div className="p-4 rounded-2xl bg-white border border-[#E8E4DC] max-w-sm w-full space-y-1 shadow-xs">
                         <div className="flex items-center space-x-1.5 text-[11px] text-[#717171]">
                           <span className="h-3.5 w-3.5 rounded-full bg-[#222225] text-white flex items-center justify-center text-[9px] font-bold">K</span>
-                          <span className="truncate">https://kinghouse.id/blog/{formSlug || "artikel"}</span>
+                          <span className="truncate">https://www.kinghousemanagement.com/blog/{formSlug || "artikel"}</span>
                         </div>
                         <p className="font-semibold text-blue-700 text-sm hover:underline line-clamp-1">
                           {formTitle || "Judul Artikel KingHouse"}

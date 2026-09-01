@@ -17,7 +17,6 @@ import {
   Sparkles,
   Radio,
 } from "lucide-react"
-import { ADMIN_CREDENTIALS } from "@/lib/auth"
 import { useNotifications } from "@/components/dashboard/notification-context"
 
 export default function DashboardSettingsPage() {
@@ -28,7 +27,7 @@ export default function DashboardSettingsPage() {
   const [saveSuccess, setSaveSuccess] = useState(false)
 
   const handleCopyIcal = () => {
-    navigator.clipboard.writeText("https://kinghouse.id/api/ical/sync/jabodetabek-master.ics")
+    navigator.clipboard.writeText("https://www.kinghousemanagement.com/api/ical/sync/jabodetabek-master.ics")
     setCopied(true)
     showToast("Link iCal Disalin!", "Master calendar feed siap diimpor ke channel OTA.", "success")
     setTimeout(() => setCopied(false), 2000)
@@ -104,13 +103,13 @@ export default function DashboardSettingsPage() {
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h3 className="text-xl text-[#222225] font-semibold">{ADMIN_CREDENTIALS.name}</h3>
+              <h3 className="text-xl text-[#222225] font-semibold">KingHouse Principal Admin</h3>
               <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                 <ShieldCheck className="h-3 w-3 text-emerald-600" />
                 <span>Super Admin</span>
               </span>
             </div>
-            <p className="text-xs text-[#717171] font-mono mt-0.5">{ADMIN_CREDENTIALS.email}</p>
+            <p className="text-xs text-[#717171] font-mono mt-0.5">admin@kinghousemanagement.com</p>
           </div>
         </div>
 
@@ -122,7 +121,7 @@ export default function DashboardSettingsPage() {
               </label>
               <input
                 type="text"
-                defaultValue={ADMIN_CREDENTIALS.name}
+                defaultValue="KingHouse Principal Admin"
                 className="w-full px-4 py-2.5 rounded-2xl border border-[#E8E4DC] text-xs font-medium text-[#222225] focus:outline-none focus:border-[#B8934C] focus:ring-2 focus:ring-[#B8934C]/15 bg-[#FAF8F5]/50 transition-all"
               />
             </div>
@@ -133,7 +132,7 @@ export default function DashboardSettingsPage() {
               </label>
               <input
                 type="email"
-                defaultValue={ADMIN_CREDENTIALS.email}
+                defaultValue="admin@kinghousemanagement.com"
                 className="w-full px-4 py-2.5 rounded-2xl border border-[#E8E4DC] text-xs font-mono text-[#222225] focus:outline-none focus:border-[#B8934C] focus:ring-2 focus:ring-[#B8934C]/15 bg-[#FAF8F5]/50 transition-all"
               />
             </div>

@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button"
 
 export const metadata = {
   title: "About KingHouse | Editorial Hospitality & Asset Management",
-  description: "Learn about the KingHouse philosophy: fusing architectural minimalism with institutional villa asset management.",
+  description:
+    "Discover the KingHouse philosophy: fusing editorial architectural curation with institutional-grade villa asset management in Greater Jakarta.",
+  alternates: {
+    canonical: "/about",
+  },
 }
 
 export default function AboutPage() {
