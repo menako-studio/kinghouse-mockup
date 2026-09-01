@@ -4,8 +4,11 @@
  * for deep conversion and interaction tracking across all digital touchpoints.
  */
 
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""
-export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || ""
+export const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-TWXVH3RCP4"
+export const GTM_ID =
+  process.env.NEXT_PUBLIC_GTM_ID || "GTM-PH9N4N7H"
+
 
 declare global {
   interface Window {

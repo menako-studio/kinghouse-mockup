@@ -3,8 +3,7 @@ import { GA_MEASUREMENT_ID, GTM_ID } from "@/lib/analytics"
 
 /**
  * GoogleAnalytics Component
- * Injects Google Tag Manager and Google Analytics 4 tracking scripts
- * in accordance with modern Next.js performance and hydration standards.
+ * Injects Google Tag Manager and Google Analytics 4 tracking scripts.
  */
 export function GoogleAnalytics() {
   return (
@@ -65,3 +64,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </>
   )
 }
+
