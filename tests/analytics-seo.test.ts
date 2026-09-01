@@ -214,5 +214,29 @@ describe("SEO, Sitemaps & Technical Optimization", () => {
     expect(defaultRule?.disallow).toContain("/api/*")
     expect(defaultRule?.disallow).toContain("/login")
   })
+
+  it("verifies sitemap does not expose /dashboard, /login, or /api routes and indexes all published blog articles", async () => {
+    const { default: sitemap } = await import("@/app/sitemap")
+    const routes = await sitemap()
+
+    expect(routes.length).toBeGreaterThan(15)
+
+    const urls = routes.map((r) => r.url)
+    
+    // Ensure administrative and auth routes are NOT in sitemap
+    expect(urls.some((u) => u.includes("/dashboard"))).toBe(false)
+    expect(urls.some((u) => u.includes("/login"))).toBe(false)
+    expect(urls.some((u) => u.includes("/api"))).toBe(false)
+
+    // Ensure all URLs start with canonical baseUrl
+    urls.forEach((url) => {
+      expect(url.startsWith("https://www.kinghousemanagement.com") || url.startsWith("https://kinghousemanagement.com")).toBe(true)
+    })
+
+    // Check newly added organic blog posts are in the sitemap
+    expect(urls.some((u) => u.includes("panduan-investasi-airbnb-jabodetabek-2026"))).toBe(true)
+    expect(urls.some((u) => u.includes("rekomendasi-villa-intimate-wedding-family-gathering-jakarta"))).toBe(true)
+    expect(urls.some((u) => u.includes("strategi-maksimalkan-okupansi-apartemen-cikarang"))).toBe(true)
+  })
 })
 
