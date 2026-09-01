@@ -27,15 +27,16 @@ export const metadata: Metadata = {
     template: "%s | KingHouse Management",
   },
   description:
-    "KingHouse Management (kinghousemanagemet.com) adalah jasa manajemen properti sewa harian dan villa profesional di Jabodetabek (Jagakarsa Jakarta Selatan, Tangerang, Palmerah Jakarta Barat, Cikarang). Maksimalkan pendapatan properti dan okupansi Airbnb dengan dynamic pricing, fotografi editorial, dan 24/7 guest concierge.",
+    "KingHouse Management (kinghousemanagement.com) adalah jasa manajemen properti sewa harian dan villa profesional di Jabodetabek (Jagakarsa Jakarta Selatan, Tangerang, Palmerah Jakarta Barat, Cikarang). Maksimalkan pendapatan properti dan okupansi Airbnb dengan dynamic pricing, fotografi editorial, dan 24/7 guest concierge.",
   keywords: [
     "KingHouse Management",
     "King House Management",
     "KingHouse",
     "King House Property Management",
-    "kinghousemanagemet.com",
     "kinghousemanagement.com",
+    "www.kinghousemanagement.com",
     "kinghouse",
+
     "property management jakarta",
     "airbnb property management jabodetabek",
     "short stay villa jakarta selatan",
@@ -111,9 +112,10 @@ const comprehensiveSchema = {
         "King House Management",
         "KingHouse",
         "King House Property Management",
-        "kinghousemanagemet.com",
         "kinghousemanagement.com",
+        "www.kinghousemanagement.com",
       ],
+
       url: SITE_CONFIG.baseUrl,
       description:
         "KingHouse Management adalah jasa manajemen properti sewa harian dan villa profesional di Jabodetabek (Jakarta Selatan, Tangerang, Jakarta Barat, Cikarang).",

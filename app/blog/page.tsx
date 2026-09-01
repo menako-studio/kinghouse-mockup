@@ -14,8 +14,9 @@ export const metadata: Metadata = {
   keywords: [
     "KingHouse Management blog",
     "King House Management",
-    "kinghousemanagemet.com",
+    "kinghousemanagement.com",
     "airbnb property management blog",
+
     "superhost tips jabodetabek",
     "airbnb seo optimization",
     "short stay asset management",

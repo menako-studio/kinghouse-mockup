@@ -181,11 +181,12 @@ describe("Google Analytics 4 & Tag Manager Event Dispatcher", () => {
 
 describe("SEO, Sitemaps & Technical Optimization", () => {
   it("verifies SITE_CONFIG domain and brand aliases for Google ranking", () => {
-    expect(SITE_CONFIG.domain).toBe("kinghousemanagemet.com")
+    expect(SITE_CONFIG.domain).toBe("kinghousemanagement.com")
     expect(SITE_CONFIG.name).toBe("KingHouse Management")
     expect(SITE_CONFIG.brandAliases).toContain("KingHouse Management")
     expect(SITE_CONFIG.brandAliases).toContain("King House Management")
-    expect(SITE_CONFIG.brandAliases).toContain("kinghousemanagemet.com")
+    expect(SITE_CONFIG.brandAliases).toContain("kinghousemanagement.com")
+    expect(SITE_CONFIG.brandAliases).toContain("www.kinghousemanagement.com")
   })
 
   it("generates valid VacationRental Schema.org markup", () => {
@@ -194,7 +195,7 @@ describe("SEO, Sitemaps & Technical Optimization", () => {
 
     expect(schema["@context"]).toBe("https://schema.org")
     expect(schema["@type"]).toBe("VacationRental")
-    expect(schema.url).toContain("kinghousemanagemet.com")
+    expect(schema.url).toContain("kinghousemanagement.com")
     expect(schema.address).toBeDefined()
     expect(schema.geo).toBeDefined()
     expect(schema.occupancy).toBeDefined()
@@ -203,7 +204,7 @@ describe("SEO, Sitemaps & Technical Optimization", () => {
   it("verifies robots.txt crawl directives and canonical sitemap", () => {
     const robotRules = robots()
 
-    expect(robotRules.sitemap).toContain("kinghousemanagemet.com/sitemap.xml")
+    expect(robotRules.sitemap).toContain("kinghousemanagement.com/sitemap.xml")
     expect(robotRules.rules).toBeDefined()
 
     const allUserAgents = Array.isArray(robotRules.rules) ? robotRules.rules : [robotRules.rules]
@@ -214,3 +215,4 @@ describe("SEO, Sitemaps & Technical Optimization", () => {
     expect(defaultRule?.disallow).toContain("/login")
   })
 })
+

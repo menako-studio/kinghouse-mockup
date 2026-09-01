@@ -39,8 +39,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `villa rentals ${areaData.name} ${areaData.region}`,
       "KingHouse Management",
       "King House",
-      "kinghousemanagemet.com",
+      "kinghousemanagement.com",
     ],
+
     alternates: { canonical: `/locations/${areaData.slug}` },
     openGraph: {
       title,
