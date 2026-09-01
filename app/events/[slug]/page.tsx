@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { CheckCircle2, ArrowLeft, ArrowRight, Users, MessageSquare } from "lucide-react"
 import { VILLA_EVENTS, CURATED_VILLAS } from "@/lib/data"
+import { SITE_CONFIG } from "@/lib/constants"
 import { formatCurrency } from "@/lib/utils"
 
 interface PageProps {
@@ -19,11 +20,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const event = VILLA_EVENTS.find((e) => e.slug === slug)
 
   if (!event) {
-    return { title: "Event Not Found | KingHouse" }
+    return { title: "Event Not Found | KingHouse Management" }
   }
 
   return {
-    title: `${event.title} — ${event.propertyName} | KingHouse Events`,
+    title: `${event.title} — ${event.propertyName} | KingHouse Management`,
     description: event.description.slice(0, 155),
     alternates: { canonical: `/events/${event.slug}` },
     openGraph: {
@@ -60,11 +61,11 @@ export default async function EventDetailPage({ params }: PageProps) {
     name: event.title,
     description: event.description,
     image: event.heroImage,
-    url: `https://kinghouse.id/events/${event.slug}`,
+    url: `${SITE_CONFIG.baseUrl}/events/${event.slug}`,
     organizer: {
       "@type": "Organization",
-      name: "KingHouse",
-      url: "https://kinghouse.id",
+      name: "KingHouse Management",
+      url: SITE_CONFIG.baseUrl,
     },
     location: {
       "@type": "Place",
@@ -84,9 +85,10 @@ export default async function EventDetailPage({ params }: PageProps) {
       price: pkg.priceIdr,
       priceCurrency: "IDR",
       availability: "https://schema.org/InStock",
-      url: `https://kinghouse.id/events/${event.slug}`,
+      url: `${SITE_CONFIG.baseUrl}/events/${event.slug}`,
     })),
   }
+
 
   const whatsappText = encodeURIComponent(
     `Hello KingHouse! I am interested in the "${event.title}" package at ${event.propertyName}. Could you please provide date availability and package details?`

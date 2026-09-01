@@ -2,15 +2,19 @@ import { Metadata } from "next"
 import { BookOpen, Rss } from "lucide-react"
 import { getBlogPosts } from "@/lib/blog/service"
 import { BlogIndexClient } from "@/components/blog/blog-index-client"
+import { SITE_CONFIG } from "@/lib/constants"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: "Blog — Airbnb SEO & Property Management Insights | KingHouse",
+  title: "Blog & Insights | KingHouse Management",
   description:
-    "Articles, strategies, and editorial guides from KingHouse hospitality experts. Learn how to maximize Airbnb occupancy, optimize listing SEO, and grow short-stay revenue across Jabodetabek.",
+    "Articles, strategies, and editorial guides from KingHouse Management hospitality experts. Learn how to maximize Airbnb occupancy, optimize listing SEO, and grow short-stay revenue across Jabodetabek.",
   keywords: [
+    "KingHouse Management blog",
+    "King House Management",
+    "kinghousemanagemet.com",
     "airbnb property management blog",
     "superhost tips jabodetabek",
     "airbnb seo optimization",
@@ -19,9 +23,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "KingHouse Blog — Airbnb SEO & Property Management Insights",
+    title: "KingHouse Management Blog — Airbnb SEO & Property Management Insights",
     description:
-      "Actionable strategies and market insights from the KingHouse team to maximize your Airbnb rental yield.",
+      "Actionable strategies and market insights from KingHouse Management to maximize your Airbnb rental yield in Jabodetabek.",
     url: "/blog",
     type: "website",
   },
@@ -33,20 +37,20 @@ export default async function BlogPage() {
   const blogIndexSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "KingHouse Blog",
+    name: "KingHouse Management Blog",
     description:
-      "Tips, strategies, and property management guides for Airbnb hosts across Greater Jakarta from the KingHouse team.",
-    url: "https://kinghouse.id/blog",
+      "Tips, strategies, and property management guides for Airbnb hosts across Greater Jakarta from KingHouse Management.",
+    url: `${SITE_CONFIG.baseUrl}/blog`,
     author: {
       "@type": "Organization",
-      name: "KingHouse",
-      url: "https://kinghouse.id",
+      name: "KingHouse Management",
+      url: SITE_CONFIG.baseUrl,
     },
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,
       description: post.excerpt,
-      url: `https://kinghouse.id/blog/${post.slug}`,
+      url: `${SITE_CONFIG.baseUrl}/blog/${post.slug}`,
       datePublished: post.publishedAt,
       author: {
         "@type": "Organization",
@@ -56,6 +60,7 @@ export default async function BlogPage() {
       keywords: post.seoKeywords.join(", "),
     })),
   }
+
 
   return (
     <main className="min-h-screen bg-white">

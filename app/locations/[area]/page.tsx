@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import Link from "next/link"
 import { MapPin, Sparkles, ArrowRight, ShieldCheck, ChevronRight, CheckCircle2 } from "lucide-react"
-import { MANAGED_AREAS } from "@/lib/constants"
+import { MANAGED_AREAS, SITE_CONFIG } from "@/lib/constants"
 import { CURATED_VILLAS } from "@/lib/data"
 import { VillaCard } from "@/components/villas/villa-card"
 
@@ -23,11 +23,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const areaData = MANAGED_AREAS.find((a) => a.slug === area)
 
   if (!areaData) {
-    return { title: "Area Not Found | KingHouse" }
+    return { title: "Area Not Found | KingHouse Management" }
   }
 
-  const title = `Short-Stay Rentals & Airbnb in ${areaData.name}, ${areaData.region} | KingHouse`
-  const description = `${areaData.description} Explore curated accommodations in ${areaData.name} operated to KingHouse Airbnb Superhost standards.`
+  const title = `Short-Stay Rentals & Airbnb in ${areaData.name}, ${areaData.region} | KingHouse Management`
+  const description = `${areaData.description} Explore curated accommodations in ${areaData.name} operated to KingHouse Management Airbnb Superhost standards.`
 
   return {
     title,
@@ -37,7 +37,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `airbnb ${areaData.slug}`,
       `accommodations ${areaData.name}`,
       `villa rentals ${areaData.name} ${areaData.region}`,
-      "kinghouse",
+      "KingHouse Management",
+      "King House",
+      "kinghousemanagemet.com",
     ],
     alternates: { canonical: `/locations/${areaData.slug}` },
     openGraph: {
@@ -65,7 +67,7 @@ export default async function AreaLandingPage({ params }: PageProps) {
     "@type": "TouristDestination",
     name: `${areaData.name}, ${areaData.region}`,
     description: areaData.description,
-    url: `https://kinghouse.id/locations/${areaData.slug}`,
+    url: `${SITE_CONFIG.baseUrl}/locations/${areaData.slug}`,
     containedInPlace: {
       "@type": "AdministrativeArea",
       name: areaData.region,
@@ -73,9 +75,10 @@ export default async function AreaLandingPage({ params }: PageProps) {
     includesAttraction: villasInArea.map((villa) => ({
       "@type": "VacationRental",
       name: villa.name,
-      url: `https://kinghouse.id/locations/${villa.areaSlug}/villas/${villa.slug}`,
+      url: `${SITE_CONFIG.baseUrl}/locations/${villa.areaSlug}/villas/${villa.slug}`,
     })),
   }
+
 
   return (
     <main className="min-h-screen bg-white">

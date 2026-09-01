@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Metadata } from "next"
 import { Star, ShieldCheck, ChevronRight, Bed, Bath, Users, Sparkles, MapPin, ArrowLeft } from "lucide-react"
 import { CURATED_VILLAS } from "@/lib/data"
+import { SITE_CONFIG } from "@/lib/constants"
 import { BentoGallery } from "@/components/bento/bento-gallery"
 import { BookingSidebar } from "@/components/villas/booking-sidebar"
 import { AmenitiesGrid } from "@/components/villas/amenities-grid"
@@ -29,13 +30,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const villa = CURATED_VILLAS.find((v) => v.slug === resolvedParams.slug)
 
   if (!villa) {
-    return { title: "Property Not Found | KingHouse" }
+    return { title: "Property Not Found | KingHouse Management" }
   }
 
-  const title = villa.seoMeta?.metaTitle ?? `${villa.name} — ${villa.area} | KingHouse`
+  const title = villa.seoMeta?.metaTitle ?? `${villa.name} — ${villa.area} | KingHouse Management`
   const description =
     villa.seoMeta?.metaDescription ??
-    `${villa.editorialDescription.lead} Professionally managed by KingHouse on Airbnb.`
+    `${villa.editorialDescription.lead} Professionally managed by KingHouse Management on Airbnb.`
   const image = villa.seoMeta?.ogImage ?? villa.heroImage
   const canonicalUrl = `/locations/${villa.areaSlug}/villas/${villa.slug}`
 
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     keywords: villa.seoMeta
-      ? [villa.seoMeta.focusKeyword, villa.area, "airbnb", "KingHouse", "short stay villa"]
+      ? [villa.seoMeta.focusKeyword, villa.area, "airbnb", "KingHouse Management", "King House", "short stay villa"]
       : undefined,
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -75,12 +76,13 @@ export default async function VillaDetailPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://kinghouse.id" },
-      { "@type": "ListItem", position: 2, name: "Properties", item: "https://kinghouse.id/villas" },
-      { "@type": "ListItem", position: 3, name: villa.area, item: `https://kinghouse.id/locations/${villa.areaSlug}` },
-      { "@type": "ListItem", position: 4, name: villa.name, item: `https://kinghouse.id/locations/${villa.areaSlug}/villas/${villa.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_CONFIG.baseUrl },
+      { "@type": "ListItem", position: 2, name: "Properties", item: `${SITE_CONFIG.baseUrl}/villas` },
+      { "@type": "ListItem", position: 3, name: villa.area, item: `${SITE_CONFIG.baseUrl}/locations/${villa.areaSlug}` },
+      { "@type": "ListItem", position: 4, name: villa.name, item: `${SITE_CONFIG.baseUrl}/locations/${villa.areaSlug}/villas/${villa.slug}` },
     ],
   }
+
 
   // FAQ JSON-LD
   const faqSchema = {

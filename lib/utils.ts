@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { Villa } from "./types"
+import { SITE_CONFIG } from "./constants"
 
 // Geo coordinates for managed Jabodetabek areas
 const AREA_GEO: Record<string, { lat: number; lng: number; region: string }> = {
@@ -29,7 +30,8 @@ export function formatCurrency(amount: number, currency: "USD" | "IDR" = "USD"):
   }).format(amount)
 }
 
-export function generateVacationRentalSchema(villa: Villa, baseUrl = "https://kinghouse.id") {
+export function generateVacationRentalSchema(villa: Villa, baseUrl = SITE_CONFIG.baseUrl) {
+
   const geo = AREA_GEO[villa.areaSlug] ?? { lat: -6.2088, lng: 106.8456, region: "DKI Jakarta" }
 
   const schema: Record<string, unknown> = {
