@@ -2,26 +2,38 @@
 // Covers: Jabodetabek region (Jakarta, Tangerang, Bekasi, Cikarang)
 
 export const SITE_CONFIG = {
-  name: "KingHouse",
-  domain: "kinghouse.id",
-  tagline: "Professional Short-Stay Property Management in Greater Jakarta",
+  name: "KingHouse Management",
+  shortName: "KingHouse",
+  domain: "kinghousemanagemet.com",
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://kinghousemanagemet.com",
+  tagline: "Professional Short-Stay Property Management & Villa Concierge in Jabodetabek",
+  brandAliases: [
+    "KingHouse Management",
+    "King House Management",
+    "KingHouse",
+    "King House Property Management",
+    "kinghousemanagemet.com",
+    "kinghousemanagement.com",
+  ],
   description: {
-    en: "KingHouse manages premium short-stay properties across Jabodetabek — Jakarta Selatan, Tangerang, Jakarta Barat, and Cikarang — on Airbnb. We maximize your occupancy rate and revenue through editorial listings, dynamic pricing, and end-to-end guest management.",
-    id: "KingHouse mengelola properti sewa jangka pendek premium di seluruh Jabodetabek — Jakarta Selatan, Tangerang, Jakarta Barat, dan Cikarang — melalui Airbnb. Kami memaksimalkan tingkat hunian dan pendapatan Anda.",
+    en: "KingHouse Management is a premier editorial short-stay property management agency in Greater Jakarta (Jagakarsa, Tangerang, Palmerah, Cikarang). We maximize owner revenue and Airbnb occupancy through dynamic pricing, 24/7 guest concierge, and professional hospitality operations.",
+    id: "KingHouse Management adalah jasa manajemen properti sewa jangka pendek dan villa profesional di Jabodetabek (Jakarta Selatan, Tangerang, Jakarta Barat, Cikarang). Kami memaksimalkan pendapatan pemilik properti dan okupansi Airbnb dengan dynamic pricing dan layanan concierge 24/7.",
   },
   contact: {
     email: "ptkreasiusmangosse@gmail.com",
     phone: "+62 821-2393-3218",
     whatsapp: "+62 821-2393-3218",
-    whatsappMessage: "Hello KingHouse, I am interested in your property management services.",
+    whatsappMessage: "Hello KingHouse Management, I am interested in your property management and villa booking services.",
     address: "Jakarta, Indonesia",
   },
   social: {
     tiktok: "https://www.tiktok.com/@kinghouse.id",
+    instagram: "https://instagram.com/kinghouse.id",
   },
   airbnbHostProfile:
     "https://www.airbnb.com/users/profile/1470743715397835749?previous_page_name=PdpHomeMarketplace",
 } as const
+
 
 // Managed areas in Jabodetabek
 export const MANAGED_AREAS = [
